@@ -106,6 +106,9 @@ a { color: var(--primary); }
 .meaning { margin-top: 4px; }
 .meaning .en { color: #2c4a6e; }
 .meaning .zh { color: #6a3a2a; }
+.gloss-hanja { font-family: "Noto Serif SC", "Songti SC", serif; color: #6a5430; }
+.gloss-roma { color: #5a5348; font-style: italic; letter-spacing: .02em; }
+.chip.gloss-speak { min-height: 28px; padding: 2px 8px; font-size: .8rem; vertical-align: middle; cursor: pointer; }
 .example { margin-top: 10px; padding: 10px; background: var(--bg); border-radius: 10px; font-size: .92rem; }
 .reveal-zone { position: relative; }
 .reveal-mask {
@@ -2053,6 +2056,24 @@ function speakKo(text) {
   speechSynthesis.speak(u);
   return true;
 }
+function bindGlossSpeak(root) {
+  (root || document).querySelectorAll('.gloss-speak').forEach(btn => {
+    if (btn.dataset.glossBound === '1') return;
+    btn.dataset.glossBound = '1';
+    btn.addEventListener('click', ev => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      speakKo(btn.getAttribute('data-ko') || '');
+    });
+  });
+}
+document.addEventListener('click', ev => {
+  const btn = ev.target && ev.target.closest && ev.target.closest('.gloss-speak');
+  if (!btn || btn.dataset.glossBound === '1') return;
+  ev.preventDefault();
+  speakKo(btn.getAttribute('data-ko') || '');
+});
+
 
 /********************
  * UI helpers
@@ -2083,6 +2104,22 @@ function meaningLabel(item) {
   if (state.showZH) parts.push(item.zh);
   return parts.filter(Boolean).join(' / ') || item.en || '';
 }
+function glossSpeakBtnHTML(ko) {
+  if (!ko) return '';
+  return ' <button type="button" class="chip gloss-speak" data-ko="'+esc(ko)+'" aria-label="'+esc(t('trSpeak'))+'">🔊 '+esc(t('trSpeak'))+'</button>';
+}
+function zhGlossLineHTML(item) {
+  const zh = item && item.zh;
+  if (!zh) return '';
+  const hanja = item.hanja ? String(item.hanja).trim() : '';
+  const ko = item.ko ? String(item.ko) : '';
+  const roma = ko ? romanizeHangul(ko) : '';
+  let line = esc(zh);
+  if (hanja) line += '<span class="gloss-hanja">【'+esc(hanja)+'】</span>';
+  if (roma) line += ' <span class="gloss-roma">'+esc(roma)+'</span>';
+  if (ko) line += glossSpeakBtnHTML(ko);
+  return line;
+}
 function meaningHTML(item, opts) {
   opts = opts || {};
   const showEN = opts.forceEN != null ? opts.forceEN : state.showEN;
@@ -2091,7 +2128,7 @@ function meaningHTML(item, opts) {
   let h = '<div class="meaning">';
   if (showKO) h += '<div class="ko">'+esc(glossKo(item) || item.ko)+'</div>';
   if (showEN) h += '<div class="en">'+esc(item.en)+'</div>';
-  if (showZH) h += '<div class="zh">'+esc(item.zh)+'</div>';
+  if (showZH) h += '<div class="zh">'+(zhGlossLineHTML(item) || esc(item && item.zh || ''))+'</div>';
   if (!showKO && !showEN && !showZH) h += '<div class="muted">'+esc(t('none'))+'</div>';
   h += '</div>';
   return h;
@@ -2126,8 +2163,7 @@ function badgesHTML(item) {
     + '<span class="badge reg-'+esc(item.register)+'">'+esc(t('reg_'+item.register))+'</span> '
     + '<span class="badge">'+esc(t('cat_'+item.category))+'</span> '
     + '<span class="badge diff">'+esc(topikLabel(item.difficulty, item))+'</span>'
-    + (item.sample ? ' <span class="badge">'+esc(t('sample'))+'</span>' : '')
-    + (item.hanja ? ' <span class="badge hanja">'+esc(t('hanja'))+': '+esc(item.hanja)+'</span>' : '');
+    + (item.sample ? ' <span class="badge">'+esc(t('sample'))+'</span>' : '');
 }
 
 /********************
@@ -2233,6 +2269,7 @@ function showPanel(id) {
     ai: renderAI,
   };
   (renderers[id]||function(){})();
+  bindGlossSpeak(document.getElementById('panel-'+id) || document);
 }
 
 /********************
@@ -2281,7 +2318,6 @@ function cardHTML(it, revealable) {
     (state.revealFields.ko !== false ? '<div class="ko-big">'+esc(it.ko)+'</div>' : '')
     + meaningHTML(it)
     + '<div style="margin-top:8px">'+badgesHTML(it)+'</div>'
-    + (it.hanja && state.revealFields.hanja !== false ? '<div class="muted" style="margin-top:6px">'+esc(t('hanja'))+': <span class="badge hanja">'+esc(it.hanja)+'</span></div>' : '')
     + (state.revealFields.example !== false ? exampleHTML(it.example) : '');
   if (!revealable) return '<div class="card" data-id="'+esc(it.id)+'">'+body+'</div>';
   return '<div class="card" data-id="'+esc(it.id)+'"><div class="reveal-zone">'
@@ -2683,7 +2719,7 @@ function renderDictation() {
     +'<div class="quiz-prompt">'
     + (dictHide
         ? '<div class="ko-big" style="filter:blur(7px);user-select:none">가나다</div>'
-        : '<div class="ko-big">'+esc(it.ko)+'</div>'+meaningHTML(it)+ (it.hanja?'<div class="badge hanja">'+esc(it.hanja)+'</div>':''))
+        : '<div class="ko-big">'+esc(it.ko)+'</div>'+meaningHTML(it))
     +'</div>'
     +'<div class="row" style="justify-content:center;margin:10px 0">'
     +'<button type="button" class="btn accent" id="d-play">🔊 '+esc(t('play'))+'</button>'
