@@ -319,17 +319,37 @@ body { padding-bottom: 0; }
 .brand .draft-badge { margin-left: 6px; }
 .auth-gate {
   position: fixed; inset: 0; z-index: 200;
-  background: var(--bg);
+  background: rgba(15, 23, 20, .45);
   display: flex; align-items: flex-start; justify-content: center;
   padding: 28px 16px 40px;
   overflow: auto;
 }
 .auth-gate[hidden] { display: none !important; }
-.auth-card { width: 100%; max-width: 420px; margin: 0; }
+.auth-card { width: 100%; max-width: 420px; margin: 0; position: relative; }
 .auth-card .row input {
   flex: 1; min-width: 0; min-height: var(--tap);
   padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: #fff;
 }
+.auth-close {
+  position: absolute; top: 10px; right: 10px; min-width: 36px; min-height: 36px;
+  border-radius: 10px; border: 1px solid var(--border); background: #fff; font-size: 1rem; cursor: pointer;
+}
+.phone-row { display: flex; gap: 8px; align-items: stretch; }
+.phone-row select {
+  flex: 0 0 auto; max-width: 46%; min-height: var(--tap);
+  padding: 10px 8px; border-radius: 12px; border: 1px solid var(--border); background: #fff;
+}
+.phone-row input { flex: 1; min-width: 0; }
+.social-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 8px; }
+.social-row .btn { padding-left: 6px; padding-right: 6px; font-size: .85rem; }
+.auth-divider { text-align: center; color: var(--muted); font-size: .8rem; margin: 14px 0 4px; }
+.auth-foot { margin-top: 14px; font-size: .72rem; color: var(--muted); text-align: center; opacity: .85; }
+.header-actions { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.auth-top-btn {
+  min-height: 34px; padding: 4px 10px; border-radius: 10px; font-size: .8rem; font-weight: 600;
+  border: 1px solid var(--border); background: #fff; color: var(--primary); cursor: pointer; white-space: nowrap;
+}
+.auth-top-btn.signed { background: var(--accent-soft); color: var(--accent); }
 body.auth-locked { overflow: hidden; }
 </style>
 </head>
@@ -338,7 +358,10 @@ body.auth-locked { overflow: hidden; }
   <div class="header-row">
     <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Menu">☰</button>
     <div class="brand"><span id="brand-name">당신과 동행</span> <small id="brand-sub">v0.1</small> <span class="draft-badge" id="draft-badge">国内版初稿</span></div>
-    <div class="seg" id="ui-lang-seg" aria-label="UI language"></div>
+    <div class="header-actions">
+      <button type="button" class="auth-top-btn" id="auth-top-btn">登录 / 注册</button>
+      <div class="seg" id="ui-lang-seg" aria-label="UI language"></div>
+    </div>
   </div>
   <div class="chip-row" id="meaning-toggles"></div>
 </div>
@@ -373,7 +396,7 @@ body.auth-locked { overflow: hidden; }
 <nav class="nav" id="main-nav"></nav>
 <div class="nav-backdrop" id="nav-backdrop"></div>
 <div class="toast" id="toast"></div>
-<div class="auth-gate" id="auth-gate" hidden></div>
+<div class="auth-gate" id="auth-gate" role="dialog" aria-modal="true" aria-labelledby="auth-title" hidden></div>
 
 <script>
 
@@ -575,9 +598,10 @@ const I18N = {
     aiBot: "AI",
     aiExampleNote: "Model list is an EXAMPLE placeholder — replace with server data.",
     draftBadge: "CN draft",
-    authTitle: "Sign in / Register",
-    authSubtitle: "Mainland China draft (demo). Learning data stays in this browser only.",
+    authTitle: "Sign in / Register (optional)",
+    authSubtitle: "Registration is optional — you can keep learning without it. If you register, your learning records are saved on this device under that account.",
     authPhone: "Mobile number",
+    authCountry: "Country / region code",
     authPhonePh: "Enter your mobile number",
     authCode: "SMS code",
     authCodePh: "Enter the code",
@@ -585,19 +609,40 @@ const I18N = {
     authDemoSms: "Demo only — no real SMS is sent. After you tap “Get code”, use 000000.",
     authCodeSent: "Demo code is ready (000000). No real SMS was sent.",
     authLogin: "Sign in / Register",
-    authWeChat: "WeChat sign-in",
-    authWeChatPending: "Not connected yet — WeChat sign-in is still pending.",
-    authGuest: "Just look around first",
+    authOr: "or sign in with",
+    authWeChat: "WeChat",
+    authQQ: "QQ",
+    authKakao: "KakaoTalk",
+    authSocialPending: "{p} sign-in is coming soon (not connected yet). Please use your mobile number for now.",
+    authGuest: "Not now — keep learning",
+    authClose: "Close",
+    authTopLogin: "Sign in / Register",
     authNeedPhone: "Please enter a mobile number first",
+    authBadPhone: "That doesn’t look like a valid {c} number. Example: {ex}",
     authNeedCode: "Please enter the code",
     authBadCode: "Wrong code. The demo code is 000000.",
     authLoggedInPhone: "Signed in with mobile number (demo)",
-    authLoggedInGuest: "You are browsing as a guest (not signed in)",
+    authLoggedInGuest: "Guest mode (not signed in). Records are kept only in this browser as guest data.",
+    authGuestSaveHint: "Register or sign in to save your learning records under an account (on this device for now).",
+    authSavedLocal: "Records are saved on this device and linked to this account. Not synced to a server yet.",
+    authRegistered: "Registered and signed in. Your current records were copied into this account.",
+    authWelcomeBack: "Signed in. Showing this account’s records.",
+    authLoggedOut: "Signed out. Now in guest mode; the account’s records stay on this device.",
     authLogout: "Sign out",
+    authSwitch: "Switch account",
     authAccount: "Account",
+    authLocalAccounts: "Accounts saved on this device: {n}",
+    cc_86: "China",
+    cc_82: "South Korea",
+    cc_852: "Hong Kong",
+    cc_853: "Macau",
+    cc_886: "Taiwan",
+    cc_81: "Japan",
+    cc_65: "Singapore",
+    cc_1: "US / Canada",
     aboutDraftNote: "This is a preview of the mainland China draft, deployed on Vercel. It is still a draft and does not replace the current site.",
     aboutDomain: "Planned domain (placeholder, not purchased or registered): https://[域名前缀].example.cn",
-    aboutLoginNote: "Sign-in is a demo: mobile number + SMS code (no real SMS; code 000000). WeChat sign-in is not connected yet.",
+    aboutLoginNote: "Sign-in is optional and a demo: mobile number with country code + SMS code (no real SMS; code 000000). WeChat, QQ and KakaoTalk sign-in are coming soon (not connected yet). Signed-in records are saved on this device under the account.",
     aboutAiPlan: "The planned upstream is DeepSeek (reachable in mainland China). The proxy is planned for a mainland cloud (placeholder, to be decided later). Keys and prompts stay on the server only.",
     aiDomesticPlan: "Planned upstream: DeepSeek (reachable in mainland China). Proxy planned for a mainland cloud (placeholder, to be decided later). Keys and prompts stay on the server only.",
     queueEmpty: "Review queue is empty for today.",
@@ -851,9 +896,10 @@ const I18N = {
     aiBot: "AI",
     aiExampleNote: "모델 목록은 EXAMPLE 자리표시자입니다 — 서버 데이터로 교체하세요.",
     draftBadge: "국내판 초고",
-    authTitle: "로그인 / 가입",
-    authSubtitle: "중국 대륙판 초고(데모). 학습 데이터는 이 브라우저에만 저장됩니다.",
+    authTitle: "로그인 / 가입 (선택)",
+    authSubtitle: "가입은 선택입니다. 가입하지 않아도 바로 공부할 수 있습니다. 가입하면 학습 기록이 이 기기에 해당 계정으로 저장됩니다.",
     authPhone: "휴대폰 번호",
+    authCountry: "국가·지역 번호",
     authPhonePh: "휴대폰 번호를 입력하세요",
     authCode: "문자 인증번호",
     authCodePh: "인증번호를 입력하세요",
@@ -861,19 +907,40 @@ const I18N = {
     authDemoSms: "데모입니다. 실제 문자는 보내지 않습니다. 「인증번호 받기」를 누른 뒤 000000을 사용하세요.",
     authCodeSent: "데모 인증번호가 준비되었습니다(000000). 실제 문자는 보내지 않았습니다.",
     authLogin: "로그인 / 가입",
-    authWeChat: "WeChat 로그인",
-    authWeChatPending: "아직 연결되지 않았습니다. WeChat 로그인은 대기 중입니다.",
-    authGuest: "일단 둘러보기",
+    authOr: "또는 다음으로 로그인",
+    authWeChat: "WeChat",
+    authQQ: "QQ",
+    authKakao: "카카오톡",
+    authSocialPending: "{p} 로그인은 연동 예정입니다(아직 연결되지 않음). 지금은 휴대폰 번호로 로그인해 주세요.",
+    authGuest: "나중에 할게요 — 계속 공부하기",
+    authClose: "닫기",
+    authTopLogin: "로그인 / 가입",
     authNeedPhone: "휴대폰 번호를 먼저 입력하세요",
+    authBadPhone: "{c} 휴대폰 번호 형식이 아닙니다. 예: {ex}",
     authNeedCode: "인증번호를 입력하세요",
     authBadCode: "인증번호가 틀렸습니다. 데모 코드는 000000입니다.",
     authLoggedInPhone: "휴대폰 번호로 로그인됨(데모)",
-    authLoggedInGuest: "지금은 「일단 둘러보기」 상태이며, 정식 로그인은 아닙니다",
+    authLoggedInGuest: "게스트 모드(로그인 안 함). 기록은 이 브라우저에 게스트 데이터로만 저장됩니다.",
+    authGuestSaveHint: "가입·로그인하면 학습 기록을 계정에 묶어 저장합니다(현재는 이 기기에 저장).",
+    authSavedLocal: "기록은 이 기기에 저장되며 이 계정에 연결되어 있습니다. 아직 서버와 동기화되지 않습니다.",
+    authRegistered: "가입하고 로그인했습니다. 지금까지의 기록을 이 계정으로 복사했습니다.",
+    authWelcomeBack: "로그인했습니다. 이 계정의 기록을 보여 줍니다.",
+    authLoggedOut: "로그아웃했습니다. 게스트 모드이며, 계정 기록은 이 기기에 그대로 남아 있습니다.",
     authLogout: "로그아웃",
+    authSwitch: "계정 전환",
     authAccount: "계정",
+    authLocalAccounts: "이 기기에 저장된 계정: {n}개",
+    cc_86: "중국",
+    cc_82: "한국",
+    cc_852: "홍콩",
+    cc_853: "마카오",
+    cc_886: "대만",
+    cc_81: "일본",
+    cc_65: "싱가포르",
+    cc_1: "미국·캐나다",
     aboutDraftNote: "중국 대륙판 초고의 미리보기로, Vercel에 배포되어 있습니다. 아직 초고이며 기존 사이트를 대체하지 않습니다.",
     aboutDomain: "예정 도메인(자리표시자, 구매·등록하지 않음): https://[域名前缀].example.cn",
-    aboutLoginNote: "로그인은 데모입니다: 휴대폰+문자 인증(실제 문자 없음, 인증번호 000000). WeChat 로그인은 아직 없습니다.",
+    aboutLoginNote: "로그인은 선택이며 데모입니다: 국가 번호+휴대폰+문자 인증(실제 문자 없음, 인증번호 000000). WeChat·QQ·카카오톡 로그인은 연동 예정입니다. 로그인한 기록은 이 기기에 계정별로 저장됩니다.",
     aboutAiPlan: "업스트림은 DeepSeek(중국 대륙에서 접속 가능)를 쓸 예정입니다. 프록시는 국내 클라우드에 둘 계획입니다(자리표시자, 나중에 결정). 키와 프롬프트는 서버에만 둡니다.",
     aiDomesticPlan: "업스트림은 DeepSeek(중국 대륙에서 접속 가능). 프록시는 국내 클라우드 예정(자리표시자, 나중에 결정). 키와 프롬프트는 서버에만 둡니다.",
     queueEmpty: "오늘 복습할 항목이 없습니다.",
@@ -1127,9 +1194,10 @@ const I18N = {
     aiBot: "AI",
     aiExampleNote: "模型列表为 EXAMPLE 占位 — 请用服务器数据替换。",
     draftBadge: "国内版初稿",
-    authTitle: "登录 / 注册",
-    authSubtitle: "国内版初稿演示。学习数据只存在本浏览器，不会上传。",
+    authTitle: "登录 / 注册（可选）",
+    authSubtitle: "注册是自愿的，不注册也能直接学习。注册后，学习记录会绑定到这个账号，保存在本机。",
     authPhone: "手机号",
+    authCountry: "国家/地区区号",
     authPhonePh: "请输入手机号",
     authCode: "短信验证码",
     authCodePh: "请输入验证码",
@@ -1137,19 +1205,40 @@ const I18N = {
     authDemoSms: "演示，不发真实短信。点「获取验证码」后，使用固定验证码 000000。",
     authCodeSent: "演示验证码已就绪（000000），不会发送真实短信。",
     authLogin: "登录 / 注册",
-    authWeChat: "微信登录",
-    authWeChatPending: "待接入，还没接微信登录",
-    authGuest: "先进入看看",
+    authOr: "或用以下方式登录",
+    authWeChat: "微信",
+    authQQ: "QQ",
+    authKakao: "KakaoTalk",
+    authSocialPending: "{p}登录待接入，暂时还不能用。请先用手机号登录。",
+    authGuest: "暂不登录，继续学习",
+    authClose: "关闭",
+    authTopLogin: "登录 / 注册",
     authNeedPhone: "请先填写手机号",
+    authBadPhone: "不像是{c}的手机号。示例：{ex}",
     authNeedCode: "请填写验证码",
     authBadCode: "验证码不对。演示码是 000000。",
     authLoggedInPhone: "已用手机号登录（演示）",
-    authLoggedInGuest: "目前是「先进入看看」，未正式登录",
+    authLoggedInGuest: "现在是游客模式（未登录），记录只作为游客数据存在本浏览器。",
+    authGuestSaveHint: "注册/登录后，学习记录会绑定到账号保存（目前保存在本机）。",
+    authSavedLocal: "记录已保存在本机，绑定到该账号；尚未同步到服务器。",
+    authRegistered: "已注册并登录，已把目前的学习记录复制到这个账号。",
+    authWelcomeBack: "已登录，正在显示这个账号的学习记录。",
+    authLoggedOut: "已退出登录，回到游客模式；账号的记录仍保存在本机。",
     authLogout: "退出登录",
+    authSwitch: "切换账号",
     authAccount: "账号",
+    authLocalAccounts: "本机已保存的账号：{n} 个",
+    cc_86: "中国大陆",
+    cc_82: "韩国",
+    cc_852: "中国香港",
+    cc_853: "中国澳门",
+    cc_886: "中国台湾",
+    cc_81: "日本",
+    cc_65: "新加坡",
+    cc_1: "美国/加拿大",
     aboutDraftNote: "这是国内版初稿的预览，已部署在 Vercel 上。目前仍是初稿，不会替换现有网站。",
     aboutDomain: "计划域名（占位，尚未购买或注册）：https://[域名前缀].example.cn",
-    aboutLoginNote: "登录为演示：手机号+短信验证码（不发真实短信，验证码 000000），微信登录待接入。",
+    aboutLoginNote: "登录可选，为演示：区号+手机号+短信验证码（不发真实短信，验证码 000000）；微信、QQ、KakaoTalk 登录待接入。登录后的学习记录按账号保存在本机。",
     aboutAiPlan: "AI 上游打算用 DeepSeek（国内可访问）。代理打算放国内云（占位，等以后拍板）。密钥和提示词只放服务器，不会写进网页。",
     aiDomesticPlan: "上游打算用 DeepSeek（国内可访问）；代理部署打算放国内云（占位，等以后拍板）。密钥和提示词只放服务器。",
     queueEmpty: "今日复习队列为空。",
@@ -1457,11 +1546,33 @@ const defaultState = () => ({
   version: 1,
 });
 
+/* 账号（演示，可选注册）：注册信息与学习进度按账号分钥匙存在本机 localStorage。
+   游客进度 = STORAGE_KEY；账号进度 = STORAGE_KEY + '_acct_' + 账号ID；账号清单 = ACCOUNTS_KEY。
+   不存验证码，不存任何密钥，不上传服务器。以后接服务器再升级为云端保存。 */
+const ACCOUNTS_KEY = STORAGE_KEY + '_accounts';
+function loadAccounts() {
+  try {
+    const raw = localStorage.getItem(ACCOUNTS_KEY);
+    const a = raw ? JSON.parse(raw) : null;
+    if (a && typeof a === 'object' && a.accounts && typeof a.accounts === 'object') return { current: a.current || null, accounts: a.accounts };
+  } catch (e) { console.warn('loadAccounts failed', e); }
+  return { current: null, accounts: {} };
+}
+function saveAccounts() {
+  try { localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts)); }
+  catch (e) { console.warn('saveAccounts failed', e); }
+}
+let accounts = loadAccounts();
+if (accounts.current && !accounts.accounts[accounts.current]) accounts.current = null;
+function accountStorageKey(id) { return STORAGE_KEY + '_acct_' + id; }
+function activeStorageKey() { return accounts.current ? accountStorageKey(accounts.current) : STORAGE_KEY; }
+function currentAccount() { return accounts.current ? (accounts.accounts[accounts.current] || null) : null; }
+
 let state = loadState();
 
-function loadState() {
+function loadState(key) {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(key || activeStorageKey());
     if (!raw) return defaultState();
     const parsed = JSON.parse(raw);
     return Object.assign(defaultState(), parsed, {
@@ -1488,7 +1599,7 @@ function loadState() {
   }
 }
 function saveState() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  try { localStorage.setItem(activeStorageKey(), JSON.stringify(state)); }
   catch (e) { console.warn('saveState failed', e); toast('localStorage error'); }
 }
 
@@ -1504,59 +1615,145 @@ function domainPlaceholderHTML() {
   return esc(label) + '<br><span style="display:inline-block;margin-top:4px;font-size:.8rem;white-space:nowrap">'+esc(url)+'</span>';
 }
 
+// 国家/地区区号；校验只看去掉空格、横线后的数字。
+const COUNTRY_CODES = [
+  { cc:'+86',  key:'cc_86',  re:/^1[3-9]\d{9}$/,          ex:'138 0013 8000' },
+  { cc:'+82',  key:'cc_82',  re:/^0?1[016789]\d{7,8}$/,   ex:'010-1234-5678' },
+  { cc:'+852', key:'cc_852', re:/^[4-9]\d{7}$/,           ex:'5123 4567' },
+  { cc:'+853', key:'cc_853', re:/^6\d{7}$/,               ex:'6612 3456' },
+  { cc:'+886', key:'cc_886', re:/^0?9\d{8}$/,             ex:'0912 345 678' },
+  { cc:'+81',  key:'cc_81',  re:/^0?[789]0\d{8}$/,        ex:'090-1234-5678' },
+  { cc:'+65',  key:'cc_65',  re:/^[89]\d{7}$/,            ex:'8123 4567' },
+  { cc:'+1',   key:'cc_1',   re:/^[2-9]\d{2}[2-9]\d{6}$/, ex:'201 555 0123' },
+];
+const DEFAULT_CC = '+86';
+const SOCIAL_PROVIDERS = [
+  { id:'wechat', key:'authWeChat' },
+  { id:'qq',     key:'authQQ' },
+  { id:'kakao',  key:'authKakao' },
+];
+let authSelectedCC = DEFAULT_CC;
+let authOpen = false;
+
+function ccInfo(cc) { return COUNTRY_CODES.find(c => c.cc === cc) || COUNTRY_CODES[0]; }
+// 返回 { ok, national }：national 为去掉前导 0 的国内号码
+function normalizePhone(cc, raw) {
+  const info = ccInfo(cc);
+  const digits = String(raw || '').replace(/[\s\-().]/g, '');
+  if (!/^\d+$/.test(digits) || !info.re.test(digits)) return { ok:false, national:'' };
+  const national = (cc === '+86' || cc === '+1' || cc === '+852' || cc === '+853' || cc === '+65') ? digits : digits.replace(/^0/, '');
+  return { ok:true, national };
+}
+function maskPhone(cc, national) {
+  const n = String(national || '');
+  const masked = n.length > 6 ? n.slice(0, 3) + '****' + n.slice(-3) : n;
+  return cc + ' ' + masked;
+}
+
 function ensureAuth() {
   if (!state.auth) state.auth = defaultState().auth;
 }
 function isAuthed() {
-  ensureAuth();
-  return !!state.auth.signedIn;
+  return !!currentAccount();
 }
-function enterApp(auth) {
-  ensureAuth();
-  state.auth = Object.assign(defaultState().auth, auth, { signedIn: true, at: new Date().toISOString() });
+function switchToStorage(nextId) {
+  // 先保存当前（游客或账号）进度，再切到另一把钥匙，互不覆盖
   saveState();
-  syncAuthGate();
+  accounts.current = nextId || null;
+  saveAccounts();
+  state = loadState();
+  if (window.__koreanSite) window.__koreanSite.state = state;
 }
-function loginWithDemoCode(phone, code) {
+function loginWithDemoCode(cc, phone, code) {
+  // 兼容旧调用 loginWithDemoCode(phone, code)
+  if (code === undefined) { code = phone; phone = cc; cc = DEFAULT_CC; }
   const p = String(phone || '').trim();
   const c = String(code || '').trim();
   if (!p) return { ok:false, error: t('authNeedPhone') };
+  const norm = normalizePhone(cc, p);
+  const info = ccInfo(cc);
+  if (!norm.ok) return { ok:false, error: tf('authBadPhone', { c: t(info.key) + ' ' + info.cc, ex: info.ex }) };
   if (!c) return { ok:false, error: t('authNeedCode') };
   if (c !== DEMO_SMS_CODE) return { ok:false, error: t('authBadCode') };
-  enterApp({ mode:'phone', phone:p });
-  return { ok:true };
+  const id = 'phone' + info.cc.replace('+', '') + '_' + norm.national;
+  const now = new Date().toISOString();
+  const isNew = !accounts.accounts[id];
+  const wasGuest = !accounts.current;
+  const guestSnapshot = wasGuest ? JSON.parse(JSON.stringify(state)) : null;
+  if (isNew) {
+    // 只存注册信息：方式、区号、号码、时间。不存验证码、不存密钥。
+    accounts.accounts[id] = { id, method:'phone', cc: info.cc, phone: norm.national, createdAt: now, lastLoginAt: now };
+  } else {
+    accounts.accounts[id].lastLoginAt = now;
+  }
+  saveState();
+  accounts.current = id;
+  saveAccounts();
+  if (isNew) {
+    // 新账号：把当前游客进度复制一份带进来（游客那份保留不动）
+    const base = guestSnapshot || defaultState();
+    state = Object.assign(defaultState(), base);
+  } else {
+    state = loadState();
+  }
+  state.auth = { signedIn:true, mode:'phone', phone: maskPhone(info.cc, norm.national), at: now };
+  saveState();
+  if (window.__koreanSite) window.__koreanSite.state = state;
+  closeAuthPanel();
+  renderAll();
+  toast(isNew ? t('authRegistered') : t('authWelcomeBack'));
+  return { ok:true, isNew, id };
+}
+function socialLogin(provider) {
+  // 待接入：没有开发者账号/密钥，不调用任何 SDK，不跳转。
+  const p = SOCIAL_PROVIDERS.find(x => x.id === provider);
+  const msg = tf('authSocialPending', { p: p ? t(p.key) : provider });
+  const hint = document.getElementById('auth-social-hint');
+  if (hint) { hint.style.display = 'block'; hint.textContent = msg; }
+  toast(msg);
+  return { ok:false, pending:true, provider };
 }
 function enterAsGuest() {
-  enterApp({ mode:'guest', phone:'' });
+  closeAuthPanel();
   return { ok:true };
 }
 function logoutAuth() {
-  state.auth = defaultState().auth;
-  saveState();
-  syncAuthGate();
+  switchToStorage(null);
+  renderAll();
+  toast(t('authLoggedOut'));
 }
 function authStatusText() {
-  if (!isAuthed()) return t('authSubtitle');
-  if (state.auth.mode === 'phone') {
-    return t('authLoggedInPhone') + (state.auth.phone ? ' · ' + state.auth.phone : '');
-  }
-  return t('authLoggedInGuest');
+  const acct = currentAccount();
+  if (!acct) return t('authLoggedInGuest');
+  return t('authLoggedInPhone') + ' · ' + maskPhone(acct.cc, acct.phone);
+}
+function openAuthPanel() {
+  authOpen = true;
+  authSelectedCC = DEFAULT_CC;
+  syncAuthGate();
+  setTimeout(() => { const el = document.getElementById('auth-phone'); if (el) el.focus(); }, 30);
+}
+function closeAuthPanel() {
+  authOpen = false;
+  syncAuthGate();
 }
 function renderAuthGate() {
   const gate = document.getElementById('auth-gate');
   if (!gate) return;
-  const uiLangLabels = { zh: '中文', ko: '한국어', en: 'English' };
-  const langHtml = ['zh','ko','en'].map(l =>
-    '<button type="button" data-lang="'+l+'" class="'+(state.uiLang===l?'active':'')+'">'+(uiLangLabels[l]||l)+'</button>'
+  const ccOptions = COUNTRY_CODES.map(c =>
+    '<option value="'+esc(c.cc)+'"'+(c.cc===authSelectedCC?' selected':'')+'>'+esc(c.cc+' '+t(c.key))+'</option>'
   ).join('');
+  const info = ccInfo(authSelectedCC);
   gate.innerHTML =
     '<div class="auth-card card">'
-    +'<div class="brand">'+esc(t('brandName'))+' <span class="draft-badge">'+esc(t('draftBadge'))+'</span></div>'
-    +'<h2 style="margin:12px 0 6px">'+esc(t('authTitle'))+'</h2>'
+    +'<button type="button" class="auth-close" id="auth-close" aria-label="'+esc(t('authClose'))+'">✕</button>'
+    +'<h2 id="auth-title" style="margin:4px 40px 6px 0">'+esc(t('authTitle'))+'</h2>'
     +'<p class="muted">'+esc(t('authSubtitle'))+'</p>'
-    +'<div class="seg" id="auth-lang-seg" style="margin:10px 0 14px" aria-label="UI language">'+langHtml+'</div>'
     +'<div class="field"><label for="auth-phone">'+esc(t('authPhone'))+'</label>'
-    +'<input type="tel" id="auth-phone" inputmode="numeric" autocomplete="tel" placeholder="'+esc(t('authPhonePh'))+'"></div>'
+    +'<div class="phone-row">'
+    +'<select id="auth-cc" aria-label="'+esc(t('authCountry'))+'">'+ccOptions+'</select>'
+    +'<input type="tel" id="auth-phone" inputmode="tel" autocomplete="tel-national" placeholder="'+esc(info.ex)+'">'
+    +'</div></div>'
     +'<div class="field"><label for="auth-code">'+esc(t('authCode'))+'</label>'
     +'<div class="row" style="align-items:stretch">'
     +'<input type="text" id="auth-code" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="'+esc(t('authCodePh'))+'">'
@@ -1564,31 +1761,29 @@ function renderAuthGate() {
     +'</div></div>'
     +'<p class="muted" id="auth-sms-hint">'+esc(t('authDemoSms'))+'</p>'
     +'<button type="button" class="btn block" id="auth-login">'+esc(t('authLogin'))+'</button>'
-    +'<button type="button" class="btn secondary block" id="auth-wechat" style="margin-top:8px">'+esc(t('authWeChat'))+'</button>'
-    +'<p class="muted" id="auth-wechat-hint" style="display:none;margin-top:8px"></p>'
+    +'<div class="auth-divider">'+esc(t('authOr'))+'</div>'
+    +'<div class="social-row">'
+    + SOCIAL_PROVIDERS.map(p => '<button type="button" class="btn secondary auth-social" id="auth-'+p.id+'" data-provider="'+p.id+'">'+esc(t(p.key))+'</button>').join('')
+    +'</div>'
+    +'<p class="muted" id="auth-social-hint" style="display:none;margin-top:8px"></p>'
+    +'<p class="muted" style="margin-top:12px">'+esc(t('authGuestSaveHint'))+' '+esc(t('authSavedLocal'))+'</p>'
     +'<button type="button" class="btn ghost block" id="auth-guest" style="margin-top:4px">'+esc(t('authGuest'))+'</button>'
-    +'<p class="muted" style="margin-top:16px;text-align:center">'+domainPlaceholderHTML()+'</p>'
+    +'<p class="auth-foot">'+domainPlaceholderHTML()+'</p>'
     +'</div>';
 
-  const seg = document.getElementById('auth-lang-seg');
-  if (seg) {
-    seg.querySelectorAll('button').forEach(btn => {
-      btn.onclick = () => {
-        state.uiLang = btn.dataset.lang;
-        if (state.uiLang === 'ko') { state.showKO = true; state.showEN = false; state.showZH = false; }
-        else if (state.uiLang === 'en') { state.showEN = true; state.showKO = false; state.showZH = false; }
-        else { state.showZH = true; state.showEN = true; state.showKO = false; }
-        saveState();
-        renderAll();
-      };
-    });
-  }
+  const ccEl = document.getElementById('auth-cc');
   const phoneEl = document.getElementById('auth-phone');
   const codeEl = document.getElementById('auth-code');
+  if (ccEl) ccEl.onchange = () => {
+    authSelectedCC = ccEl.value;
+    if (phoneEl) phoneEl.placeholder = ccInfo(authSelectedCC).ex;
+  };
   const getBtn = document.getElementById('auth-get-code');
   if (getBtn) getBtn.onclick = () => {
     const phone = (phoneEl && phoneEl.value || '').trim();
     if (!phone) { toast(t('authNeedPhone')); return; }
+    const inf = ccInfo(authSelectedCC);
+    if (!normalizePhone(authSelectedCC, phone).ok) { toast(tf('authBadPhone', { c: t(inf.key)+' '+inf.cc, ex: inf.ex })); return; }
     const hint = document.getElementById('auth-sms-hint');
     if (hint) hint.textContent = t('authCodeSent');
     toast(t('authCodeSent'));
@@ -1597,25 +1792,41 @@ function renderAuthGate() {
   if (loginBtn) loginBtn.onclick = () => {
     const phone = (phoneEl && phoneEl.value || '').trim();
     const code = (codeEl && codeEl.value || '').trim();
-    const res = loginWithDemoCode(phone, code);
+    const res = loginWithDemoCode(authSelectedCC, phone, code);
     if (!res.ok) toast(res.error);
   };
-  const wxBtn = document.getElementById('auth-wechat');
-  if (wxBtn) wxBtn.onclick = () => {
-    const hint = document.getElementById('auth-wechat-hint');
-    if (hint) { hint.style.display = 'block'; hint.textContent = t('authWeChatPending'); }
-    toast(t('authWeChatPending'));
-  };
+  gate.querySelectorAll('.auth-social').forEach(b => { b.onclick = () => socialLogin(b.dataset.provider); });
   const guestBtn = document.getElementById('auth-guest');
   if (guestBtn) guestBtn.onclick = () => enterAsGuest();
+  const closeBtn = document.getElementById('auth-close');
+  if (closeBtn) closeBtn.onclick = () => closeAuthPanel();
+  gate.onclick = (e) => { if (e.target === gate) closeAuthPanel(); };
+}
+function renderAuthTopButton() {
+  const btn = document.getElementById('auth-top-btn');
+  if (!btn) return;
+  const acct = currentAccount();
+  if (acct) {
+    btn.textContent = '👤 ' + maskPhone(acct.cc, acct.phone).split(' ')[1];
+    btn.classList.add('signed');
+    btn.title = t('authAccount');
+    btn.onclick = () => showPanel('settings');
+  } else {
+    btn.textContent = t('authTopLogin');
+    btn.classList.remove('signed');
+    btn.title = t('authTopLogin');
+    btn.onclick = () => openAuthPanel();
+  }
 }
 function syncAuthGate() {
-  ensureAuth();
+  // 不再是一进站就挡路的登录墙：只有用户点「登录/注册」时才打开
   const gate = document.getElementById('auth-gate');
+  renderAuthTopButton();
   if (!gate) return;
-  if (isAuthed()) {
+  if (!authOpen) {
     gate.hidden = true;
     gate.setAttribute('aria-hidden', 'true');
+    gate.innerHTML = '';
     document.body.classList.remove('auth-locked');
   } else {
     document.body.classList.add('auth-locked');
@@ -1624,6 +1835,7 @@ function syncAuthGate() {
     renderAuthGate();
   }
 }
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && authOpen) closeAuthPanel(); });
 
 function todayStr() {
   const d = new Date();
@@ -2564,9 +2776,15 @@ function renderSettings() {
     +'<p class="muted">'+esc(t('topikNote'))+'</p>'
     +'<p class="muted">'+esc(t('privacy'))+'</p>'
     +'</div>'
-    +'<div class="card"><h3>'+esc(t('authAccount'))+'</h3>'
-    +'<p class="muted">'+esc(authStatusText())+'</p>'
-    +'<button type="button" class="btn secondary" id="s-logout">'+esc(t('authLogout'))+'</button>'
+    +'<div class="card" id="s-account"><h3>'+esc(t('authAccount'))+'</h3>'
+    +'<p class="muted" id="s-auth-status">'+esc(authStatusText())+'</p>'
+    +(isAuthed()
+      ? '<p class="muted">'+esc(t('authSavedLocal'))+'</p>'
+        +'<div class="row"><button type="button" class="btn secondary" id="s-switch">'+esc(t('authSwitch'))+'</button>'
+        +'<button type="button" class="btn secondary" id="s-logout">'+esc(t('authLogout'))+'</button></div>'
+      : '<p class="muted">'+esc(t('authGuestSaveHint'))+'</p>'
+        +'<button type="button" class="btn" id="s-login">'+esc(t('authTopLogin'))+'</button>')
+    +(Object.keys(accounts.accounts).length ? '<p class="muted" style="margin-top:8px">'+esc(tf('authLocalAccounts', { n: Object.keys(accounts.accounts).length }))+'</p>' : '')
     +'</div>'
     +'<div class="card"><h3>'+esc(t('settingsProfile'))+'</h3>'
     +'<p class="muted">'+esc(t('settingsProfileHint'))+'</p>'
@@ -2634,6 +2852,10 @@ function renderSettings() {
 
   const logoutBtn = document.getElementById('s-logout');
   if (logoutBtn) logoutBtn.onclick = () => { logoutAuth(); };
+  const sLoginBtn = document.getElementById('s-login');
+  if (sLoginBtn) sLoginBtn.onclick = () => openAuthPanel();
+  const switchBtn = document.getElementById('s-switch');
+  if (switchBtn) switchBtn.onclick = () => openAuthPanel();
 
   document.getElementById('s-tr-setup').onclick = () => {
     if (!state.translateSetup) state.translateSetup = defaultState().translateSetup;
@@ -3812,7 +4034,8 @@ window.__koreanSite = {
   AI_ENDPOINT, EXAMPLE_AI_MODELS, callAI, renderAI, filteredAiModels, getSelectedAiModel,
   aiConversationPlainText, saveAiConversation, renderAbout, renderDaily, renderFavorites, renderMaterials,
   glossKo, meaningLabel, meaningHTML, buildMeaningChoices, startItemQuiz,
-  STORAGE_KEY, DEMO_SMS_CODE, DOMAIN_PLACEHOLDER, isAuthed, loginWithDemoCode, enterAsGuest, logoutAuth, syncAuthGate, renderAuthGate
+  STORAGE_KEY, ACCOUNTS_KEY, DEMO_SMS_CODE, DOMAIN_PLACEHOLDER, COUNTRY_CODES, normalizePhone, isAuthed, loginWithDemoCode, socialLogin, enterAsGuest, logoutAuth, syncAuthGate, renderAuthGate,
+  openAuthPanel, closeAuthPanel, currentAccount, activeStorageKey, getAccounts: () => accounts
 };
 </script>
 </body>
