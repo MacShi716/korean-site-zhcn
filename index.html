@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 国内版初稿 2026-11-18：面向中国大陆用户的页面与核心学习流程。等他看过再改；不要替换现有 index.html；已作为国内版初稿预览部署在 Vercel（korean-site-zhcn）。以英+韩待发布稿为底复制改，未写入第4节新词条。 -->
+<!-- 国内版初稿 2026-11-18：面向中国大陆用户的页面与核心学习流程。等他看过再改；不要替换现有 index.html。这是国内版初稿的预览。目前仍是初稿，不会替换现有网站。以英+韩待发布稿为底复制改，未写入第4节新词条。 -->
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -351,6 +351,61 @@ body { padding-bottom: 0; }
 }
 .auth-top-btn.signed { background: var(--accent-soft); color: var(--accent); }
 body.auth-locked { overflow: hidden; }
+
+/* —— Modest motion (CSS only; no CDN libs) —— */
+.panel.active { animation: panel-enter .28s ease; }
+@keyframes panel-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.nav button {
+  position: relative;
+  transition: background-color .15s ease, color .15s ease, box-shadow .15s ease;
+}
+.nav button:hover { background: var(--primary-soft); color: var(--primary); }
+.nav button.active { box-shadow: inset 3px 0 0 var(--primary); }
+.nav-sep {
+  height: 1px; margin: 8px 8px; background: var(--border); flex-shrink: 0;
+}
+@media (hover: hover) {
+  .card {
+    transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
+  }
+  .card:hover {
+    box-shadow: 0 4px 16px rgba(26,40,30,.12);
+    transform: translateY(-1px);
+  }
+}
+.btn { transition: transform .15s ease, box-shadow .15s ease, filter .15s ease; }
+@media (hover: hover) {
+  .btn:hover:not(:disabled) {
+    box-shadow: 0 2px 8px rgba(26,95,74,.22);
+    filter: brightness(1.04);
+  }
+  .btn.secondary:hover:not(:disabled),
+  .btn.ghost:hover:not(:disabled) {
+    box-shadow: 0 1px 6px rgba(26,40,30,.08);
+    filter: none;
+    background: var(--primary-soft);
+  }
+}
+.feat-row {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px;
+  width: 100%; padding: 10px 12px; margin: 0 0 6px; border-radius: 10px;
+  border: 1px solid var(--border); background: #fbfaf7;
+}
+.feat-row:last-child { margin-bottom: 0; }
+.feat-row .feat-text { flex: 1 1 180px; }
+.feat-jumps { display: flex; flex-wrap: wrap; gap: 6px; }
+.feat-jumps .btn { min-height: 32px; padding: 4px 10px; font-size: .78rem; }
+.about-jumps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+@media (prefers-reduced-motion: reduce) {
+  .panel.active { animation: none; }
+  .nav { transition: none; }
+  .nav button, .card, .btn { transition: none; }
+  .card:hover { transform: none; }
+  .btn:active { transform: none; }
+}
 </style>
 </head>
 <body>
@@ -367,8 +422,16 @@ body.auth-locked { overflow: hidden; }
 </div>
 
 <main class="main">
-  <!-- ABOUT -->
+  <!-- ABOUT (short intro) -->
   <section class="panel" id="panel-about" data-panel="about"></section>
+  <!-- FEATURES -->
+  <section class="panel" id="panel-features" data-panel="features"></section>
+  <!-- LOGIN HELP -->
+  <section class="panel" id="panel-login-help" data-panel="login-help"></section>
+  <!-- AI HELP -->
+  <section class="panel" id="panel-ai-help" data-panel="ai-help"></section>
+  <!-- SITE STATUS -->
+  <section class="panel" id="panel-site-status" data-panel="site-status"></section>
   <!-- HOME / BROWSE -->
   <section class="panel active" id="panel-browse" data-panel="browse"></section>
   <!-- PRACTICE -->
@@ -408,6 +471,10 @@ const I18N = {
     brandName: "Together With You",
     brandSub: "v0.1",
     nav_about: "About",
+    nav_features: "Features",
+    nav_login_help: "Sign-in notes",
+    nav_ai_help: "AI notes",
+    nav_site_status: "Site notes",
     nav_daily: "Daily Review",
     nav_favorites: "Favorites",
     nav_materials: "Materials",
@@ -421,6 +488,9 @@ const I18N = {
     aboutFeatTranslate: "Translate / conversation practice",
     aboutFeatAi: "AI chat tutor",
     aboutFeatMore: "Daily review, favorites, and self-study links",
+    loginHelpTitle: "Sign-in notes",
+    aiHelpTitle: "AI notes",
+    siteStatusTitle: "Site notes",
     dailyTitle: "Daily Review",
     dailyHint: "Items due today. Adjust repeats per item; most-missed parts are listed first.",
     dailyStart: "Start today's review",
@@ -640,7 +710,7 @@ const I18N = {
     cc_81: "Japan",
     cc_65: "Singapore",
     cc_1: "US / Canada",
-    aboutDraftNote: "This is a preview of the mainland China draft, deployed on Vercel. It is still a draft and does not replace the current site.",
+    aboutDraftNote: "This is a preview of the mainland China draft. It is still a draft and does not replace the current site.",
     aboutDomain: "Planned domain (placeholder, not purchased or registered): https://[域名前缀].example.cn",
     aboutLoginNote: "Sign-in is optional and a demo: mobile number with country code + SMS code (no real SMS; code 000000). WeChat, QQ and KakaoTalk sign-in are coming soon (not connected yet). Signed-in records are saved on this device under the account.",
     aboutAiPlan: "The planned upstream is DeepSeek (reachable in mainland China). The proxy is planned for a mainland cloud (placeholder, to be decided later). Keys and prompts stay on the server only.",
@@ -706,6 +776,10 @@ const I18N = {
     brandName: "당신과 동행",
     brandSub: "v0.1",
     nav_about: "소개",
+    nav_features: "주요 기능",
+    nav_login_help: "로그인 안내",
+    nav_ai_help: "AI 안내",
+    nav_site_status: "사이트 안내",
     nav_daily: "매일 복습",
     nav_favorites: "즐겨찾기",
     nav_materials: "학습 자료",
@@ -719,6 +793,9 @@ const I18N = {
     aboutFeatTranslate: "번역·대화 연습",
     aboutFeatAi: "AI 채팅 튜터",
     aboutFeatMore: "매일 복습, 즐겨찾기, 자습 링크",
+    loginHelpTitle: "로그인 안내",
+    aiHelpTitle: "AI 안내",
+    siteStatusTitle: "사이트 안내",
     dailyTitle: "매일 복습",
     dailyHint: "오늘 예정된 항목입니다. 반복 횟수를 조절하고, 가장 많이 틀린 부분부터 봅니다.",
     dailyStart: "오늘 복습 시작",
@@ -938,7 +1015,7 @@ const I18N = {
     cc_81: "일본",
     cc_65: "싱가포르",
     cc_1: "미국·캐나다",
-    aboutDraftNote: "중국 대륙판 초고의 미리보기로, Vercel에 배포되어 있습니다. 아직 초고이며 기존 사이트를 대체하지 않습니다.",
+    aboutDraftNote: "중국 대륙판 초고의 미리보기입니다. 아직 초고이며 기존 사이트를 대체하지 않습니다.",
     aboutDomain: "예정 도메인(자리표시자, 구매·등록하지 않음): https://[域名前缀].example.cn",
     aboutLoginNote: "로그인은 선택이며 데모입니다: 국가 번호+휴대폰+문자 인증(실제 문자 없음, 인증번호 000000). WeChat·QQ·카카오톡 로그인은 연동 예정입니다. 로그인한 기록은 이 기기에 계정별로 저장됩니다.",
     aboutAiPlan: "업스트림은 DeepSeek(중국 대륙에서 접속 가능)를 쓸 예정입니다. 프록시는 국내 클라우드에 둘 계획입니다(자리표시자, 나중에 결정). 키와 프롬프트는 서버에만 둡니다.",
@@ -1004,6 +1081,10 @@ const I18N = {
     brandName: "与你同行",
     brandSub: "v0.1",
     nav_about: "简介",
+    nav_features: "功能一览",
+    nav_login_help: "登录说明",
+    nav_ai_help: "AI 说明",
+    nav_site_status: "站点说明",
     nav_daily: "每日复习",
     nav_favorites: "收藏",
     nav_materials: "学习资料",
@@ -1017,6 +1098,9 @@ const I18N = {
     aboutFeatTranslate: "翻译 / 对话练习",
     aboutFeatAi: "AI 对话导师",
     aboutFeatMore: "每日复习、收藏与自学链接",
+    loginHelpTitle: "登录说明",
+    aiHelpTitle: "AI 说明",
+    siteStatusTitle: "站点说明",
     dailyTitle: "每日复习",
     dailyHint: "今日到期的条目。可自选重复次数；优先展示错得最多的部位。",
     dailyStart: "开始今日复习",
@@ -1236,7 +1320,7 @@ const I18N = {
     cc_81: "日本",
     cc_65: "新加坡",
     cc_1: "美国/加拿大",
-    aboutDraftNote: "这是国内版初稿的预览，已部署在 Vercel 上。目前仍是初稿，不会替换现有网站。",
+    aboutDraftNote: "这是国内版初稿的预览。目前仍是初稿，不会替换现有网站。",
     aboutDomain: "计划域名（占位，尚未购买或注册）：https://[域名前缀].example.cn",
     aboutLoginNote: "登录可选，为演示：区号+手机号+短信验证码（不发真实短信，验证码 000000）；微信、QQ、KakaoTalk 登录待接入。登录后的学习记录按账号保存在本机。",
     aboutAiPlan: "AI 上游打算用 DeepSeek（国内可访问）。代理打算放国内云（占位，等以后拍板）。密钥和提示词只放服务器，不会写进网页。",
@@ -2083,6 +2167,11 @@ function renderHeader() {
 
 const NAV = [
   {id:'about', icon:'ℹ️', key:'nav_about'},
+  {id:'features', icon:'📋', key:'nav_features'},
+  {id:'login-help', icon:'🔑', key:'nav_login_help'},
+  {id:'ai-help', icon:'💡', key:'nav_ai_help'},
+  {id:'site-status', icon:'📄', key:'nav_site_status'},
+  {sep:true},
   {id:'browse', icon:'📚', key:'nav_browse'},
   {id:'practice', icon:'✏️', key:'nav_practice'},
   {id:'dictation', icon:'🎧', key:'nav_dictation'},
@@ -2101,12 +2190,19 @@ document.getElementById('nav-toggle').onclick = () => document.body.classList.to
 document.getElementById('nav-backdrop').onclick = () => document.body.classList.remove('nav-open');
 function renderNav() {
   const nav = document.getElementById('main-nav');
-  nav.innerHTML = NAV.map(n =>
-    '<button type="button" data-panel="'+n.id+'" class="'+(currentPanel===n.id?'active':'')+'">'
-    +'<span class="ico">'+n.icon+'</span><span>'+esc(t(n.key))+'</span></button>'
-  ).join('');
+  nav.innerHTML = NAV.map(n => {
+    if (n.sep) return '<div class="nav-sep" role="separator"></div>';
+    return '<button type="button" data-panel="'+n.id+'" class="'+(currentPanel===n.id?'active':'')+'">'
+      +'<span class="ico">'+n.icon+'</span><span>'+esc(t(n.key))+'</span></button>';
+  }).join('');
   nav.querySelectorAll('button').forEach(btn => {
     btn.onclick = () => { document.body.classList.remove('nav-open'); showPanel(btn.dataset.panel); };
+  });
+}
+function bindPanelJumps(root) {
+  if (!root) return;
+  root.querySelectorAll('[data-jump]').forEach(btn => {
+    btn.onclick = () => showPanel(btn.getAttribute('data-jump'));
   });
 }
 function showPanel(id) {
@@ -2120,6 +2216,10 @@ function showPanel(id) {
   renderNav();
   const renderers = {
     about: renderAbout,
+    features: renderFeatures,
+    'login-help': renderLoginHelp,
+    'ai-help': renderAiHelp,
+    'site-status': renderSiteStatus,
     browse: renderBrowse,
     practice: renderPractice,
     dictation: renderDictation,
@@ -3807,18 +3907,52 @@ function renderAbout() {
     +'<p>'+esc(t('aboutIntro'))+'</p>'
     +'<p>'+esc(t('aboutLearn'))+'</p>'
     +'<p>'+esc(t('aboutLang'))+'</p>'
-    +'<p class="muted">'+esc(t('aboutDraftNote'))+'</p>'
-    +'<p class="muted">'+domainPlaceholderHTML()+'</p>'
-    +'<p class="muted">'+esc(t('aboutLoginNote'))+'</p>'
-    +'<p class="muted">'+esc(t('aboutAiPlan'))+'</p>'
-    +'<h3 style="margin-top:14px">'+esc(t('aboutFeatures'))+'</h3>'
-    +'<ul style="margin:8px 0 0;padding-left:1.2em">'
-    +'<li>'+esc(t('aboutFeatMistakes'))+'</li>'
-    +'<li>'+esc(t('aboutFeatTopik'))+'</li>'
-    +'<li>'+esc(t('aboutFeatTranslate'))+'</li>'
-    +'<li>'+esc(t('aboutFeatAi'))+'</li>'
-    +'<li>'+esc(t('aboutFeatMore'))+'</li>'
-    +'</ul></div>';
+    +'<div class="about-jumps">'
+    +'<button type="button" class="btn secondary" data-jump="features">'+esc(t('nav_features'))+'</button>'
+    +'<button type="button" class="btn secondary" data-jump="login-help">'+esc(t('nav_login_help'))+'</button>'
+    +'<button type="button" class="btn secondary" data-jump="ai-help">'+esc(t('nav_ai_help'))+'</button>'
+    +'<button type="button" class="btn secondary" data-jump="site-status">'+esc(t('nav_site_status'))+'</button>'
+    +'</div></div>';
+  bindPanelJumps(el);
+}
+function renderFeatures() {
+  const el = document.getElementById('panel-features');
+  const rows = [
+    { textKey:'aboutFeatMistakes', jumps:[{id:'mistakes', key:'nav_mistakes'}] },
+    { textKey:'aboutFeatTopik', jumps:[{id:'practice', key:'nav_practice'}, {id:'grammar', key:'nav_grammar'}] },
+    { textKey:'aboutFeatTranslate', jumps:[{id:'translate', key:'nav_translate'}] },
+    { textKey:'aboutFeatAi', jumps:[{id:'ai', key:'nav_ai'}] },
+    { textKey:'aboutFeatMore', jumps:[{id:'daily', key:'nav_daily'}, {id:'favorites', key:'nav_favorites'}, {id:'materials', key:'nav_materials'}] },
+  ];
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('aboutFeatures'))+'</h2>'
+    + rows.map(row =>
+        '<div class="feat-row"><div class="feat-text">'+esc(t(row.textKey))+'</div>'
+        +'<div class="feat-jumps">'
+        + row.jumps.map(j => '<button type="button" class="btn ghost" data-jump="'+j.id+'">'+esc(t(j.key))+'</button>').join('')
+        +'</div></div>'
+      ).join('')
+    +'</div>';
+  bindPanelJumps(el);
+}
+function renderLoginHelp() {
+  const el = document.getElementById('panel-login-help');
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('loginHelpTitle'))+'</h2>'
+    +'<p>'+esc(t('aboutLoginNote'))+'</p></div>';
+}
+function renderAiHelp() {
+  const el = document.getElementById('panel-ai-help');
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('aiHelpTitle'))+'</h2>'
+    +'<p>'+esc(t('aboutAiPlan'))+'</p></div>';
+}
+function renderSiteStatus() {
+  const el = document.getElementById('panel-site-status');
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('siteStatusTitle'))+'</h2>'
+    +'<p>'+esc(t('aboutDraftNote'))+'</p>'
+    +'<p class="muted">'+domainPlaceholderHTML()+'</p></div>';
 }
 
 /********************
@@ -4032,7 +4166,7 @@ window.__koreanSite = {
   topikLabel, stageLabel, enabledRegisters, enabledTopics, filterByPracticeTypes, buildQuizQueue, STAGES, REGISTERS, TOPICS, ALL_ITEMS,
   romanizeHangul, translate, renderTranslate, addUtterance,
   AI_ENDPOINT, EXAMPLE_AI_MODELS, callAI, renderAI, filteredAiModels, getSelectedAiModel,
-  aiConversationPlainText, saveAiConversation, renderAbout, renderDaily, renderFavorites, renderMaterials,
+  aiConversationPlainText, saveAiConversation, renderAbout, renderFeatures, renderLoginHelp, renderAiHelp, renderSiteStatus, renderDaily, renderFavorites, renderMaterials,
   glossKo, meaningLabel, meaningHTML, buildMeaningChoices, startItemQuiz,
   STORAGE_KEY, ACCOUNTS_KEY, DEMO_SMS_CODE, DOMAIN_PLACEHOLDER, COUNTRY_CODES, normalizePhone, isAuthed, loginWithDemoCode, socialLogin, enterAsGuest, logoutAuth, syncAuthGate, renderAuthGate,
   openAuthPanel, closeAuthPanel, currentAccount, activeStorageKey, getAccounts: () => accounts
