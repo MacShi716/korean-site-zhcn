@@ -1,0 +1,3819 @@
+<!DOCTYPE html>
+<!-- 国内版初稿 2026-11-18：面向中国大陆用户的页面与核心学习流程。等他看过再改；不要替换现有 index.html；已作为国内版初稿预览部署在 Vercel（korean-site-zhcn）。以英+韩待发布稿为底复制改，未写入第4节新词条。 -->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a5f4a">
+<title>동행 · Together · 同行</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root {
+  --bg: #f6f3ee;
+  --surface: #ffffff;
+  --ink: #1a1a1a;
+  --muted: #6b6b6b;
+  --border: #e2ddd4;
+  --primary: #1a5f4a;
+  --primary-soft: #e6f2ed;
+  --accent: #c45c26;
+  --accent-soft: #fbeee6;
+  --danger: #b33a3a;
+  --danger-soft: #fceaea;
+  --ok: #1a7a4c;
+  --ok-soft: #e6f5ed;
+  --shadow: 0 2px 12px rgba(26,40,30,.08);
+  --radius: 14px;
+  --tap: 44px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", "Noto Sans SC", "PingFang SC", "Apple SD Gothic Neo", sans-serif;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.5; min-height: 100%; }
+body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; border: none; background: none; }
+a { color: var(--primary); }
+
+.app-header {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(246,243,238,.92); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 14px 8px;
+}
+.header-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.brand { font-weight: 700; font-size: 1.05rem; color: var(--primary); letter-spacing: -.02em; }
+.brand small { display: block; font-weight: 500; font-size: .7rem; color: var(--muted); letter-spacing: 0; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border);
+  background: var(--surface); font-size: .8rem; min-height: 32px;
+}
+.chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.chip.soft.active { background: var(--primary-soft); color: var(--primary); border-color: #b7d5c8; }
+
+.main { max-width: 720px; margin: 0 auto; padding: 14px 14px 24px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px; margin-bottom: 12px; box-shadow: var(--shadow);
+}
+.card h2 { margin: 0 0 8px; font-size: 1.05rem; }
+.card h3 { margin: 0 0 6px; font-size: .95rem; }
+.muted { color: var(--muted); font-size: .85rem; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.space { justify-content: space-between; }
+.grow { flex: 1; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: var(--tap); padding: 10px 16px; border-radius: 12px;
+  background: var(--primary); color: #fff; font-weight: 600; font-size: .92rem;
+  border: 1px solid transparent; touch-action: manipulation;
+}
+.btn:active { transform: scale(.98); }
+.btn.secondary { background: var(--surface); color: var(--ink); border-color: var(--border); }
+.btn.ghost { background: transparent; color: var(--primary); border-color: transparent; min-height: 36px; padding: 6px 10px; }
+.btn.danger { background: var(--danger); }
+.btn.accent { background: var(--accent); }
+.btn.block { width: 100%; }
+.btn:disabled { opacity: .45; }
+
+.field { margin-bottom: 10px; }
+.field label { display: block; font-size: .8rem; color: var(--muted); margin-bottom: 4px; }
+.field input, .field select, .field textarea {
+  width: 100%; padding: 12px 12px; border-radius: 12px; border: 1px solid var(--border);
+  background: #fff; min-height: var(--tap);
+}
+.field textarea { min-height: 90px; resize: vertical; }
+
+.badge {
+  display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: .72rem; font-weight: 600;
+  background: var(--primary-soft); color: var(--primary);
+}
+.badge.reg-daily { background: #eef6ea; color: #3a6b2e; }
+.badge.reg-written { background: #eef0f8; color: #3a4570; }
+.badge.reg-news { background: #f8eee8; color: #7a3e1e; }
+.badge.diff { background: #f3f0ea; color: #5a5348; }
+.badge.hanja { background: #f5f0e6; color: #6a5430; font-family: "Noto Serif SC", "Songti SC", serif; }
+
+.ko-big { font-size: 1.65rem; font-weight: 700; letter-spacing: -.02em; line-height: 1.3; }
+.meaning { margin-top: 4px; }
+.meaning .en { color: #2c4a6e; }
+.meaning .zh { color: #6a3a2a; }
+.example { margin-top: 10px; padding: 10px; background: var(--bg); border-radius: 10px; font-size: .92rem; }
+.reveal-zone { position: relative; }
+.reveal-mask {
+  position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.95));
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  font-weight: 600; color: var(--primary); cursor: pointer; backdrop-filter: blur(3px);
+}
+.reveal-mask.hidden { display: none; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.filters select, .filters input[type="number"] {
+  padding: 8px 10px; border-radius: 10px; border: 1px solid var(--border); background: #fff; min-height: 40px;
+}
+
+.quiz-prompt { text-align: center; padding: 18px 8px; }
+.quiz-prompt .ko-big { font-size: 2rem; }
+.choices { display: grid; gap: 8px; }
+.choice {
+  text-align: left; padding: 14px; border-radius: 12px; border: 1px solid var(--border);
+  background: #fff; min-height: var(--tap); font-size: .95rem;
+}
+.choice.correct { background: var(--ok-soft); border-color: var(--ok); }
+.choice.wrong { background: var(--danger-soft); border-color: var(--danger); }
+.choice:disabled { opacity: 1; }
+
+.nav {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+  background: rgba(255,255,255,.94); backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+  padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+  display: grid; grid-template-columns: repeat(8, 1fr); gap: 2px;
+}
+.nav button {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px; padding: 6px 2px; min-height: 52px; font-size: .62rem; color: var(--muted); border-radius: 10px;
+}
+.nav button .ico { font-size: 1.15rem; line-height: 1; }
+.nav button.active { color: var(--primary); background: var(--primary-soft); font-weight: 700; }
+
+.empty { text-align: center; padding: 28px 12px; color: var(--muted); }
+.toast {
+  position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%);
+  background: #222; color: #fff; padding: 10px 16px; border-radius: 999px;
+  font-size: .85rem; z-index: 100; opacity: 0; pointer-events: none; transition: opacity .2s;
+  max-width: 90vw;
+}
+.toast.show { opacity: 1; }
+
+.mistake-item { border-left: 4px solid var(--accent); }
+.progress-bar { height: 8px; background: var(--border); border-radius: 999px; overflow: hidden; margin: 8px 0; }
+.progress-bar > span { display: block; height: 100%; background: var(--primary); width: 0%; transition: width .25s; }
+
+.seg { display: inline-flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.seg button { padding: 8px 12px; min-height: 36px; background: #fff; font-size: .8rem; }
+.seg button.active { background: var(--primary); color: #fff; }
+
+.placeholder-box {
+  text-align: center; padding: 40px 16px; background: var(--surface); border: 2px dashed var(--border);
+  border-radius: var(--radius); color: var(--muted);
+}
+.placeholder-box strong { color: var(--ink); display: block; font-size: 1.1rem; margin-bottom: 6px; }
+
+.dict-input { font-size: 1.2rem; letter-spacing: .04em; }
+.result-ok { color: var(--ok); font-weight: 700; }
+.result-bad { color: var(--danger); font-weight: 700; }
+
+@media (min-width: 640px) {
+  .nav { max-width: 720px; left: 50%; transform: translateX(-50%); border-radius: 16px 16px 0 0; }
+  .choices { grid-template-columns: 1fr 1fr; }
+}
+
+/* —— Translate / Conversation (new) —— */
+.main.wide-translate { max-width: 1100px; }
+.tr-setup .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.tr-setup .choice-grid .chip { justify-content: center; min-height: 40px; }
+.tr-sides { display: flex; flex-direction: column; gap: 12px; }
+.tr-side {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 12px; box-shadow: var(--shadow); display: flex; flex-direction: column; min-height: 0;
+}
+.tr-side-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.tr-side-title { font-weight: 700; color: var(--primary); }
+.tr-compose { display: flex; flex-direction: column; gap: 8px; }
+.tr-compose textarea {
+  width: 100%; min-height: 72px; padding: 12px; border-radius: 12px; border: 1px solid var(--border);
+  background: #fff; resize: vertical;
+}
+.tr-compose .row { gap: 8px; }
+.tr-feed { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; max-height: 48vh; overflow: auto; }
+.tr-card {
+  border: 1px solid var(--border); border-radius: 12px; background: #faf8f5; padding: 10px;
+}
+.tr-card-grid { display: flex; flex-direction: column; gap: 8px; }
+.tr-orig { font-size: 1.05rem; font-weight: 600; white-space: pre-wrap; word-break: break-word; }
+.tr-trans {
+  min-height: 44px; padding: 10px; border-radius: 10px; background: var(--primary-soft);
+  color: var(--muted); font-size: .92rem; white-space: pre-wrap; word-break: break-word;
+}
+.tr-roma { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .82rem; color: #3a5a4a; }
+.tr-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.tr-actions .chip { min-height: 32px; font-size: .75rem; }
+.tr-fav-list .tr-card { margin-bottom: 8px; }
+.tr-mic.recording { background: var(--danger); color: #fff; border-color: var(--danger); }
+@media (min-width: 900px) {
+  .tr-sides { flex-direction: row; align-items: stretch; }
+  .tr-side { flex: 1; min-width: 0; }
+  .tr-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+  .tr-feed { max-height: 56vh; }
+}
+
+/* —— Left sidebar nav —— */
+body { padding-bottom: 0; }
+.nav {
+  position: fixed; top: 0; bottom: 0; left: 0; right: auto; width: 200px; z-index: 60;
+  max-width: none; transform: none; border-radius: 0;
+  border-top: none; border-right: 1px solid var(--border);
+  padding: 14px 10px; display: flex; flex-direction: column; gap: 4px; overflow-y: auto;
+}
+.nav button {
+  flex-direction: row; justify-content: flex-start; gap: 10px;
+  padding: 10px 12px; min-height: 44px; font-size: .92rem; text-align: left; width: 100%;
+}
+.nav-toggle { display: none; font-size: 1.3rem; min-width: 40px; min-height: 40px; border-radius: 10px; }
+.nav-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 55; }
+@media (min-width: 900px) {
+  body { padding-left: 200px; }
+}
+@media (max-width: 899px) {
+  .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .nav { transform: translateX(-100%); transition: transform .2s; box-shadow: 2px 0 16px rgba(0,0,0,.12); }
+  body.nav-open .nav { transform: translateX(0); }
+  body.nav-open .nav-backdrop { display: block; }
+}
+
+/* —— AI Chat —— */
+.main.wide-ai { max-width: 1100px; }
+.ai-layout { display: flex; flex-direction: column; gap: 12px; }
+.ai-notice {
+  padding: 10px 12px; border-radius: 12px; background: var(--accent-soft);
+  border: 1px solid #efc9b0; color: #7a3e1e; font-size: .88rem;
+}
+.ai-filter-panel {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 12px; box-shadow: var(--shadow);
+}
+.ai-filter-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.ai-filter-head h3 { margin: 0; font-size: .95rem; }
+.ai-filter-section { margin: 10px 0 4px; }
+.ai-filter-label {
+  display: flex; align-items: center; gap: 8px; margin: 8px 0 6px;
+  font-size: .72rem; color: var(--muted); text-transform: none; letter-spacing: .02em;
+}
+.ai-filter-label::before, .ai-filter-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.ai-filter-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ai-filter-chips .chip { min-height: 30px; font-size: .78rem; }
+.ai-filter-chips .chip.active.all-vendors { color: #7c5cff; background: #ece8ff; border-color: #d4ccff; }
+.ai-filter-chips .chip.active.all-groups { color: #1a7a4c; background: var(--ok-soft); border-color: #b7e0c8; }
+.ai-filter-chips .chip.active.all-billing { color: #c45c26; background: var(--accent-soft); border-color: #efc9b0; }
+.ai-filter-chips .chip.active.all-tags { color: #b33a6a; background: #fce8f0; border-color: #f0c4d4; }
+.ai-filter-chips .chip.active.all-endpoints { color: #2a8a6a; background: #e6f5ef; border-color: #b7e0d0; }
+.ai-model-list { display: grid; gap: 8px; margin-top: 10px; }
+.ai-model-card {
+  text-align: left; width: 100%; padding: 12px; border-radius: 12px;
+  border: 1px solid var(--border); background: #fff; min-height: 56px;
+}
+.ai-model-card.active { border-color: var(--primary); background: var(--primary-soft); }
+.ai-model-card .name { font-weight: 700; font-size: .95rem; }
+.ai-model-card .meta { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+.ai-model-card .price { font-size: .75rem; color: #7a3e1e; margin-top: 4px; }
+.ai-chat-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 12px; box-shadow: var(--shadow); display: flex; flex-direction: column; min-height: 420px;
+}
+.ai-chat-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px; }
+.ai-chat-toolbar .model-tag { font-size: .8rem; color: var(--muted); }
+.ai-msgs {
+  flex: 1; overflow: auto; max-height: 48vh; display: flex; flex-direction: column; gap: 10px;
+  padding: 8px 2px; background: var(--bg); border-radius: 12px; border: 1px solid var(--border);
+  min-height: 220px;
+}
+.ai-msg {
+  max-width: 92%; padding: 10px 12px; border-radius: 14px; white-space: pre-wrap; word-break: break-word;
+  font-size: .92rem; position: relative;
+}
+.ai-msg.user { align-self: flex-end; background: var(--primary); color: #fff; border-bottom-right-radius: 4px; }
+.ai-msg.assistant { align-self: flex-start; background: #fff; border: 1px solid var(--border); border-bottom-left-radius: 4px; }
+.ai-msg.system { align-self: center; background: transparent; color: var(--muted); font-size: .82rem; max-width: 100%; text-align: center; }
+.ai-msg .ai-msg-actions { margin-top: 6px; display: flex; gap: 4px; }
+.ai-msg.user .ai-msg-actions .chip { background: rgba(255,255,255,.18); color: #fff; border-color: rgba(255,255,255,.35); }
+.ai-compose { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.ai-compose textarea {
+  width: 100%; min-height: 72px; padding: 12px; border-radius: 12px; border: 1px solid var(--border);
+  background: #fff; resize: vertical;
+}
+.ai-empty { text-align: center; color: var(--muted); padding: 28px 12px; font-size: .9rem; }
+@media (min-width: 900px) {
+  .ai-layout { display: grid; grid-template-columns: 320px 1fr; gap: 14px; align-items: start; }
+  .ai-filter-panel { position: sticky; top: 70px; max-height: calc(100vh - 90px); overflow: auto; }
+  .ai-msgs { max-height: 56vh; }
+}
+
+/* —— Auth gate + draft badge (国内版初稿演示) —— */
+.draft-badge {
+  display: inline-block; padding: 2px 8px; border-radius: 999px;
+  font-size: .68rem; font-weight: 600; line-height: 1.4;
+  background: var(--accent-soft); color: var(--accent);
+  vertical-align: middle;
+}
+.brand .draft-badge { margin-left: 6px; }
+.auth-gate {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--bg);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 28px 16px 40px;
+  overflow: auto;
+}
+.auth-gate[hidden] { display: none !important; }
+.auth-card { width: 100%; max-width: 420px; margin: 0; }
+.auth-card .row input {
+  flex: 1; min-width: 0; min-height: var(--tap);
+  padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: #fff;
+}
+body.auth-locked { overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="app-header">
+  <div class="header-row">
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Menu">☰</button>
+    <div class="brand"><span id="brand-name">당신과 동행</span> <small id="brand-sub">v0.1</small> <span class="draft-badge" id="draft-badge">国内版初稿</span></div>
+    <div class="seg" id="ui-lang-seg" aria-label="UI language"></div>
+  </div>
+  <div class="chip-row" id="meaning-toggles"></div>
+</div>
+
+<main class="main">
+  <!-- ABOUT -->
+  <section class="panel" id="panel-about" data-panel="about"></section>
+  <!-- HOME / BROWSE -->
+  <section class="panel active" id="panel-browse" data-panel="browse"></section>
+  <!-- PRACTICE -->
+  <section class="panel" id="panel-practice" data-panel="practice"></section>
+  <!-- DICTATION -->
+  <section class="panel" id="panel-dictation" data-panel="dictation"></section>
+  <!-- GRAMMAR -->
+  <section class="panel" id="panel-grammar" data-panel="grammar"></section>
+  <!-- MISTAKES -->
+  <section class="panel" id="panel-mistakes" data-panel="mistakes"></section>
+  <!-- TRANSLATE / CONVERSATION -->
+  <section class="panel" id="panel-translate" data-panel="translate"></section>
+  <!-- SETTINGS -->
+  <section class="panel" id="panel-settings" data-panel="settings"></section>
+  <!-- AI -->
+  <section class="panel" id="panel-ai" data-panel="ai"></section>
+  <!-- DAILY REVIEW -->
+  <section class="panel" id="panel-daily" data-panel="daily"></section>
+  <!-- FAVORITES -->
+  <section class="panel" id="panel-favorites" data-panel="favorites"></section>
+  <!-- MATERIALS -->
+  <section class="panel" id="panel-materials" data-panel="materials"></section>
+</main>
+
+<nav class="nav" id="main-nav"></nav>
+<div class="nav-backdrop" id="nav-backdrop"></div>
+<div class="toast" id="toast"></div>
+<div class="auth-gate" id="auth-gate" hidden></div>
+
+<script>
+
+/********************
+ * i18n UI strings
+ ********************/
+const I18N = {
+  en: {
+    brandName: "Together With You",
+    brandSub: "v0.1",
+    nav_about: "About",
+    nav_daily: "Daily Review",
+    nav_favorites: "Favorites",
+    nav_materials: "Materials",
+    aboutTitle: "About · Together With You",
+    aboutIntro: "동행 (同行) is a Sino-Korean word shared by Chinese and Korean: it means to walk with someone. This site is an AI companion that walks with you while you learn Korean.",
+    aboutLearn: "It keeps improving with you — learning from your mistakes (which stage, which part, how many times), adapting to your native language, goal, and level, and getting better from your feedback.",
+    aboutLang: "Korean, Chinese, and English sit side by side. Choose your own interface language anytime.",
+    aboutFeatures: "Features at a glance",
+    aboutFeatMistakes: "Mistake log — stage, word part, and counts",
+    aboutFeatTopik: "TOPIK-level practice by type",
+    aboutFeatTranslate: "Translate / conversation practice",
+    aboutFeatAi: "AI chat tutor",
+    aboutFeatMore: "Daily review, favorites, and self-study links",
+    dailyTitle: "Daily Review",
+    dailyHint: "Items due today. Adjust repeats per item; most-missed parts are listed first.",
+    dailyStart: "Start today's review",
+    dailyEmpty: "Nothing due today. Mistakes and finished quizzes add items here.",
+    dailyRepeats: "Repeats",
+    favTitle: "Favorites",
+    favHint: "Sentences you starred in Translate and AI chat. Copy or delete anytime.",
+    favFromTranslate: "From Translate",
+    favFromAi: "From AI chat",
+    favEmpty: "No favorites yet. Star a sentence in Translate or AI chat.",
+    favSource: "Source",
+    materialsTitle: "Study materials",
+    materialsHint: "External self-study links only — content stays on each site.",
+    mat_naver_news: "NAVER News — Korean news reading practice",
+    mat_naver_dict: "NAVER Dictionary — look up Korean words (Chinese UI)",
+    mat_kornorms: "National Institute of Korean Language — spelling & norms",
+    mat_stdict: "Standard Korean Language Dictionary",
+    mat_krdict: "Korean-Foreign Language Learners' Dictionary",
+    mat_papago: "Papago — translation practice",
+    mat_naver_comic: "NAVER Webtoon — casual reading in Korean",
+    sample: "sample",
+    topicSelect: "Topics",
+    topic_person: "Person & address",
+    topic_vocab: "Vocabulary",
+    topic_grammar_endings: "Grammar / endings",
+    topic_particle_topic: "Particles",
+    topic_speech_level: "Honorific speech",
+    topic_pronunciation: "Pronunciation",
+    noTopicsSelected: "Please select at least one topic.",
+    sortBy: "Sort by",
+    sortCount: "Count",
+    sortTopik: "TOPIK level",
+    sortType: "Type",
+    settingsProfile: "Learning profile",
+    settingsProfileHint: "Same fields as first-run setup. Change anytime — saved in this browser.",
+    saveProfile: "Save profile",
+    nav_browse: "Browse",
+    nav_practice: "Practice",
+    nav_dictation: "Dictation",
+    nav_grammar: "Grammar",
+    nav_mistakes: "Mistakes",
+    nav_settings: "Settings",
+    nav_ai: "AI Tutor",
+    meaningShow: "Show meanings:",
+    meaningEN: "English",
+    meaningZH: "中文",
+    meaningKO: "Korean",
+    leftCount: "{n} left",
+    estimateLevel: "teaching estimate",
+    browseTitle: "Person & Address (인칭)",
+    browseHint: "Pronouns, honorifics, particles, titles, job suffixes. Filter below.",
+    filterCategory: "Category",
+    filterRegister: "Register",
+    filterDiff: "TOPIK level",
+    all: "All",
+    cat_pronoun: "Pronouns",
+    cat_honorific: "Honorific vs casual",
+    cat_particle: "Particle forms",
+    cat_title: "Titles (instead of you)",
+    cat_job_suffix: "Job suffixes",
+    reg_daily: "Daily speech",
+    reg_written: "Written",
+    reg_news: "News",
+    diff: "TOPIK Level",
+    hanja: "Hanja",
+    example: "Example",
+    tapReveal: "Tap to reveal",
+    itemsCount: "{n} items",
+    practiceTitle: "Practice",
+    practiceHint: "Quiz with reveal & repeats. Mistakes go to the log.",
+    startQuiz: "Start quiz",
+    dailyReview: "Daily review queue",
+    fieldsShow: "Fields to show",
+    field_ko: "Korean",
+    field_en: "English",
+    field_zh: "Chinese",
+    field_hanja: "Hanja",
+    field_example: "Example",
+    repeatDefault: "Default repeats per item",
+    repeatThis: "Repeats for this item",
+    next: "Next",
+    check: "Check",
+    skip: "Skip",
+    correct: "Correct!",
+    incorrect: "Not quite",
+    finished: "Session finished",
+    score: "Score",
+    chooseMeaning: "What does this mean?",
+    typeKorean: "Type the Korean",
+    spellHint: "Use the English meaning as a hint",
+    stage_recognition: "Recognition",
+    stage_spelling: "Spelling",
+    stage_listening: "Listening",
+    stage_usage: "Type",
+    practiceTypes: "Types to practice",
+    noTypesSelected: "Please select at least one type (daily / written / news).",
+    typeQuestion: "Which type is this sentence?",
+    estimated: "estimated",
+    part_syllable: "Syllable",
+    part_ending: "Ending",
+    part_particle: "Particle",
+    part_other: "Other",
+    part_unknown: "Unknown",
+    dictTitle: "Dictation",
+    dictHint: "Listen (Korean), type what you hear. Wrong answers are logged.",
+    play: "Play",
+    replay: "Replay",
+    submit: "Submit",
+    noKoVoice: "No Korean (ko-KR) voice found on this device. Dictation audio unavailable — you can still type from the shown hint after reveal.",
+    showHint: "Show answer hint",
+    hideHint: "Hide hint",
+    grammarTitle: "Grammar patterns",
+    grammarHint: "Core patterns with meaning & examples. Write your own sentences (saved locally).",
+    yourExamples: "Your example sentences",
+    saveExample: "Save example",
+    delete: "Delete",
+    saved: "Saved",
+    mistakesTitle: "Mistake log",
+    mistakesHint: "Every wrong answer is recorded. Review prioritizes most-missed.",
+    filterStage: "Stage",
+    filterPart: "Word part",
+    count: "Count",
+    lastAt: "Last",
+    fixTag: "Fix tag",
+    reviewMissed: "Review most-missed",
+    clearMistakes: "Clear all mistakes",
+    confirmClear: "Clear all mistake records?",
+    emptyMistakes: "No mistakes yet — nice!",
+    settingsTitle: "Settings & progress",
+    settingsHint: "All data stays in this browser (localStorage). Nothing is uploaded.",
+    exportProgress: "Export progress JSON",
+    importProgress: "Import progress JSON",
+    importOk: "Import successful",
+    importFail: "Import failed — check JSON",
+    resetProgress: "Reset all progress",
+    confirmReset: "Reset practice progress, examples, and settings (mistakes kept)?",
+    topikNote: "TOPIK target: not set · Learner profile: not set",
+    privacy: "Privacy: localStorage only. Export before clearing browser data.",
+    aiTitle: "AI Tutor",
+    aiPlaceholder: "Coming later",
+    aiDesc: "Chat with a tutor model. API keys and prompts stay on the server.",
+    aiFilter: "Filter",
+    aiReset: "Reset",
+    aiVendor: "Provider",
+    aiAllVendors: "All providers",
+    aiTokenGroup: "Token group",
+    aiAllGroups: "All groups",
+    aiBilling: "Billing type",
+    aiAllBilling: "All types",
+    aiBillingUsage: "Pay-as-you-go",
+    aiBillingPerCall: "Per call",
+    aiTags: "Tags",
+    aiAllTags: "All tags",
+    aiEndpoint: "Endpoint type",
+    aiAllEndpoints: "All endpoints",
+    aiModels: "Models",
+    aiNoModels: "No models match filters",
+    aiPricePending: "Price pending from server",
+    aiSelected: "Selected",
+    aiNewChat: "New chat",
+    aiClearChat: "Clear",
+    aiSaveLocal: "Save locally",
+    aiSaveTxt: "Save as .txt",
+    aiSaveJson: "Save as .json",
+    aiCopyAll: "Copy as plain text",
+    aiCopyMsg: "Copy",
+    aiCopied: "Copied",
+    aiInputPh: "Message the tutor… (Enter send, Shift+Enter newline)",
+    aiSend: "Send",
+    aiEmpty: "No messages yet. Pick a model and say hello.",
+    aiNotConnected: "Server not connected yet: API keys and prompts stay on the server only",
+    aiSending: "Sending…",
+    aiErr: "Request failed",
+    aiYou: "Me",
+    aiBot: "AI",
+    aiExampleNote: "Model list is an EXAMPLE placeholder — replace with server data.",
+    draftBadge: "CN draft",
+    authTitle: "Sign in / Register",
+    authSubtitle: "Mainland China draft (demo). Learning data stays in this browser only.",
+    authPhone: "Mobile number",
+    authPhonePh: "Enter your mobile number",
+    authCode: "SMS code",
+    authCodePh: "Enter the code",
+    authGetCode: "Get code",
+    authDemoSms: "Demo only — no real SMS is sent. After you tap “Get code”, use 000000.",
+    authCodeSent: "Demo code is ready (000000). No real SMS was sent.",
+    authLogin: "Sign in / Register",
+    authWeChat: "WeChat sign-in",
+    authWeChatPending: "Not connected yet — WeChat sign-in is still pending.",
+    authGuest: "Just look around first",
+    authNeedPhone: "Please enter a mobile number first",
+    authNeedCode: "Please enter the code",
+    authBadCode: "Wrong code. The demo code is 000000.",
+    authLoggedInPhone: "Signed in with mobile number (demo)",
+    authLoggedInGuest: "You are browsing as a guest (not signed in)",
+    authLogout: "Sign out",
+    authAccount: "Account",
+    aboutDraftNote: "This is a preview of the mainland China draft, deployed on Vercel. It is still a draft and does not replace the current site.",
+    aboutDomain: "Planned domain (placeholder, not purchased or registered): https://[域名前缀].example.cn",
+    aboutLoginNote: "Sign-in is a demo: mobile number + SMS code (no real SMS; code 000000). WeChat sign-in is not connected yet.",
+    aboutAiPlan: "The planned upstream is DeepSeek (reachable in mainland China). The proxy is planned for a mainland cloud (placeholder, to be decided later). Keys and prompts stay on the server only.",
+    aiDomesticPlan: "Planned upstream: DeepSeek (reachable in mainland China). Proxy planned for a mainland cloud (placeholder, to be decided later). Keys and prompts stay on the server only.",
+    queueEmpty: "Review queue is empty for today.",
+    queueCount: "{n} items due today",
+    markKnown: "Mark reviewed",
+    continue: "Continue",
+    back: "Back",
+    none: "—",
+    voiceOk: "Korean voice ready",
+    voiceCheck: "Check voices",
+    pickWrongPart: "Which part was wrong?",
+    autoDetected: "Auto-detected",
+    nav_translate: "Translate",
+    trTitle: "Translate · Conversation",
+    trHint: "Two-sided conversation practice. Original text is kept permanently. AI translation is not connected yet.",
+    trSetupTitle: "First-run setup",
+    trSetupHint: "Quick profile for better later translations. You can edit this anytime in Settings.",
+    trNative: "Native language (most important)",
+    trGoal: "Learning goal",
+    trGoalPh: "e.g. daily conversation, TOPIK speaking…",
+    trLevel: "Korean level",
+    trLevelBeginner: "Beginner (pre-TOPIK)",
+    trVoice: "Speech (TTS / mic)",
+    trVoiceOn: "On",
+    trVoiceOff: "Off",
+    trSaveSetup: "Save & start",
+    trEditSetup: "Edit translate profile",
+    trSideA: "Side A",
+    trSideB: "Side B",
+    trTypePh: "Type here…",
+    trSend: "Send",
+    trMic: "Speak",
+    trMicOff: "Mic unavailable",
+    trMicUnsupported: "Speech recognition is not supported in this browser. You can still type.",
+    trListening: "Listening…",
+    trHonorific: "Honorific",
+    trHonorificOn: "Polite",
+    trHonorificOff: "Casual",
+    trRoma: "Romanization",
+    trSpeak: "Read aloud",
+    trCopy: "Copy",
+    trFav: "Favorite",
+    trUnfav: "Unfavorite",
+    trFavSaved: "Saved to favorites",
+    trFavList: "Favorites",
+    trEmptyFav: "No favorites yet.",
+    trTransPending: "Translation pending AI (server-side)",
+    trOriginal: "Original",
+    trTranslation: "Translation",
+    trLangFrom: "From",
+    trLangTo: "To",
+    trCopied: "Copied",
+    trClearFeed: "Clear this side",
+    trShowFav: "Show favorites",
+    trHideFav: "Hide favorites",
+    lang_zh: "Chinese",
+    lang_en: "English",
+    lang_ko: "Korean",
+  },
+  ko: {
+    brandName: "당신과 동행",
+    brandSub: "v0.1",
+    nav_about: "소개",
+    nav_daily: "매일 복습",
+    nav_favorites: "즐겨찾기",
+    nav_materials: "학습 자료",
+    aboutTitle: "소개 · 당신과 동행",
+    aboutIntro: "동행(同行)은 중국어와 한국어에서 같은 뜻의 한자어입니다. 함께 걸어간다는 의미로, 이 사이트는 한국어를 배우는 동안 AI가 당신과 함께 걷습니다.",
+    aboutLearn: "당신과 함께 성장합니다 — 틀린 단계·부분·횟수를 기억하고, 모국어·목표·수준에 맞추며, 피드백으로 더 나아집니다.",
+    aboutLang: "한국어·중국어·영어를 나란히 두고, 원하는 인터페이스 언어를 고를 수 있습니다.",
+    aboutFeatures: "주요 기능",
+    aboutFeatMistakes: "오답 노트 — 단계, 부분, 횟수",
+    aboutFeatTopik: "유형별 TOPIK 수준 연습",
+    aboutFeatTranslate: "번역·대화 연습",
+    aboutFeatAi: "AI 채팅 튜터",
+    aboutFeatMore: "매일 복습, 즐겨찾기, 자습 링크",
+    dailyTitle: "매일 복습",
+    dailyHint: "오늘 예정된 항목입니다. 반복 횟수를 조절하고, 가장 많이 틀린 부분부터 봅니다.",
+    dailyStart: "오늘 복습 시작",
+    dailyEmpty: "오늘 예정된 항목이 없습니다. 오답과 퀴즈 결과가 여기로 들어옵니다.",
+    dailyRepeats: "반복",
+    favTitle: "즐겨찾기",
+    favHint: "번역과 AI 채팅에서 별표한 문장입니다. 복사하거나 삭제할 수 있습니다.",
+    favFromTranslate: "번역에서",
+    favFromAi: "AI 채팅에서",
+    favEmpty: "즐겨찾기가 없습니다. 번역 또는 AI 채팅에서 별표를 눌러 주세요.",
+    favSource: "출처",
+    materialsTitle: "학습 자료",
+    materialsHint: "외부 자습 링크만 모았습니다. 내용은 각 사이트에 있습니다.",
+    mat_naver_news: "네이버 뉴스 — 한국어 뉴스 읽기",
+    mat_naver_dict: "네이버 사전 — 한국어 단어 검색(중문 UI)",
+    mat_kornorms: "국립국어원 어문규범 — 맞춤법·규범",
+    mat_stdict: "표준국어대사전",
+    mat_krdict: "한국어기초사전(학습자용)",
+    mat_papago: "파파고 — 번역 연습",
+    mat_naver_comic: "네이버 웹툰 — 가벼운 한국어 읽기",
+    sample: "예시",
+    topicSelect: "주제",
+    topic_person: "인칭·호칭",
+    topic_vocab: "어휘",
+    topic_grammar_endings: "문법·어미",
+    topic_particle_topic: "조사",
+    topic_speech_level: "높임법",
+    topic_pronunciation: "발음",
+    noTopicsSelected: "주제를 하나 이상 선택해 주세요.",
+    sortBy: "정렬",
+    sortCount: "횟수",
+    sortTopik: "TOPIK 등급",
+    sortType: "유형",
+    settingsProfile: "학습 프로필",
+    settingsProfileHint: "처음 설정과 같은 항목입니다. 언제든 수정할 수 있으며 이 브라우저에 저장됩니다.",
+    saveProfile: "프로필 저장",
+    nav_browse: "목록",
+    nav_practice: "연습",
+    nav_dictation: "받아쓰기",
+    nav_grammar: "문법",
+    nav_mistakes: "오답",
+    nav_settings: "설정",
+    nav_ai: "AI 튜터",
+    meaningShow: "의미 표시:",
+    meaningEN: "영어",
+    meaningZH: "중국어",
+    meaningKO: "한국어",
+    leftCount: "{n}회 남음",
+    estimateLevel: "학습 추정",
+    browseTitle: "인칭·호칭",
+    browseHint: "대명사, 높임말, 조사, 호칭, 직업 접미사. 아래에서 필터.",
+    filterCategory: "분류",
+    filterRegister: "사용역",
+    filterDiff: "TOPIK 등급",
+    all: "전체",
+    cat_pronoun: "대명사",
+    cat_honorific: "높임/반말",
+    cat_particle: "조사 형태",
+    cat_title: "호칭 (너 대신)",
+    cat_job_suffix: "직업 접미사",
+    reg_daily: "일상 구어",
+    reg_written: "문어",
+    reg_news: "뉴스",
+    diff: "TOPIK",
+    hanja: "한자",
+    example: "예문",
+    tapReveal: "탭하여 보기",
+    itemsCount: "{n}개",
+    practiceTitle: "연습",
+    practiceHint: "퀴즈·반복. 오답은 오답장에 기록됩니다.",
+    startQuiz: "퀴즈 시작",
+    dailyReview: "오늘 복습 큐",
+    fieldsShow: "표시할 항목",
+    field_ko: "한국어",
+    field_en: "영어",
+    field_zh: "중국어",
+    field_hanja: "한자",
+    field_example: "예문",
+    repeatDefault: "기본 반복 횟수",
+    repeatThis: "이 항목 반복",
+    next: "다음",
+    check: "확인",
+    skip: "건너뛰기",
+    correct: "정답!",
+    incorrect: "오답",
+    finished: "세션 종료",
+    score: "점수",
+    chooseMeaning: "뜻이 무엇일까요?",
+    typeKorean: "한국어를 입력하세요",
+    spellHint: "한국어 뜻으로 힌트를 보세요",
+    stage_recognition: "인식",
+    stage_spelling: "철자",
+    stage_listening: "듣기",
+    stage_usage: "유형",
+    practiceTypes: "연습할 유형",
+    noTypesSelected: "유형을 하나 이상 선택해 주세요 (일상 / 문어 / 뉴스).",
+    typeQuestion: "이 문장은 어떤 유형일까요?",
+    estimated: "추정",
+    part_syllable: "음절",
+    part_ending: "어미",
+    part_particle: "조사",
+    part_other: "기타",
+    part_unknown: "미상",
+    dictTitle: "받아쓰기",
+    dictHint: "한국어를 듣고 입력하세요. 오답은 기록됩니다.",
+    play: "재생",
+    replay: "다시 듣기",
+    submit: "제출",
+    noKoVoice: "이 기기에서 한국어(ko-KR) 음성을 찾지 못했습니다. 힌트를 열어 연습할 수 있습니다.",
+    showHint: "정답 힌트 보기",
+    hideHint: "힌트 숨기기",
+    grammarTitle: "문법 패턴",
+    grammarHint: "의미·예문. 직접 쓴 예문은 기기에 저장됩니다.",
+    yourExamples: "내 예문",
+    saveExample: "예문 저장",
+    delete: "삭제",
+    saved: "저장됨",
+    mistakesTitle: "오답 기록",
+    mistakesHint: "틀린 답이 기록됩니다. 많이 틀린 항목을 우선 복습하세요.",
+    filterStage: "단계",
+    filterPart: "틀린 부분",
+    count: "횟수",
+    lastAt: "최근",
+    fixTag: "태그 수정",
+    reviewMissed: "오답 우선 복습",
+    clearMistakes: "오답 전체 삭제",
+    confirmClear: "오답 기록을 모두 지울까요?",
+    emptyMistakes: "오답이 없습니다!",
+    settingsTitle: "설정·진도",
+    settingsHint: "모든 데이터는 이 브라우저(localStorage)에만 저장됩니다.",
+    exportProgress: "진도 JSON 내보내기",
+    importProgress: "진도 JSON 가져오기",
+    importOk: "가져오기 성공",
+    importFail: "가져오기 실패 — JSON 확인",
+    resetProgress: "진도 초기화",
+    confirmReset: "연습 진도·예문·설정을 초기화할까요? (오답은 유지)",
+    topikNote: "TOPIK 목표: 미설정 · 학습자 프로필: 미설정",
+    privacy: "개인정보: localStorage만 사용. 브라우저 데이터 삭제 전 내보내기하세요.",
+    aiTitle: "AI 튜터",
+    aiPlaceholder: "곧 제공 예정",
+    aiDesc: "튜터 모델과 대화합니다. API 키와 프롬프트는 서버에만 둡니다.",
+    aiFilter: "필터",
+    aiReset: "초기화",
+    aiVendor: "공급자",
+    aiAllVendors: "전체 공급자",
+    aiTokenGroup: "토큰 그룹",
+    aiAllGroups: "전체 그룹",
+    aiBilling: "과금 유형",
+    aiAllBilling: "전체 유형",
+    aiBillingUsage: "사용량 과금",
+    aiBillingPerCall: "회당 과금",
+    aiTags: "태그",
+    aiAllTags: "전체 태그",
+    aiEndpoint: "엔드포인트 유형",
+    aiAllEndpoints: "전체 엔드포인트",
+    aiModels: "모델",
+    aiNoModels: "조건에 맞는 모델 없음",
+    aiPricePending: "가격은 서버에서 제공 예정",
+    aiSelected: "선택됨",
+    aiNewChat: "새 대화",
+    aiClearChat: "지우기",
+    aiSaveLocal: "로컬에 저장",
+    aiSaveTxt: ".txt로 저장",
+    aiSaveJson: ".json으로 저장",
+    aiCopyAll: "일반 텍스트로 복사",
+    aiCopyMsg: "복사",
+    aiCopied: "복사됨",
+    aiInputPh: "튜터에게 메시지… (Enter 전송, Shift+Enter 줄바꿈)",
+    aiSend: "전송",
+    aiEmpty: "아직 메시지 없음. 모델을 고르고 인사해 보세요.",
+    aiNotConnected: "아직 서버 미연동: API 키와 프롬프트는 서버에만 둡니다",
+    aiSending: "전송 중…",
+    aiErr: "요청 실패",
+    aiYou: "나",
+    aiBot: "AI",
+    aiExampleNote: "모델 목록은 EXAMPLE 자리표시자입니다 — 서버 데이터로 교체하세요.",
+    draftBadge: "국내판 초고",
+    authTitle: "로그인 / 가입",
+    authSubtitle: "중국 대륙판 초고(데모). 학습 데이터는 이 브라우저에만 저장됩니다.",
+    authPhone: "휴대폰 번호",
+    authPhonePh: "휴대폰 번호를 입력하세요",
+    authCode: "문자 인증번호",
+    authCodePh: "인증번호를 입력하세요",
+    authGetCode: "인증번호 받기",
+    authDemoSms: "데모입니다. 실제 문자는 보내지 않습니다. 「인증번호 받기」를 누른 뒤 000000을 사용하세요.",
+    authCodeSent: "데모 인증번호가 준비되었습니다(000000). 실제 문자는 보내지 않았습니다.",
+    authLogin: "로그인 / 가입",
+    authWeChat: "WeChat 로그인",
+    authWeChatPending: "아직 연결되지 않았습니다. WeChat 로그인은 대기 중입니다.",
+    authGuest: "일단 둘러보기",
+    authNeedPhone: "휴대폰 번호를 먼저 입력하세요",
+    authNeedCode: "인증번호를 입력하세요",
+    authBadCode: "인증번호가 틀렸습니다. 데모 코드는 000000입니다.",
+    authLoggedInPhone: "휴대폰 번호로 로그인됨(데모)",
+    authLoggedInGuest: "지금은 「일단 둘러보기」 상태이며, 정식 로그인은 아닙니다",
+    authLogout: "로그아웃",
+    authAccount: "계정",
+    aboutDraftNote: "중국 대륙판 초고의 미리보기로, Vercel에 배포되어 있습니다. 아직 초고이며 기존 사이트를 대체하지 않습니다.",
+    aboutDomain: "예정 도메인(자리표시자, 구매·등록하지 않음): https://[域名前缀].example.cn",
+    aboutLoginNote: "로그인은 데모입니다: 휴대폰+문자 인증(실제 문자 없음, 인증번호 000000). WeChat 로그인은 아직 없습니다.",
+    aboutAiPlan: "업스트림은 DeepSeek(중국 대륙에서 접속 가능)를 쓸 예정입니다. 프록시는 국내 클라우드에 둘 계획입니다(자리표시자, 나중에 결정). 키와 프롬프트는 서버에만 둡니다.",
+    aiDomesticPlan: "업스트림은 DeepSeek(중국 대륙에서 접속 가능). 프록시는 국내 클라우드 예정(자리표시자, 나중에 결정). 키와 프롬프트는 서버에만 둡니다.",
+    queueEmpty: "오늘 복습할 항목이 없습니다.",
+    queueCount: "오늘 {n}개",
+    markKnown: "복습 완료",
+    continue: "계속",
+    back: "뒤로",
+    none: "—",
+    voiceOk: "한국어 음성 준비됨",
+    voiceCheck: "음성 확인",
+    pickWrongPart: "어느 부분이 틀렸나요?",
+    autoDetected: "자동 감지",
+    nav_translate: "번역·대화",
+    trTitle: "번역 · 대화",
+    trHint: "양쪽 대화 연습. 원문은 항상 유지됩니다. AI 번역은 아직 연결되지 않았습니다.",
+    trSetupTitle: "처음 설정",
+    trSetupHint: "나중에 더 나은 번역을 위한 간단한 프로필. 설정에서 언제든 수정할 수 있습니다.",
+    trNative: "모국어 (가장 중요)",
+    trGoal: "학습 목표",
+    trGoalPh: "예: 일상 회화, TOPIK 말하기…",
+    trLevel: "한국어 수준",
+    trLevelBeginner: "입문 (TOPIK 이전)",
+    trVoice: "음성 (TTS / 마이크)",
+    trVoiceOn: "켜기",
+    trVoiceOff: "끄기",
+    trSaveSetup: "저장 후 시작",
+    trEditSetup: "번역 프로필 수정",
+    trSideA: "쪽 A",
+    trSideB: "쪽 B",
+    trTypePh: "여기에 입력…",
+    trSend: "보내기",
+    trMic: "말하기",
+    trMicOff: "마이크 불가",
+    trMicUnsupported: "이 브라우저는 음성 인식을 지원하지 않습니다. 타이핑은 가능합니다.",
+    trListening: "듣는 중…",
+    trHonorific: "높임말",
+    trHonorificOn: "존댓말",
+    trHonorificOff: "반말",
+    trRoma: "로마자",
+    trSpeak: "읽기",
+    trCopy: "복사",
+    trFav: "즐겨찾기",
+    trUnfav: "즐겨찾기 해제",
+    trFavSaved: "즐겨찾기에 저장됨",
+    trFavList: "즐겨찾기",
+    trEmptyFav: "즐겨찾기가 없습니다.",
+    trTransPending: "번역 대기 — AI（서버）연동 예정",
+    trOriginal: "원문",
+    trTranslation: "번역",
+    trLangFrom: "출발",
+    trLangTo: "도착",
+    trCopied: "복사됨",
+    trClearFeed: "이쪽 비우기",
+    trShowFav: "즐겨찾기 보기",
+    trHideFav: "즐겨찾기 숨기기",
+    lang_zh: "중국어",
+    lang_en: "영어",
+    lang_ko: "한국어",
+  },
+  zh: {
+    brandName: "与你同行",
+    brandSub: "v0.1",
+    nav_about: "简介",
+    nav_daily: "每日复习",
+    nav_favorites: "收藏",
+    nav_materials: "学习资料",
+    aboutTitle: "简介 · 与你同行",
+    aboutIntro: "同行（동행）是汉韩同形同义的汉字词：一起走。本站是一位在你学韩语时与你同行的 AI 伙伴。",
+    aboutLearn: "它会与你一起进步——记住你在哪个阶段、哪个部分、错了几次；适配你的母语、目标和水平；并根据你的反馈不断改进。",
+    aboutLang: "韩语、中文、英语并排呈现，界面语言可自行选择。",
+    aboutFeatures: "功能一览",
+    aboutFeatMistakes: "错题本——阶段、部位与次数",
+    aboutFeatTopik: "按类型的 TOPIK 分级练习",
+    aboutFeatTranslate: "翻译 / 对话练习",
+    aboutFeatAi: "AI 对话导师",
+    aboutFeatMore: "每日复习、收藏与自学链接",
+    dailyTitle: "每日复习",
+    dailyHint: "今日到期的条目。可自选重复次数；优先展示错得最多的部位。",
+    dailyStart: "开始今日复习",
+    dailyEmpty: "今天没有到期条目。错题与测验结果会进入这里。",
+    dailyRepeats: "重复次数",
+    favTitle: "收藏",
+    favHint: "你在翻译页和 AI 对话中加星的句子。可复制或删除。",
+    favFromTranslate: "来自翻译",
+    favFromAi: "来自 AI 对话",
+    favEmpty: "暂无收藏。请在翻译或 AI 对话中点星收藏。",
+    favSource: "来源",
+    materialsTitle: "学习资料",
+    materialsHint: "仅提供自学入口链接，内容在各站点本身。",
+    mat_naver_news: "NAVER 新闻 — 韩语新闻阅读",
+    mat_naver_dict: "NAVER 词典 — 查韩语词（中文界面）",
+    mat_kornorms: "国立国语院语文规范 — 拼写与规范",
+    mat_stdict: "标准国语大辞典",
+    mat_krdict: "韩国语基础辞典（学习者）",
+    mat_papago: "Papago — 翻译练习",
+    mat_naver_comic: "NAVER 漫画 — 轻松韩语阅读",
+    sample: "示例",
+    topicSelect: "主题",
+    topic_person: "人称与称呼",
+    topic_vocab: "词汇",
+    topic_grammar_endings: "语法/词尾",
+    topic_particle_topic: "助词",
+    topic_speech_level: "敬语体",
+    topic_pronunciation: "发音",
+    noTopicsSelected: "请至少选择一个主题。",
+    sortBy: "排序",
+    sortCount: "次数",
+    sortTopik: "TOPIK 等级",
+    sortType: "类型",
+    settingsProfile: "学习档案",
+    settingsProfileHint: "与首次设置相同的字段，可随时修改，保存在本浏览器。",
+    saveProfile: "保存档案",
+    nav_browse: "词库",
+    nav_practice: "练习",
+    nav_dictation: "听写",
+    nav_grammar: "语法",
+    nav_mistakes: "错题",
+    nav_settings: "设置",
+    nav_ai: "AI 导师",
+    meaningShow: "显示释义:",
+    meaningEN: "英语",
+    meaningZH: "中文",
+    meaningKO: "韩语",
+    leftCount: "剩余 {n}",
+    estimateLevel: "教学估计",
+    browseTitle: "人称与称呼（인칭）",
+    browseHint: "代词、敬语、助词变形、称呼、职业后缀。可用下方筛选。",
+    filterCategory: "分类",
+    filterRegister: "语域",
+    filterDiff: "TOPIK 等级",
+    all: "全部",
+    cat_pronoun: "代词",
+    cat_honorific: "敬语/半语",
+    cat_particle: "助词形态",
+    cat_title: "称呼（代替「你」）",
+    cat_job_suffix: "职业后缀",
+    reg_daily: "日常口语",
+    reg_written: "书面语",
+    reg_news: "新闻",
+    diff: "TOPIK",
+    hanja: "汉字",
+    example: "例句",
+    tapReveal: "点击显示",
+    itemsCount: "{n} 条",
+    practiceTitle: "练习",
+    practiceHint: "测验与重复；错题会记入错题本。",
+    startQuiz: "开始测验",
+    dailyReview: "今日复习队列",
+    fieldsShow: "显示字段",
+    field_ko: "韩语",
+    field_en: "英语",
+    field_zh: "中文",
+    field_hanja: "汉字",
+    field_example: "例句",
+    repeatDefault: "每条默认重复次数",
+    repeatThis: "本条重复次数",
+    next: "下一题",
+    check: "检查",
+    skip: "跳过",
+    correct: "正确！",
+    incorrect: "不对",
+    finished: "本轮结束",
+    score: "得分",
+    chooseMeaning: "这是什么意思？",
+    typeKorean: "请输入韩语",
+    spellHint: "请用释义作提示",
+    stage_recognition: "辨认",
+    stage_spelling: "拼写",
+    stage_listening: "听力",
+    stage_usage: "类型",
+    practiceTypes: "练习类型",
+    noTypesSelected: "请至少选择一种类型（日常 / 书面 / 新闻）。",
+    typeQuestion: "这句话属于哪种类型？",
+    estimated: "估定",
+    part_syllable: "音节",
+    part_ending: "词尾",
+    part_particle: "助词",
+    part_other: "其他",
+    part_unknown: "未知",
+    dictTitle: "听写",
+    dictHint: "用韩语(ko-KR)朗读，听写输入。错误会记入错题本。",
+    play: "播放",
+    replay: "重播",
+    submit: "提交",
+    noKoVoice: "本设备未找到韩语(ko-KR)语音。听写朗读不可用——可点开提示后练习输入。",
+    showHint: "显示答案提示",
+    hideHint: "隐藏提示",
+    grammarTitle: "语法句型",
+    grammarHint: "核心句型释义与例句。可写自己的例句（本地保存）。",
+    yourExamples: "我的例句",
+    saveExample: "保存例句",
+    delete: "删除",
+    saved: "已保存",
+    mistakesTitle: "错题本",
+    mistakesHint: "每次答错都会记录。复习优先排最常错的。",
+    filterStage: "阶段",
+    filterPart: "错误部分",
+    count: "次数",
+    lastAt: "最近",
+    fixTag: "修正标签",
+    reviewMissed: "优先复习错题",
+    clearMistakes: "清空错题",
+    confirmClear: "确定清空全部错题记录？",
+    emptyMistakes: "还没有错题 — 很棒！",
+    settingsTitle: "设置与进度",
+    settingsHint: "所有数据只存在本浏览器（localStorage），不会上传。",
+    exportProgress: "导出进度 JSON",
+    importProgress: "导入进度 JSON",
+    importOk: "导入成功",
+    importFail: "导入失败 — 请检查 JSON",
+    resetProgress: "重置进度",
+    confirmReset: "重置练习进度、例句与设置？（保留错题）",
+    topikNote: "TOPIK 目标：未设置 · 学习者身份：未设置",
+    privacy: "隐私：仅 localStorage。清除浏览器数据前请先导出。",
+    aiTitle: "AI 导师",
+    aiPlaceholder: "稍后推出",
+    aiDesc: "与导师模型对话。API 密钥与提示词只放在服务器端。",
+    aiFilter: "筛选",
+    aiReset: "重置",
+    aiVendor: "供应商",
+    aiAllVendors: "全部供应商",
+    aiTokenGroup: "可用令牌分组",
+    aiAllGroups: "全部分组",
+    aiBilling: "计费类型",
+    aiAllBilling: "全部类型",
+    aiBillingUsage: "按量计费",
+    aiBillingPerCall: "按次计费",
+    aiTags: "标签",
+    aiAllTags: "全部标签",
+    aiEndpoint: "端点类型",
+    aiAllEndpoints: "全部端点",
+    aiModels: "模型",
+    aiNoModels: "没有符合筛选的模型",
+    aiPricePending: "价格待服务器提供",
+    aiSelected: "已选",
+    aiNewChat: "新对话",
+    aiClearChat: "清空",
+    aiSaveLocal: "保存到本地",
+    aiSaveTxt: "保存为 .txt",
+    aiSaveJson: "保存为 .json",
+    aiCopyAll: "复制为纯文本",
+    aiCopyMsg: "复制",
+    aiCopied: "已复制",
+    aiInputPh: "给导师发消息…（Enter 发送，Shift+Enter 换行）",
+    aiSend: "发送",
+    aiEmpty: "还没有消息。先选模型，打个招呼吧。",
+    aiNotConnected: "尚未接入服务器：API 密钥和提示词只放服务器端",
+    aiSending: "发送中…",
+    aiErr: "请求失败",
+    aiYou: "我",
+    aiBot: "AI",
+    aiExampleNote: "模型列表为 EXAMPLE 占位 — 请用服务器数据替换。",
+    draftBadge: "国内版初稿",
+    authTitle: "登录 / 注册",
+    authSubtitle: "国内版初稿演示。学习数据只存在本浏览器，不会上传。",
+    authPhone: "手机号",
+    authPhonePh: "请输入手机号",
+    authCode: "短信验证码",
+    authCodePh: "请输入验证码",
+    authGetCode: "获取验证码",
+    authDemoSms: "演示，不发真实短信。点「获取验证码」后，使用固定验证码 000000。",
+    authCodeSent: "演示验证码已就绪（000000），不会发送真实短信。",
+    authLogin: "登录 / 注册",
+    authWeChat: "微信登录",
+    authWeChatPending: "待接入，还没接微信登录",
+    authGuest: "先进入看看",
+    authNeedPhone: "请先填写手机号",
+    authNeedCode: "请填写验证码",
+    authBadCode: "验证码不对。演示码是 000000。",
+    authLoggedInPhone: "已用手机号登录（演示）",
+    authLoggedInGuest: "目前是「先进入看看」，未正式登录",
+    authLogout: "退出登录",
+    authAccount: "账号",
+    aboutDraftNote: "这是国内版初稿的预览，已部署在 Vercel 上。目前仍是初稿，不会替换现有网站。",
+    aboutDomain: "计划域名（占位，尚未购买或注册）：https://[域名前缀].example.cn",
+    aboutLoginNote: "登录为演示：手机号+短信验证码（不发真实短信，验证码 000000），微信登录待接入。",
+    aboutAiPlan: "AI 上游打算用 DeepSeek（国内可访问）。代理打算放国内云（占位，等以后拍板）。密钥和提示词只放服务器，不会写进网页。",
+    aiDomesticPlan: "上游打算用 DeepSeek（国内可访问）；代理部署打算放国内云（占位，等以后拍板）。密钥和提示词只放服务器。",
+    queueEmpty: "今日复习队列为空。",
+    queueCount: "今日 {n} 条",
+    markKnown: "标记已复习",
+    continue: "继续",
+    back: "返回",
+    none: "—",
+    voiceOk: "韩语语音可用",
+    voiceCheck: "检查语音",
+    pickWrongPart: "错在哪一部分？",
+    autoDetected: "自动检测",
+    nav_translate: "翻译对话",
+    trTitle: "翻译 · 对话",
+    trHint: "双边对话练习。原文永久保留。AI 翻译尚未接入。",
+    trSetupTitle: "首次设置",
+    trSetupHint: "快速完善档案，方便日后翻译。可随时在「设置」中修改。",
+    trNative: "母语（最重要）",
+    trGoal: "学习目标",
+    trGoalPh: "例如：日常会话、TOPIK 口语…",
+    trLevel: "韩语水平",
+    trLevelBeginner: "入门（TOPIK 前）",
+    trVoice: "语音（朗读 / 麦克风）",
+    trVoiceOn: "开",
+    trVoiceOff: "关",
+    trSaveSetup: "保存并开始",
+    trEditSetup: "编辑翻译档案",
+    trSideA: "侧 A",
+    trSideB: "侧 B",
+    trTypePh: "在此输入…",
+    trSend: "发送",
+    trMic: "说话",
+    trMicOff: "麦克风不可用",
+    trMicUnsupported: "当前浏览器不支持语音识别，仍可打字输入。",
+    trListening: "正在听…",
+    trHonorific: "敬语",
+    trHonorificOn: "敬语",
+    trHonorificOff: "非敬语",
+    trRoma: "罗马音",
+    trSpeak: "朗读",
+    trCopy: "复制",
+    trFav: "收藏",
+    trUnfav: "取消收藏",
+    trFavSaved: "已加入收藏",
+    trFavList: "收藏列表",
+    trEmptyFav: "暂无收藏。",
+    trTransPending: "翻译待接入 AI（服务器端）",
+    trOriginal: "原文",
+    trTranslation: "译文",
+    trLangFrom: "源语言",
+    trLangTo: "目标语言",
+    trCopied: "已复制",
+    trClearFeed: "清空此侧",
+    trShowFav: "查看收藏",
+    trHideFav: "隐藏收藏",
+    lang_zh: "中文",
+    lang_en: "英语",
+    lang_ko: "韩语",
+  }
+};
+
+function t(key) {
+  const lang = state.uiLang || 'zh';
+  const pack = I18N[lang] || I18N.zh;
+  return pack[key] != null ? pack[key] : (I18N.en[key] || key);
+}
+function tf(key, vars) {
+  let s = t(key);
+  Object.keys(vars || {}).forEach(k => { s = s.replace('{'+k+'}', vars[k]); });
+  return s;
+}
+
+/********************
+ * Content: Person/Address (~40)
+ * category: pronoun | honorific | particle | title | job_suffix
+ * register: daily | written | news  (UI stage key "usage" = Type/유형/类型)
+ * difficulty: TOPIK level 1–6 (I:1–2, II:3–6). estimated:true = graded by analogy
+ ********************/
+const PERSON_ITEMS = [
+  // —— Pronouns ——
+  {id:'p01', glossKo:'친한 사이에서 자기를 가리키는 말', ko:'나', en:'I / me (casual, intimate)', zh:'我（非正式、亲近）', hanja:'', category:'pronoun', register:'daily', difficulty:1,
+    example:{ko:'나는 중국에서 왔어요.', en:'I came from China.', zh:'我从中国来。'}},
+  {id:'p02', glossKo:'공손하게 자기를 가리키는 말', ko:'저', en:'I / me (humble, polite)', zh:'我（谦称、礼貌）', hanja:'', category:'pronoun', register:'daily', difficulty:1,
+    example:{ko:'저는 유학생입니다.', en:'I am an international student.', zh:'我是留学生。'}},
+  {id:'p03', glossKo:'친한 사이에서 상대를 가리키는 말. 모르는 사람에게는 실례가 될 수 있음', ko:'너', en:'you (casual; can sound rude to strangers)', zh:'你（半语；对陌生人可能失礼）', hanja:'', category:'pronoun', register:'daily', difficulty:1,
+    example:{ko:'너는 어디에 살아?', en:'Where do you live?', zh:'你住在哪里？'}},
+  {id:'p04', glossKo:'글말이나 부부 사이에 쓰는 ‘너’. 모르는 사람에게는 쓰지 않는 편이 좋음', ko:'당신', en:'you (formal/written; between spouses; avoid with strangers)', zh:'您/你（书面或夫妻间；对陌生人慎用）', hanja:'當身', category:'pronoun', register:'written', difficulty:3,
+    example:{ko:'당신의 의견이 중요합니다.', en:'Your opinion is important.', zh:'您的意见很重要。'}},
+  {id:'p05', glossKo:'그 사람 또는 그 대상', ko:'그', en:'he / that (person or thing)', zh:'他；那个', hanja:'', category:'pronoun', register:'daily', difficulty:1,
+    example:{ko:'그는 제 선배예요.', en:'He is my sunbae (senior).', zh:'他是我的前辈。'}},
+  {id:'p06', glossKo:'그 여자. 글말에 많고, 말에는 이름이나 호칭을 더 자주 씀', ko:'그녀', en:'she (more written; spoken often uses name/title)', zh:'她（偏书面；口语多用姓名/称呼）', hanja:'', category:'pronoun', register:'written', difficulty:2,
+    example:{ko:'그녀는 의사입니다.', en:'She is a doctor.', zh:'她是医生。'}},
+  {id:'p07', glossKo:'말하는 사람과 다른 사람을 함께 가리키는 말. 말에서는 우리 집, 우리 학교처럼도 씀', ko:'우리', en:'we / our (incl. “our” for family/school casually)', zh:'我们；口语也可指「我家/我校」', hanja:'', category:'pronoun', register:'daily', difficulty:1,
+    example:{ko:'우리 학교 앞이에요.', en:'It\'s in front of our school.', zh:'在我们学校前面。'}},
+  {id:'p08', glossKo:'공손하게 말하는 ‘우리’. 듣는 사람은 보통 포함하지 않음', ko:'저희', en:'we (humble; excludes listener, polite)', zh:'我们（谦称；不含听者）', hanja:'', category:'pronoun', register:'daily', difficulty:2,
+    example:{ko:'저희는 내일 출발합니다.', en:'We (humble) leave tomorrow.', zh:'我们（谦称）明天出发。'}},
+  {id:'p09', glossKo:'친한 사이에서 여러 명을 가리키는 말', ko:'너희', en:'you (plural, casual)', zh:'你们（半语）', hanja:'', category:'pronoun', register:'daily', difficulty:2,
+    example:{ko:'너희는 뭐 할 거야?', en:'What are you guys going to do?', zh:'你们打算做什么？'}},
+  {id:'p10', glossKo:'여러 사람을 높여 부르는 말', ko:'여러분', en:'everyone / you all (polite plural)', zh:'各位；大家（礼貌）', hanja:'', category:'pronoun', register:'daily', difficulty:2,
+    example:{ko:'여러분, 안녕하세요.', en:'Hello, everyone.', zh:'大家好。'}},
+  {id:'p11', glossKo:'자기 자신. 연인 사이에서는 상대를 부르는 말로도 씀', ko:'자기', en:'oneself; also “honey” between couples', zh:'自己；情侣间可称「亲爱的」', hanja:'自己', category:'pronoun', register:'daily', difficulty:3,
+    example:{ko:'자기 소개를 해 주세요.', en:'Please introduce yourself.', zh:'请做一下自我介绍。'}},
+  {id:'p12', glossKo:'스스로를 가리키는 말（비교적 정식）', ko:'자신', en:'oneself (written/formal)', zh:'自己（较正式）', hanja:'自身', category:'pronoun', register:'written', difficulty:3,
+    example:{ko:'자신을 믿으세요.', en:'Believe in yourself.', zh:'请相信自己。'}},
+
+  // —— Honorific vs casual ——
+  {id:'p13', glossKo:'‘말’의 높임말', ko:'말씀', en:'speech / words (honorific for 말)', zh:'话（말 的敬语）', hanja:'', category:'honorific', register:'daily', difficulty:2,
+    example:{ko:'선생님 말씀을 잘 들으세요.', en:'Please listen carefully to the teacher.', zh:'请认真听老师的话。'}},
+  {id:'p14', glossKo:'‘주다’의 낮춤말. 내가 윗사람에게 줄 때', ko:'드리다', en:'to give (humble; speaker→superior)', zh:'给（自谦；给上级）', hanja:'', category:'honorific', register:'daily', difficulty:3,
+    example:{ko:'선물을 드릴게요.', en:'I\'ll give you a gift (humble).', zh:'我给您礼物。'}},
+  {id:'p15', glossKo:'‘주다’의 높임말. 윗사람이 나에게 줄 때', ko:'주시다', en:'to give (honorific; superior→speaker)', zh:'给（尊他；上级给自己）', hanja:'', category:'honorific', register:'daily', difficulty:3,
+    example:{ko:'시간을 좀 주시겠어요?', en:'Could you give me a moment?', zh:'能给我一点时间吗？'}},
+  {id:'p16', glossKo:'‘있다’의 높임말', ko:'계시다', en:'to be / stay (honorific of 있다)', zh:'在（있다 的敬语）', hanja:'', category:'honorific', register:'daily', difficulty:2,
+    example:{ko:'사장님이 회의실에 계세요.', en:'The boss is in the meeting room.', zh:'社长在会议室。'}},
+  {id:'p17', glossKo:'‘먹다’의 높임말', ko:'잡수시다', en:'to eat (honorific of 먹다)', zh:'吃（먹다 的敬语）', hanja:'', category:'honorific', register:'daily', difficulty:3,
+    example:{ko:'많이 잡수세요.', en:'Please eat a lot.', zh:'请多吃。'}},
+  {id:'p18', glossKo:'‘밥’ 또는 ‘식사’의 높임말', ko:'진지', en:'meal (honorific of 밥/식사)', zh:'饭（밥/식사 的敬语）', hanja:'', category:'honorific', register:'daily', difficulty:3, estimated:true,
+    example:{ko:'진지 드셨어요?', en:'Have you eaten? (honorific)', zh:'您吃饭了吗？（敬语）'}},
+  {id:'p19', glossKo:'‘나이’의 높임말', ko:'연세', en:'age (honorific of 나이)', zh:'年纪（나이 的敬语）', hanja:'年歲', category:'honorific', register:'daily', difficulty:2,
+    example:{ko:'연세가 어떻게 되세요?', en:'How old are you? (honorific)', zh:'您贵庚？'}},
+  {id:'p20', glossKo:'‘이름’의 높임말', ko:'성함', en:'name (honorific of 이름)', zh:'姓名（이름 的敬语）', hanja:'姓銜', category:'honorific', register:'daily', difficulty:2,
+    example:{ko:'성함이 어떻게 되세요?', en:'What is your name? (honorific)', zh:'您贵姓？'}},
+
+  // —— Particle forms ——
+  {id:'p21', glossKo:'나 + 는（주제）', ko:'나는', en:'I (topic: 나 + 는)', zh:'我（主题：나+는）', hanja:'', category:'particle', register:'daily', difficulty:1,
+    example:{ko:'나는 커피를 좋아해.', en:'As for me, I like coffee.', zh:'我喜欢咖啡。'}},
+  {id:'p22', glossKo:'나 + 가（주어, 강조나 대비에 자주 씀）', ko:'내가', en:'I (subject: 나 + 가; often contrast/emphasis)', zh:'我（主语：나+가；常表对比/强调）', hanja:'', category:'particle', register:'daily', difficulty:2,
+    example:{ko:'내가 할게.', en:'I\'ll do it.', zh:'我来做。'}},
+  {id:'p23', glossKo:'저 + 는（공손한 주제）', ko:'저는', en:'I (humble topic: 저 + 는)', zh:'我（谦称主题：저+는）', hanja:'', category:'particle', register:'daily', difficulty:1,
+    example:{ko:'저는 한국어를 배워요.', en:'I am learning Korean.', zh:'我在学韩语。'}},
+  {id:'p24', glossKo:'저 + 가（공손한 주어）', ko:'제가', en:'I (humble subject: 저 + 가)', zh:'我（谦称主语：저+가）', hanja:'', category:'particle', register:'daily', difficulty:2,
+    example:{ko:'제가 도와 드릴게요.', en:'I will help you.', zh:'我来帮您。'}},
+  {id:'p25', glossKo:'너 + 는（주제）', ko:'너는', en:'you (topic: 너 + 는)', zh:'你（主题：너+는）', hanja:'', category:'particle', register:'daily', difficulty:1,
+    example:{ko:'너는 왜 안 왔어?', en:'Why didn\'t you come?', zh:'你为什么没来？'}},
+  {id:'p26', glossKo:'너 + 가（주어）. 글말에서는 네가, 말에서는 니가로 자주 씀', ko:'네가', en:'you (subject: 너 + 가; written 네가, spoken often 니가)', zh:'你（主语：너+가；书面네가，口语常니가）', hanja:'', category:'particle', register:'daily', difficulty:2,
+    example:{ko:'네가 맞아.', en:'You are right.', zh:'你是对的。'}},
+  {id:'p27', glossKo:'우리 + 는 / 가（주제 / 주어）', ko:'우리는 / 우리가', en:'we (topic / subject)', zh:'我们（主题/主语）', hanja:'', category:'particle', register:'daily', difficulty:2, estimated:true,
+    example:{ko:'우리가 같이 가자.', en:'Let\'s go together.', zh:'我们一起去吧。'}},
+  {id:'p28', glossKo:'저희 + 는 / 가（공손한 주제 / 주어）', ko:'저희는 / 저희가', en:'we humble (topic / subject)', zh:'我们谦称（主题/主语）', hanja:'', category:'particle', register:'daily', difficulty:2, estimated:true,
+    example:{ko:'저희가 준비했습니다.', en:'We (humble) prepared it.', zh:'我们（谦称）准备好了。'}},
+
+  // —— Titles instead of you ——
+  {id:'p29', glossKo:'어른이나 전문 직업을 가진 사람을 높여 부르는 말. 선생님도 포함', ko:'선생님', en:'teacher; also polite address for adults/professionals', zh:'老师；也作对成人/专业人士的尊称', hanja:'先生', category:'title', register:'daily', difficulty:1,
+    example:{ko:'선생님, 질문 있어요.', en:'Teacher, I have a question.', zh:'老师，我有个问题。'}},
+  {id:'p30', glossKo:'남자가 나이 많은 남자를 부르는 말. 가까운 선배에게도 씀', ko:'형', en:'older brother (male speaker→older male); also close male senior', zh:'哥（男性称年长男性）；也可称亲近学长', hanja:'兄', category:'title', register:'daily', difficulty:1,
+    example:{ko:'형, 같이 갈래?', en:'Hyung, want to go together?', zh:'哥，一起去吗？'}},
+  {id:'p31', glossKo:'여자가 나이 많은 남자를 부르는 말. 남자친구에게도 씀', ko:'오빠', en:'older brother (female speaker→older male); also boyfriend-ish address', zh:'欧巴（女性称年长男性）；也可用于男友', hanja:'', category:'title', register:'daily', difficulty:1,
+    example:{ko:'오빠, 고마워.', en:'Oppa, thank you.', zh:'欧巴，谢谢。'}},
+  {id:'p32', glossKo:'남자가 나이 많은 여자를 부르는 말', ko:'누나', en:'older sister (male speaker→older female)', zh:'姐姐（男性称年长女性）', hanja:'', category:'title', register:'daily', difficulty:1,
+    example:{ko:'누나, 도와줘.', en:'Nuna, help me.', zh:'姐，帮帮我。'}},
+  {id:'p33', glossKo:'여자가 나이 많은 여자를 부르는 말', ko:'언니', en:'older sister (female speaker→older female)', zh:'姐姐（女性称年长女性）', hanja:'', category:'title', register:'daily', difficulty:1,
+    example:{ko:'언니, 예쁘다!', en:'Unni, you look pretty!', zh:'姐，好漂亮！'}},
+  {id:'p34', glossKo:'회사 대표나 가게 주인을 높여 부르는 말', ko:'사장님', en:'boss / shop owner (honorific -님)', zh:'社长；店主（加 -님）', hanja:'社長', category:'title', register:'daily', difficulty:2,
+    example:{ko:'사장님, 주문할게요.', en:'Owner, I\'d like to order.', zh:'老板，我要点餐。'}},
+  {id:'p35', glossKo:'학교나 직장에서 나보다 먼저인 사람. 흔히 선배님', ko:'선배', en:'senior (school/work); often 선배님', zh:'前辈（学校/职场）；常说 선배님', hanja:'先輩', category:'title', register:'daily', difficulty:2,
+    example:{ko:'선배, 조언 부탁해요.', en:'Sunbae, please advise me.', zh:'前辈，请给我建议。'}},
+  {id:'p36', glossKo:'학교나 직장에서 나보다 아래인 사람', ko:'후배', en:'junior (school/work)', zh:'后辈（学校/职场）', hanja:'後輩', category:'title', register:'daily', difficulty:2,
+    example:{ko:'후배가 잘 따라와요.', en:'The junior is keeping up well.', zh:'后辈跟得很紧。'}},
+  {id:'p37', glossKo:'중년 남자 / 여자를 부르는 말. 실례가 될 수 있어 조심해서 씀', ko:'아저씨 / 아줌마', en:'middle-aged man / woman (careful: can sound blunt)', zh:'大叔 / 大妈（慎用，可能失礼）', hanja:'', category:'title', register:'daily', difficulty:2, estimated:true,
+    example:{ko:'아저씨, 이 버스 시청 가요?', en:'Sir, does this bus go to City Hall?', zh:'大叔，这班车去市政厅吗？'}},
+
+  // —— Job suffixes ——
+  {id:'p38', glossKo:'자격을 갖춘 전문인을 나타내는 접미사 (의사, 변호사, 기사…)', ko:'-사 (師)', en:'job suffix: licensed specialist (의사, 변호사, 기사…)', zh:'职业后缀：执业专才（医生、律师、技师等）', hanja:'師', category:'job_suffix', register:'written', difficulty:4, estimated:true,
+    example:{ko:'김 의사 선생님을 만나고 싶어요.', en:'I want to meet Dr. Kim.', zh:'想见金医生。'}},
+  {id:'p39', glossKo:'직원이나 회원을 나타내는 접미사 (사원, 회원, 연구원…)', ko:'-원 (員)', en:'job suffix: staff / member (사원, 회원, 연구원…)', zh:'职业后缀：职员/会员（社员、会员、研究员等）', hanja:'員', category:'job_suffix', register:'written', difficulty:4, estimated:true,
+    example:{ko:'회사원으로 일해요.', en:'I work as an office worker.', zh:'我做公司职员。'}},
+  {id:'p40', glossKo:'그 방면의 전문가를 나타내는 접미사 (작가, 화가, 전문가…)', ko:'-가 (家)', en:'job suffix: specialist / -ist (작가, 화가, 전문가…)', zh:'职业后缀：专家/家（作家、画家、专家等）', hanja:'家', category:'job_suffix', register:'written', difficulty:4, estimated:true,
+    example:{ko:'그분은 유명한 작가예요.', en:'That person is a famous writer.', zh:'那位是有名的作家。'}},
+  {id:'p41', glossKo:'‘…하는 사람’을 나타내는 접미사 (기자, 환자, 지도자…)', ko:'-자 (者)', en:'job/role suffix: person who… (기자, 환자, 지도자…)', zh:'角色后缀：……的人（记者、患者、领导者等）', hanja:'者', category:'job_suffix', register:'news', difficulty:4, estimated:true,
+    example:{ko:'기자가 질문을 했습니다.', en:'The reporter asked a question.', zh:'记者提了问题。'}},
+  {id:'p42', glossKo:'이름이나 직함에 붙는 높임 접미사 (선생님, 사장님, 고객님…)', ko:'-님', en:'honorific name/title suffix (선생님, 사장님, 고객님…)', zh:'敬称后缀（老师、社长、顾客等）', hanja:'', category:'job_suffix', register:'daily', difficulty:1,
+    example:{ko:'고객님, 잠시만 기다려 주세요.', en:'Customer, please wait a moment.', zh:'顾客您好，请稍等。'}},
+  {id:'p43', glossKo:'병을 진료하고 치료하는 사람', ko:'의사', en:'medical doctor', zh:'医生', hanja:'醫師', category:'job_suffix', register:'daily', difficulty:1,
+    example:{ko:'감기로 의사를 만나러 갔어요.', en:'I went to see a doctor for a cold.', zh:'因感冒去看了医生。'}},
+  {id:'p44', glossKo:'회사에서 일하는 사람', ko:'회사원', en:'office worker / company employee', zh:'公司职员', hanja:'會社員', category:'job_suffix', register:'daily', difficulty:2,
+    example:{ko:'형은 대기업 회사원이에요.', en:'My older brother is an office worker at a large company.', zh:'哥哥是大企业职员。'}},
+  {id:'p45', glossKo:'글이나 작품을 쓰는 사람', ko:'작가', en:'writer / author', zh:'作家', hanja:'作家', category:'job_suffix', register:'daily', difficulty:2,
+    example:{ko:'그 작가를 좋아해요.', en:'I like that author.', zh:'我喜欢那位作家。'}},
+];
+
+/********************
+ * Extra topic sample items (명시적 예시 / clearly marked sample)
+ ********************/
+const EXTRA_TOPIC_ITEMS = [
+  // —— Vocabulary ——
+  {id:'v01', glossKo:'수업이나 책을 보며 지식을 익히다', topic:'vocab', ko:'공부하다', en:'to study', zh:'学习；读书', hanja:'工夫', category:'pronoun', register:'daily', difficulty:1, sample:true,
+    example:{ko:'매일 한국어를 공부해요.', en:'I study Korean every day.', zh:'我每天学韩语。'}},
+  {id:'v02', glossKo:'가깝게 지내는 사람', topic:'vocab', ko:'친구', en:'friend', zh:'朋友', hanja:'親舊', category:'pronoun', register:'daily', difficulty:1, sample:true,
+    example:{ko:'친구를 만났어요.', en:'I met a friend.', zh:'我见了朋友。'}},
+  {id:'v03', glossKo:'학생들이 모여 배우는 곳', topic:'vocab', ko:'학교', en:'school', zh:'学校', hanja:'學校', category:'pronoun', register:'daily', difficulty:1, sample:true,
+    example:{ko:'학교에 가요.', en:'I go to school.', zh:'我去学校。'}},
+  // —— Grammar / endings ——
+  {id:'ge01', glossKo:'해요체의 종결 어미', topic:'grammar_endings', ko:'-아요/어요', en:'polite informal ending (해요체)', zh:'礼貌体词尾（해요体）', hanja:'', category:'honorific', register:'daily', difficulty:1, sample:true,
+    example:{ko:'좋아요. / 먹어요.', en:'It is good. / I eat.', zh:'很好。/ 吃。'}},
+  {id:'ge02', glossKo:'합쇼체의 종결 어미', topic:'grammar_endings', ko:'-습니다/ㅂ니다', en:'formal polite ending (합쇼체)', zh:'正式敬语词尾（합쇼体）', hanja:'', category:'honorific', register:'written', difficulty:1, sample:true,
+    example:{ko:'감사합니다.', en:'Thank you (formal).', zh:'谢谢（正式）。'}},
+  {id:'ge03', glossKo:'어떤 일을 하기를 바라는 표현', topic:'grammar_endings', ko:'-고 싶다', en:'want to…', zh:'想……', hanja:'', category:'honorific', register:'daily', difficulty:1, sample:true,
+    example:{ko:'한국에 가고 싶어요.', en:'I want to go to Korea.', zh:'我想去韩国。'}},
+  // —— Particles (topic page) ——
+  {id:'pt01', glossKo:'주제를 나타내는 조사', topic:'particle_topic', ko:'-은/는', en:'topic particle', zh:'主题助词', hanja:'', category:'particle', register:'daily', difficulty:1, sample:true,
+    example:{ko:'저는 학생이에요.', en:'As for me, I am a student.', zh:'我是学生。'}},
+  {id:'pt02', glossKo:'주어를 나타내는 조사', topic:'particle_topic', ko:'-이/가', en:'subject particle', zh:'主语助词', hanja:'', category:'particle', register:'daily', difficulty:1, sample:true,
+    example:{ko:'비가 와요.', en:'It is raining.', zh:'下雨了。'}},
+  {id:'pt03', glossKo:'목적어를 나타내는 조사', topic:'particle_topic', ko:'-을/를', en:'object particle', zh:'宾语助词', hanja:'', category:'particle', register:'daily', difficulty:1, sample:true,
+    example:{ko:'책을 읽어요.', en:'I read a book.', zh:'我读书。'}},
+  // —— Honorific speech levels ——
+  {id:'sl01', glossKo:'공손하지만 너무 딱딱하지 않은 말투', topic:'speech_level', ko:'해요체', en:'polite informal speech level', zh:'해요体（礼貌非郑重）', hanja:'', category:'honorific', register:'daily', difficulty:1, sample:true,
+    example:{ko:'어디에 살아요?', en:'Where do you live?', zh:'您住在哪里？'}},
+  {id:'sl02', glossKo:'정식이고 공손한 말투', topic:'speech_level', ko:'합쇼체', en:'formal polite speech level', zh:'합쇼体（正式敬语）', hanja:'', category:'honorific', register:'written', difficulty:2, sample:true,
+    example:{ko:'만나서 반갑습니다.', en:'Nice to meet you (formal).', zh:'见到您很高兴。'}},
+  {id:'sl03', glossKo:'친한 사이에서 쓰는 편한 말투', topic:'speech_level', ko:'반말', en:'casual / intimate speech', zh:'半语（随意体）', hanja:'', category:'honorific', register:'daily', difficulty:1, sample:true,
+    example:{ko:'어디 살아?', en:'Where do you live? (casual)', zh:'你住哪儿？（随意）'}},
+  // —— Pronunciation ——
+  {id:'pr01', glossKo:'한글 음절의 끝에 붙는 자음', topic:'pronunciation', ko:'받침', en:'final consonant (batchim)', zh:'收音（받침）', hanja:'', category:'particle', register:'daily', difficulty:1, sample:true,
+    example:{ko:'값 [갑]', en:'price — batchim simplifies in speech', zh:'价格——收音在口语中简化'}},
+  {id:'pr02', glossKo:'받침이 다음 모음으로 이어져 발음되는 것', topic:'pronunciation', ko:'연음', en:'liaison (carry-over to next syllable)', zh:'连音', hanja:'連音', category:'particle', register:'daily', difficulty:2, sample:true,
+    example:{ko:'한국어 [한구거]', en:'Korean language — ㄱ links to next vowel', zh:'韩国语——收音连到下一音节'}},
+  {id:'pr03', glossKo:'어떤 받침 뒤에서 다음 자음이 된소리로 발음되는 것', topic:'pronunciation', ko:'된소리되기', en:'tensification after certain batchim', zh:'紧音化', hanja:'', category:'particle', register:'written', difficulty:3, sample:true,
+    example:{ko:'학교 [학꾜]', en:'school — ㄱ causes following ㄱ to tense', zh:'学校——收音使后接辅音紧音化'}},
+];
+
+// Existing PERSON_ITEMS default to topic "person" when topic field is missing
+const ALL_ITEMS = PERSON_ITEMS.concat(EXTRA_TOPIC_ITEMS);
+const TOPICS = ['person','vocab','grammar_endings','particle_topic','speech_level','pronunciation'];
+
+/********************
+ * Grammar patterns
+ ********************/
+const GRAMMAR = [
+  {id:'g01', pattern:'-는 중', en:'in the middle of doing… / currently -ing', zh:'正在……中', difficulty:2,
+    example:{ko:'지금 공부하는 중이에요.', en:'I am in the middle of studying now.', zh:'我现在正在学习中。'}},
+  {id:'g02', pattern:'-기 쉽다', en:'it is easy to…', zh:'容易……；好……', difficulty:2,
+    example:{ko:'이 문제는 이해하기 쉬워요.', en:'This problem is easy to understand.', zh:'这道题容易理解。'}},
+  {id:'g03', pattern:'-는 반면에', en:'whereas… / on the other hand…', zh:'另一方面……；与此相反……', difficulty:4, estimated:true,
+    example:{ko:'서울은 편리한 반면에 집값이 비싸요.', en:'Seoul is convenient, whereas housing is expensive.', zh:'首尔很方便，但房价很贵。'}},
+  {id:'g04', pattern:'-에 대해서', en:'about… / regarding…', zh:'关于……；对于……', difficulty:2,
+    example:{ko:'한국 문화에 대해서 발표할게요.', en:'I will present about Korean culture.', zh:'我将就韩国文化做发表。'}},
+  {id:'g05', pattern:'-을/를 통해서', en:'through… / by means of…', zh:'通过……', difficulty:3,
+    example:{ko:'인터넷을 통해서 정보를 찾았어요.', en:'I found information through the internet.', zh:'我通过网络找到了信息。'}},
+  {id:'g06', pattern:'-(으)ㄹ 수 있다/없다', en:'can / cannot…', zh:'能…… / 不能……', difficulty:1,
+    example:{ko:'내일은 갈 수 없어요.', en:'I cannot go tomorrow.', zh:'明天我去不了。'}},
+  {id:'g07', pattern:'-(으)ㄹ 수밖에 없다', en:'have no choice but to…', zh:'只好……；不得不……', difficulty:4, estimated:true,
+    example:{ko:'비가 와서 집에 있을 수밖에 없어요.', en:'It\'s raining, so I have no choice but to stay home.', zh:'下雨了，只好待在家里。'}},
+];
+
+const STORAGE_KEY = 'koreanSite_zhcn_draft_v01';
+
+/********************
+ * AI endpoint (client NEVER holds API keys or system prompts)
+ * Leave empty until a mainland-China cloud proxy is deployed (placeholder).
+ * Prefer a mainland China cloud host when this draft is later connected.
+ ********************/
+const AI_ENDPOINT = ''; // 占位：接入后填国内云代理地址，例如 'https://[域名前缀].example.cn/api/chat'
+
+/**
+ * EXAMPLE placeholder model list — REPLACE with server-provided data.
+ * Mainland draft: only DeepSeek models that can be reached in China.
+ * Do not invent real prices; UI shows "价格待服务器提供".
+ */
+const EXAMPLE_AI_MODELS = [
+  { id:'deepseek-chat', name:'deepseek-chat', vendor:'DeepSeek', group:'default', billing:'usage', tags:['chat'], endpoint:'openai', priceLabel:null },
+  { id:'deepseek-reasoner', name:'deepseek-reasoner', vendor:'DeepSeek', group:'vip', billing:'usage', tags:['reason'], endpoint:'openai', priceLabel:null },
+];
+
+const CATEGORIES = ['pronoun','honorific','particle','title','job_suffix'];
+const REGISTERS = ['daily','written','news'];
+const TOPIK_LEVELS = [1,2,3,4,5,6];
+// Stage key "usage" kept for localStorage compatibility; UI label = Type/유형/类型
+const STAGES = ['recognition','spelling','listening','usage'];
+const PARTS = ['syllable','ending','particle','other','unknown'];
+
+/********************
+ * State
+ ********************/
+const defaultState = () => ({
+  uiLang: 'zh',
+  showEN: true,
+  showZH: true,
+  showKO: false,
+  repeatDefault: 2,
+  itemRepeats: {},        // id -> number
+  revealFields: { ko:true, en:true, zh:true, hanja:true, example:true },
+  practiceTypes: { daily:true, written:true, news:true }, // Type/유형/类型 filters
+  practiceTopics: { person:true, vocab:false, grammar_endings:false, particle_topic:false, speech_level:false, pronunciation:false },
+  practice: { seen:{}, lastScore:null },
+  reviewQueue: [],        // [{id, due}] due = YYYY-MM-DD
+  mistakes: {},           // id -> { count, stages:{..}, parts:{..}, lastAt, lastStage, lastPart }
+  grammarExamples: {},    // gid -> [{text, at}]
+  dictationIndex: 0,
+  // Translate / Conversation (additive)
+  translateSetup: { done:false, nativeLang:'zh', goal:'', level:'beginner', voiceOn:true },
+  translateFavorites: [], // [{id, original, translation, roma, from, to, honorific, at}]
+  aiFavorites: [],        // [{id, sourceId, role, content, at, model}]
+  translateSides: {
+    a: { lang:'ko', other:'zh', utterances:[] },
+    b: { lang:'zh', other:'ko', utterances:[] },
+  },
+  // AI Tutor chat (additive)
+  aiChat: {
+    selectedModelId: 'deepseek-chat',
+    filters: { vendor:'', group:'', billing:'', tag:'', endpoint:'' },
+    messages: [], // [{id, role:'user'|'assistant'|'system', content, at, model}]
+  },
+  auth: { signedIn:false, mode:null, phone:'', at:null },
+  version: 1,
+});
+
+let state = loadState();
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return defaultState();
+    const parsed = JSON.parse(raw);
+    return Object.assign(defaultState(), parsed, {
+      revealFields: Object.assign(defaultState().revealFields, (parsed.revealFields||{})),
+      practiceTypes: Object.assign(defaultState().practiceTypes, (parsed.practiceTypes||{})),
+      practiceTopics: Object.assign(defaultState().practiceTopics, (parsed.practiceTopics||{})),
+      practice: Object.assign(defaultState().practice, (parsed.practice||{})),
+      translateSetup: Object.assign(defaultState().translateSetup, (parsed.translateSetup||{})),
+      translateSides: Object.assign(defaultState().translateSides, (parsed.translateSides||{}), {
+        a: Object.assign(defaultState().translateSides.a, ((parsed.translateSides||{}).a||{})),
+        b: Object.assign(defaultState().translateSides.b, ((parsed.translateSides||{}).b||{})),
+      }),
+      translateFavorites: Array.isArray(parsed.translateFavorites) ? parsed.translateFavorites : [],
+      aiFavorites: Array.isArray(parsed.aiFavorites) ? parsed.aiFavorites : [],
+      aiChat: Object.assign(defaultState().aiChat, (parsed.aiChat||{}), {
+        filters: Object.assign(defaultState().aiChat.filters, ((parsed.aiChat||{}).filters||{})),
+        messages: Array.isArray((parsed.aiChat||{}).messages) ? parsed.aiChat.messages : [],
+      }),
+      auth: Object.assign(defaultState().auth, (parsed.auth||{})),
+    });
+  } catch (e) {
+    console.warn('loadState failed', e);
+    return defaultState();
+  }
+}
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch (e) { console.warn('saveState failed', e); toast('localStorage error'); }
+}
+
+/********************
+ * Auth gate (mainland draft demo; no real SMS / WeChat)
+ ********************/
+const DEMO_SMS_CODE = '000000';
+const DOMAIN_PLACEHOLDER = 'https://[域名前缀].example.cn';
+function domainPlaceholderHTML() {
+  const raw = t('aboutDomain') || '';
+  const url = DOMAIN_PLACEHOLDER;
+  const label = raw.split(url)[0].replace(/[：:]\s*$/, '').trim();
+  return esc(label) + '<br><span style="display:inline-block;margin-top:4px;font-size:.8rem;white-space:nowrap">'+esc(url)+'</span>';
+}
+
+function ensureAuth() {
+  if (!state.auth) state.auth = defaultState().auth;
+}
+function isAuthed() {
+  ensureAuth();
+  return !!state.auth.signedIn;
+}
+function enterApp(auth) {
+  ensureAuth();
+  state.auth = Object.assign(defaultState().auth, auth, { signedIn: true, at: new Date().toISOString() });
+  saveState();
+  syncAuthGate();
+}
+function loginWithDemoCode(phone, code) {
+  const p = String(phone || '').trim();
+  const c = String(code || '').trim();
+  if (!p) return { ok:false, error: t('authNeedPhone') };
+  if (!c) return { ok:false, error: t('authNeedCode') };
+  if (c !== DEMO_SMS_CODE) return { ok:false, error: t('authBadCode') };
+  enterApp({ mode:'phone', phone:p });
+  return { ok:true };
+}
+function enterAsGuest() {
+  enterApp({ mode:'guest', phone:'' });
+  return { ok:true };
+}
+function logoutAuth() {
+  state.auth = defaultState().auth;
+  saveState();
+  syncAuthGate();
+}
+function authStatusText() {
+  if (!isAuthed()) return t('authSubtitle');
+  if (state.auth.mode === 'phone') {
+    return t('authLoggedInPhone') + (state.auth.phone ? ' · ' + state.auth.phone : '');
+  }
+  return t('authLoggedInGuest');
+}
+function renderAuthGate() {
+  const gate = document.getElementById('auth-gate');
+  if (!gate) return;
+  const uiLangLabels = { zh: '中文', ko: '한국어', en: 'English' };
+  const langHtml = ['zh','ko','en'].map(l =>
+    '<button type="button" data-lang="'+l+'" class="'+(state.uiLang===l?'active':'')+'">'+(uiLangLabels[l]||l)+'</button>'
+  ).join('');
+  gate.innerHTML =
+    '<div class="auth-card card">'
+    +'<div class="brand">'+esc(t('brandName'))+' <span class="draft-badge">'+esc(t('draftBadge'))+'</span></div>'
+    +'<h2 style="margin:12px 0 6px">'+esc(t('authTitle'))+'</h2>'
+    +'<p class="muted">'+esc(t('authSubtitle'))+'</p>'
+    +'<div class="seg" id="auth-lang-seg" style="margin:10px 0 14px" aria-label="UI language">'+langHtml+'</div>'
+    +'<div class="field"><label for="auth-phone">'+esc(t('authPhone'))+'</label>'
+    +'<input type="tel" id="auth-phone" inputmode="numeric" autocomplete="tel" placeholder="'+esc(t('authPhonePh'))+'"></div>'
+    +'<div class="field"><label for="auth-code">'+esc(t('authCode'))+'</label>'
+    +'<div class="row" style="align-items:stretch">'
+    +'<input type="text" id="auth-code" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="'+esc(t('authCodePh'))+'">'
+    +'<button type="button" class="btn secondary" id="auth-get-code">'+esc(t('authGetCode'))+'</button>'
+    +'</div></div>'
+    +'<p class="muted" id="auth-sms-hint">'+esc(t('authDemoSms'))+'</p>'
+    +'<button type="button" class="btn block" id="auth-login">'+esc(t('authLogin'))+'</button>'
+    +'<button type="button" class="btn secondary block" id="auth-wechat" style="margin-top:8px">'+esc(t('authWeChat'))+'</button>'
+    +'<p class="muted" id="auth-wechat-hint" style="display:none;margin-top:8px"></p>'
+    +'<button type="button" class="btn ghost block" id="auth-guest" style="margin-top:4px">'+esc(t('authGuest'))+'</button>'
+    +'<p class="muted" style="margin-top:16px;text-align:center">'+domainPlaceholderHTML()+'</p>'
+    +'</div>';
+
+  const seg = document.getElementById('auth-lang-seg');
+  if (seg) {
+    seg.querySelectorAll('button').forEach(btn => {
+      btn.onclick = () => {
+        state.uiLang = btn.dataset.lang;
+        if (state.uiLang === 'ko') { state.showKO = true; state.showEN = false; state.showZH = false; }
+        else if (state.uiLang === 'en') { state.showEN = true; state.showKO = false; state.showZH = false; }
+        else { state.showZH = true; state.showEN = true; state.showKO = false; }
+        saveState();
+        renderAll();
+      };
+    });
+  }
+  const phoneEl = document.getElementById('auth-phone');
+  const codeEl = document.getElementById('auth-code');
+  const getBtn = document.getElementById('auth-get-code');
+  if (getBtn) getBtn.onclick = () => {
+    const phone = (phoneEl && phoneEl.value || '').trim();
+    if (!phone) { toast(t('authNeedPhone')); return; }
+    const hint = document.getElementById('auth-sms-hint');
+    if (hint) hint.textContent = t('authCodeSent');
+    toast(t('authCodeSent'));
+  };
+  const loginBtn = document.getElementById('auth-login');
+  if (loginBtn) loginBtn.onclick = () => {
+    const phone = (phoneEl && phoneEl.value || '').trim();
+    const code = (codeEl && codeEl.value || '').trim();
+    const res = loginWithDemoCode(phone, code);
+    if (!res.ok) toast(res.error);
+  };
+  const wxBtn = document.getElementById('auth-wechat');
+  if (wxBtn) wxBtn.onclick = () => {
+    const hint = document.getElementById('auth-wechat-hint');
+    if (hint) { hint.style.display = 'block'; hint.textContent = t('authWeChatPending'); }
+    toast(t('authWeChatPending'));
+  };
+  const guestBtn = document.getElementById('auth-guest');
+  if (guestBtn) guestBtn.onclick = () => enterAsGuest();
+}
+function syncAuthGate() {
+  ensureAuth();
+  const gate = document.getElementById('auth-gate');
+  if (!gate) return;
+  if (isAuthed()) {
+    gate.hidden = true;
+    gate.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('auth-locked');
+  } else {
+    document.body.classList.add('auth-locked');
+    gate.hidden = false;
+    gate.setAttribute('aria-hidden', 'false');
+    renderAuthGate();
+  }
+}
+
+function todayStr() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return y+'-'+m+'-'+day;
+}
+
+function getItem(id) { return ALL_ITEMS.find(x => x.id === id); }
+function itemTopic(it) { return (it && it.topic) ? it.topic : 'person'; }
+
+/********************
+ * Mistake log helpers
+ ********************/
+function detectWrongPart(typed, correct) {
+  typed = (typed||'').replace(/\s+/g,'').normalize('NFC');
+  correct = (correct||'').replace(/\s+/g,'').normalize('NFC');
+  if (!typed) return 'unknown';
+  // Irregular pronoun+particle pairs (나/내, 저/제, 너/네)
+  const irregPairs = [
+    ['나','내가'],['나','나는'],['내','내가'],
+    ['저','제가'],['저','저는'],['제','제가'],
+    ['너','네가'],['너','너는'],['네','네가'],['너','니가'],
+  ];
+  for (const [a,b] of irregPairs) {
+    if ((typed===a && correct===b) || (typed===b && correct===a)) return 'particle';
+  }
+  const particles = ['은','는','이','가','을','를','와','과','도','만','에','에서','으로','로','의','께','께서','한테','에게','께'];
+  for (const p of particles) {
+    if (correct.endsWith(p) && typed === correct.slice(0, -p.length)) return 'particle';
+    if (typed.endsWith(p) && correct === typed.slice(0, -p.length)) return 'particle';
+    if (correct.endsWith(p) && typed.endsWith(p) && correct.slice(0,-p.length) !== typed.slice(0,-p.length)) {
+      return 'syllable';
+    }
+  }
+  // Longer endings first
+  const endings = ['습니다','ㅂ니다','이에요','예요','세요','어요','아요','해요','었어','았어','했어','겠다','네요','니다','요'];
+  for (const e of endings) {
+    if (correct.endsWith(e) || typed.endsWith(e)) {
+      const cBase = correct.endsWith(e) ? correct.slice(0,-e.length) : correct;
+      const tBase = typed.endsWith(e) ? typed.slice(0,-e.length) : typed;
+      if (cBase === tBase && correct !== typed) return 'ending';
+      if (correct.endsWith(e) && !typed.endsWith(e) && typed === cBase) return 'ending';
+      if (typed.endsWith(e) && !correct.endsWith(e) && correct === tBase) return 'ending';
+      if (correct.endsWith(e) && typed.endsWith(e) && cBase !== tBase) return 'syllable';
+    }
+  }
+  if (Math.abs(typed.length - correct.length) <= 2) return 'syllable';
+  return 'other';
+}
+
+function recordMistake(itemId, stage, part, typed, correct) {
+  if (!state.mistakes[itemId]) {
+    state.mistakes[itemId] = { count:0, stages:{}, parts:{}, lastAt:null, lastStage:null, lastPart:null, lastTyped:null, lastCorrect:null };
+  }
+  const m = state.mistakes[itemId];
+  m.count += 1;
+  m.stages[stage] = (m.stages[stage]||0) + 1;
+  const p = part || detectWrongPart(typed, correct);
+  m.parts[p] = (m.parts[p]||0) + 1;
+  m.lastAt = new Date().toISOString();
+  m.lastStage = stage;
+  m.lastPart = p;
+  m.lastTyped = typed || null;
+  m.lastCorrect = correct || null;
+  saveState();
+  return p;
+}
+
+function setMistakePart(itemId, part) {
+  const m = state.mistakes[itemId];
+  if (!m) return;
+  // adjust counts best-effort
+  if (m.lastPart && m.parts[m.lastPart]) {
+    m.parts[m.lastPart] = Math.max(0, m.parts[m.lastPart]-1);
+  }
+  m.parts[part] = (m.parts[part]||0) + 1;
+  m.lastPart = part;
+  saveState();
+}
+
+/********************
+ * Review queue
+ ********************/
+function enqueueReview(itemId, daysAhead) {
+  const due = new Date();
+  due.setDate(due.getDate() + (daysAhead||0));
+  const ds = due.toISOString().slice(0,10);
+  state.reviewQueue = (state.reviewQueue||[]).filter(x => x.id !== itemId);
+  state.reviewQueue.push({ id: itemId, due: ds });
+  saveState();
+}
+function dueToday() {
+  const t = todayStr();
+  return (state.reviewQueue||[]).filter(x => x.due <= t);
+}
+
+/********************
+ * TTS
+ ********************/
+let koVoice = null;
+let voicesReady = false;
+
+function refreshVoices() {
+  const voices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  koVoice = voices.find(v => /^ko(-|_)/i.test(v.lang) || /korean/i.test(v.name)) || null;
+  voicesReady = true;
+  return koVoice;
+}
+if (typeof speechSynthesis !== 'undefined') {
+  refreshVoices();
+  speechSynthesis.onvoiceschanged = refreshVoices;
+}
+
+function speakKo(text) {
+  if (!window.speechSynthesis) {
+    toast(t('noKoVoice'));
+    return false;
+  }
+  refreshVoices();
+  if (!koVoice) {
+    toast(t('noKoVoice'));
+    return false;
+  }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ko-KR';
+  u.voice = koVoice;
+  u.rate = 0.9;
+  speechSynthesis.speak(u);
+  return true;
+}
+
+/********************
+ * UI helpers
+ ********************/
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => el.classList.remove('show'), 2200);
+}
+function esc(s) {
+  return String(s==null?'':s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+function glossKo(item) {
+  return (item && (item.glossKo || (item.gloss && item.gloss.ko))) || '';
+}
+function meaningLabel(item) {
+  if (!item) return '';
+  if (state.uiLang === 'ko') return glossKo(item) || item.en || '';
+  if (state.uiLang === 'en') return item.en || '';
+  if (state.uiLang === 'zh') return item.zh || item.en || '';
+  const parts = [];
+  if (state.showKO) parts.push(glossKo(item));
+  if (state.showEN) parts.push(item.en);
+  if (state.showZH) parts.push(item.zh);
+  return parts.filter(Boolean).join(' / ') || item.en || '';
+}
+function meaningHTML(item, opts) {
+  opts = opts || {};
+  const showEN = opts.forceEN != null ? opts.forceEN : state.showEN;
+  const showZH = opts.forceZH != null ? opts.forceZH : state.showZH;
+  const showKO = opts.forceKO != null ? opts.forceKO : state.showKO;
+  let h = '<div class="meaning">';
+  if (showKO) h += '<div class="ko">'+esc(glossKo(item) || item.ko)+'</div>';
+  if (showEN) h += '<div class="en">'+esc(item.en)+'</div>';
+  if (showZH) h += '<div class="zh">'+esc(item.zh)+'</div>';
+  if (!showKO && !showEN && !showZH) h += '<div class="muted">'+esc(t('none'))+'</div>';
+  h += '</div>';
+  return h;
+}
+function exampleHTML(ex) {
+  if (!ex) return '';
+  let h = '<div class="example"><div><strong>'+esc(ex.ko)+'</strong></div>';
+  if (state.showKO && ex.ko) {/* 词条例文本身已是韩语，韩语界面不再重复一层释义 */}
+  if (state.showEN) h += '<div class="en muted">'+esc(ex.en)+'</div>';
+  if (state.showZH) h += '<div class="zh muted">'+esc(ex.zh)+'</div>';
+  h += '</div>';
+  return h;
+}
+function topikLabel(level, item) {
+  const n = Number(level) || 1;
+  const lang = state.uiLang || 'zh';
+  if (item && item.estimated) {
+    if (lang === 'ko') return t('estimateLevel') + ' ' + n + '급';
+    if (lang === 'en') return t('estimateLevel') + ' · level ' + n;
+    return t('estimateLevel') + ' ' + n + '级';
+  }
+  if (lang === 'ko') return 'TOPIK ' + n + '급';
+  if (lang === 'en') return 'TOPIK Level ' + n;
+  return 'TOPIK ' + n + '级';
+}
+function stageLabel(stageKey) {
+  // old saved mistakes may store stage "usage"; UI shows Type/유형/类型
+  return t('stage_' + stageKey);
+}
+function badgesHTML(item) {
+  return '<span class="badge">'+esc(t('topic_'+itemTopic(item)))+'</span> '
+    + '<span class="badge reg-'+esc(item.register)+'">'+esc(t('reg_'+item.register))+'</span> '
+    + '<span class="badge">'+esc(t('cat_'+item.category))+'</span> '
+    + '<span class="badge diff">'+esc(topikLabel(item.difficulty, item))+'</span>'
+    + (item.sample ? ' <span class="badge">'+esc(t('sample'))+'</span>' : '')
+    + (item.hanja ? ' <span class="badge hanja">'+esc(t('hanja'))+': '+esc(item.hanja)+'</span>' : '');
+}
+
+/********************
+ * Header + Nav
+ ********************/
+function renderHeader() {
+  const bn = document.getElementById('brand-name');
+  if (bn) bn.textContent = t('brandName');
+  document.getElementById('brand-sub').textContent = t('brandSub');
+  const db = document.getElementById('draft-badge');
+  if (db) db.textContent = t('draftBadge');
+  document.title = '동행 · Together · 同行';
+  const seg = document.getElementById('ui-lang-seg');
+  const uiLangLabels = { zh: '中文', ko: '한국어', en: 'English' };
+  seg.innerHTML = ['zh','ko','en'].map(l =>
+    '<button type="button" data-lang="'+l+'" class="'+(state.uiLang===l?'active':'')+'">'+(uiLangLabels[l]||l)+'</button>'
+  ).join('');
+  seg.querySelectorAll('button').forEach(btn => {
+    btn.onclick = () => {
+      state.uiLang = btn.dataset.lang;
+      if (state.uiLang === 'ko') { state.showKO = true; state.showEN = false; state.showZH = false; }
+      else if (state.uiLang === 'en') { state.showEN = true; state.showKO = false; state.showZH = false; }
+      else { state.showZH = true; state.showEN = true; state.showKO = false; }
+      saveState(); renderAll();
+    };
+  });
+  const mt = document.getElementById('meaning-toggles');
+  mt.innerHTML =
+    '<span class="muted" style="align-self:center">'+esc(t('meaningShow'))+'</span>'
+    + '<button type="button" class="chip soft '+(state.showKO?'active':'')+'" id="tog-ko">'+esc(t('meaningKO'))+'</button>'
+    + '<button type="button" class="chip soft '+(state.showEN?'active':'')+'" id="tog-en">'+esc(t('meaningEN'))+'</button>'
+    + '<button type="button" class="chip soft '+(state.showZH?'active':'')+'" id="tog-zh">'+esc(t('meaningZH'))+'</button>';
+  document.getElementById('tog-ko').onclick = () => { state.showKO = !state.showKO; saveState(); renderAll(); };
+  document.getElementById('tog-en').onclick = () => { state.showEN = !state.showEN; saveState(); renderAll(); };
+  document.getElementById('tog-zh').onclick = () => { state.showZH = !state.showZH; saveState(); renderAll(); };
+}
+
+const NAV = [
+  {id:'about', icon:'ℹ️', key:'nav_about'},
+  {id:'browse', icon:'📚', key:'nav_browse'},
+  {id:'practice', icon:'✏️', key:'nav_practice'},
+  {id:'dictation', icon:'🎧', key:'nav_dictation'},
+  {id:'grammar', icon:'🧩', key:'nav_grammar'},
+  {id:'mistakes', icon:'📝', key:'nav_mistakes'},
+  {id:'daily', icon:'📅', key:'nav_daily'},
+  {id:'translate', icon:'💬', key:'nav_translate'},
+  {id:'favorites', icon:'⭐', key:'nav_favorites'},
+  {id:'materials', icon:'🔗', key:'nav_materials'},
+  {id:'settings', icon:'⚙️', key:'nav_settings'},
+  {id:'ai', icon:'🤖', key:'nav_ai'},
+];
+let currentPanel = 'browse';
+
+document.getElementById('nav-toggle').onclick = () => document.body.classList.toggle('nav-open');
+document.getElementById('nav-backdrop').onclick = () => document.body.classList.remove('nav-open');
+function renderNav() {
+  const nav = document.getElementById('main-nav');
+  nav.innerHTML = NAV.map(n =>
+    '<button type="button" data-panel="'+n.id+'" class="'+(currentPanel===n.id?'active':'')+'">'
+    +'<span class="ico">'+n.icon+'</span><span>'+esc(t(n.key))+'</span></button>'
+  ).join('');
+  nav.querySelectorAll('button').forEach(btn => {
+    btn.onclick = () => { document.body.classList.remove('nav-open'); showPanel(btn.dataset.panel); };
+  });
+}
+function showPanel(id) {
+  currentPanel = id;
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.dataset.panel === id));
+  const mainEl = document.querySelector('.main');
+  if (mainEl) {
+    mainEl.classList.toggle('wide-translate', id === 'translate');
+    mainEl.classList.toggle('wide-ai', id === 'ai');
+  }
+  renderNav();
+  const renderers = {
+    about: renderAbout,
+    browse: renderBrowse,
+    practice: renderPractice,
+    dictation: renderDictation,
+    grammar: renderGrammar,
+    mistakes: renderMistakes,
+    daily: renderDaily,
+    translate: renderTranslate,
+    favorites: renderFavorites,
+    materials: renderMaterials,
+    settings: renderSettings,
+    ai: renderAI,
+  };
+  (renderers[id]||function(){})();
+}
+
+/********************
+ * Browse
+ ********************/
+let browseFilter = { category:'all', register:'all', difficulty:'all', topic:'all' };
+
+function renderBrowse() {
+  const el = document.getElementById('panel-browse');
+  const items = ALL_ITEMS.filter(it => {
+    if (browseFilter.topic !== 'all' && itemTopic(it) !== browseFilter.topic) return false;
+    if (browseFilter.category !== 'all' && it.category !== browseFilter.category) return false;
+    if (browseFilter.register !== 'all' && it.register !== browseFilter.register) return false;
+    if (browseFilter.difficulty !== 'all' && String(it.difficulty) !== String(browseFilter.difficulty)) return false;
+    return true;
+  });
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('browseTitle'))+'</h2>'
+    +'<p class="muted">'+esc(t('browseHint'))+'</p>'
+    +'<div class="filters">'
+    +'<select id="f-topic" aria-label="'+esc(t('topicSelect'))+'"><option value="all">'+esc(t('all'))+'</option>'
+    +TOPICS.map(tp=>'<option value="'+tp+'"'+(browseFilter.topic===tp?' selected':'')+'>'+esc(t('topic_'+tp))+'</option>').join('')
+    +'</select>'
+    +'<select id="f-cat" aria-label="'+esc(t('filterCategory'))+'"><option value="all">'+esc(t('all'))+'</option>'
+    +CATEGORIES.map(c=>'<option value="'+c+'"'+(browseFilter.category===c?' selected':'')+'>'+esc(t('cat_'+c))+'</option>').join('')
+    +'</select>'
+    +'<select id="f-reg" aria-label="'+esc(t('filterRegister'))+'"><option value="all">'+esc(t('all'))+'</option>'
+    +REGISTERS.map(r=>'<option value="'+r+'"'+(browseFilter.register===r?' selected':'')+'>'+esc(t('reg_'+r))+'</option>').join('')
+    +'</select>'
+    +'<select id="f-diff" aria-label="'+esc(t('filterDiff'))+'"><option value="all">'+esc(t('all'))+'</option>'
+    +TOPIK_LEVELS.map(d=>'<option value="'+d+'"'+(String(browseFilter.difficulty)===String(d)?' selected':'')+'>'+esc(topikLabel(d))+'</option>').join('')
+    +'</select>'
+    +'</div>'
+    +'<div class="muted">'+esc(tf('itemsCount',{n:items.length}))+'</div></div>'
+    + items.map(it => cardHTML(it, true)).join('');
+
+  document.getElementById('f-topic').onchange = e => { browseFilter.topic = e.target.value; renderBrowse(); };
+  document.getElementById('f-cat').onchange = e => { browseFilter.category = e.target.value; renderBrowse(); };
+  document.getElementById('f-reg').onchange = e => { browseFilter.register = e.target.value; renderBrowse(); };
+  document.getElementById('f-diff').onchange = e => { browseFilter.difficulty = e.target.value; renderBrowse(); };
+  bindReveal(el);
+}
+
+function cardHTML(it, revealable) {
+  const body =
+    (state.revealFields.ko !== false ? '<div class="ko-big">'+esc(it.ko)+'</div>' : '')
+    + meaningHTML(it)
+    + '<div style="margin-top:8px">'+badgesHTML(it)+'</div>'
+    + (it.hanja && state.revealFields.hanja !== false ? '<div class="muted" style="margin-top:6px">'+esc(t('hanja'))+': <span class="badge hanja">'+esc(it.hanja)+'</span></div>' : '')
+    + (state.revealFields.example !== false ? exampleHTML(it.example) : '');
+  if (!revealable) return '<div class="card" data-id="'+esc(it.id)+'">'+body+'</div>';
+  return '<div class="card" data-id="'+esc(it.id)+'"><div class="reveal-zone">'
+    + body
+    + '<div class="reveal-mask">'+esc(t('tapReveal'))+'</div>'
+    + '</div></div>';
+}
+function bindReveal(root) {
+  root.querySelectorAll('.reveal-mask').forEach(m => {
+    m.onclick = () => m.classList.add('hidden');
+  });
+}
+
+/********************
+ * Practice / Quiz
+ ********************/
+let quiz = null; // {queue:[{id, left}], index, correct, total, mode}
+
+function repeatsFor(id) {
+  const n = state.itemRepeats[id];
+  return (n != null && n > 0) ? n : (state.repeatDefault || 1);
+}
+
+function enabledRegisters() {
+  const pt = state.practiceTypes || defaultState().practiceTypes;
+  return REGISTERS.filter(r => pt[r] !== false);
+}
+function enabledTopics() {
+  const pt = state.practiceTopics || defaultState().practiceTopics;
+  return TOPICS.filter(tp => pt[tp] !== false);
+}
+function filterByPracticeTypes(items) {
+  const regs = enabledRegisters();
+  const topics = enabledTopics();
+  if (!regs.length || !topics.length) return [];
+  return items.filter(it => regs.includes(it.register) && topics.includes(itemTopic(it)));
+}
+function buildQuizQueue(preferMissed) {
+  let pool = filterByPracticeTypes(ALL_ITEMS.slice());
+  if (preferMissed) {
+    pool.sort((a,b) => (state.mistakes[b.id]?.count||0) - (state.mistakes[a.id]?.count||0));
+    pool = pool.filter(it => (state.mistakes[it.id]?.count||0) > 0);
+    if (!pool.length) pool = filterByPracticeTypes(ALL_ITEMS.slice());
+  } else {
+    // shuffle
+    for (let i=pool.length-1;i>0;i--) {
+      const j = Math.floor(Math.random()*(i+1));
+      [pool[i],pool[j]] = [pool[j],pool[i]];
+    }
+  }
+  // take up to 12
+  pool = pool.slice(0, 12);
+  return pool.map(it => ({ id: it.id, left: repeatsFor(it.id) }));
+}
+
+function renderPractice() {
+  const el = document.getElementById('panel-practice');
+  if (quiz) { renderQuizView(el); return; }
+
+  if (!state.practiceTypes) state.practiceTypes = Object.assign({}, defaultState().practiceTypes);
+  if (!state.practiceTopics) state.practiceTopics = Object.assign({}, defaultState().practiceTopics);
+  const regsOn = enabledRegisters();
+  const topicsOn = enabledTopics();
+  const noneTypes = regsOn.length === 0;
+  const noneTopics = topicsOn.length === 0;
+  const blocked = noneTypes || noneTopics;
+  const dueAll = dueToday();
+  const due = dueAll.filter(q => {
+    const it = getItem(q.id);
+    return it && regsOn.includes(it.register) && topicsOn.includes(itemTopic(it));
+  });
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('practiceTitle'))+'</h2>'
+    +'<p class="muted">'+esc(t('practiceHint'))+'</p>'
+    +'<div class="field"><label>'+esc(t('topicSelect'))+'</label><div class="chip-row" id="topic-chips"></div>'
+    +(noneTopics ? '<p class="muted" style="margin-top:8px;color:var(--danger,#a33)">'+esc(t('noTopicsSelected'))+'</p>' : '')
+    +'</div>'
+    +'<div class="field"><label>'+esc(t('practiceTypes'))+'</label><div class="chip-row" id="type-chips"></div>'
+    +(noneTypes ? '<p class="muted" style="margin-top:8px;color:var(--danger,#a33)">'+esc(t('noTypesSelected'))+'</p>' : '')
+    +'</div>'
+    +'<div class="field"><label>'+esc(t('fieldsShow'))+'</label><div class="chip-row" id="field-chips"></div></div>'
+    +'<div class="field"><label>'+esc(t('repeatDefault'))+'</label>'
+    +'<input type="number" id="rep-default" min="1" max="10" value="'+(state.repeatDefault||2)+'"></div>'
+    +'<div class="row" style="margin-top:12px">'
+    +'<button type="button" class="btn" id="btn-start"'+(blocked?' disabled':'')+'>'+esc(t('startQuiz'))+'</button>'
+    +'<button type="button" class="btn secondary" id="btn-missed"'+(blocked?' disabled':'')+'>'+esc(t('reviewMissed'))+'</button>'
+    +'</div></div>'
+    +'<div class="card"><h3>'+esc(t('dailyReview'))+'</h3>'
+    +(due.length ? '<p class="muted">'+esc(tf('queueCount',{n:due.length}))+'</p>'
+      + due.map(q => {
+          const it = getItem(q.id); if (!it) return '';
+          return '<div class="row space" style="padding:8px 0;border-bottom:1px solid var(--border)">'
+            +'<div><strong>'+esc(it.ko)+'</strong> <span class="muted">'+esc(q.due)+'</span></div>'
+            +'<button type="button" class="btn ghost mark-due" data-id="'+esc(it.id)+'">'+esc(t('markKnown'))+'</button></div>';
+        }).join('')
+      : '<p class="muted">'+esc(blocked ? (noneTopics?t('noTopicsSelected'):t('noTypesSelected')) : t('queueEmpty'))+'</p>')
+    +'<div style="margin-top:10px"><button type="button" class="btn secondary" id="btn-review-due"'+(due.length && !blocked?'':' disabled')+'>'+esc(t('dailyReview'))+'</button></div>'
+    +'</div>';
+
+  const topicChips = document.getElementById('topic-chips');
+  topicChips.innerHTML = TOPICS.map(tp =>
+    '<button type="button" class="chip soft '+(state.practiceTopics[tp]!==false?'active':'')+'" data-topic="'+tp+'">'+esc(t('topic_'+tp))+'</button>'
+  ).join('');
+  topicChips.querySelectorAll('button').forEach(b => {
+    b.onclick = () => {
+      const tp = b.dataset.topic;
+      state.practiceTopics[tp] = !(state.practiceTopics[tp] !== false);
+      saveState(); renderPractice();
+    };
+  });
+
+  const typeChips = document.getElementById('type-chips');
+  typeChips.innerHTML = REGISTERS.map(r =>
+    '<button type="button" class="chip soft '+(state.practiceTypes[r]!==false?'active':'')+'" data-reg="'+r+'">'+esc(t('reg_'+r))+'</button>'
+  ).join('');
+  typeChips.querySelectorAll('button').forEach(b => {
+    b.onclick = () => {
+      const r = b.dataset.reg;
+      state.practiceTypes[r] = !(state.practiceTypes[r] !== false);
+      saveState(); renderPractice();
+    };
+  });
+
+  const chips = document.getElementById('field-chips');
+  const fields = [['ko','field_ko'],['en','field_en'],['zh','field_zh'],['hanja','field_hanja'],['example','field_example']];
+  chips.innerHTML = fields.map(([k, label]) =>
+    '<button type="button" class="chip soft '+(state.revealFields[k]?'active':'')+'" data-f="'+k+'">'+esc(t(label))+'</button>'
+  ).join('');
+  chips.querySelectorAll('button').forEach(b => {
+    b.onclick = () => {
+      const f = b.dataset.f;
+      // Korean always conceptually "shown" in content; allow toggle of others; keep at least one meaning-ish
+      state.revealFields[f] = !state.revealFields[f];
+      if (f==='ko') state.revealFields.ko = true; // always keep ko available for practice
+      saveState(); renderPractice();
+    };
+  });
+  document.getElementById('rep-default').onchange = e => {
+    state.repeatDefault = Math.max(1, Math.min(10, parseInt(e.target.value,10)||2));
+    saveState();
+  };
+  document.getElementById('btn-start').onclick = () => {
+    if (!enabledTopics().length) { toast(t('noTopicsSelected')); return; }
+    if (!enabledRegisters().length) { toast(t('noTypesSelected')); return; }
+    startQuiz(false);
+  };
+  document.getElementById('btn-missed').onclick = () => {
+    if (!enabledTopics().length) { toast(t('noTopicsSelected')); return; }
+    if (!enabledRegisters().length) { toast(t('noTypesSelected')); return; }
+    startQuiz(true);
+  };
+  document.getElementById('btn-review-due').onclick = () => {
+    if (!enabledTopics().length) { toast(t('noTopicsSelected')); return; }
+    if (!enabledRegisters().length) { toast(t('noTypesSelected')); return; }
+    const ids = due.map(x => x.id);
+    if (!ids.length) { toast(t('queueEmpty')); return; }
+    quiz = {
+      queue: ids.map(id => ({id, left: repeatsFor(id)})),
+      index: 0, correct: 0, total: 0, mode: 'recognition', fromDue: true
+    };
+    renderPractice();
+  };
+  el.querySelectorAll('.mark-due').forEach(b => {
+    b.onclick = () => {
+      state.reviewQueue = state.reviewQueue.filter(x => x.id !== b.dataset.id);
+      saveState(); renderPractice();
+    };
+  });
+}
+
+function startQuiz(preferMissed) {
+  if (!enabledTopics().length) { toast(t('noTopicsSelected')); return; }
+  if (!enabledRegisters().length) { toast(t('noTypesSelected')); return; }
+  const queue = buildQuizQueue(preferMissed);
+  if (!queue.length) { toast(t('noTopicsSelected')); return; }
+  quiz = { queue, index: 0, correct: 0, total: 0, mode: 'recognition' };
+  renderPractice();
+}
+function startItemQuiz(id, total) {
+  const it = getItem(id);
+  if (!it) return false;
+  quiz = { queue: [{ id: it.id, left: Math.max(1, repeatsFor(it.id) || 2) }], index: 0, correct: 0, total: total || 0, mode: 'recognition' };
+  showPanel('practice');
+  return true;
+}
+
+function currentQuizItem() {
+  if (!quiz || !quiz.queue.length) return null;
+  // find next with left>0
+  for (let i=0;i<quiz.queue.length;i++) {
+    const idx = (quiz.index + i) % quiz.queue.length;
+    if (quiz.queue[idx].left > 0) return { slot: quiz.queue[idx], idx };
+  }
+  return null;
+}
+
+function renderQuizView(el) {
+  const cur = currentQuizItem();
+  if (!cur) {
+    el.innerHTML = '<div class="card quiz-prompt"><h2>'+esc(t('finished'))+'</h2>'
+      +'<p>'+esc(t('score'))+': <strong>'+quiz.correct+' / '+quiz.total+'</strong></p>'
+      +'<button type="button" class="btn" id="btn-done">'+esc(t('continue'))+'</button></div>';
+    document.getElementById('btn-done').onclick = () => { quiz = null; renderPractice(); };
+    return;
+  }
+  const it = getItem(cur.slot.id);
+  // Cycle: recognition → recognition → spelling → usage
+  const cycle = quiz.total % 4;
+  const useSpelling = cycle === 2;
+  const useUsage = cycle === 3;
+  quiz._curMode = useUsage ? 'usage' : (useSpelling ? 'spelling' : 'recognition');
+  quiz._curIdx = cur.idx;
+  quiz._curId = it.id;
+
+  let body = '<div class="card"><div class="row space"><span class="muted">'+(quiz.correct)+'✓ / '+quiz.total
+    +' · '+esc(tf('leftCount', {n: cur.slot.left}))+'</span>'
+    +'<button type="button" class="btn ghost" id="q-exit">'+esc(t('back'))+'</button></div>';
+
+  if (useUsage) {
+    body += '<div class="quiz-prompt"><div class="ko-big">'+esc(it.ko)+'</div>'
+      + meaningHTML(it)
+      +'<p class="muted">'+esc(t('typeQuestion'))+'</p></div>';
+    const regs = REGISTERS.slice();
+    for (let i=regs.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [regs[i],regs[j]]=[regs[j],regs[i]]; }
+    // ensure correct included
+    if (!regs.includes(it.register)) regs[0]=it.register;
+    const choices = regs.map(r => ({ id:r, label:t('reg_'+r), correct: r===it.register }));
+    body += '<div class="choices" id="q-choices">'
+      + choices.map((c,i) => '<button type="button" class="choice" data-i="'+i+'">'+esc(c.label)+'</button>').join('')
+      + '</div>';
+    quiz._choices = choices;
+    quiz._usage = true;
+  } else if (!useSpelling) {
+    body += '<div class="quiz-prompt"><div class="ko-big">'+esc(it.ko)+'</div>'
+      +(it.hanja?'<div class="badge hanja">'+esc(it.hanja)+'</div>':'')
+      +'<p class="muted">'+esc(t('chooseMeaning'))+'</p></div>';
+    const choices = buildMeaningChoices(it);
+    body += '<div class="choices" id="q-choices">'
+      + choices.map((c,i) => '<button type="button" class="choice" data-i="'+i+'">'+esc(c.label)+'</button>').join('')
+      + '</div>';
+    quiz._choices = choices;
+    quiz._usage = false;
+  } else {
+    quiz._usage = false;
+    const promptParts = [];
+    if (state.uiLang === 'ko') promptParts.push(glossKo(it) || it.en);
+    else if (state.uiLang === 'en') promptParts.push(it.en);
+    else {
+      if (state.showKO) promptParts.push(glossKo(it));
+      if (state.showEN || (!state.showEN && !state.showZH && !state.showKO)) promptParts.push(it.en);
+      if (state.showZH) promptParts.push(it.zh);
+    }
+    body += '<div class="quiz-prompt"><p class="muted">'+esc(t('typeKorean'))+'</p>'
+      +'<p class="muted">'+esc(t('spellHint'))+'</p>'
+      +'<div style="font-size:1.1rem">'+esc(promptParts.join(' · '))+'</div></div>'
+      +'<div class="field"><input id="q-input" class="dict-input" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="한국어"></div>'
+      +'<div class="row"><button type="button" class="btn" id="q-check">'+esc(t('check'))+'</button>'
+      +'<button type="button" class="btn secondary" id="q-skip">'+esc(t('skip'))+'</button></div>'
+      +'<div id="q-feedback" style="margin-top:10px"></div>';
+  }
+  // per-item repeat control
+  body += '<div class="field" style="margin-top:14px"><label>'+esc(t('repeatThis'))+'</label>'
+    +'<input type="number" id="rep-this" min="1" max="10" value="'+repeatsFor(it.id)+'"></div>';
+  body += '</div>';
+  el.innerHTML = body;
+
+  document.getElementById('q-exit').onclick = () => { quiz = null; renderPractice(); };
+  document.getElementById('rep-this').onchange = e => {
+    state.itemRepeats[it.id] = Math.max(1, Math.min(10, parseInt(e.target.value,10)||1));
+    cur.slot.left = Math.max(cur.slot.left, state.itemRepeats[it.id]);
+    saveState();
+  };
+
+  if (!useSpelling || useUsage) {
+    el.querySelectorAll('.choice').forEach(btn => {
+      btn.onclick = () => onChooseMeaning(parseInt(btn.dataset.i,10), btn);
+    });
+  } else {
+    const input = document.getElementById('q-input');
+    input.focus();
+    document.getElementById('q-check').onclick = () => onSpellingCheck(input.value);
+    document.getElementById('q-skip').onclick = () => advanceQuiz(false);
+    input.onkeydown = e => { if (e.key === 'Enter') onSpellingCheck(input.value); };
+  }
+}
+
+function buildMeaningChoices(it) {
+  const others = ALL_ITEMS.filter(x => x.id !== it.id);
+  for (let i=others.length-1;i>0;i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [others[i],others[j]] = [others[j],others[i]];
+  }
+  const picks = others.slice(0,3).concat([it]);
+  for (let i=picks.length-1;i>0;i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [picks[i],picks[j]] = [picks[j],picks[i]];
+  }
+  return picks.map(p => {
+    let label = meaningLabel(p);
+    if (!label) label = p.en || p.zh || p.ko || '';
+    return { id: p.id, label: label, correct: p.id === it.id };
+  });
+}
+
+function onChooseMeaning(i, btn) {
+  const choices = quiz._choices;
+  const chosen = choices[i];
+  const it = getItem(quiz._curId);
+  quiz.total += 1;
+  const buttons = document.querySelectorAll('#q-choices .choice');
+  buttons.forEach((b, idx) => {
+    b.disabled = true;
+    if (choices[idx].correct) b.classList.add('correct');
+  });
+  if (chosen.correct) {
+    btn.classList.add('correct');
+    quiz.correct += 1;
+    toast(t('correct'));
+    advanceQuiz(true, 600);
+  } else {
+    btn.classList.add('wrong');
+    const stage = quiz._usage ? 'usage' : 'recognition';
+    const part = recordMistake(it.id, stage, quiz._usage ? 'other' : 'other', chosen.label, it.en);
+    toast(t('incorrect') + ' · ' + t('part_'+part));
+    // keep left the same (will retry)
+    setTimeout(() => { quiz.index = quiz._curIdx; renderQuizView(document.getElementById('panel-practice')); }, 900);
+  }
+}
+
+function normalizeAnswer(s) {
+  return (s||'').trim().replace(/\s+/g,'').normalize('NFC');
+}
+function onSpellingCheck(val) {
+  const it = getItem(quiz._curId);
+  quiz.total += 1;
+  const ok = normalizeAnswer(val) === normalizeAnswer(it.ko);
+  const fb = document.getElementById('q-feedback');
+  if (ok) {
+    quiz.correct += 1;
+    fb.innerHTML = '<span class="result-ok">'+esc(t('correct'))+'</span>';
+    advanceQuiz(true, 500);
+  } else {
+    const part = recordMistake(it.id, 'spelling', null, val, it.ko);
+    fb.innerHTML = '<span class="result-bad">'+esc(t('incorrect'))+'</span> → <strong>'+esc(it.ko)+'</strong>'
+      +'<div class="muted">'+esc(t('autoDetected'))+': '+esc(t('part_'+part))+'</div>'
+      +'<div class="row" style="margin-top:8px" id="fix-part">'
+      + PARTS.map(p => '<button type="button" class="chip" data-p="'+p+'">'+esc(t('part_'+p))+'</button>').join('')
+      +'</div>';
+    document.querySelectorAll('#fix-part .chip').forEach(c => {
+      c.onclick = () => { setMistakePart(it.id, c.dataset.p); toast(t('saved')); };
+    });
+    setTimeout(() => { quiz.index = quiz._curIdx; renderQuizView(document.getElementById('panel-practice')); }, 1400);
+  }
+}
+
+function advanceQuiz(wasCorrect, delay) {
+  const idx = quiz._curIdx;
+  if (wasCorrect) {
+    quiz.queue[idx].left = Math.max(0, quiz.queue[idx].left - 1);
+    if (quiz.queue[idx].left === 0) {
+      enqueueReview(quiz.queue[idx].id, 1);
+      if (quiz.fromDue) {
+        state.reviewQueue = state.reviewQueue.filter(x => x.id !== quiz.queue[idx].id);
+        saveState();
+      }
+    }
+  }
+  quiz.index = (idx + 1) % quiz.queue.length;
+  setTimeout(() => renderQuizView(document.getElementById('panel-practice')), delay || 400);
+}
+
+/********************
+ * Dictation
+ ********************/
+let dictHide = true;
+
+function renderDictation() {
+  const el = document.getElementById('panel-dictation');
+  refreshVoices();
+  let idx = state.dictationIndex || 0;
+  if (idx < 0 || idx >= PERSON_ITEMS.length) idx = 0;
+  const it = PERSON_ITEMS[idx];
+  const voiceMsg = koVoice
+    ? '<span class="result-ok">'+esc(t('voiceOk'))+' ('+esc(koVoice.name)+')</span>'
+    : '<span class="result-bad">'+esc(t('noKoVoice'))+'</span>';
+
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('dictTitle'))+'</h2>'
+    +'<p class="muted">'+esc(t('dictHint'))+'</p>'
+    +'<p>'+voiceMsg+'</p>'
+    +'<div class="row"><button type="button" class="btn secondary" id="btn-voices">'+esc(t('voiceCheck'))+'</button></div>'
+    +'</div>'
+    +'<div class="card">'
+    +'<div class="row space"><span class="muted">'+(idx+1)+' / '+PERSON_ITEMS.length+'</span>'
+    +'<div class="row">'
+    +'<button type="button" class="btn ghost" id="d-prev">‹</button>'
+    +'<button type="button" class="btn ghost" id="d-next">›</button>'
+    +'</div></div>'
+    +'<div class="quiz-prompt">'
+    + (dictHide
+        ? '<div class="ko-big" style="filter:blur(7px);user-select:none">가나다</div>'
+        : '<div class="ko-big">'+esc(it.ko)+'</div>'+meaningHTML(it)+ (it.hanja?'<div class="badge hanja">'+esc(it.hanja)+'</div>':''))
+    +'</div>'
+    +'<div class="row" style="justify-content:center;margin:10px 0">'
+    +'<button type="button" class="btn accent" id="d-play">🔊 '+esc(t('play'))+'</button>'
+    +'<button type="button" class="btn secondary" id="d-replay">'+esc(t('replay'))+'</button>'
+    +'<button type="button" class="btn ghost" id="d-hint">'+(dictHide?esc(t('showHint')):esc(t('hideHint')))+'</button>'
+    +'</div>'
+    +'<div class="field"><label>'+esc(t('typeKorean'))+'</label>'
+    +'<input id="d-input" class="dict-input" autocomplete="off" autocapitalize="off" spellcheck="false"></div>'
+    +'<button type="button" class="btn block" id="d-submit">'+esc(t('submit'))+'</button>'
+    +'<div id="d-feedback" style="margin-top:12px"></div>'
+    +'</div>';
+
+  const play = () => speakKo(it.ko);
+  document.getElementById('d-play').onclick = play;
+  document.getElementById('d-replay').onclick = play;
+  document.getElementById('btn-voices').onclick = () => { refreshVoices(); renderDictation(); };
+  document.getElementById('d-hint').onclick = () => { dictHide = !dictHide; renderDictation(); };
+  document.getElementById('d-prev').onclick = () => {
+    state.dictationIndex = (idx - 1 + PERSON_ITEMS.length) % PERSON_ITEMS.length;
+    dictHide = true; saveState(); renderDictation();
+  };
+  document.getElementById('d-next').onclick = () => {
+    state.dictationIndex = (idx + 1) % PERSON_ITEMS.length;
+    dictHide = true; saveState(); renderDictation();
+  };
+  const input = document.getElementById('d-input');
+  document.getElementById('d-submit').onclick = () => {
+    const val = input.value;
+    const ok = normalizeAnswer(val) === normalizeAnswer(it.ko);
+    const fb = document.getElementById('d-feedback');
+    if (ok) {
+      fb.innerHTML = '<span class="result-ok">'+esc(t('correct'))+'</span>';
+      toast(t('correct'));
+      setTimeout(() => {
+        state.dictationIndex = (idx + 1) % PERSON_ITEMS.length;
+        dictHide = true; saveState(); renderDictation();
+      }, 600);
+    } else {
+      const part = recordMistake(it.id, 'listening', null, val, it.ko);
+      fb.innerHTML = '<span class="result-bad">'+esc(t('incorrect'))+'</span> → <strong>'+esc(it.ko)+'</strong>'
+        + meaningHTML(it)
+        +'<div class="muted">'+esc(t('autoDetected'))+': '+esc(t('part_'+part))+'</div>'
+        +'<div class="row" style="margin-top:8px" id="d-fix">'
+        + PARTS.map(p => '<button type="button" class="chip" data-p="'+p+'">'+esc(t('part_'+p))+'</button>').join('')
+        +'</div>';
+      document.querySelectorAll('#d-fix .chip').forEach(c => {
+        c.onclick = () => { setMistakePart(it.id, c.dataset.p); toast(t('saved')); };
+      });
+    }
+  };
+  input.onkeydown = e => { if (e.key==='Enter') document.getElementById('d-submit').click(); };
+}
+
+/********************
+ * Grammar
+ ********************/
+function renderGrammar() {
+  const el = document.getElementById('panel-grammar');
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('grammarTitle'))+'</h2>'
+    +'<p class="muted">'+esc(t('grammarHint'))+'</p></div>'
+    + GRAMMAR.map(g => {
+      const mine = state.grammarExamples[g.id] || [];
+      return '<div class="card" data-gid="'+esc(g.id)+'">'
+        +'<h3>'+esc(g.pattern)+' <span class="badge diff">'+esc(topikLabel(g.difficulty, g))+'</span>'
+        +(g.estimated?' <span class="badge">'+esc(t('estimated'))+'</span>':'')+'</h3>'
+        + meaningHTML({en:g.en, zh:g.zh})
+        + exampleHTML(g.example)
+        +'<div style="margin-top:12px"><strong>'+esc(t('yourExamples'))+'</strong></div>'
+        +'<div class="field" style="margin-top:6px"><textarea id="ge-'+esc(g.id)+'" placeholder="예: …"></textarea></div>'
+        +'<button type="button" class="btn secondary ge-save" data-gid="'+esc(g.id)+'">'+esc(t('saveExample'))+'</button>'
+        +'<div class="ge-list" style="margin-top:8px">'
+        + mine.map((m,i) =>
+            '<div class="row space" style="padding:6px 0;border-bottom:1px solid var(--border)">'
+            +'<div>'+esc(m.text)+'<div class="muted">'+(m.at||'')+'</div></div>'
+            +'<button type="button" class="btn ghost ge-del" data-gid="'+esc(g.id)+'" data-i="'+i+'">'+esc(t('delete'))+'</button></div>'
+          ).join('')
+        +'</div></div>';
+    }).join('');
+
+  el.querySelectorAll('.ge-save').forEach(btn => {
+    btn.onclick = () => {
+      const gid = btn.dataset.gid;
+      const ta = document.getElementById('ge-'+gid);
+      const text = (ta.value||'').trim();
+      if (!text) return;
+      if (!state.grammarExamples[gid]) state.grammarExamples[gid] = [];
+      state.grammarExamples[gid].push({ text, at: new Date().toISOString() });
+      saveState(); toast(t('saved')); renderGrammar();
+    };
+  });
+  el.querySelectorAll('.ge-del').forEach(btn => {
+    btn.onclick = () => {
+      const gid = btn.dataset.gid;
+      const i = parseInt(btn.dataset.i,10);
+      (state.grammarExamples[gid]||[]).splice(i,1);
+      saveState(); renderGrammar();
+    };
+  });
+}
+
+/********************
+ * Mistakes
+ ********************/
+let mistakeFilter = { stage:'all', part:'all', sort:'count' };
+
+function renderMistakes() {
+  const el = document.getElementById('panel-mistakes');
+  let entries = Object.keys(state.mistakes).map(id => ({ id, ...state.mistakes[id] }));
+  entries = entries.filter(e => {
+    if (mistakeFilter.stage !== 'all' && !(e.stages && e.stages[mistakeFilter.stage])) return false;
+    if (mistakeFilter.part !== 'all' && !(e.parts && e.parts[mistakeFilter.part])) return false;
+    return true;
+  });
+  entries.sort((a,b) => {
+    const ia = getItem(a.id), ib = getItem(b.id);
+    if (mistakeFilter.sort === 'topik') {
+      return (Number(ia&&ia.difficulty)||0) - (Number(ib&&ib.difficulty)||0) || (b.count||0)-(a.count||0);
+    }
+    if (mistakeFilter.sort === 'type') {
+      const ra = (ia&&ia.register)||'', rb = (ib&&ib.register)||'';
+      return ra.localeCompare(rb) || (b.count||0)-(a.count||0);
+    }
+    return (b.count||0) - (a.count||0);
+  });
+
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('mistakesTitle'))+'</h2>'
+    +'<p class="muted">'+esc(t('mistakesHint'))+'</p>'
+    +'<div class="filters">'
+    +'<select id="m-stage"><option value="all">'+esc(t('all'))+' · '+esc(t('filterStage'))+'</option>'
+    +STAGES.map(s=>'<option value="'+s+'"'+(mistakeFilter.stage===s?' selected':'')+'>'+esc(stageLabel(s))+'</option>').join('')
+    +'</select>'
+    +'<select id="m-part"><option value="all">'+esc(t('all'))+' · '+esc(t('filterPart'))+'</option>'
+    +PARTS.map(p=>'<option value="'+p+'"'+(mistakeFilter.part===p?' selected':'')+'>'+esc(t('part_'+p))+'</option>').join('')
+    +'</select>'
+    +'<select id="m-sort" aria-label="'+esc(t('sortBy'))+'">'
+    +'<option value="count"'+(mistakeFilter.sort==='count'?' selected':'')+'>'+esc(t('sortBy'))+': '+esc(t('sortCount'))+'</option>'
+    +'<option value="type"'+(mistakeFilter.sort==='type'?' selected':'')+'>'+esc(t('sortBy'))+': '+esc(t('sortType'))+'</option>'
+    +'<option value="topik"'+(mistakeFilter.sort==='topik'?' selected':'')+'>'+esc(t('sortBy'))+': '+esc(t('sortTopik'))+'</option>'
+    +'</select>'
+    +'</div>'
+    +'<div class="row">'
+    +'<button type="button" class="btn" id="m-review"'+(entries.length?'':' disabled')+'>'+esc(t('reviewMissed'))+'</button>'
+    +'<button type="button" class="btn secondary danger" id="m-clear">'+esc(t('clearMistakes'))+'</button>'
+    +'</div></div>'
+    + (entries.length ? entries.map(e => {
+        const it = getItem(e.id);
+        if (!it) return '';
+        const stageBits = STAGES.filter(s => e.stages && e.stages[s]).map(s => stageLabel(s)+'×'+e.stages[s]).join(', ');
+        const partBits = PARTS.filter(p => e.parts && e.parts[p]).map(p => t('part_'+p)+'×'+e.parts[p]).join(', ');
+        return '<div class="card mistake-item">'
+          +'<div class="row space"><div class="ko-big" style="font-size:1.3rem">'+esc(it.ko)+'</div>'
+          +'<span class="badge">'+esc(t('count'))+': '+e.count+'</span></div>'
+          + meaningHTML(it)
+          +'<div style="margin-top:6px">'+badgesHTML(it)+'</div>'
+          +'<div class="muted" style="margin-top:6px">'+esc(stageBits||t('none'))+'</div>'
+          +'<div class="muted">'+esc(partBits||t('none'))+'</div>'
+          +(e.lastAt ? '<div class="muted">'+esc(t('lastAt'))+': '+esc(e.lastAt)+'</div>' : '')
+          +'<div class="muted">'+esc(t('pickWrongPart'))+'</div>'
+          +'<div class="row" style="margin-top:6px">'
+          + PARTS.map(p => '<button type="button" class="chip fix-part '+(e.lastPart===p?'active':'')+'" data-id="'+esc(e.id)+'" data-p="'+p+'">'+esc(t('part_'+p))+'</button>').join('')
+          +'</div></div>';
+      }).join('')
+      : '<div class="card empty">'+esc(t('emptyMistakes'))+'</div>');
+
+  document.getElementById('m-stage').onchange = e => { mistakeFilter.stage = e.target.value; renderMistakes(); };
+  document.getElementById('m-part').onchange = e => { mistakeFilter.part = e.target.value; renderMistakes(); };
+  document.getElementById('m-sort').onchange = e => { mistakeFilter.sort = e.target.value; renderMistakes(); };
+  document.getElementById('m-review').onclick = () => { showPanel('practice'); startQuiz(true); };
+  document.getElementById('m-clear').onclick = () => {
+    if (confirm(t('confirmClear'))) { state.mistakes = {}; saveState(); renderMistakes(); }
+  };
+  el.querySelectorAll('.fix-part').forEach(b => {
+    b.onclick = () => { setMistakePart(b.dataset.id, b.dataset.p); renderMistakes(); toast(t('saved')); };
+  });
+}
+
+/********************
+ * Settings / export
+ ********************/
+function renderSettings() {
+  const el = document.getElementById('panel-settings');
+  if (!state.translateSetup) state.translateSetup = defaultState().translateSetup;
+  const setup = state.translateSetup;
+  const levels = ['beginner',1,2,3,4,5,6];
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('settingsTitle'))+'</h2>'
+    +'<p class="muted">'+esc(t('settingsHint'))+'</p>'
+    +'<p class="muted">'+esc(t('topikNote'))+'</p>'
+    +'<p class="muted">'+esc(t('privacy'))+'</p>'
+    +'</div>'
+    +'<div class="card"><h3>'+esc(t('authAccount'))+'</h3>'
+    +'<p class="muted">'+esc(authStatusText())+'</p>'
+    +'<button type="button" class="btn secondary" id="s-logout">'+esc(t('authLogout'))+'</button>'
+    +'</div>'
+    +'<div class="card"><h3>'+esc(t('settingsProfile'))+'</h3>'
+    +'<p class="muted">'+esc(t('settingsProfileHint'))+'</p>'
+    +'<div class="field"><label>'+esc(t('trNative'))+'</label>'
+    +'<div class="choice-grid" id="set-native" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">'
+    +['zh','en','ko'].map(l =>
+      '<button type="button" class="chip '+(setup.nativeLang===l?'active':'')+'" data-v="'+l+'">'+esc(t('lang_'+l))+'</button>'
+    ).join('')
+    +'</div></div>'
+    +'<div class="field"><label>'+esc(t('trGoal'))+'</label>'
+    +'<input type="text" id="set-goal" value="'+esc(setup.goal||'')+'" placeholder="'+esc(t('trGoalPh'))+'"></div>'
+    +'<div class="field"><label>'+esc(t('trLevel'))+'</label>'
+    +'<select id="set-level">'
+    + levels.map(lv => {
+        const label = lv === 'beginner' ? t('trLevelBeginner') : ('TOPIK '+lv);
+        return '<option value="'+lv+'"'+(String(setup.level)===String(lv)?' selected':'')+'>'+esc(label)+'</option>';
+      }).join('')
+    +'</select></div>'
+    +'<div class="field"><label>'+esc(t('trVoice'))+'</label>'
+    +'<div class="seg" id="set-voice">'
+    +'<button type="button" data-v="1" class="'+(setup.voiceOn?'active':'')+'">'+esc(t('trVoiceOn'))+'</button>'
+    +'<button type="button" data-v="0" class="'+(!setup.voiceOn?'active':'')+'">'+esc(t('trVoiceOff'))+'</button>'
+    +'</div></div>'
+    +'<button type="button" class="btn block" id="set-save-profile">'+esc(t('saveProfile'))+'</button>'
+    +'</div>'
+    +'<div class="card">'
+    +'<div class="row" style="flex-direction:column;align-items:stretch">'
+    +'<button type="button" class="btn secondary" id="s-tr-setup">'+esc(t('trEditSetup'))+'</button>'
+    +'<button type="button" class="btn" id="s-export">'+esc(t('exportProgress'))+'</button>'
+    +'<button type="button" class="btn secondary" id="s-import">'+esc(t('importProgress'))+'</button>'
+    +'<input type="file" id="s-file" accept="application/json,.json" style="display:none">'
+    +'<button type="button" class="btn secondary" id="s-reset">'+esc(t('resetProgress'))+'</button>'
+    +'</div>'
+    +'<div class="muted" style="margin-top:12px">items: '+ALL_ITEMS.length+' · grammar: '+GRAMMAR.length
+    +' · mistakes: '+Object.keys(state.mistakes).length
+    +' · favs: '+((state.translateFavorites||[]).length + (state.aiFavorites||[]).length)+'</div>'
+    +'</div>';
+
+  el.querySelectorAll('#set-native .chip').forEach(btn => {
+    btn.onclick = () => {
+      el.querySelectorAll('#set-native .chip').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    };
+  });
+  el.querySelectorAll('#set-voice button').forEach(btn => {
+    btn.onclick = () => {
+      el.querySelectorAll('#set-voice button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    };
+  });
+  document.getElementById('set-save-profile').onclick = () => {
+    const nativeBtn = el.querySelector('#set-native .chip.active');
+    const voiceBtn = el.querySelector('#set-voice button.active');
+    state.translateSetup = Object.assign({}, state.translateSetup, {
+      done: true,
+      nativeLang: (nativeBtn && nativeBtn.dataset.v) || 'zh',
+      goal: (document.getElementById('set-goal').value || '').trim(),
+      level: document.getElementById('set-level').value,
+      voiceOn: voiceBtn ? voiceBtn.dataset.v === '1' : true,
+    });
+    saveState();
+    toast(t('saved'));
+    renderSettings();
+  };
+
+  const logoutBtn = document.getElementById('s-logout');
+  if (logoutBtn) logoutBtn.onclick = () => { logoutAuth(); };
+
+  document.getElementById('s-tr-setup').onclick = () => {
+    if (!state.translateSetup) state.translateSetup = defaultState().translateSetup;
+    state.translateSetup.done = false;
+    saveState();
+    showPanel('translate');
+  };
+  document.getElementById('s-export').onclick = exportProgress;
+  document.getElementById('s-import').onclick = () => document.getElementById('s-file').click();
+  document.getElementById('s-file').onchange = importProgressFile;
+  document.getElementById('s-reset').onclick = () => {
+    if (!confirm(t('confirmReset'))) return;
+    const keepMistakes = state.mistakes;
+    const keepAuth = state.auth;
+    const uiLang = state.uiLang;
+    const showEN = state.showEN;
+    const showZH = state.showZH;
+    state = defaultState();
+    state.mistakes = keepMistakes;
+    state.auth = keepAuth;
+    state.uiLang = uiLang;
+    state.showEN = showEN;
+    state.showZH = showZH;
+    saveState();
+    toast(t('saved'));
+    renderAll();
+  };
+}
+
+function exportProgress() {
+  const payload = {
+    app: 'korean-site',
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    state: state,
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'korean-site-progress-'+todayStr()+'.json';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  toast(t('saved'));
+}
+
+function importProgressFile(e) {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(reader.result);
+      const incoming = data.state || data;
+      if (!incoming || typeof incoming !== 'object') throw new Error('bad');
+      const keepAuth = (state && state.auth && state.auth.signedIn) ? state.auth : null;
+      state = Object.assign(defaultState(), incoming, {
+        revealFields: Object.assign(defaultState().revealFields, incoming.revealFields||{}),
+        practiceTypes: Object.assign(defaultState().practiceTypes, incoming.practiceTypes||{}),
+        practice: Object.assign(defaultState().practice, incoming.practice||{}),
+        translateSetup: Object.assign(defaultState().translateSetup, incoming.translateSetup||{}),
+        translateSides: Object.assign(defaultState().translateSides, incoming.translateSides||{}, {
+          a: Object.assign(defaultState().translateSides.a, ((incoming.translateSides||{}).a||{})),
+          b: Object.assign(defaultState().translateSides.b, ((incoming.translateSides||{}).b||{})),
+        }),
+        translateFavorites: Array.isArray(incoming.translateFavorites) ? incoming.translateFavorites : [],
+        aiFavorites: Array.isArray(incoming.aiFavorites) ? incoming.aiFavorites : [],
+        practiceTopics: Object.assign(defaultState().practiceTopics, incoming.practiceTopics||{}),
+        aiChat: Object.assign(defaultState().aiChat, (incoming.aiChat||{}), {
+          filters: Object.assign(defaultState().aiChat.filters, ((incoming.aiChat||{}).filters||{})),
+          messages: Array.isArray((incoming.aiChat||{}).messages) ? incoming.aiChat.messages : [],
+        }),
+        auth: Object.assign(defaultState().auth, incoming.auth||{}),
+      });
+      if (keepAuth && !(state.auth && state.auth.signedIn)) state.auth = keepAuth;
+      saveState();
+      toast(t('importOk'));
+      renderAll();
+    } catch (err) {
+      console.warn(err);
+      toast(t('importFail'));
+    }
+    e.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+
+/********************
+ * Hangul → Revised Romanization (basic + liaison)
+ ********************/
+const RR_CHO = ['g','kk','n','d','tt','r','m','b','pp','s','ss','','j','jj','ch','k','t','p','h'];
+const RR_JUNG = ['a','ae','ya','yae','eo','e','yeo','ye','o','wa','wae','oe','yo','u','wo','we','wi','yu','eu','ui','i'];
+// jong index 0 = none
+const RR_JONG = ['','k','k','k','n','n','n','t','l','k','m','l','l','l','l','l','m','p','p','t','t','ng','t','t','k','t','p','t'];
+// when jong moves before a vowel (liaison), use onset forms for double/cluster where needed
+const RR_JONG_ONSET = ['','g','kk','ks','n','nj','nh','d','r','lg','lm','lb','ls','lt','lp','lh','m','b','bs','s','ss','ng','j','ch','k','t','p','h'];
+
+function decomposeHangul(ch) {
+  const code = ch.charCodeAt(0);
+  if (code < 0xAC00 || code > 0xD7A3) return null;
+  const S = code - 0xAC00;
+  return { cho: Math.floor(S / 588), jung: Math.floor((S % 588) / 28), jong: S % 28 };
+}
+
+function romanizeHangul(text) {
+  const chars = Array.from(String(text || ''));
+  const syl = chars.map(c => {
+    const d = decomposeHangul(c);
+    return d ? { type:'h', ch:c, ...d } : { type:'o', ch:c };
+  });
+  // liaison: move jong to next cho when next cho is silent ㅇ (11)
+  for (let i = 0; i < syl.length - 1; i++) {
+    const a = syl[i], b = syl[i+1];
+    if (a.type === 'h' && b.type === 'h' && a.jong > 0 && b.cho === 11) {
+      b._onsetFromJong = a.jong;
+      a.jong = 0;
+    }
+  }
+  let out = '';
+  for (const s of syl) {
+    if (s.type !== 'h') { out += s.ch; continue; }
+    let onset = '';
+    if (s._onsetFromJong != null) onset = RR_JONG_ONSET[s._onsetFromJong] || '';
+    else onset = RR_CHO[s.cho] || '';
+    const vowel = RR_JUNG[s.jung] || '';
+    const coda = RR_JONG[s.jong] || '';
+    out += onset + vowel + coda;
+  }
+  return out;
+}
+
+/********************
+ * Translation stub (NO fabricated translations; server later)
+ ********************/
+/**
+ * @param {string} text
+ * @param {string} from  'ko'|'zh'|'en'
+ * @param {string} to    'ko'|'zh'|'en'
+ * @param {boolean} honorific
+ * @returns {Promise<{text:string, pending:boolean, honorific:boolean}>}
+ */
+async function translate(text, from, to, honorific) {
+  // No API keys or prompts in the client. Do not invent translations.
+  if (!AI_ENDPOINT) {
+    return {
+      text: t('trTransPending'),
+      pending: true,
+      honorific: !!honorific,
+    };
+  }
+  try {
+    const res = await fetch(AI_ENDPOINT.replace(/\/+$/, '') + '/translate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text, from, to, honorific: !!honorific,
+        profile: state.translateSetup || null,
+      }),
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    return {
+      text: (data && (data.text || data.translation)) || t('trTransPending'),
+      pending: !(data && (data.text || data.translation)),
+      honorific: !!honorific,
+      roma: data && data.roma ? data.roma : undefined,
+    };
+  } catch (e) {
+    console.warn('translate failed', e);
+    return {
+      text: t('trTransPending'),
+      pending: true,
+      honorific: !!honorific,
+    };
+  }
+}
+
+/********************
+ * Translate / Conversation panel
+ ********************/
+let trShowFavorites = false;
+let trActiveMic = null; // { side, recog }
+
+function trUid() {
+  return 'u' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+}
+
+function speakText(text, lang) {
+  if (!(state.translateSetup && state.translateSetup.voiceOn)) {
+    toast(t('trVoiceOff'));
+    return;
+  }
+  if (!window.speechSynthesis) {
+    toast(t('noKoVoice'));
+    return;
+  }
+  const map = { ko:'ko-KR', zh:'zh-CN', en:'en-US' };
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(String(text || ''));
+  u.lang = map[lang] || 'ko-KR';
+  if (lang === 'ko') {
+    refreshVoices();
+    if (koVoice) u.voice = koVoice;
+  } else {
+    const voices = speechSynthesis.getVoices() || [];
+    const pref = voices.find(v => (v.lang || '').toLowerCase().startsWith((map[lang]||'').toLowerCase().slice(0,2)));
+    if (pref) u.voice = pref;
+  }
+  speechSynthesis.speak(u);
+}
+
+function getSpeechRecognition() {
+  return window.SpeechRecognition || window.webkitSpeechRecognition || null;
+}
+
+function stopTrMic() {
+  if (trActiveMic && trActiveMic.recog) {
+    try { trActiveMic.recog.stop(); } catch (e) {}
+  }
+  trActiveMic = null;
+}
+
+function startTrMic(sideKey) {
+  const SR = getSpeechRecognition();
+  if (!SR) { toast(t('trMicUnsupported')); return; }
+  if (!(state.translateSetup && state.translateSetup.voiceOn)) { toast(t('trVoiceOff')); return; }
+  stopTrMic();
+  const side = state.translateSides[sideKey];
+  const recog = new SR();
+  const langMap = { ko:'ko-KR', zh:'zh-CN', en:'en-US' };
+  recog.lang = langMap[side.lang] || 'ko-KR';
+  recog.interimResults = false;
+  recog.maxAlternatives = 1;
+  trActiveMic = { side: sideKey, recog };
+  toast(t('trListening'));
+  const btn = document.getElementById('tr-mic-'+sideKey);
+  if (btn) btn.classList.add('recording');
+  recog.onresult = (ev) => {
+    const said = (ev.results && ev.results[0] && ev.results[0][0] && ev.results[0][0].transcript) || '';
+    const ta = document.getElementById('tr-input-'+sideKey);
+    if (ta && said) {
+      ta.value = (ta.value ? ta.value + ' ' : '') + said.trim();
+    }
+  };
+  recog.onerror = () => {
+    toast(t('trMicOff'));
+    stopTrMic();
+    if (btn) btn.classList.remove('recording');
+  };
+  recog.onend = () => {
+    if (btn) btn.classList.remove('recording');
+    trActiveMic = null;
+  };
+  try { recog.start(); } catch (e) { toast(t('trMicOff')); stopTrMic(); }
+}
+
+async function addUtterance(sideKey, text) {
+  text = String(text || '').trim();
+  if (!text) return;
+  const side = state.translateSides[sideKey];
+  const honorific = true;
+  const from = side.lang;
+  const to = side.other;
+  const result = await translate(text, from, to, honorific);
+  const card = {
+    id: trUid(),
+    original: text, // NEVER cleared
+    translation: result.text,
+    pending: !!result.pending,
+    from, to,
+    honorific,
+    roma: (from === 'ko' || /[\uAC00-\uD7A3]/.test(text)) ? romanizeHangul(text) : '',
+    at: new Date().toISOString(),
+  };
+  side.utterances.push(card);
+  saveState();
+  renderTranslate();
+}
+
+function toggleHonorific(sideKey, uid) {
+  const side = state.translateSides[sideKey];
+  const u = (side.utterances || []).find(x => x.id === uid);
+  if (!u) return;
+  u.honorific = !u.honorific;
+  // Re-call stub so future server can retranslate; keep original forever
+  translate(u.original, u.from, u.to, u.honorific).then(r => {
+    u.translation = r.text;
+    u.pending = !!r.pending;
+    saveState();
+    renderTranslate();
+  });
+}
+
+function copyText(text) {
+  const s = String(text || '');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(s).then(() => toast(t('trCopied'))).catch(() => fallbackCopy(s));
+  } else fallbackCopy(s);
+}
+function fallbackCopy(s) {
+  const ta = document.createElement('textarea');
+  ta.value = s; document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); toast(t('trCopied')); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+function isFav(uid) {
+  return (state.translateFavorites || []).some(f => f.id === uid || f.sourceId === uid);
+}
+
+function toggleFavorite(sideKey, uid) {
+  const side = state.translateSides[sideKey];
+  const u = (side.utterances || []).find(x => x.id === uid);
+  if (!u) return;
+  const idx = (state.translateFavorites || []).findIndex(f => f.sourceId === uid || f.id === uid);
+  if (idx >= 0) {
+    state.translateFavorites.splice(idx, 1);
+  } else {
+    state.translateFavorites.push({
+      id: trUid(),
+      sourceId: u.id,
+      original: u.original,
+      translation: u.translation,
+      roma: u.roma,
+      from: u.from,
+      to: u.to,
+      honorific: u.honorific,
+      at: new Date().toISOString(),
+    });
+    toast(t('trFavSaved'));
+  }
+  saveState();
+  renderTranslate();
+}
+
+function removeFavorite(fid) {
+  state.translateFavorites = (state.translateFavorites || []).filter(f => f.id !== fid);
+  saveState();
+  if (currentPanel === 'favorites') renderFavorites();
+  else renderTranslate();
+}
+
+function renderTranslateSetup(el) {
+  const setup = state.translateSetup || defaultState().translateSetup;
+  const levels = ['beginner',1,2,3,4,5,6];
+  el.innerHTML =
+    '<div class="card tr-setup"><h2>'+esc(t('trSetupTitle'))+'</h2>'
+    +'<p class="muted">'+esc(t('trSetupHint'))+'</p>'
+    +'<div class="field"><label>'+esc(t('trNative'))+'</label>'
+    +'<div class="choice-grid" id="tr-native">'
+    +['zh','en','ko'].map(l =>
+      '<button type="button" class="chip '+(setup.nativeLang===l?'active':'')+'" data-v="'+l+'">'+esc(t('lang_'+l))+'</button>'
+    ).join('')
+    +'</div></div>'
+    +'<div class="field"><label>'+esc(t('trGoal'))+'</label>'
+    +'<input type="text" id="tr-goal" value="'+esc(setup.goal||'')+'" placeholder="'+esc(t('trGoalPh'))+'"></div>'
+    +'<div class="field"><label>'+esc(t('trLevel'))+'</label>'
+    +'<select id="tr-level">'
+    + levels.map(lv => {
+        const label = lv === 'beginner' ? t('trLevelBeginner') : ('TOPIK '+lv);
+        return '<option value="'+lv+'"'+(String(setup.level)===String(lv)?' selected':'')+'>'+esc(label)+'</option>';
+      }).join('')
+    +'</select></div>'
+    +'<div class="field"><label>'+esc(t('trVoice'))+'</label>'
+    +'<div class="seg" id="tr-voice">'
+    +'<button type="button" data-v="1" class="'+(setup.voiceOn?'active':'')+'">'+esc(t('trVoiceOn'))+'</button>'
+    +'<button type="button" data-v="0" class="'+(!setup.voiceOn?'active':'')+'">'+esc(t('trVoiceOff'))+'</button>'
+    +'</div></div>'
+    +'<button type="button" class="btn block" id="tr-save-setup">'+esc(t('trSaveSetup'))+'</button>'
+    +'</div>';
+
+  el.querySelectorAll('#tr-native .chip').forEach(btn => {
+    btn.onclick = () => {
+      el.querySelectorAll('#tr-native .chip').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    };
+  });
+  el.querySelectorAll('#tr-voice button').forEach(btn => {
+    btn.onclick = () => {
+      el.querySelectorAll('#tr-voice button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    };
+  });
+  document.getElementById('tr-save-setup').onclick = () => {
+    const nativeBtn = el.querySelector('#tr-native .chip.active');
+    const voiceBtn = el.querySelector('#tr-voice button.active');
+    state.translateSetup = {
+      done: true,
+      nativeLang: (nativeBtn && nativeBtn.dataset.v) || 'zh',
+      goal: (document.getElementById('tr-goal').value || '').trim(),
+      level: document.getElementById('tr-level').value,
+      voiceOn: voiceBtn ? voiceBtn.dataset.v === '1' : true,
+    };
+    // Align side B default with native language
+    if (state.translateSides && state.translateSides.b) {
+      state.translateSides.b.lang = state.translateSetup.nativeLang;
+      state.translateSides.b.other = 'ko';
+      state.translateSides.a.lang = 'ko';
+      state.translateSides.a.other = state.translateSetup.nativeLang;
+    }
+    saveState();
+    toast(t('saved'));
+    renderTranslate();
+  };
+}
+
+function trCardHTML(sideKey, u) {
+  const fav = isFav(u.id);
+  const showRoma = !!u.roma;
+  return '<div class="tr-card" data-uid="'+esc(u.id)+'">'
+    +'<div class="tr-card-grid">'
+    +'<div><div class="muted" style="font-size:.72rem;margin-bottom:2px">'+esc(t('trOriginal'))
+    +' · '+esc(t('lang_'+u.from))+'</div>'
+    +'<div class="tr-orig">'+esc(u.original)+'</div>'
+    +(showRoma ? '<div class="tr-roma">'+esc(t('trRoma'))+': '+esc(u.roma)+'</div>' : '')
+    +'</div>'
+    +'<div><div class="muted" style="font-size:.72rem;margin-bottom:2px">'+esc(t('trTranslation'))
+    +' · '+esc(t('lang_'+u.to))+'</div>'
+    +'<div class="tr-trans">'+esc(u.translation || t('trTransPending'))+'</div>'
+    +'</div></div>'
+    +'<div class="tr-actions" style="margin-top:8px">'
+    +'<button type="button" class="chip soft tr-hon '+(u.honorific?'active':'')+'" data-side="'+sideKey+'" data-uid="'+esc(u.id)+'">'
+    +esc(t('trHonorific'))+': '+esc(u.honorific?t('trHonorificOn'):t('trHonorificOff'))+'</button>'
+    +'<button type="button" class="chip tr-speak" data-text="'+esc(u.original)+'" data-lang="'+esc(u.from)+'">🔊 '+esc(t('trSpeak'))+'</button>'
+    +'<button type="button" class="chip tr-copy" data-text="'+esc(u.original)+'">'+esc(t('trCopy'))+'</button>'
+    +'<button type="button" class="chip soft tr-fav '+(fav?'active':'')+'" data-side="'+sideKey+'" data-uid="'+esc(u.id)+'">'
+    +(fav?'★ ':'☆ ')+esc(fav?t('trUnfav'):t('trFav'))+'</button>'
+    +'</div></div>';
+}
+
+function renderTranslateConversation(el) {
+  const sides = state.translateSides;
+  const SR = getSpeechRecognition();
+  const setup = state.translateSetup || {};
+  const langs = ['ko','zh','en'];
+
+  function sideBlock(key, label) {
+    const side = sides[key];
+    const micLabel = SR ? t('trMic') : t('trMicOff');
+    return '<div class="tr-side" data-side="'+key+'">'
+      +'<div class="tr-side-head">'
+      +'<div class="tr-side-title">'+esc(label)+'</div>'
+      +'<div class="row">'
+      +'<label class="muted" style="font-size:.75rem">'+esc(t('trLangFrom'))+'</label>'
+      +'<select class="tr-lang-from" data-side="'+key+'">'
+      + langs.map(l => '<option value="'+l+'"'+(side.lang===l?' selected':'')+'>'+esc(t('lang_'+l))+'</option>').join('')
+      +'</select>'
+      +'<label class="muted" style="font-size:.75rem">'+esc(t('trLangTo'))+'</label>'
+      +'<select class="tr-lang-to" data-side="'+key+'">'
+      + langs.map(l => '<option value="'+l+'"'+(side.other===l?' selected':'')+'>'+esc(t('lang_'+l))+'</option>').join('')
+      +'</select>'
+      +'</div></div>'
+      +'<div class="tr-compose">'
+      +'<textarea id="tr-input-'+key+'" placeholder="'+esc(t('trTypePh'))+'"></textarea>'
+      +'<div class="row">'
+      +'<button type="button" class="btn" id="tr-send-'+key+'">'+esc(t('trSend'))+'</button>'
+      +'<button type="button" class="btn secondary tr-mic'+(SR?'':'')+'" id="tr-mic-'+key+'" '+(SR?'':'disabled')+'>🎙 '+esc(micLabel)+'</button>'
+      +'<button type="button" class="btn ghost" id="tr-clear-'+key+'">'+esc(t('trClearFeed'))+'</button>'
+      +'</div></div>'
+      +'<div class="tr-feed" id="tr-feed-'+key+'">'
+      + (side.utterances || []).slice().reverse().map(u => trCardHTML(key, u)).join('')
+      +'</div></div>';
+  }
+
+  const favBlock = trShowFavorites
+    ? '<div class="card tr-fav-list"><h3>'+esc(t('trFavList'))+'</h3>'
+      + ((state.translateFavorites||[]).length
+          ? state.translateFavorites.map(f =>
+              '<div class="tr-card"><div class="tr-orig">'+esc(f.original)+'</div>'
+              +(f.roma?'<div class="tr-roma">'+esc(f.roma)+'</div>':'')
+              +'<div class="tr-trans">'+esc(f.translation||t('trTransPending'))+'</div>'
+              +'<div class="tr-actions" style="margin-top:6px">'
+              +'<button type="button" class="chip tr-speak" data-text="'+esc(f.original)+'" data-lang="'+esc(f.from)+'">🔊 '+esc(t('trSpeak'))+'</button>'
+              +'<button type="button" class="chip tr-copy" data-text="'+esc(f.original)+'">'+esc(t('trCopy'))+'</button>'
+              +'<button type="button" class="chip tr-unfav" data-fid="'+esc(f.id)+'">'+esc(t('delete'))+'</button>'
+              +'</div></div>'
+            ).join('')
+          : '<p class="muted">'+esc(t('trEmptyFav'))+'</p>')
+      +'</div>'
+    : '';
+
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('trTitle'))+'</h2>'
+    +'<p class="muted">'+esc(t('trHint'))+'</p>'
+    +'<div class="row space">'
+    +'<div class="muted" style="font-size:.8rem">'+esc(t('trNative'))+': <strong>'+esc(t('lang_'+(setup.nativeLang||'zh')))+'</strong>'
+    +' · '+esc(t('trLevel'))+': <strong>'+esc(setup.level==='beginner'?t('trLevelBeginner'):('TOPIK '+setup.level))+'</strong></div>'
+    +'<div class="row">'
+    +'<button type="button" class="btn ghost" id="tr-edit-setup">'+esc(t('trEditSetup'))+'</button>'
+    +'<button type="button" class="btn secondary" id="tr-tog-fav">'+esc(trShowFavorites?t('trHideFav'):t('trShowFav'))+'</button>'
+    +'</div></div></div>'
+    + favBlock
+    +'<div class="tr-sides">'
+    + sideBlock('a', t('trSideA'))
+    + sideBlock('b', t('trSideB'))
+    +'</div>';
+
+  ['a','b'].forEach(key => {
+    document.getElementById('tr-send-'+key).onclick = () => {
+      const ta = document.getElementById('tr-input-'+key);
+      const val = ta.value;
+      ta.value = '';
+      addUtterance(key, val);
+    };
+    document.getElementById('tr-mic-'+key).onclick = () => startTrMic(key);
+    document.getElementById('tr-clear-'+key).onclick = () => {
+      state.translateSides[key].utterances = [];
+      saveState();
+      renderTranslate();
+    };
+  });
+  el.querySelectorAll('.tr-lang-from').forEach(sel => {
+    sel.onchange = () => {
+      state.translateSides[sel.dataset.side].lang = sel.value;
+      saveState();
+    };
+  });
+  el.querySelectorAll('.tr-lang-to').forEach(sel => {
+    sel.onchange = () => {
+      state.translateSides[sel.dataset.side].other = sel.value;
+      saveState();
+    };
+  });
+  el.querySelectorAll('.tr-hon').forEach(btn => {
+    btn.onclick = () => toggleHonorific(btn.dataset.side, btn.dataset.uid);
+  });
+  el.querySelectorAll('.tr-speak').forEach(btn => {
+    btn.onclick = () => speakText(btn.dataset.text, btn.dataset.lang || 'ko');
+  });
+  el.querySelectorAll('.tr-copy').forEach(btn => {
+    btn.onclick = () => copyText(btn.dataset.text);
+  });
+  el.querySelectorAll('.tr-fav').forEach(btn => {
+    btn.onclick = () => toggleFavorite(btn.dataset.side, btn.dataset.uid);
+  });
+  el.querySelectorAll('.tr-unfav').forEach(btn => {
+    btn.onclick = () => removeFavorite(btn.dataset.fid);
+  });
+  document.getElementById('tr-edit-setup').onclick = () => {
+    state.translateSetup.done = false;
+    saveState();
+    renderTranslate();
+  };
+  document.getElementById('tr-tog-fav').onclick = () => {
+    trShowFavorites = !trShowFavorites;
+    renderTranslate();
+  };
+}
+
+function renderTranslate() {
+  const el = document.getElementById('panel-translate');
+  if (!el) return;
+  if (!state.translateSetup) state.translateSetup = defaultState().translateSetup;
+  if (!state.translateSides) state.translateSides = defaultState().translateSides;
+  if (!Array.isArray(state.translateFavorites)) state.translateFavorites = [];
+  if (!state.translateSetup.done) renderTranslateSetup(el);
+  else renderTranslateConversation(el);
+}
+
+/********************
+ * AI Tutor chat
+ ********************/
+function ensureAiChat() {
+  if (!state.aiChat) state.aiChat = defaultState().aiChat;
+  if (!state.aiChat.filters) state.aiChat.filters = defaultState().aiChat.filters;
+  if (!Array.isArray(state.aiChat.messages)) state.aiChat.messages = [];
+  if (!state.aiChat.selectedModelId) state.aiChat.selectedModelId = 'deepseek-chat';
+}
+
+function aiUid() {
+  return 'm' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+}
+
+function getAiModels() {
+  // EXAMPLE placeholders — later: fetch from server
+  return EXAMPLE_AI_MODELS.slice();
+}
+
+function filteredAiModels() {
+  ensureAiChat();
+  const f = state.aiChat.filters || {};
+  return getAiModels().filter(m => {
+    if (f.vendor && m.vendor !== f.vendor) return false;
+    if (f.group && m.group !== f.group) return false;
+    if (f.billing && m.billing !== f.billing) return false;
+    if (f.tag && !(m.tags || []).includes(f.tag)) return false;
+    if (f.endpoint && m.endpoint !== f.endpoint) return false;
+    return true;
+  });
+}
+
+function getSelectedAiModel() {
+  ensureAiChat();
+  const list = getAiModels();
+  return list.find(m => m.id === state.aiChat.selectedModelId) || list[0] || null;
+}
+
+/**
+ * Single network entry for AI chat.
+ * POSTs to AI_ENDPOINT. No keys / system prompts in the client.
+ * @param {Array<{role:string,content:string}>} messages
+ * @param {string} model
+ * @returns {Promise<{ok:boolean, content?:string, error?:string, notConnected?:boolean}>}
+ */
+async function callAI(messages, model) {
+  if (!AI_ENDPOINT) {
+    return { ok: false, notConnected: true, error: t('aiNotConnected') };
+  }
+  try {
+    const res = await fetch(AI_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages, model }),
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    const content = (data && (data.content || data.reply || (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content))) || '';
+    if (!content) return { ok: false, error: t('aiErr') };
+    return { ok: true, content: String(content) };
+  } catch (e) {
+    console.warn('callAI failed', e);
+    return { ok: false, error: t('aiErr') + ': ' + (e && e.message ? e.message : String(e)) };
+  }
+}
+
+function aiPlainLabel(role) {
+  if (role === 'user') return t('aiYou');
+  if (role === 'assistant') return t('aiBot');
+  return 'system';
+}
+
+function aiConversationPlainText(msgs) {
+  return (msgs || []).filter(m => m.role === 'user' || m.role === 'assistant')
+    .map(m => aiPlainLabel(m.role) + '：' + String(m.content || '').replace(/\r\n/g, '\n'))
+    .join('\n\n');
+}
+
+async function copyTextToClipboard(str) {
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(str);
+      return true;
+    }
+  } catch (e) {}
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = str;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch (e) {
+    return false;
+  }
+}
+
+function downloadBlob(filename, blob) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+function saveAiConversation(fmt) {
+  ensureAiChat();
+  const msgs = state.aiChat.messages || [];
+  const model = getSelectedAiModel();
+  const stamp = todayStr() + '-' + Date.now().toString(36);
+  if (fmt === 'json') {
+    const payload = {
+      app: 'korean-site',
+      type: 'ai-chat',
+      exportedAt: new Date().toISOString(),
+      model: model ? model.id : null,
+      messages: msgs,
+    };
+    downloadBlob('ai-chat-' + stamp + '.json', new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' }));
+  } else {
+    const plain = aiConversationPlainText(msgs);
+    downloadBlob('ai-chat-' + stamp + '.txt', new Blob([plain || ''], { type: 'text/plain;charset=utf-8' }));
+  }
+  toast(t('saved'));
+}
+
+function renderAiFilterChip(section, value, label, allClass) {
+  ensureAiChat();
+  const cur = state.aiChat.filters[section] || '';
+  const active = cur === value;
+  const cls = 'chip' + (active ? ' active' + (allClass ? ' ' + allClass : '') : '');
+  return '<button type="button" class="'+cls+'" data-ai-filter="'+esc(section)+'" data-ai-value="'+esc(value)+'">'+esc(label)+'</button>';
+}
+
+function renderAI() {
+  ensureAiChat();
+  const el = document.getElementById('panel-ai');
+  if (!el) return;
+  const f = state.aiChat.filters;
+  const models = filteredAiModels();
+  const selected = getSelectedAiModel();
+  const msgs = state.aiChat.messages || [];
+
+  let filterHtml =
+    '<div class="ai-filter-panel" id="ai-filter-panel">'
+    +'<div class="ai-filter-head"><h3>'+esc(t('aiFilter'))+'</h3>'
+    +'<button type="button" class="btn ghost" id="ai-filter-reset">'+esc(t('aiReset'))+'</button></div>'
+    +'<p class="muted" style="margin:0 0 6px;font-size:.75rem">'+esc(t('aiExampleNote'))+'</p>'
+
+    +'<div class="ai-filter-section"><div class="ai-filter-label">'+esc(t('aiVendor'))+'</div>'
+    +'<div class="ai-filter-chips">'
+    + renderAiFilterChip('vendor','',t('aiAllVendors'),'all-vendors')
+    + renderAiFilterChip('vendor','DeepSeek','DeepSeek','')
+    +'</div></div>'
+
+    +'<div class="ai-filter-section"><div class="ai-filter-label">'+esc(t('aiTokenGroup'))+'</div>'
+    +'<div class="ai-filter-chips">'
+    + renderAiFilterChip('group','',t('aiAllGroups'),'all-groups')
+    + renderAiFilterChip('group','default','default','')
+    + renderAiFilterChip('group','vip','vip','')
+    +'</div></div>'
+
+    +'<div class="ai-filter-section"><div class="ai-filter-label">'+esc(t('aiBilling'))+'</div>'
+    +'<div class="ai-filter-chips">'
+    + renderAiFilterChip('billing','',t('aiAllBilling'),'all-billing')
+    + renderAiFilterChip('billing','usage',t('aiBillingUsage'),'')
+    + renderAiFilterChip('billing','per_call',t('aiBillingPerCall'),'')
+    +'</div></div>'
+
+    +'<div class="ai-filter-section"><div class="ai-filter-label">'+esc(t('aiTags'))+'</div>'
+    +'<div class="ai-filter-chips">'
+    + renderAiFilterChip('tag','',t('aiAllTags'),'all-tags')
+    +'</div></div>'
+
+
+    +'<div class="ai-filter-section"><div class="ai-filter-label">'+esc(t('aiModels'))+'</div>'
+    +'<div class="ai-model-list" id="ai-model-list">';
+
+  if (!models.length) {
+    filterHtml += '<div class="ai-empty">'+esc(t('aiNoModels'))+'</div>';
+  } else {
+    models.forEach(m => {
+      const isSel = selected && m.id === selected.id;
+      filterHtml +=
+        '<button type="button" class="ai-model-card'+(isSel?' active':'')+'" data-ai-model="'+esc(m.id)+'">'
+        +'<div class="name">'+esc(m.name)+(isSel?' · '+esc(t('aiSelected')):'')+'</div>'
+        +'<div class="meta">'+esc(m.vendor)+' · '+esc(m.group)+'</div>'
+        +'<div class="price">'+esc(t('aiPricePending'))+'</div>'
+        +'</button>';
+    });
+  }
+  filterHtml += '</div></div>';
+
+  let msgsHtml = '';
+  if (!msgs.length) {
+    msgsHtml = '<div class="ai-empty">'+esc(t('aiEmpty'))+'</div>';
+  } else {
+    msgs.forEach(m => {
+      const role = m.role === 'user' ? 'user' : (m.role === 'assistant' ? 'assistant' : 'system');
+      msgsHtml +=
+        '<div class="ai-msg '+role+'" data-msg-id="'+esc(m.id)+'">'
+        +'<div class="ai-msg-body">'+esc(m.content||'')+'</div>';
+      if (role === 'user' || role === 'assistant') {
+        msgsHtml +=
+          '<div class="ai-msg-actions">'
+          +'<button type="button" class="chip" data-ai-copy-msg="'+esc(m.id)+'">'+esc(t('aiCopyMsg'))+'</button>'
+          +'<button type="button" class="chip soft'+(isAiFav(m.id)?' active':'')+'" data-ai-fav-msg="'+esc(m.id)+'">'+(isAiFav(m.id)?'★ ':'☆ ')+esc(isAiFav(m.id)?t('trUnfav'):t('trFav'))+'</button>'
+          +'</div>';
+      }
+      msgsHtml += '</div>';
+    });
+  }
+
+  const notice = AI_ENDPOINT
+    ? ''
+    : '<div class="ai-notice" id="ai-not-connected">'+esc(t('aiNotConnected'))+'</div>'
+      +'<div class="ai-notice" id="ai-domestic-plan" style="margin-top:8px">'+esc(t('aiDomesticPlan'))+'</div>';
+
+  el.innerHTML =
+    '<div class="card" style="margin-bottom:10px">'
+    +'<div class="row space"><h2 style="margin:0">'+esc(t('aiTitle'))+'</h2>'
+    +'<span class="badge">v0.1</span></div>'
+    +'<p class="muted" style="margin:6px 0 0">'+esc(t('aiDesc'))+'</p>'
+    +'</div>'
+    + notice
+    +'<div class="ai-layout">'
+    + filterHtml
+    +'<div class="ai-chat-card">'
+    +'<div class="ai-chat-toolbar">'
+    +'<span class="model-tag">'+(selected ? esc(selected.name) : '—')+'</span>'
+    +'<span class="grow"></span>'
+    +'<button type="button" class="btn ghost" id="ai-new-chat">'+esc(t('aiNewChat'))+'</button>'
+    +'<button type="button" class="btn ghost" id="ai-clear-chat">'+esc(t('aiClearChat'))+'</button>'
+    +'<button type="button" class="btn secondary" id="ai-copy-all">'+esc(t('aiCopyAll'))+'</button>'
+    +'<span class="muted" style="font-size:.78rem">'+esc(t('aiSaveLocal'))+'</span>'
+    +'<div class="seg" id="ai-save-seg" aria-label="'+esc(t('aiSaveLocal'))+'">'
+    +'<button type="button" data-ai-save="txt">'+esc(t('aiSaveTxt'))+'</button>'
+    +'<button type="button" data-ai-save="json">'+esc(t('aiSaveJson'))+'</button>'
+    +'</div>'
+    +'</div>'
+    +'<div class="ai-msgs" id="ai-msgs">'+msgsHtml+'</div>'
+    +'<div class="ai-compose">'
+    +'<textarea id="ai-input" placeholder="'+esc(t('aiInputPh'))+'" rows="3"></textarea>'
+    +'<div class="row"><button type="button" class="btn" id="ai-send">'+esc(t('aiSend'))+'</button>'
+    +'<span class="muted grow" id="ai-status"></span></div>'
+    +'</div>'
+    +'</div>'
+    +'</div>';
+
+  // filter chips
+  el.querySelectorAll('[data-ai-filter]').forEach(btn => {
+    btn.onclick = () => {
+      const section = btn.getAttribute('data-ai-filter');
+      const value = btn.getAttribute('data-ai-value') || '';
+      ensureAiChat();
+      state.aiChat.filters[section] = value;
+      // if selected model filtered out, pick first remaining
+      const still = filteredAiModels();
+      if (still.length && !still.find(m => m.id === state.aiChat.selectedModelId)) {
+        state.aiChat.selectedModelId = still[0].id;
+      }
+      saveState();
+      renderAI();
+    };
+  });
+  const resetBtn = document.getElementById('ai-filter-reset');
+  if (resetBtn) resetBtn.onclick = () => {
+    ensureAiChat();
+    state.aiChat.filters = { vendor:'', group:'', billing:'', tag:'', endpoint:'' };
+    saveState();
+    renderAI();
+  };
+  el.querySelectorAll('[data-ai-model]').forEach(btn => {
+    btn.onclick = () => {
+      ensureAiChat();
+      state.aiChat.selectedModelId = btn.getAttribute('data-ai-model');
+      saveState();
+      renderAI();
+    };
+  });
+
+  const newBtn = document.getElementById('ai-new-chat');
+  const clearBtn = document.getElementById('ai-clear-chat');
+  const copyAllBtn = document.getElementById('ai-copy-all');
+  if (newBtn) newBtn.onclick = () => {
+    ensureAiChat();
+    state.aiChat.messages = [];
+    saveState();
+    renderAI();
+  };
+  if (clearBtn) clearBtn.onclick = () => {
+    ensureAiChat();
+    state.aiChat.messages = [];
+    saveState();
+    renderAI();
+  };
+  if (copyAllBtn) copyAllBtn.onclick = async () => {
+    ensureAiChat();
+    const plain = aiConversationPlainText(state.aiChat.messages);
+    const ok = await copyTextToClipboard(plain);
+    toast(ok ? t('aiCopied') : t('aiErr'));
+  };
+  el.querySelectorAll('[data-ai-save]').forEach(btn => {
+    btn.onclick = () => saveAiConversation(btn.getAttribute('data-ai-save'));
+  });
+  el.querySelectorAll('[data-ai-copy-msg]').forEach(btn => {
+    btn.onclick = async () => {
+      ensureAiChat();
+      const id = btn.getAttribute('data-ai-copy-msg');
+      const msg = (state.aiChat.messages || []).find(m => m.id === id);
+      if (!msg) return;
+      const plain = aiPlainLabel(msg.role) + '：' + String(msg.content || '');
+      const ok = await copyTextToClipboard(plain);
+      toast(ok ? t('aiCopied') : t('aiErr'));
+    };
+  });
+  el.querySelectorAll('[data-ai-fav-msg]').forEach(btn => {
+    btn.onclick = () => toggleAiFavorite(btn.getAttribute('data-ai-fav-msg'));
+  });
+
+  const input = document.getElementById('ai-input');
+  const sendBtn = document.getElementById('ai-send');
+  async function doSend() {
+    if (!input) return;
+    const text = (input.value || '').trim();
+    if (!text) return;
+    ensureAiChat();
+    const model = getSelectedAiModel();
+    const modelId = model ? model.id : 'deepseek-chat';
+    const userMsg = { id: aiUid(), role: 'user', content: text, at: new Date().toISOString(), model: modelId };
+    state.aiChat.messages.push(userMsg);
+    input.value = '';
+    saveState();
+    renderAI();
+    const status = document.getElementById('ai-status');
+    const sendEl = document.getElementById('ai-send');
+    if (status) status.textContent = t('aiSending');
+    if (sendEl) sendEl.disabled = true;
+
+    const history = state.aiChat.messages
+      .filter(m => m.role === 'user' || m.role === 'assistant')
+      .map(m => ({ role: m.role, content: m.content }));
+    const result = await callAI(history, modelId);
+
+    ensureAiChat();
+    if (result.notConnected) {
+      state.aiChat.messages.push({
+        id: aiUid(), role: 'system', content: t('aiNotConnected'),
+        at: new Date().toISOString(), model: modelId,
+      });
+    } else if (result.ok) {
+      state.aiChat.messages.push({
+        id: aiUid(), role: 'assistant', content: result.content,
+        at: new Date().toISOString(), model: modelId,
+      });
+    } else {
+      state.aiChat.messages.push({
+        id: aiUid(), role: 'system', content: result.error || t('aiErr'),
+        at: new Date().toISOString(), model: modelId,
+      });
+    }
+    saveState();
+    renderAI();
+  }
+  if (sendBtn) sendBtn.onclick = doSend;
+  if (input) {
+    input.onkeydown = (ev) => {
+      if (ev.key === 'Enter' && !ev.shiftKey) {
+        ev.preventDefault();
+        doSend();
+      }
+    };
+  }
+
+  const box = document.getElementById('ai-msgs');
+  if (box) box.scrollTop = box.scrollHeight;
+}
+
+/********************
+ * About
+ ********************/
+function renderAbout() {
+  const el = document.getElementById('panel-about');
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('aboutTitle'))+' <span class="draft-badge">'+esc(t('draftBadge'))+'</span></h2>'
+    +'<p>'+esc(t('aboutIntro'))+'</p>'
+    +'<p>'+esc(t('aboutLearn'))+'</p>'
+    +'<p>'+esc(t('aboutLang'))+'</p>'
+    +'<p class="muted">'+esc(t('aboutDraftNote'))+'</p>'
+    +'<p class="muted">'+domainPlaceholderHTML()+'</p>'
+    +'<p class="muted">'+esc(t('aboutLoginNote'))+'</p>'
+    +'<p class="muted">'+esc(t('aboutAiPlan'))+'</p>'
+    +'<h3 style="margin-top:14px">'+esc(t('aboutFeatures'))+'</h3>'
+    +'<ul style="margin:8px 0 0;padding-left:1.2em">'
+    +'<li>'+esc(t('aboutFeatMistakes'))+'</li>'
+    +'<li>'+esc(t('aboutFeatTopik'))+'</li>'
+    +'<li>'+esc(t('aboutFeatTranslate'))+'</li>'
+    +'<li>'+esc(t('aboutFeatAi'))+'</li>'
+    +'<li>'+esc(t('aboutFeatMore'))+'</li>'
+    +'</ul></div>';
+}
+
+/********************
+ * Daily Review (dedicated page; same reviewQueue as Practice)
+ ********************/
+function renderDaily() {
+  const el = document.getElementById('panel-daily');
+  const due = dueToday().slice();
+  // most-missed parts first: sort by max part count, then total mistake count
+  due.sort((a,b) => {
+    const ma = state.mistakes[a.id]||{}, mb = state.mistakes[b.id]||{};
+    const partMax = (m) => Math.max(0, ...Object.values(m.parts||{0:0}));
+    return partMax(mb) - partMax(ma) || (mb.count||0) - (ma.count||0);
+  });
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('dailyTitle'))+'</h2>'
+    +'<p class="muted">'+esc(t('dailyHint'))+'</p>'
+    +'<div class="field"><label>'+esc(t('repeatDefault'))+'</label>'
+    +'<input type="number" id="daily-rep-default" min="1" max="10" value="'+(state.repeatDefault||2)+'"></div>'
+    +'<button type="button" class="btn block" id="daily-start"'+(due.length?'':' disabled')+'>'+esc(t('dailyStart'))+'</button>'
+    +'</div>'
+    + (due.length
+      ? due.map(q => {
+          const it = getItem(q.id); if (!it) return '';
+          const m = state.mistakes[q.id]||{};
+          const partBits = PARTS.filter(p => m.parts && m.parts[p]).map(p => t('part_'+p)+'×'+m.parts[p]).join(', ');
+          return '<div class="card">'
+            +'<div class="row space"><div class="ko-big" style="font-size:1.25rem">'+esc(it.ko)+'</div>'
+            +'<span class="badge">'+esc(q.due)+'</span></div>'
+            + meaningHTML(it)
+            +'<div style="margin-top:6px">'+badgesHTML(it)+'</div>'
+            +(partBits ? '<div class="muted" style="margin-top:6px">'+esc(partBits)+'</div>' : '')
+            +'<div class="field" style="margin-top:8px"><label>'+esc(t('dailyRepeats'))+'</label>'
+            +'<input type="number" class="daily-item-rep" data-id="'+esc(it.id)+'" min="1" max="10" value="'+repeatsFor(it.id)+'"></div>'
+            +'<button type="button" class="btn ghost mark-daily-due" data-id="'+esc(it.id)+'">'+esc(t('markKnown'))+'</button>'
+            +'</div>';
+        }).join('')
+      : '<div class="card empty">'+esc(t('dailyEmpty'))+'</div>');
+
+  document.getElementById('daily-rep-default').onchange = e => {
+    state.repeatDefault = Math.max(1, Math.min(10, parseInt(e.target.value,10)||2));
+    saveState();
+  };
+  el.querySelectorAll('.daily-item-rep').forEach(inp => {
+    inp.onchange = () => {
+      const id = inp.dataset.id;
+      const n = Math.max(1, Math.min(10, parseInt(inp.value,10)||1));
+      state.itemRepeats[id] = n;
+      saveState();
+    };
+  });
+  el.querySelectorAll('.mark-daily-due').forEach(b => {
+    b.onclick = () => {
+      state.reviewQueue = (state.reviewQueue||[]).filter(x => x.id !== b.dataset.id);
+      saveState(); renderDaily();
+    };
+  });
+  document.getElementById('daily-start').onclick = () => {
+    if (!due.length) { toast(t('dailyEmpty')); return; }
+    if (!enabledTopics().length) { toast(t('noTopicsSelected')); return; }
+    if (!enabledRegisters().length) { toast(t('noTypesSelected')); return; }
+    quiz = {
+      queue: due.map(x => ({id: x.id, left: repeatsFor(x.id)})),
+      index: 0, correct: 0, total: 0, mode: 'recognition', fromDue: true
+    };
+    showPanel('practice');
+  };
+}
+
+/********************
+ * Favorites (translate + AI)
+ ********************/
+function isAiFav(msgId) {
+  return (state.aiFavorites || []).some(f => f.sourceId === msgId || f.id === msgId);
+}
+function toggleAiFavorite(msgId) {
+  ensureAiChat();
+  const msg = (state.aiChat.messages || []).find(m => m.id === msgId);
+  if (!msg) return;
+  if (!Array.isArray(state.aiFavorites)) state.aiFavorites = [];
+  const idx = state.aiFavorites.findIndex(f => f.sourceId === msgId || f.id === msgId);
+  if (idx >= 0) {
+    state.aiFavorites.splice(idx, 1);
+  } else {
+    state.aiFavorites.push({
+      id: 'aif_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),
+      sourceId: msg.id,
+      role: msg.role,
+      content: msg.content,
+      at: new Date().toISOString(),
+      model: msg.model || '',
+    });
+    toast(t('trFavSaved'));
+  }
+  saveState();
+  renderAI();
+}
+function removeAiFavorite(fid) {
+  state.aiFavorites = (state.aiFavorites || []).filter(f => f.id !== fid);
+  saveState();
+  renderFavorites();
+}
+
+function renderFavorites() {
+  const el = document.getElementById('panel-favorites');
+  const tr = state.translateFavorites || [];
+  const ai = state.aiFavorites || [];
+  let body = '';
+  if (!tr.length && !ai.length) {
+    body = '<div class="card empty">'+esc(t('favEmpty'))+'</div>';
+  } else {
+    if (tr.length) {
+      body += '<div class="card"><h3>'+esc(t('favFromTranslate'))+'</h3></div>';
+      body += tr.map(f =>
+        '<div class="card">'
+        +'<div class="muted">'+esc(t('favSource'))+': Translate · '+(f.from||'')+' → '+(f.to||'')+'</div>'
+        +'<div class="ko-big" style="font-size:1.15rem;margin-top:4px">'+esc(f.original||'')+'</div>'
+        +(f.translation ? '<div class="muted" style="margin-top:4px">'+esc(f.translation)+'</div>' : '')
+        +(f.roma ? '<div class="tr-roma">'+esc(f.roma)+'</div>' : '')
+        +'<div class="row" style="margin-top:8px">'
+        +'<button type="button" class="btn secondary fav-copy" data-text="'+esc(f.original||'')+'">'+esc(t('trCopy'))+'</button>'
+        +'<button type="button" class="btn ghost fav-del-tr" data-fid="'+esc(f.id)+'">'+esc(t('delete'))+'</button>'
+        +'</div></div>'
+      ).join('');
+    }
+    if (ai.length) {
+      body += '<div class="card"><h3>'+esc(t('favFromAi'))+'</h3></div>';
+      body += ai.map(f =>
+        '<div class="card">'
+        +'<div class="muted">'+esc(t('favSource'))+': AI · '+esc(f.role||'')+(f.model?' · '+esc(f.model):'')+'</div>'
+        +'<div style="margin-top:6px;white-space:pre-wrap">'+esc(f.content||'')+'</div>'
+        +'<div class="row" style="margin-top:8px">'
+        +'<button type="button" class="btn secondary fav-copy" data-text="'+esc(f.content||'')+'">'+esc(t('trCopy'))+'</button>'
+        +'<button type="button" class="btn ghost fav-del-ai" data-fid="'+esc(f.id)+'">'+esc(t('delete'))+'</button>'
+        +'</div></div>'
+      ).join('');
+    }
+  }
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('favTitle'))+'</h2>'
+    +'<p class="muted">'+esc(t('favHint'))+'</p></div>'
+    + body;
+
+  el.querySelectorAll('.fav-copy').forEach(b => {
+    b.onclick = () => copyText(b.getAttribute('data-text') || '');
+  });
+  el.querySelectorAll('.fav-del-tr').forEach(b => {
+    b.onclick = () => { removeFavorite(b.dataset.fid); renderFavorites(); };
+  });
+  el.querySelectorAll('.fav-del-ai').forEach(b => {
+    b.onclick = () => removeAiFavorite(b.dataset.fid);
+  });
+}
+
+/********************
+ * Materials (external links only)
+ ********************/
+const MATERIAL_LINKS = [
+  { key:'mat_naver_news', url:'https://news.naver.com' },
+  { key:'mat_naver_dict', url:'https://zh.dict.naver.com' },
+  { key:'mat_kornorms', url:'https://korean.go.kr/kornorms/main/main.do' },
+  { key:'mat_stdict', url:'https://stdict.korean.go.kr' },
+  { key:'mat_krdict', url:'https://krdict.korean.go.kr/chn/mainAction' },
+  { key:'mat_papago', url:'https://papago.naver.com' },
+  { key:'mat_naver_comic', url:'https://comic.naver.com' },
+];
+
+function renderMaterials() {
+  const el = document.getElementById('panel-materials');
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('materialsTitle'))+'</h2>'
+    +'<p class="muted">'+esc(t('materialsHint'))+'</p></div>'
+    + MATERIAL_LINKS.map(m =>
+        '<div class="card">'
+        +'<a href="'+esc(m.url)+'" target="_blank" rel="noopener noreferrer" style="font-weight:700;text-decoration:none">'
+        +esc(t(m.key))+'</a>'
+        +'<div class="muted" style="margin-top:4px;word-break:break-all">'+esc(m.url)+'</div>'
+        +'</div>'
+      ).join('');
+}
+
+/********************
+ * Boot
+ ********************/
+const HTML_LANG = { zh: 'zh-CN', ko: 'ko', en: 'en' };
+function syncHtmlLang() {
+  document.documentElement.lang = HTML_LANG[state.uiLang] || 'zh-CN';
+}
+function renderAll() {
+  syncHtmlLang();
+  renderHeader();
+  renderNav();
+  showPanel(currentPanel);
+  syncAuthGate();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    renderAll();
+  } catch (e) {
+    console.error(e);
+    document.body.insertAdjacentHTML('afterbegin',
+      '<pre style="color:red;padding:12px">Boot error: '+esc(String(e))+'</pre>');
+  }
+});
+
+// Expose for tests
+window.__koreanSite = {
+  state, PERSON_ITEMS, GRAMMAR, recordMistake, detectWrongPart, saveState, loadState,
+  getState: () => state, setState: (s) => { state = s; }, showPanel, startQuiz, t, tf,
+  topikLabel, stageLabel, enabledRegisters, enabledTopics, filterByPracticeTypes, buildQuizQueue, STAGES, REGISTERS, TOPICS, ALL_ITEMS,
+  romanizeHangul, translate, renderTranslate, addUtterance,
+  AI_ENDPOINT, EXAMPLE_AI_MODELS, callAI, renderAI, filteredAiModels, getSelectedAiModel,
+  aiConversationPlainText, saveAiConversation, renderAbout, renderDaily, renderFavorites, renderMaterials,
+  glossKo, meaningLabel, meaningHTML, buildMeaningChoices, startItemQuiz,
+  STORAGE_KEY, DEMO_SMS_CODE, DOMAIN_PLACEHOLDER, isAuthed, loginWithDemoCode, enterAsGuest, logoutAuth, syncAuthGate, renderAuthGate
+};
+</script>
+</body>
+</html>
