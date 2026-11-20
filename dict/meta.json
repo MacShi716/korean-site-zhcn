@@ -1,0 +1,194 @@
+{
+  "source": "국립국어원 한국어기초사전",
+  "sourceUrl": "https://krdict.korean.go.kr/",
+  "license": "CC BY-SA 2.0 KR",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/kr/",
+  "download": "전체 내려받기_한국어기초사전_json_20261119.zip",
+  "downloadSeq": 223,
+  "zipPath": "dict-src/krdict_json_20261119.zip",
+  "zipBytes": 84508811,
+  "usedOfficialJson": true,
+  "usedGithubMirror": false,
+  "indexFile": "index.json",
+  "indexKeys": [
+    "id",
+    "ko",
+    "zh",
+    "hanja",
+    "pos",
+    "level",
+    "unit"
+  ],
+  "shards": [
+    {
+      "choseong": "ㄱ",
+      "file": "shards/g.json",
+      "count": 10501,
+      "bytes": 3570981
+    },
+    {
+      "choseong": "ㄲ",
+      "file": "shards/gg.json",
+      "count": 1561,
+      "bytes": 511970
+    },
+    {
+      "choseong": "ㄴ",
+      "file": "shards/n.json",
+      "count": 3746,
+      "bytes": 1261745
+    },
+    {
+      "choseong": "ㄷ",
+      "file": "shards/d.json",
+      "count": 5466,
+      "bytes": 1831528
+    },
+    {
+      "choseong": "ㄸ",
+      "file": "shards/dd.json",
+      "count": 1081,
+      "bytes": 355266
+    },
+    {
+      "choseong": "ㄹ",
+      "file": "shards/r.json",
+      "count": 617,
+      "bytes": 215883
+    },
+    {
+      "choseong": "ㅁ",
+      "file": "shards/m.json",
+      "count": 4971,
+      "bytes": 1670859
+    },
+    {
+      "choseong": "ㅂ",
+      "file": "shards/b.json",
+      "count": 6545,
+      "bytes": 2213739
+    },
+    {
+      "choseong": "ㅃ",
+      "file": "shards/bb.json",
+      "count": 602,
+      "bytes": 196395
+    },
+    {
+      "choseong": "ㅅ",
+      "file": "shards/s.json",
+      "count": 7789,
+      "bytes": 2626085
+    },
+    {
+      "choseong": "ㅆ",
+      "file": "shards/ss.json",
+      "count": 521,
+      "bytes": 167827
+    },
+    {
+      "choseong": "ㅇ",
+      "file": "shards/ng.json",
+      "count": 11332,
+      "bytes": 3809993
+    },
+    {
+      "choseong": "ㅈ",
+      "file": "shards/j.json",
+      "count": 8052,
+      "bytes": 2672378
+    },
+    {
+      "choseong": "ㅉ",
+      "file": "shards/jj.json",
+      "count": 607,
+      "bytes": 196068
+    },
+    {
+      "choseong": "ㅊ",
+      "file": "shards/ch.json",
+      "count": 3313,
+      "bytes": 1112342
+    },
+    {
+      "choseong": "ㅋ",
+      "file": "shards/k.json",
+      "count": 783,
+      "bytes": 265673
+    },
+    {
+      "choseong": "ㅌ",
+      "file": "shards/t.json",
+      "count": 1885,
+      "bytes": 632422
+    },
+    {
+      "choseong": "ㅍ",
+      "file": "shards/p.json",
+      "count": 2395,
+      "bytes": 801564
+    },
+    {
+      "choseong": "ㅎ",
+      "file": "shards/h.json",
+      "count": 5004,
+      "bytes": 1698678
+    },
+    {
+      "choseong": "etc",
+      "file": "shards/etc.json",
+      "count": 62,
+      "bytes": 18512
+    }
+  ],
+  "counts": {
+    "lexicalEntries": 56555,
+    "officialHeadwordsWithLevel": 53671,
+    "officialHeadwordsExpected": 53671,
+    "officialLevelBreakdown": {
+      "초급": 2545,
+      "중급": 9068,
+      "고급": 37024,
+      "없음": 5034
+    },
+    "entriesWithoutLevel": 2884,
+    "sensesExported": 76833,
+    "sensesWithZh": 75145,
+    "sensesWithoutZh": 1688,
+    "sensesWithEn": 75145,
+    "byUnit": {
+      "단어": 51555,
+      "관용구": 2227,
+      "구": 1120,
+      "문법‧표현": 996,
+      "속담": 657
+    },
+    "byLevel": {
+      "고급": 37024,
+      "중급": 9068,
+      "없음": 5034,
+      "(none)": 2884,
+      "초급": 2545
+    },
+    "byPos": {
+      "명사": 30227,
+      "동사": 11180,
+      "품사 없음": 3678,
+      "형용사": 2961,
+      "(none)": 2884,
+      "부사": 2859,
+      "관형사": 895,
+      "접사": 505,
+      "어미": 504,
+      "의존 명사": 293,
+      "감탄사": 168,
+      "조사": 157,
+      "대명사": 106,
+      "수사": 84,
+      "보조 동사": 40,
+      "보조 형용사": 14
+    },
+    "uniqueIds": 76833
+  },
+  "notes": "표제어 53,671条为带 official vocabularyLevel 的条目（单词+短语+语法表达），与公式统计一致。另含无等级的惯用句 관용구与俗语 속담，故 LexicalEntry 总数更大。一条多义按义项拆成多张词卡。只保留文本，不含发音/图片/视频地址。"
+}

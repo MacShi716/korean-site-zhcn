@@ -1,0 +1,10 @@
+본 디렉터리의 사전 텍스트는 국립국어원 《한국어기초사전》
+(https://krdict.korean.go.kr/)에서 내려받은 자료이며,
+CC BY-SA 2.0 KR(저작자표시-동일조건변경허락)에 따라 이용할 수 있습니다.
+https://creativecommons.org/licenses/by-sa/2.0/kr/
+
+This dictionary text comes from the National Institute of Korean Language
+"한국어기초사전" (https://krdict.korean.go.kr/) and is shared under
+CC BY-SA 2.0 KR. https://creativecommons.org/licenses/by-sa/2.0/kr/
+
+변환·재배포 시 발음 파일, 그림, 동영상 등 멀티미디어는 포함하지 않았습니다.

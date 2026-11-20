@@ -7,9 +7,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1a5f4a">
 <title>동행 · Together · 同行</title>
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
 :root {
   --bg: #f6f3ee;
@@ -110,6 +110,22 @@ a { color: var(--primary); }
 .gloss-roma { color: #5a5348; font-style: italic; letter-spacing: .02em; }
 .chip.gloss-speak { min-height: 28px; padding: 2px 8px; font-size: .8rem; vertical-align: middle; cursor: pointer; }
 .example { margin-top: 10px; padding: 10px; background: var(--bg); border-radius: 10px; font-size: .92rem; }
+.example-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.compose-word-list { display: grid; gap: 8px; max-height: 50vh; overflow: auto; margin-top: 8px; }
+.compose-word {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 8px 10px; border: 1px solid var(--border); border-radius: 10px;
+  background: #fff; cursor: pointer; text-align: left; width: 100%;
+}
+.compose-word input { margin-top: 4px; flex: 0 0 auto; }
+.compose-word.selected { border-color: var(--primary); background: var(--primary-soft); }
+.compose-word .ko-form { font-weight: 700; margin-right: 6px; }
+.compose-hint-soft { color: var(--accent); font-size: .9rem; margin-top: 8px; }
+.compose-meta { font-size: .8rem; color: var(--muted); }
+.dict-pager { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:10px; }
+.dict-credit { font-size:.85rem; color:var(--muted); margin-top:10px; }
+.dict-credit a { color:var(--primary); }
+
 .reveal-zone { position: relative; }
 .reveal-mask {
   position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.95));
@@ -443,6 +459,8 @@ body.auth-locked { overflow: hidden; }
   <section class="panel" id="panel-dictation" data-panel="dictation"></section>
   <!-- GRAMMAR -->
   <section class="panel" id="panel-grammar" data-panel="grammar"></section>
+  <!-- COMPOSE SENTENCE -->
+  <section class="panel" id="panel-compose" data-panel="compose"></section>
   <!-- MISTAKES -->
   <section class="panel" id="panel-mistakes" data-panel="mistakes"></section>
   <!-- TRANSLATE / CONVERSATION -->
@@ -534,6 +552,7 @@ const I18N = {
     nav_practice: "Practice",
     nav_dictation: "Dictation",
     nav_grammar: "Grammar",
+    nav_compose: "Make a sentence",
     nav_mistakes: "Mistakes",
     nav_settings: "Settings",
     nav_ai: "AI Tutor",
@@ -543,8 +562,8 @@ const I18N = {
     meaningKO: "Korean",
     leftCount: "{n} left",
     estimateLevel: "teaching estimate",
-    browseTitle: "Person & Address (인칭)",
-    browseHint: "Pronouns, honorifics, particles, titles, job suffixes. Filter below.",
+    browseTitle: "Word list",
+    browseHint: "Built-in teaching items plus the official Basic Korean Dictionary. Search the dictionary; cards are paged.",
     filterCategory: "Category",
     filterRegister: "Register",
     filterDiff: "TOPIK level",
@@ -554,6 +573,66 @@ const I18N = {
     cat_particle: "Particle forms",
     cat_title: "Titles (instead of you)",
     cat_job_suffix: "Job suffixes",
+    cat_noun: "Nouns",
+    cat_verb: "Verbs",
+    cat_adjective: "Adjectives",
+    cat_adverb: "Adverbs",
+    cat_number: "Numbers",
+    cat_determiner: "Determiners",
+    cat_conjunction: "Conjunctions",
+    cat_interjection: "Interjections",
+    cat_expression: "Expressions",
+    krdictTitle: "Basic Korean Dictionary",
+    krdictHint: "Search and filter the official dictionary. Cards load a page at a time.",
+    dictSearch: "Search the dictionary",
+    dictSearchPh: "Korean word, Chinese meaning, or hanja",
+    dictLevel: "Level",
+    dictPos: "Part of speech",
+    dictUnit: "Entry type",
+    dictLoading: "Loading the dictionary…",
+    dictLoadError: "Could not load the dictionary data. Check that the dict folder is next to this page.",
+    dictNoResult: "No matching entries.",
+    dictNeedQuery: "Type a keyword to search the full dictionary. Results are paged.",
+    dictPage: "Page {n} / {m}",
+    dictPrev: "Previous",
+    dictNext: "Next",
+    dictCount: "{n} entries",
+    dictCreditBefore: "Dictionary text is from",
+    dictCreditMid: ", licensed under",
+    dictCreditAfter: ". Text only; official audio, images, and video are not included.",
+    composeSearchHint: "Search first, then tick words. The full dictionary is not listed all at once.",
+    level_all: "All levels",
+    level_초급: "Beginner",
+    level_중급: "Intermediate",
+    level_고급: "Advanced",
+    level_없음: "No level",
+    level_none: "No level",
+    pos_all: "All parts of speech",
+    pos_명사: "Noun",
+    pos_동사: "Verb",
+    pos_형용사: "Adjective",
+    pos_부사: "Adverb",
+    pos_관형사: "Determiner",
+    pos_대명사: "Pronoun",
+    pos_감탄사: "Interjection",
+    pos_수사: "Numeral",
+    pos_조사: "Particle",
+    pos_의존명사: "Bound noun",
+    "pos_의존 명사": "Bound noun",
+    pos_접사: "Affix",
+    pos_어미: "Ending",
+    pos_보조동사: "Auxiliary verb",
+    "pos_보조 동사": "Auxiliary verb",
+    pos_보조용용사: "Auxiliary adjective",
+    "pos_보조 형용사": "Auxiliary adjective",
+    "pos_품사 없음": "No POS",
+    pos_none: "No POS",
+    unit_all: "All entry types",
+    unit_단어: "Word",
+    unit_관용구: "Idiom",
+    unit_구: "Phrase",
+    unit_속담: "Proverb",
+    "unit_문법‧표현": "Grammar / expression",
     reg_daily: "Daily speech",
     reg_written: "Written",
     reg_news: "News",
@@ -609,6 +688,19 @@ const I18N = {
     grammarHint: "Core patterns with meaning & examples. Write your own sentences (saved locally).",
     yourExamples: "Your example sentences",
     saveExample: "Save example",
+    composeTitle: "Make a sentence",
+    composeHint: "Pick words from the word list, write your own Korean sentence, and save it on this device. Nothing is uploaded.",
+    composePick: "Choose words",
+    composeSearch: "Search words",
+    composeWrite: "Your sentence (Korean)",
+    composePlaceholder: "Write a sentence with the words you picked.",
+    composeSave: "Save sentence",
+    composeNeedWords: "Please pick at least one word.",
+    composeNeedText: "Please write a sentence first.",
+    composeMissing: "The sentence may not include all the words you picked. You can still save it.",
+    composeSavedList: "Saved sentences",
+    composeEmpty: "No saved sentences yet.",
+    composeWordsLabel: "Words",
     delete: "Delete",
     saved: "Saved",
     mistakesTitle: "Mistake log",
@@ -839,6 +931,7 @@ const I18N = {
     nav_practice: "연습",
     nav_dictation: "받아쓰기",
     nav_grammar: "문법",
+    nav_compose: "단어로 문장 만들기",
     nav_mistakes: "오답",
     nav_settings: "설정",
     nav_ai: "AI 튜터",
@@ -848,8 +941,8 @@ const I18N = {
     meaningKO: "한국어",
     leftCount: "{n}회 남음",
     estimateLevel: "학습 추정",
-    browseTitle: "인칭·호칭",
-    browseHint: "대명사, 높임말, 조사, 호칭, 직업 접미사. 아래에서 필터.",
+    browseTitle: "단어장",
+    browseHint: "교재용 기본 항목과 공식 한국어기초사전. 사전은 검색 후 페이지로 보여 줍니다.",
     filterCategory: "분류",
     filterRegister: "사용역",
     filterDiff: "TOPIK 등급",
@@ -859,6 +952,63 @@ const I18N = {
     cat_particle: "조사 형태",
     cat_title: "호칭 (너 대신)",
     cat_job_suffix: "직업 접미사",
+    cat_noun: "명사",
+    cat_verb: "동사",
+    cat_adjective: "형용사",
+    cat_adverb: "부사",
+    cat_number: "수사",
+    cat_determiner: "관형사",
+    cat_conjunction: "접속사",
+    cat_interjection: "감탄사",
+    cat_expression: "표현",
+    krdictTitle: "한국어기초사전",
+    krdictHint: "공식 사전을 검색하고 필터하세요. 카드는 페이지 단위로 불러옵니다.",
+    dictSearch: "사전 검색",
+    dictSearchPh: "한국어, 중국어 뜻, 또는 한자",
+    dictLevel: "등급",
+    dictPos: "품사",
+    dictUnit: "종류",
+    dictLoading: "사전을 불러오는 중…",
+    dictLoadError: "사전 자료를 불러오지 못했습니다. dict 폴더가 이 페이지와 같은 위치에 있는지 확인해 주세요.",
+    dictNoResult: "해당 항목이 없습니다.",
+    dictNeedQuery: "검색어를 입력하면 전체 사전을 찾습니다. 결과는 페이지로 나눕니다.",
+    dictPage: "{n} / {m}쪽",
+    dictPrev: "이전",
+    dictNext: "다음",
+    dictCount: "{n}개",
+    dictCreditBefore: "어휘 텍스트는",
+    dictCreditMid: "에서 제공하며, 이용 허락 조건은",
+    dictCreditAfter: "입니다. 텍스트만 사용하며 공식 발음·그림·동영상은 넣지 않았습니다.",
+    composeSearchHint: "먼저 검색한 뒤 단어를 고르세요. 사전 전체를 한 번에 나열하지 않습니다.",
+    level_all: "모든 등급",
+    level_초급: "초급",
+    level_중급: "중급",
+    level_고급: "고급",
+    level_없음: "등급 없음",
+    level_none: "등급 없음",
+    pos_all: "모든 품사",
+    pos_명사: "명사",
+    pos_동사: "동사",
+    pos_형용사: "형용사",
+    pos_부사: "부사",
+    pos_관형사: "관형사",
+    pos_대명사: "대명사",
+    pos_감탄사: "감탄사",
+    pos_수사: "수사",
+    pos_조사: "조사",
+    pos_접사: "접사",
+    pos_어미: "어미",
+    pos_none: "품사 없음",
+    unit_all: "모든 종류",
+    unit_단어: "단어",
+    unit_관용구: "관용구",
+    unit_구: "구",
+    unit_속담: "속담",
+    "pos_의존 명사": "의존 명사",
+    "pos_보조 동사": "보조 동사",
+    "pos_보조 형용사": "보조 형용사",
+    "pos_품사 없음": "품사 없음",
+    "unit_문법‧표현": "문법‧표현",
     reg_daily: "일상 구어",
     reg_written: "문어",
     reg_news: "뉴스",
@@ -914,6 +1064,19 @@ const I18N = {
     grammarHint: "의미·예문. 직접 쓴 예문은 기기에 저장됩니다.",
     yourExamples: "내 예문",
     saveExample: "예문 저장",
+    composeTitle: "단어로 문장 만들기",
+    composeHint: "단어장에서 단어를 고르고 한국어 문장을 쓴 뒤, 이 기기에만 저장합니다. 업로드되지 않습니다.",
+    composePick: "단어 고르기",
+    composeSearch: "단어 검색",
+    composeWrite: "내 문장 (한국어)",
+    composePlaceholder: "고른 단어로 문장을 써 보세요.",
+    composeSave: "문장 저장",
+    composeNeedWords: "단어를 하나 이상 골라 주세요.",
+    composeNeedText: "문장을 먼저 써 주세요.",
+    composeMissing: "고른 단어가 문장에 다 들어 있지 않을 수 있어요. 그래도 저장할 수 있습니다.",
+    composeSavedList: "저장한 문장",
+    composeEmpty: "아직 저장한 문장이 없습니다.",
+    composeWordsLabel: "단어",
     delete: "삭제",
     saved: "저장됨",
     mistakesTitle: "오답 기록",
@@ -1144,6 +1307,7 @@ const I18N = {
     nav_practice: "练习",
     nav_dictation: "听写",
     nav_grammar: "语法",
+    nav_compose: "选词造句",
     nav_mistakes: "错题",
     nav_settings: "设置",
     nav_ai: "AI 导师",
@@ -1153,8 +1317,8 @@ const I18N = {
     meaningKO: "韩语",
     leftCount: "剩余 {n}",
     estimateLevel: "教学估计",
-    browseTitle: "人称与称呼（인칭）",
-    browseHint: "代词、敬语、助词变形、称呼、职业后缀。可用下方筛选。",
+    browseTitle: "词库",
+    browseHint: "内置教学条目，以及官方《韩国语基础词典》。词典需搜索，词卡分页显示。",
     filterCategory: "分类",
     filterRegister: "语域",
     filterDiff: "TOPIK 等级",
@@ -1164,6 +1328,63 @@ const I18N = {
     cat_particle: "助词形态",
     cat_title: "称呼（代替「你」）",
     cat_job_suffix: "职业后缀",
+    cat_noun: "名词",
+    cat_verb: "动词",
+    cat_adjective: "形容词",
+    cat_adverb: "副词",
+    cat_number: "数词",
+    cat_determiner: "指示词",
+    cat_conjunction: "连词",
+    cat_interjection: "感叹词",
+    cat_expression: "常用表达",
+    krdictTitle: "韩国语基础词典",
+    krdictHint: "检索并筛选官方词典。词卡按页加载，不会一次画出全部条目。",
+    dictSearch: "搜索词库",
+    dictSearchPh: "韩语词形、中文释义或汉字",
+    dictLevel: "等级",
+    dictPos: "品词",
+    dictUnit: "条目种类",
+    dictLoading: "正在载入词库…",
+    dictLoadError: "无法载入词库数据。请确认 dict 文件夹与本页面在同一目录。",
+    dictNoResult: "没有符合条件的条目。",
+    dictNeedQuery: "输入关键词即可检索全库，结果分页显示。",
+    dictPage: "第 {n} / {m} 页",
+    dictPrev: "上一页",
+    dictNext: "下一页",
+    dictCount: "{n} 条",
+    dictCreditBefore: "词库文本来自",
+    dictCreditMid: "，协议为",
+    dictCreditAfter: "。仅使用文本，不含官方发音、图片或视频。",
+    composeSearchHint: "请先搜索再勾选词语。不会一次列出全部词条。",
+    level_all: "全部等级",
+    level_초급: "初级",
+    level_중급: "中级",
+    level_고급: "高级",
+    level_없음: "无等级",
+    level_none: "无等级",
+    pos_all: "全部品词",
+    pos_명사: "名词",
+    pos_동사: "动词",
+    pos_형용사: "形容词",
+    pos_부사: "副词",
+    pos_관형사: "冠词/指示",
+    pos_대명사: "代词",
+    pos_감탄사: "感叹词",
+    pos_수사: "数词",
+    pos_조사: "助词",
+    pos_접사: "词缀",
+    pos_어미: "词尾",
+    pos_none: "无品词",
+    unit_all: "全部种类",
+    unit_단어: "单词",
+    unit_관용구: "惯用句",
+    unit_구: "短语",
+    unit_속담: "俗语",
+    "pos_의존 명사": "依存名词",
+    "pos_보조 동사": "辅助动词",
+    "pos_보조 형용사": "辅助形容词",
+    "pos_품사 없음": "无品词",
+    "unit_문법‧표현": "语法／表达",
     reg_daily: "日常口语",
     reg_written: "书面语",
     reg_news: "新闻",
@@ -1219,6 +1440,19 @@ const I18N = {
     grammarHint: "核心句型释义与例句。可写自己的例句（本地保存）。",
     yourExamples: "我的例句",
     saveExample: "保存例句",
+    composeTitle: "选词造句",
+    composeHint: "从词库勾选词语，用韩语写出句子，保存在本机。不会上传。",
+    composePick: "选择词语",
+    composeSearch: "搜索词语",
+    composeWrite: "我的句子（韩语）",
+    composePlaceholder: "用所选词语写一句韩语。",
+    composeSave: "保存句子",
+    composeNeedWords: "请先勾选至少一个词语。",
+    composeNeedText: "请先写句子。",
+    composeMissing: "句子里可能没有包含全部所选词语，仍可保存。",
+    composeSavedList: "已保存的句子",
+    composeEmpty: "还没有保存的句子。",
+    composeWordsLabel: "词语",
     delete: "删除",
     saved: "已保存",
     mistakesTitle: "错题本",
@@ -1590,7 +1824,7 @@ const EXAMPLE_AI_MODELS = [
   { id:'deepseek-reasoner', name:'deepseek-reasoner', vendor:'DeepSeek', group:'vip', billing:'usage', tags:['reason'], endpoint:'openai', priceLabel:null },
 ];
 
-const CATEGORIES = ['pronoun','honorific','particle','title','job_suffix'];
+const CATEGORIES = ['pronoun','honorific','particle','title','job_suffix','noun','verb','adjective','adverb','number','determiner','conjunction','interjection','expression'];
 const REGISTERS = ['daily','written','news'];
 const TOPIK_LEVELS = [1,2,3,4,5,6];
 // Stage key "usage" kept for localStorage compatibility; UI label = Type/유형/类型
@@ -1614,6 +1848,7 @@ const defaultState = () => ({
   reviewQueue: [],        // [{id, due}] due = YYYY-MM-DD
   mistakes: {},           // id -> { count, stages:{..}, parts:{..}, lastAt, lastStage, lastPart }
   grammarExamples: {},    // gid -> [{text, at}]
+  composedSentences: [],  // [{id, wordIds, text, at}]
   dictationIndex: 0,
   // Translate / Conversation (additive)
   translateSetup: { done:false, nativeLang:'zh', goal:'', level:'beginner', voiceOn:true },
@@ -1674,6 +1909,7 @@ function loadState(key) {
       }),
       translateFavorites: Array.isArray(parsed.translateFavorites) ? parsed.translateFavorites : [],
       aiFavorites: Array.isArray(parsed.aiFavorites) ? parsed.aiFavorites : [],
+      composedSentences: Array.isArray(parsed.composedSentences) ? parsed.composedSentences : [],
       aiChat: Object.assign(defaultState().aiChat, (parsed.aiChat||{}), {
         filters: Object.assign(defaultState().aiChat.filters, ((parsed.aiChat||{}).filters||{})),
         messages: Array.isArray((parsed.aiChat||{}).messages) ? parsed.aiChat.messages : [],
@@ -1932,7 +2168,12 @@ function todayStr() {
   return y+'-'+m+'-'+day;
 }
 
-function getItem(id) { return ALL_ITEMS.find(x => x.id === id); }
+function getItem(id) {
+  if (!id) return null;
+  const local = ALL_ITEMS.find(x => x.id === id);
+  if (local) return local;
+  return dictItemCache[id] || null;
+}
 function itemTopic(it) { return (it && it.topic) ? it.topic : 'person'; }
 
 /********************
@@ -2023,9 +2264,47 @@ function dueToday() {
 
 /********************
  * TTS
+ * 韩语朗读入口：speakKo（词卡/例句/选词造句/听写）、speakText（翻译对话，韩语走 speakKo）。
+ * 音色可换，不要锁死某一模型。当前播放顺序：
+ *   1) 若 KO_AUDIO_MANIFEST 有该句的静态音频（相对路径 audio/…），先播文件；
+ *   2) 若挂了 KO_VOICE_ENGINE.play(text) 并返回 true，则由该引擎播放；
+ *   3) 否则用本机 speechSynthesis 兜底，语速 KO_TTS_RATE（略慢、更清楚）。
+ * 以后若改用 GitHub 开源音色，只需实现并挂上 KO_VOICE_ENGINE，不必改朗读按钮。
  ********************/
 let koVoice = null;
 let voicesReady = false;
+let koAudioEl = null;
+const KO_TTS_RATE = 0.72;
+const KO_AUDIO_MANIFEST = {};
+const KO_VOICE_ENGINE = {
+  id: 'device-fallback',
+  // 换音色时实现 play(text)，成功播放则返回 true；返回假值或未实现则走下面的兜底。
+  play: null
+};
+
+function siteAsset(relPath) {
+  const rel = String(relPath || '').replace(/^\//, '');
+  const dir = (location.pathname || '/').replace(/[^/]*$/, '');
+  return dir + rel;
+}
+function stopKoAudio() {
+  if (koAudioEl) {
+    try { koAudioEl.pause(); koAudioEl.removeAttribute('src'); koAudioEl.load(); } catch (e) {}
+    koAudioEl = null;
+  }
+}
+function playStaticKo(text, onFail) {
+  const rel = KO_AUDIO_MANIFEST[text];
+  if (!rel) { onFail(); return; }
+  stopKoAudio();
+  if (window.speechSynthesis) { try { speechSynthesis.cancel(); } catch (e) {} }
+  const a = new Audio(siteAsset(rel));
+  koAudioEl = a;
+  const fail = function () { if (koAudioEl === a) { stopKoAudio(); onFail(); } };
+  a.addEventListener('error', fail);
+  const p = a.play();
+  if (p && p.catch) p.catch(fail);
+}
 
 function refreshVoices() {
   const voices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
@@ -2038,7 +2317,7 @@ if (typeof speechSynthesis !== 'undefined') {
   speechSynthesis.onvoiceschanged = refreshVoices;
 }
 
-function speakKo(text) {
+function speakKoFallback(text) {
   if (!window.speechSynthesis) {
     toast(t('noKoVoice'));
     return false;
@@ -2048,13 +2327,32 @@ function speakKo(text) {
     toast(t('noKoVoice'));
     return false;
   }
+  stopKoAudio();
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.lang = 'ko-KR';
   u.voice = koVoice;
-  u.rate = 0.9;
+  u.rate = KO_TTS_RATE;
+  u.pitch = 1;
   speechSynthesis.speak(u);
   return true;
+}
+function speakKoWithEngineOrDevice(text) {
+  try {
+    if (KO_VOICE_ENGINE && typeof KO_VOICE_ENGINE.play === 'function') {
+      if (KO_VOICE_ENGINE.play(text)) return true;
+    }
+  } catch (e) { console.warn('KO_VOICE_ENGINE.play failed', e); }
+  return speakKoFallback(text);
+}
+function speakKo(text) {
+  text = String(text == null ? '' : text).trim();
+  if (!text) return false;
+  if (KO_AUDIO_MANIFEST[text]) {
+    playStaticKo(text, function () { speakKoWithEngineOrDevice(text); });
+    return true;
+  }
+  return speakKoWithEngineOrDevice(text);
 }
 function bindGlossSpeak(root) {
   (root || document).querySelectorAll('.gloss-speak').forEach(btn => {
@@ -2127,18 +2425,19 @@ function meaningHTML(item, opts) {
   const showKO = opts.forceKO != null ? opts.forceKO : state.showKO;
   let h = '<div class="meaning">';
   if (showKO) h += '<div class="ko">'+esc(glossKo(item) || item.ko)+'</div>';
-  if (showEN) h += '<div class="en">'+esc(item.en)+'</div>';
-  if (showZH) h += '<div class="zh">'+(zhGlossLineHTML(item) || esc(item && item.zh || ''))+'</div>';
+  if (showEN && item && item.en) h += '<div class="en">'+esc(item.en)+'</div>';
+  if (showZH) h += '<div class="zh">'+(zhGlossLineHTML(item) || (item && item.zh ? esc(item.zh) : ''))+'</div>';
   if (!showKO && !showEN && !showZH) h += '<div class="muted">'+esc(t('none'))+'</div>';
   h += '</div>';
   return h;
 }
 function exampleHTML(ex) {
-  if (!ex) return '';
-  let h = '<div class="example"><div><strong>'+esc(ex.ko)+'</strong></div>';
+  if (!ex || !ex.ko) return '';
+  let h = '<div class="example"><div class="example-head"><div><strong>'+esc(ex.ko)+'</strong></div>'
+    + glossSpeakBtnHTML(ex.ko) + '</div>';
   if (state.showKO && ex.ko) {/* 词条例文本身已是韩语，韩语界面不再重复一层释义 */}
-  if (state.showEN) h += '<div class="en muted">'+esc(ex.en)+'</div>';
-  if (state.showZH) h += '<div class="zh muted">'+esc(ex.zh)+'</div>';
+  if (state.showEN && ex.en) h += '<div class="en muted">'+esc(ex.en)+'</div>';
+  if (state.showZH && ex.zh) h += '<div class="zh muted">'+esc(ex.zh)+'</div>';
   h += '</div>';
   return h;
 }
@@ -2159,6 +2458,13 @@ function stageLabel(stageKey) {
   return t('stage_' + stageKey);
 }
 function badgesHTML(item) {
+  if (item && item.source === 'krdict') {
+    let h = '';
+    if (item.unit) h += '<span class="badge">'+esc(dictLabel('unit', item.unit))+'</span> ';
+    h += '<span class="badge">'+esc(dictLabel('pos', item.pos))+'</span> ';
+    h += '<span class="badge diff">'+esc(dictLabel('level', item.level||'없음'))+'</span>';
+    return h;
+  }
   return '<span class="badge">'+esc(t('topic_'+itemTopic(item)))+'</span> '
     + '<span class="badge reg-'+esc(item.register)+'">'+esc(t('reg_'+item.register))+'</span> '
     + '<span class="badge">'+esc(t('cat_'+item.category))+'</span> '
@@ -2212,6 +2518,7 @@ const NAV = [
   {id:'practice', icon:'✏️', key:'nav_practice'},
   {id:'dictation', icon:'🎧', key:'nav_dictation'},
   {id:'grammar', icon:'🧩', key:'nav_grammar'},
+  {id:'compose', icon:'✍️', key:'nav_compose'},
   {id:'mistakes', icon:'📝', key:'nav_mistakes'},
   {id:'daily', icon:'📅', key:'nav_daily'},
   {id:'translate', icon:'💬', key:'nav_translate'},
@@ -2260,6 +2567,7 @@ function showPanel(id) {
     practice: renderPractice,
     dictation: renderDictation,
     grammar: renderGrammar,
+    compose: renderCompose,
     mistakes: renderMistakes,
     daily: renderDaily,
     translate: renderTranslate,
@@ -2272,11 +2580,229 @@ function showPanel(id) {
   bindGlossSpeak(document.getElementById('panel-'+id) || document);
 }
 
+
+/********************
+ * 한국어기초사전 (text only, CC BY-SA 2.0 KR)
+ * Loaded on demand from dict/ next to this page (relative paths).
+ ********************/
+const KRDICT_PAGE_SIZE = 30;
+const KRDICT_CHO = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ';
+const KRDICT_CHO_FILE = { 'ㄱ':'g.json','ㄲ':'gg.json','ㄴ':'n.json','ㄷ':'d.json','ㄸ':'dd.json','ㄹ':'r.json','ㅁ':'m.json','ㅂ':'b.json','ㅃ':'bb.json','ㅅ':'s.json','ㅆ':'ss.json','ㅇ':'ng.json','ㅈ':'j.json','ㅉ':'jj.json','ㅊ':'ch.json','ㅋ':'k.json','ㅌ':'t.json','ㅍ':'p.json','ㅎ':'h.json','etc':'etc.json' };
+const KRDICT_POS_OPTIONS = ['명사','동사','형용사','부사','관형사','대명사','감탄사','수사','조사','의존 명사','접사','어미','보조 동사','보조 형용사','품사 없음'];
+const KRDICT_LEVEL_OPTIONS = ['초급','중급','고급','없음'];
+const KRDICT_UNIT_OPTIONS = ['단어','관용구','구','속담','문법‧표현'];
+const KRDICT_POS_TO_CAT = {'명사':'noun','동사':'verb','형용사':'adjective','부사':'adverb','관형사':'determiner','대명사':'pronoun','감탄사':'interjection','수사':'number','조사':'particle','의존 명사':'noun','접사':'job_suffix','어미':'honorific','보조 동사':'verb','보조 형용사':'adjective','품사 없음':'expression'};
+
+let dictMeta = null;
+let dictIndex = null; // compact rows [id,ko,zh,hanja,pos,level,unit]
+let dictIndexLoading = null;
+let dictShardLoading = {};
+let dictItemCache = {};
+let coreOverridesApplied = false;
+let browseDict = { q:'', level:'all', pos:'all', unit:'all', page:1, status:'idle', error:'', hits:null };
+
+function dictUrl(rel) { return siteAsset('dict/' + String(rel||'').replace(/^\//, '')); }
+function choseongOf(text) {
+  const s = String(text||'');
+  for (let i=0;i<s.length;i++) {
+    const o = s.charCodeAt(i);
+    if (o>=0xAC00 && o<=0xD7A3) return KRDICT_CHO[Math.floor((o-0xAC00)/588)] || 'etc';
+  }
+  return 'etc';
+}
+function dictLabel(prefix, value) {
+  if (!value) return t(prefix+'_none');
+  const key = prefix+'_'+value;
+  const lab = t(key);
+  return lab === key ? value : lab;
+}
+function normalizeDictItem(raw) {
+  const ko = raw.ko || raw[1] || '';
+  const pos = raw.pos || raw[4] || '';
+  const level = raw.level || raw[5] || '';
+  const item = {
+    id: raw.id || raw[0],
+    oid: raw.oid || '',
+    ko: ko,
+    zh: raw.zh || raw[2] || '',
+    en: raw.en || '',
+    hanja: raw.hanja || raw[3] || '',
+    pos: pos,
+    level: level,
+    unit: raw.unit || raw[6] || '',
+    glossKo: raw.glossKo || '',
+    example: { ko: raw.exampleKo || (raw.example && raw.example.ko) || '', en:'', zh:'' },
+    category: KRDICT_POS_TO_CAT[pos] || 'expression',
+    register: 'daily',
+    topic: 'krdict',
+    source: 'krdict',
+    difficulty: level==='초급'?1: level==='중급'?2: level==='고급'?3: 0
+  };
+  if (item.zh === '(无对应词汇)') item.zh = '';
+  dictItemCache[item.id] = item;
+  return item;
+}
+function loadDictMeta() {
+  if (dictMeta) return Promise.resolve(dictMeta);
+  return fetch(dictUrl('meta.json')).then(r => { if (!r.ok) throw new Error('meta '+r.status); return r.json(); }).then(m => { dictMeta = m; return m; });
+}
+function loadDictIndex() {
+  if (dictIndex) return Promise.resolve(dictIndex);
+  if (dictIndexLoading) return dictIndexLoading;
+  dictIndexLoading = loadDictMeta().then(() => fetch(dictUrl('index.json'))).then(r => {
+    if (!r.ok) throw new Error('index '+r.status);
+    return r.json();
+  }).then(rows => { dictIndex = rows; return rows; }).catch(e => { dictIndexLoading = null; throw e; });
+  return dictIndexLoading;
+}
+function loadDictShard(cho) {
+  const file = KRDICT_CHO_FILE[cho] || KRDICT_CHO_FILE.etc;
+  if (dictShardLoading[file]) return dictShardLoading[file];
+  dictShardLoading[file] = fetch(dictUrl('shards/'+file)).then(r => {
+    if (!r.ok) throw new Error('shard '+file+' '+r.status);
+    return r.json();
+  }).then(arr => { (arr||[]).forEach(normalizeDictItem); return arr; });
+  return dictShardLoading[file];
+}
+function ensureDictItems(rows) {
+  const missing = [];
+  const chos = {};
+  rows.forEach(r => {
+    const id = r.id || r[0];
+    const ko = (r.ko || r[1] || '');
+    const cached = dictItemCache[id];
+    if (!cached || !(cached.glossKo || (cached.example && cached.example.ko))) {
+      missing.push(id);
+      chos[choseongOf(ko)] = true;
+    }
+  });
+  if (!missing.length) return Promise.resolve();
+  return Promise.all(Object.keys(chos).map(loadDictShard));
+}
+async function applyCoreOverrides() {
+  if (coreOverridesApplied) return;
+  const res = await fetch(dictUrl('core-overrides.json'));
+  if (!res.ok) return;
+  const ov = await res.json();
+  ALL_ITEMS.forEach(it => {
+    const o = ov[it.id];
+    if (!o) return;
+    if (o.zh) it.zh = o.zh;
+    if (o.en) it.en = o.en;
+    if (o.hanja) it.hanja = o.hanja;
+    if (o.glossKo) it.glossKo = o.glossKo;
+    if (o.exampleKo) it.example = { ko:o.exampleKo, en:'', zh:'' };
+    if (o.pos) it.pos = o.pos;
+    if (o.level) it.level = o.level;
+    if (o.unit) it.unit = o.unit;
+    it.officialId = o.officialId;
+  });
+  coreOverridesApplied = true;
+}
+function dictLevelMatch(level, filter) {
+  if (!filter || filter==='all') return true;
+  if (filter==='없음' || filter==='none') return !level || level==='없음';
+  return level===filter;
+}
+function dictPosMatch(pos, filter) {
+  if (!filter || filter==='all') return true;
+  if (filter==='품사 없음' || filter==='none') return !pos || pos==='품사 없음';
+  return pos===filter;
+}
+function dictRowMatches(row, q, level, pos, unit) {
+  if (!dictLevelMatch(row[5], level)) return false;
+  if (!dictPosMatch(row[4], pos)) return false;
+  if (unit && unit!=='all' && row[6]!==unit) return false;
+  if (!q) return true;
+  const blob = ((row[1]||'')+' '+(row[2]||'')+' '+(row[3]||'')+' '+(row[0]||'')).toLowerCase();
+  return blob.indexOf(q)!==-1;
+}
+function searchDictIndex(q, level, pos, unit) {
+  const rows = dictIndex || [];
+  const nq = String(q||'').trim().toLowerCase();
+  const hits = [];
+  for (let i=0;i<rows.length;i++) {
+    if (dictRowMatches(rows[i], nq, level, pos, unit)) hits.push(rows[i]);
+  }
+  return hits;
+}
+function dictCreditHTML() {
+  const src = 'https://krdict.korean.go.kr/';
+  const lic = 'https://creativecommons.org/licenses/by-sa/2.0/kr/';
+  return esc(t('dictCreditBefore'))
+    + ' <a href="'+src+'" target="_blank" rel="noopener noreferrer">'+esc('국립국어원 《한국어기초사전》')+'</a>'
+    + esc(t('dictCreditMid'))
+    + ' <a href="'+lic+'" target="_blank" rel="noopener noreferrer">CC BY-SA 2.0 KR</a>'
+    + esc(t('dictCreditAfter'));
+}
+function initKrdict() {
+  applyCoreOverrides().then(() => {
+    if (currentPanel==='browse' || currentPanel==='compose' || currentPanel==='site-status') {
+      if (currentPanel==='browse') renderBrowse();
+      else if (currentPanel==='compose') renderCompose();
+      else renderSiteStatus();
+    }
+  }).catch(e => console.warn('core overrides', e));
+  loadDictIndex().catch(e => console.warn('dict index', e));
+}
+
 /********************
  * Browse
  ********************/
 let browseFilter = { category:'all', register:'all', difficulty:'all', topic:'all' };
 
+function dictSelectOptions(prefix, values, current, allKey) {
+  let h = '<option value="all">'+esc(t(allKey))+'</option>';
+  values.forEach(function (v) {
+    h += '<option value="'+esc(v)+'"'+(current===v?' selected':'')+'>'+esc(dictLabel(prefix, v))+'</option>';
+  });
+  return h;
+}
+function renderDictPager(page, pages) {
+  return '<div class="dict-pager">'
+    +'<button type="button" class="btn ghost" id="dict-prev"'+(page<=1?' disabled':'')+'>'+esc(t('dictPrev'))+'</button>'
+    +'<span class="muted">'+esc(tf('dictPage',{n:String(page), m:String(pages)}))+'</span>'
+    +'<button type="button" class="btn ghost" id="dict-next"'+(page>=pages?' disabled':'')+'>'+esc(t('dictNext'))+'</button>'
+    +'</div>';
+}
+function fillDictBrowse() {
+  const box = document.getElementById('dict-results');
+  if (!box) return;
+  const fail = function (e) {
+    console.warn(e);
+    box.innerHTML = '<p class="muted">'+esc(t('dictLoadError'))+'</p>';
+  };
+  if (!dictIndex) {
+    box.innerHTML = '<p class="muted">'+esc(t('dictLoading'))+'</p>';
+    loadDictIndex().then(function () { if (currentPanel==='browse') fillDictBrowse(); }).catch(fail);
+    return;
+  }
+  const hits = searchDictIndex(browseDict.q, browseDict.level, browseDict.pos, browseDict.unit);
+  const pages = Math.max(1, Math.ceil(hits.length / KRDICT_PAGE_SIZE));
+  if (browseDict.page > pages) browseDict.page = pages;
+  if (browseDict.page < 1) browseDict.page = 1;
+  const start = (browseDict.page - 1) * KRDICT_PAGE_SIZE;
+  const slice = hits.slice(start, start + KRDICT_PAGE_SIZE);
+  box.innerHTML =
+    '<div class="muted">'+esc(tf('dictCount',{n:String(hits.length)}))
+    + (hits.length ? '' : ' · '+esc(t('dictNoResult')))
+    +'</div>'
+    +'<div id="dict-cards"></div>'
+    + (hits.length ? renderDictPager(browseDict.page, pages) : '');
+  const prev = document.getElementById('dict-prev');
+  const next = document.getElementById('dict-next');
+  if (prev) prev.onclick = function () { browseDict.page -= 1; fillDictBrowse(); };
+  if (next) next.onclick = function () { browseDict.page += 1; fillDictBrowse(); };
+  if (!slice.length) return;
+  ensureDictItems(slice).then(function () {
+    const cards = document.getElementById('dict-cards');
+    if (!cards) return;
+    const ready = slice.map(function (r) { return dictItemCache[r[0]] || normalizeDictItem(r); });
+    cards.innerHTML = ready.map(function (it) { return cardHTML(it, true); }).join('');
+    bindReveal(cards);
+    bindGlossSpeak(cards);
+  }).catch(fail);
+}
 function renderBrowse() {
   const el = document.getElementById('panel-browse');
   const items = ALL_ITEMS.filter(it => {
@@ -2304,13 +2830,31 @@ function renderBrowse() {
     +'</select>'
     +'</div>'
     +'<div class="muted">'+esc(tf('itemsCount',{n:items.length}))+'</div></div>'
-    + items.map(it => cardHTML(it, true)).join('');
+    + items.map(it => cardHTML(it, true)).join('')
+    +'<div class="card"><h2>'+esc(t('krdictTitle'))+'</h2>'
+    +'<p class="muted">'+esc(t('krdictHint'))+'</p>'
+    +'<p class="dict-credit">'+dictCreditHTML()+'</p>'
+    +'<div class="field"><label for="dict-search">'+esc(t('dictSearch'))+'</label>'
+    +'<input id="dict-search" type="search" value="'+esc(browseDict.q)+'" placeholder="'+esc(t('dictSearchPh'))+'" autocomplete="off"></div>'
+    +'<div class="filters">'
+    +'<select id="d-level" aria-label="'+esc(t('dictLevel'))+'">'+dictSelectOptions('level', KRDICT_LEVEL_OPTIONS, browseDict.level, 'level_all')+'</select>'
+    +'<select id="d-pos" aria-label="'+esc(t('dictPos'))+'">'+dictSelectOptions('pos', KRDICT_POS_OPTIONS, browseDict.pos, 'pos_all')+'</select>'
+    +'<select id="d-unit" aria-label="'+esc(t('dictUnit'))+'">'+dictSelectOptions('unit', KRDICT_UNIT_OPTIONS, browseDict.unit, 'unit_all')+'</select>'
+    +'</div>'
+    +'<div id="dict-results"></div></div>';
 
   document.getElementById('f-topic').onchange = e => { browseFilter.topic = e.target.value; renderBrowse(); };
   document.getElementById('f-cat').onchange = e => { browseFilter.category = e.target.value; renderBrowse(); };
   document.getElementById('f-reg').onchange = e => { browseFilter.register = e.target.value; renderBrowse(); };
   document.getElementById('f-diff').onchange = e => { browseFilter.difficulty = e.target.value; renderBrowse(); };
+  const ds = document.getElementById('dict-search');
+  ds.oninput = function () { browseDict.q = ds.value; browseDict.page = 1; fillDictBrowse(); };
+  document.getElementById('d-level').onchange = function (e) { browseDict.level = e.target.value; browseDict.page = 1; fillDictBrowse(); };
+  document.getElementById('d-pos').onchange = function (e) { browseDict.pos = e.target.value; browseDict.page = 1; fillDictBrowse(); };
+  document.getElementById('d-unit').onchange = function (e) { browseDict.unit = e.target.value; browseDict.page = 1; fillDictBrowse(); };
   bindReveal(el);
+  bindGlossSpeak(el);
+  fillDictBrowse();
 }
 
 function cardHTML(it, revealable) {
@@ -2794,7 +3338,7 @@ function renderGrammar() {
         +'<div class="ge-list" style="margin-top:8px">'
         + mine.map((m,i) =>
             '<div class="row space" style="padding:6px 0;border-bottom:1px solid var(--border)">'
-            +'<div>'+esc(m.text)+'<div class="muted">'+(m.at||'')+'</div></div>'
+            +'<div>'+esc(m.text)+glossSpeakBtnHTML(m.text)+'<div class="muted">'+(m.at||'')+'</div></div>'
             +'<button type="button" class="btn ghost ge-del" data-gid="'+esc(g.id)+'" data-i="'+i+'">'+esc(t('delete'))+'</button></div>'
           ).join('')
         +'</div></div>';
@@ -2819,6 +3363,187 @@ function renderGrammar() {
       saveState(); renderGrammar();
     };
   });
+}
+
+
+/********************
+ * Compose sentences (pick words, write a sentence, save locally)
+ ********************/
+let composeSelected = {};
+let composeQuery = '';
+let composeDraft = '';
+
+function composeUid() {
+  return 'c' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+}
+function koStems(ko) {
+  return String(ko || '')
+    .split(/[\/,，、]/)
+    .map(function (s) {
+      return s.replace(/[-~～()\[\]（）\s]/g, '').replace(/[A-Za-z0-9']/g, '').replace(/[^\uac00-\ud7a3]/g, '');
+    })
+    .filter(function (s) { return s.length; });
+}
+function composeMissingItems(sentence, items) {
+  return items.filter(function (it) {
+    const stems = koStems(it.ko);
+    if (!stems.length) return false;
+    return !stems.some(function (st) { return sentence.indexOf(st) !== -1; });
+  });
+}
+function composeItemLabelHTML(it) {
+  const zh = zhGlossLineHTML(it);
+  let extra = '';
+  if (state.uiLang === 'en' && it.en) extra = '<div class="en muted">'+esc(it.en)+'</div>';
+  else if (state.uiLang === 'ko' && glossKo(it)) extra = '<div class="muted">'+esc(glossKo(it))+'</div>';
+  return '<span class="ko-form">'+esc(it.ko)+'</span>'
+    + (zh ? '<span class="zh">'+zh+'</span>' : '')
+    + extra;
+}
+function composeSelectedItems() {
+  return Object.keys(composeSelected).map(function (id) { return getItem(id); }).filter(Boolean);
+}
+function composeKoOfId(id) {
+  const it = getItem(id);
+  if (it) return it.ko;
+  if (dictIndex) {
+    for (let i=0;i<dictIndex.length;i++) {
+      if (dictIndex[i][0]===id) return dictIndex[i][1];
+    }
+  }
+  return id;
+}
+function renderCompose() {
+  const el = document.getElementById('panel-compose');
+  const q = (composeQuery || '').trim().toLowerCase();
+  const builtIn = ALL_ITEMS.filter(function (it) {
+    if (!q) return true;
+    const blob = [it.ko, it.zh, it.en, it.hanja, glossKo(it), it.id].join(' ').toLowerCase();
+    return blob.indexOf(q) !== -1;
+  });
+  const selectedItems = composeSelectedItems();
+  const saved = (state.composedSentences || []).slice().reverse();
+
+  function paintWordList(dictRows) {
+    const seen = {};
+    const items = [];
+    function add(it) {
+      if (!it || seen[it.id]) return;
+      seen[it.id] = true;
+      items.push(it);
+    }
+    selectedItems.forEach(add);
+    builtIn.forEach(add);
+    (dictRows || []).forEach(function (row) { add(dictItemCache[row[0]] || normalizeDictItem(row)); });
+    const list = document.getElementById('compose-word-list');
+    if (!list) return;
+    if (!items.length) {
+      list.innerHTML = '<p class="muted">'+esc(q ? t('dictNoResult') : t('composeSearchHint'))+'</p>';
+      return;
+    }
+    list.innerHTML = items.map(function (it) {
+      const on = !!composeSelected[it.id];
+      return '<label class="compose-word'+(on?' selected':'')+'">'
+        +'<input type="checkbox" data-id="'+esc(it.id)+'"'+(on?' checked':'')+'>'
+        +'<span>'+composeItemLabelHTML(it)+'</span></label>';
+    }).join('');
+    list.querySelectorAll('input').forEach(function (box) {
+      box.onchange = function () {
+        const ta = document.getElementById('compose-text');
+        if (ta) composeDraft = ta.value;
+        if (box.checked) composeSelected[box.dataset.id] = true;
+        else delete composeSelected[box.dataset.id];
+        renderCompose();
+      };
+    });
+  }
+
+  el.innerHTML =
+    '<div class="card"><h2>'+esc(t('composeTitle'))+'</h2>'
+    +'<p class="muted">'+esc(t('composeHint'))+'</p>'
+    +'<p class="muted">'+esc(t('composeSearchHint'))+'</p></div>'
+    +'<div class="card"><h3>'+esc(t('composePick'))+'</h3>'
+    +'<div class="field"><label for="compose-search">'+esc(t('composeSearch'))+'</label>'
+    +'<input id="compose-search" type="search" value="'+esc(composeQuery)+'" placeholder="'+esc(t('dictSearchPh'))+'" autocomplete="off"></div>'
+    + (selectedItems.length ? '<p class="muted">'+esc(t('composeWordsLabel'))+': '+esc(selectedItems.map(function(it){return it.ko;}).join(' · '))+'</p>' : '')
+    +'<div class="compose-word-list" id="compose-word-list"></div></div>'
+    +'<div class="card"><h3>'+esc(t('composeWrite'))+'</h3>'
+    +'<div class="field"><textarea id="compose-text" placeholder="'+esc(t('composePlaceholder'))+'">'+esc(composeDraft)+'</textarea></div>'
+    +'<div id="compose-soft-hint"></div>'
+    +'<button type="button" class="btn secondary" id="compose-save">'+esc(t('composeSave'))+'</button>'
+    +'</div>'
+    +'<div class="card"><h3>'+esc(t('composeSavedList'))+'</h3>'
+    + (saved.length
+        ? saved.map(function (m, idx) {
+            const words = (m.wordIds || []).map(composeKoOfId).filter(Boolean);
+            const realIdx = (state.composedSentences || []).length - 1 - idx;
+            return '<div class="row space" style="padding:8px 0;border-bottom:1px solid var(--border);align-items:flex-start">'
+              +'<div><div>'+esc(m.text)+glossSpeakBtnHTML(m.text)+'</div>'
+              + (words.length ? '<div class="compose-meta">'+esc(t('composeWordsLabel'))+': '+esc(words.join(' · '))+'</div>' : '')
+              +'<div class="muted">'+(m.at||'')+'</div></div>'
+              +'<button type="button" class="btn ghost compose-del" data-i="'+realIdx+'">'+esc(t('delete'))+'</button></div>';
+          }).join('')
+        : '<p class="muted">'+esc(t('composeEmpty'))+'</p>')
+    +'</div>';
+
+  const search = document.getElementById('compose-search');
+  const ta = document.getElementById('compose-text');
+  search.oninput = function () { composeQuery = search.value; composeDraft = ta.value; renderCompose(); };
+  ta.oninput = function () { composeDraft = ta.value; };
+  document.getElementById('compose-save').onclick = function () {
+    composeDraft = (ta.value || '').trim();
+    ta.value = composeDraft;
+    const picked = composeSelectedItems();
+    if (!picked.length) { toast(t('composeNeedWords')); return; }
+    if (!composeDraft) { toast(t('composeNeedText')); return; }
+    const missing = composeMissingItems(composeDraft, picked);
+    const hint = document.getElementById('compose-soft-hint');
+    if (missing.length) {
+      hint.innerHTML = '<p class="compose-hint-soft">'+esc(t('composeMissing'))+'</p>';
+    } else {
+      hint.innerHTML = '';
+    }
+    if (!state.composedSentences) state.composedSentences = [];
+    state.composedSentences.push({
+      id: composeUid(),
+      wordIds: picked.map(function (it) { return it.id; }),
+      text: composeDraft,
+      at: new Date().toISOString()
+    });
+    saveState();
+    composeDraft = '';
+    toast(missing.length ? t('composeMissing') : t('saved'));
+    renderCompose();
+  };
+  el.querySelectorAll('.compose-del').forEach(function (btn) {
+    btn.onclick = function () {
+      const i = parseInt(btn.dataset.i, 10);
+      (state.composedSentences || []).splice(i, 1);
+      saveState();
+      renderCompose();
+    };
+  });
+  bindGlossSpeak(el);
+
+  const COMPOSE_DICT_LIMIT = 40;
+  if (q) {
+    if (!dictIndex) {
+      paintWordList([]);
+      const list = document.getElementById('compose-word-list');
+      if (list && !list.innerHTML) list.innerHTML = '<p class="muted">'+esc(t('dictLoading'))+'</p>';
+      else if (list) list.insertAdjacentHTML('afterbegin', '<p class="muted">'+esc(t('dictLoading'))+'</p>');
+      loadDictIndex().then(function () { if (currentPanel==='compose') renderCompose(); }).catch(function (e) {
+        console.warn(e);
+        const box = document.getElementById('compose-word-list');
+        if (box) box.insertAdjacentHTML('beforeend', '<p class="muted">'+esc(t('dictLoadError'))+'</p>');
+      });
+    } else {
+      const hits = searchDictIndex(q, 'all', 'all', 'all').slice(0, COMPOSE_DICT_LIMIT);
+      ensureDictItems(hits).then(function () { paintWordList(hits); }).catch(function () { paintWordList(hits); });
+    }
+  } else {
+    paintWordList([]);
+  }
 }
 
 /********************
@@ -3184,22 +3909,21 @@ function speakText(text, lang) {
     toast(t('trVoiceOff'));
     return;
   }
+  if (lang === 'ko') { speakKo(text); return; }
   if (!window.speechSynthesis) {
     toast(t('noKoVoice'));
     return;
   }
   const map = { ko:'ko-KR', zh:'zh-CN', en:'en-US' };
+  stopKoAudio();
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(String(text || ''));
   u.lang = map[lang] || 'ko-KR';
-  if (lang === 'ko') {
-    refreshVoices();
-    if (koVoice) u.voice = koVoice;
-  } else {
-    const voices = speechSynthesis.getVoices() || [];
-    const pref = voices.find(v => (v.lang || '').toLowerCase().startsWith((map[lang]||'').toLowerCase().slice(0,2)));
-    if (pref) u.voice = pref;
-  }
+  u.rate = 0.85;
+  u.pitch = 1;
+  const voices = speechSynthesis.getVoices() || [];
+  const pref = voices.find(v => (v.lang || '').toLowerCase().startsWith((map[lang]||'').toLowerCase().slice(0,2)));
+  if (pref) u.voice = pref;
   speechSynthesis.speak(u);
 }
 
@@ -3988,6 +4712,7 @@ function renderSiteStatus() {
   el.innerHTML =
     '<div class="card"><h2>'+esc(t('siteStatusTitle'))+'</h2>'
     +'<p>'+esc(t('aboutDraftNote'))+'</p>'
+    +'<p class="dict-credit">'+dictCreditHTML()+'</p>'
     +'<p class="muted">'+domainPlaceholderHTML()+'</p></div>';
 }
 
@@ -4188,6 +4913,7 @@ function renderAll() {
 document.addEventListener('DOMContentLoaded', () => {
   try {
     renderAll();
+    initKrdict();
   } catch (e) {
     console.error(e);
     document.body.insertAdjacentHTML('afterbegin',
