@@ -820,9 +820,9 @@ const I18N = {
     voiceOk: "Korean voice ready",
     voiceCheck: "Check voices",
     koVoiceTitle: "Korean reading voice",
-    koVoiceHint: "Device voice is the default. An open-source model (Supertonic) is loaded on first use and may take a moment.",
-    koVoiceDevice: "Device voice (default)",
-    koVoiceSupertonic: "Supertonic 3 (open-source, in-browser)",
+    koVoiceHint: "The default is the open-source Supertonic model. It is loaded on first use and may take a moment. Device voice stays in the menu and is the fallback.",
+    koVoiceDevice: "Device voice",
+    koVoiceSupertonic: "Supertonic 3 (open-source, in-browser, default)",
     koVoiceSpeaker: "Speaker",
     koVoiceSpeakerN: "Speaker {n}",
     koVoicePiper: "Piper",
@@ -1214,9 +1214,9 @@ const I18N = {
     voiceOk: "한국어 음성 준비됨",
     voiceCheck: "음성 확인",
     koVoiceTitle: "한국어 낭독 음성",
-    koVoiceHint: "기본은 기기 음성입니다. 오픈소스 모델(Supertonic)은 처음 쓸 때 불러오며 잠시 걸릴 수 있습니다.",
-    koVoiceDevice: "기기 음성 (기본)",
-    koVoiceSupertonic: "Supertonic 3 (오픈소스, 브라우저)",
+    koVoiceHint: "기본은 오픈소스 모델 Supertonic입니다. 처음 쓸 때 모델을 불러오며 잠시 걸릴 수 있습니다. 기기 음성은 선택하거나, 실패 시 대체로 씁니다.",
+    koVoiceDevice: "기기 음성",
+    koVoiceSupertonic: "Supertonic 3 (오픈소스, 브라우저, 기본)",
     koVoiceSpeaker: "화자",
     koVoiceSpeakerN: "화자 {n}",
     koVoicePiper: "Piper",
@@ -1608,9 +1608,9 @@ const I18N = {
     voiceOk: "韩语语音可用",
     voiceCheck: "检查语音",
     koVoiceTitle: "韩语朗读音色",
-    koVoiceHint: "默认使用本机朗读。若选择开源模型（Supertonic），首次使用会加载模型，可能需要等一会儿。",
-    koVoiceDevice: "本机朗读（默认）",
-    koVoiceSupertonic: "Supertonic 3（开源，浏览器内）",
+    koVoiceHint: "默认使用开源模型 Supertonic，首次会加载模型，可能要等一会儿。本机朗读可在选单里切换，也是失败时的备选。",
+    koVoiceDevice: "本机朗读",
+    koVoiceSupertonic: "Supertonic 3（开源，浏览器内，默认）",
     koVoiceSpeaker: "说话人",
     koVoiceSpeakerN: "说话人 {n}",
     koVoicePiper: "Piper",
@@ -1890,10 +1890,17 @@ const PARTS = ['syllable','ending','particle','other','unknown'];
  ********************/
 function sanitizeKoVoiceChoice(raw) {
   const c = (raw && typeof raw === 'object') ? raw : {};
-  const engine = c.engine === 'supertonic' ? 'supertonic' : 'device';
+  const engine = c.engine === 'device' ? 'device' : 'supertonic';
   let sid = parseInt(c.sid, 10);
   if (!(sid >= 0 && sid <= 9)) sid = 0;
   return { engine: engine, sid: sid };
+}
+function migrateKoVoiceChoice(parsed) {
+  const raw = parsed && parsed.koVoiceChoice;
+  if (parsed && parsed.koVoiceDefaultV === 2) return sanitizeKoVoiceChoice(raw);
+  // v1 默认是本机朗读；把旧默认迁到 Supertonic。已选 Supertonic 的保留说话人。
+  if (raw && raw.engine === 'supertonic') return sanitizeKoVoiceChoice(raw);
+  return sanitizeKoVoiceChoice({ engine: 'supertonic', sid: 0 });
 }
 
 const defaultState = () => ({
@@ -1912,7 +1919,8 @@ const defaultState = () => ({
   grammarExamples: {},    // gid -> [{text, at}]
   composedSentences: [],  // [{id, wordIds, text, at}]
   dictationIndex: 0,
-  koVoiceChoice: { engine:'device', sid:0 }, // 韩语朗读音色，按账号钥匙存本机
+  koVoiceChoice: { engine:'supertonic', sid:0 }, // 韩语朗读音色，按账号钥匙存本机；默认开源 Supertonic
+  koVoiceDefaultV: 2,
   // Translate / Conversation (additive)
   translateSetup: { done:false, nativeLang:'zh', goal:'', level:'beginner', voiceOn:true },
   translateFavorites: [], // [{id, original, translation, roma, from, to, honorific, at}]
@@ -1978,7 +1986,8 @@ function loadState(key) {
         messages: Array.isArray((parsed.aiChat||{}).messages) ? parsed.aiChat.messages : [],
       }),
       auth: Object.assign(defaultState().auth, (parsed.auth||{})),
-      koVoiceChoice: sanitizeKoVoiceChoice(parsed.koVoiceChoice),
+      koVoiceChoice: migrateKoVoiceChoice(parsed),
+      koVoiceDefaultV: 2,
     });
   } catch (e) {
     console.warn('loadState failed', e);
@@ -2335,7 +2344,7 @@ function dueToday() {
  *   1) 若 KO_AUDIO_MANIFEST 有该句的静态音频（相对路径 audio/…），先播文件；
  *   2) 若当前选中的引擎 KO_VOICE_ENGINE.play(text) 成功（同步或异步），则由该引擎播放；
  *   3) 否则用本机 speechSynthesis 兜底，语速 KO_TTS_RATE（略慢、更清楚）。
- * 选项在设置页「韩语朗读音色」中切换，按账号写入 localStorage（游客也用自己的钥匙）；默认本机朗读。
+ * 选项在设置页「韩语朗读音色」中切换，按账号写入 localStorage（游客也用自己的钥匙）；默认开源模型 Supertonic，失败回退本机朗读。
  * 开源模型（Supertonic 3）按需从相对路径 voices/supertonic/ 加载，不进首屏、不打进本 HTML。
  ********************/
 let koVoice = null;
