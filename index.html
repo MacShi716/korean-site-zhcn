@@ -820,7 +820,7 @@ const I18N = {
     voiceOk: "Korean voice ready",
     voiceCheck: "Check voices",
     koVoiceTitle: "Korean reading voice",
-    koVoiceHint: "The default is the open-source Supertonic model. It is loaded on first use and may take a moment. Device voice stays in the menu and is the fallback.",
+    koVoiceHint: "The default is the open-source Supertonic model. The first time it is used, the model is loaded and may take a moment; until then the device voice plays so it is not silent.",
     koVoiceDevice: "Device voice",
     koVoiceSupertonic: "Supertonic 3 (open-source, in-browser, default)",
     koVoiceSpeaker: "Speaker",
@@ -834,6 +834,7 @@ const I18N = {
     koVoiceCosyWhy: "No server address is configured, so it is unavailable for now.",
     koVoiceLoading: "Loading the open-source voice model…",
     koVoiceLoadFail: "Could not load the open-source voice model. Falling back to the device voice.",
+    koVoiceLoadingFallback: "Loading the open-source voice model. Using the device voice for now.",
     koVoicePreview: "Preview",
     koVoicePreviewText: "안녕하세요. 한국어를 연습합시다.",
     pickWrongPart: "Which part was wrong?",
@@ -1214,7 +1215,7 @@ const I18N = {
     voiceOk: "한국어 음성 준비됨",
     voiceCheck: "음성 확인",
     koVoiceTitle: "한국어 낭독 음성",
-    koVoiceHint: "기본은 오픈소스 모델 Supertonic입니다. 처음 쓸 때 모델을 불러오며 잠시 걸릴 수 있습니다. 기기 음성은 선택하거나, 실패 시 대체로 씁니다.",
+    koVoiceHint: "기본은 오픈소스 모델 Supertonic입니다. 처음 쓸 때 모델을 불러오며 잠시 걸릴 수 있습니다. 불러오는 동안에는 기기 음성으로 먼저 들려 드립니다.",
     koVoiceDevice: "기기 음성",
     koVoiceSupertonic: "Supertonic 3 (오픈소스, 브라우저, 기본)",
     koVoiceSpeaker: "화자",
@@ -1228,6 +1229,7 @@ const I18N = {
     koVoiceCosyWhy: "사용할 서버 주소가 없어 지금은 쓸 수 없습니다.",
     koVoiceLoading: "오픈소스 음성 모델을 불러오는 중…",
     koVoiceLoadFail: "오픈소스 음성 모델을 불러오지 못해 기기 음성으로 바꿉니다.",
+    koVoiceLoadingFallback: "오픈소스 음성 모델을 불러오는 중입니다. 지금은 기기 음성으로 들려 드립니다.",
     koVoicePreview: "미리듣기",
     koVoicePreviewText: "안녕하세요. 한국어를 연습합시다.",
     pickWrongPart: "어느 부분이 틀렸나요?",
@@ -1608,7 +1610,7 @@ const I18N = {
     voiceOk: "韩语语音可用",
     voiceCheck: "检查语音",
     koVoiceTitle: "韩语朗读音色",
-    koVoiceHint: "默认使用开源模型 Supertonic，首次会加载模型，可能要等一会儿。本机朗读可在选单里切换，也是失败时的备选。",
+    koVoiceHint: "默认使用开源模型 Supertonic。首次会加载模型，可能要等一会儿；加载完成前先用本机朗读，避免没声音。",
     koVoiceDevice: "本机朗读",
     koVoiceSupertonic: "Supertonic 3（开源，浏览器内，默认）",
     koVoiceSpeaker: "说话人",
@@ -1622,6 +1624,7 @@ const I18N = {
     koVoiceCosyWhy: "没有可用的服务器地址，暂不可用。",
     koVoiceLoading: "正在加载开源语音模型…",
     koVoiceLoadFail: "开源语音模型加载失败，已改用本机朗读。",
+    koVoiceLoadingFallback: "正在加载开源语音模型，先用本机朗读。",
     koVoicePreview: "试听",
     koVoicePreviewText: "안녕하세요. 한국어를 연습합시다.",
     pickWrongPart: "错在哪一部分？",
@@ -2370,12 +2373,18 @@ let koEngineAudioCtx = null;
 let koEngineSource = null;
 let supertonicWorker = null;
 let supertonicReady = null;
+let supertonicReadyFlag = false;
 let supertonicGen = null;
 
 function siteAsset(relPath) {
   const rel = String(relPath || '').replace(/^\//, '');
-  const dir = (location.pathname || '/').replace(/[^/]*$/, '');
-  return dir + rel;
+  try {
+    return new URL(rel, new URL('.', location.href)).href;
+  } catch (e) {
+    const path = (location.pathname || '/');
+    const dir = path.endsWith('/') ? path : path.replace(/[^/]*$/, '') || '/';
+    return dir + rel;
+  }
 }
 function stopKoEngineAudio() {
   if (koEngineSource) {
@@ -2479,6 +2488,7 @@ function handleSupertonicMessage(d) {
   }
   if (d.type === 'sherpa-onnx-tts-generation-progress') return;
   if (d.type === 'sherpa-onnx-tts-ready') {
+    supertonicReadyFlag = true;
     if (supertonicReady && supertonicReady._resolve) {
       const r = supertonicReady._resolve;
       supertonicReady._resolve = null;
@@ -2497,6 +2507,7 @@ function handleSupertonicMessage(d) {
   }
   if (d.type === 'error') {
     const err = new Error(d.message || 'supertonic error');
+    supertonicReadyFlag = false;
     if (supertonicReady && supertonicReady._resolve) {
       const r = supertonicReady._reject;
       supertonicReady._resolve = null;
@@ -2525,6 +2536,7 @@ function ensureSupertonic() {
     w.onmessage = function (ev) { handleSupertonicMessage(ev.data || {}); };
     w.onerror = function (ev) {
       const err = new Error((ev && ev.message) || 'supertonic worker error');
+      supertonicReadyFlag = false;
       if (supertonicReady && supertonicReady._reject) {
         const r = supertonicReady._reject;
         supertonicReady._resolve = null;
@@ -2539,6 +2551,7 @@ function ensureSupertonic() {
         const r = supertonicReady._reject;
         supertonicReady._resolve = null;
         supertonicReady = null;
+        supertonicReadyFlag = false;
         r(new Error('supertonic init timeout'));
       }
     }, 180000);
@@ -2572,6 +2585,12 @@ function generateSupertonic(text, sid) {
   });
 }
 function playSupertonicKo(text, sid) {
+  if (!supertonicReadyFlag) {
+    ensureSupertonic();
+    toast(t('koVoiceLoadingFallback'), 6000);
+    setKoVoiceStatus(t('koVoiceLoadingFallback'));
+    return false;
+  }
   return generateSupertonic(text, sid).then(function (audio) {
     if (!audio || !audio.samples || !audio.samples.length) throw new Error('empty audio');
     setKoVoiceStatus('');
