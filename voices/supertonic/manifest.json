@@ -1,0 +1,51 @@
+{
+  "engine": "sherpa-onnx-wasm-simd",
+  "version": "2.0.2",
+  "model": "sherpa-onnx-supertonic-3-tts-int8-2026-05-11",
+  "source": "https://github.com/k2-fsa/sherpa-onnx/releases/tag/v2.0.2",
+  "samplePage": "https://k2-fsa.github.io/sherpa/onnx/tts/all/Korean/supertonic-3-ko.html",
+  "files": [
+    {
+      "file": "models/duration_predictor.int8.onnx",
+      "bytes": 3700147
+    },
+    {
+      "file": "models/text_encoder.int8.onnx",
+      "bytes": 36416150
+    },
+    {
+      "file": "models/tts.json",
+      "bytes": 8253
+    },
+    {
+      "file": "models/unicode_indexer.bin",
+      "bytes": 262144
+    },
+    {
+      "file": "models/vector_estimator.int8.onnx",
+      "bytes": 78400833
+    },
+    {
+      "file": "models/vocoder.int8.onnx",
+      "bytes": 25991073
+    },
+    {
+      "file": "models/voice.bin",
+      "bytes": 517168
+    }
+  ],
+  "runtime": [
+    {
+      "file": "sherpa-onnx-wasm-main-tts.wasm",
+      "bytes": 13743323
+    },
+    {
+      "file": "sherpa-onnx-wasm-main-tts.js",
+      "bytes": 83913
+    },
+    {
+      "file": "sherpa-onnx-tts.js",
+      "bytes": 41427
+    }
+  ]
+}

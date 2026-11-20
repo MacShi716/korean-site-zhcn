@@ -819,6 +819,23 @@ const I18N = {
     none: "—",
     voiceOk: "Korean voice ready",
     voiceCheck: "Check voices",
+    koVoiceTitle: "Korean reading voice",
+    koVoiceHint: "Device voice is the default. An open-source model (Supertonic) is loaded on first use and may take a moment.",
+    koVoiceDevice: "Device voice (default)",
+    koVoiceSupertonic: "Supertonic 3 (open-source, in-browser)",
+    koVoiceSpeaker: "Speaker",
+    koVoiceSpeakerN: "Speaker {n}",
+    koVoicePiper: "Piper",
+    koVoiceKokoro: "Kokoro",
+    koVoiceCosy: "CosyVoice",
+    koVoiceUnavailable: "Unavailable",
+    koVoicePiperWhy: "Not yet wired to play Korean on this site (in-browser synthesis was not verified).",
+    koVoiceKokoroWhy: "Not yet wired to play Korean on this site (in-browser synthesis was not verified).",
+    koVoiceCosyWhy: "No server address is configured, so it is unavailable for now.",
+    koVoiceLoading: "Loading the open-source voice model…",
+    koVoiceLoadFail: "Could not load the open-source voice model. Falling back to the device voice.",
+    koVoicePreview: "Preview",
+    koVoicePreviewText: "안녕하세요. 한국어를 연습합시다.",
     pickWrongPart: "Which part was wrong?",
     autoDetected: "Auto-detected",
     nav_translate: "Translate",
@@ -1196,6 +1213,23 @@ const I18N = {
     none: "—",
     voiceOk: "한국어 음성 준비됨",
     voiceCheck: "음성 확인",
+    koVoiceTitle: "한국어 낭독 음성",
+    koVoiceHint: "기본은 기기 음성입니다. 오픈소스 모델(Supertonic)은 처음 쓸 때 불러오며 잠시 걸릴 수 있습니다.",
+    koVoiceDevice: "기기 음성 (기본)",
+    koVoiceSupertonic: "Supertonic 3 (오픈소스, 브라우저)",
+    koVoiceSpeaker: "화자",
+    koVoiceSpeakerN: "화자 {n}",
+    koVoicePiper: "Piper",
+    koVoiceKokoro: "Kokoro",
+    koVoiceCosy: "CosyVoice",
+    koVoiceUnavailable: "사용 불가",
+    koVoicePiperWhy: "이 사이트에서 한국어를 재생하도록 아직 연결되지 않았습니다(브라우저 합성이 확인되지 않음).",
+    koVoiceKokoroWhy: "이 사이트에서 한국어를 재생하도록 아직 연결되지 않았습니다(브라우저 합성이 확인되지 않음).",
+    koVoiceCosyWhy: "사용할 서버 주소가 없어 지금은 쓸 수 없습니다.",
+    koVoiceLoading: "오픈소스 음성 모델을 불러오는 중…",
+    koVoiceLoadFail: "오픈소스 음성 모델을 불러오지 못해 기기 음성으로 바꿉니다.",
+    koVoicePreview: "미리듣기",
+    koVoicePreviewText: "안녕하세요. 한국어를 연습합시다.",
     pickWrongPart: "어느 부분이 틀렸나요?",
     autoDetected: "자동 감지",
     nav_translate: "번역·대화",
@@ -1573,6 +1607,23 @@ const I18N = {
     none: "—",
     voiceOk: "韩语语音可用",
     voiceCheck: "检查语音",
+    koVoiceTitle: "韩语朗读音色",
+    koVoiceHint: "默认使用本机朗读。若选择开源模型（Supertonic），首次使用会加载模型，可能需要等一会儿。",
+    koVoiceDevice: "本机朗读（默认）",
+    koVoiceSupertonic: "Supertonic 3（开源，浏览器内）",
+    koVoiceSpeaker: "说话人",
+    koVoiceSpeakerN: "说话人 {n}",
+    koVoicePiper: "Piper",
+    koVoiceKokoro: "Kokoro",
+    koVoiceCosy: "CosyVoice",
+    koVoiceUnavailable: "暂不可用",
+    koVoicePiperWhy: "尚未接到可在本网站播放的韩语合成，暂不可用。",
+    koVoiceKokoroWhy: "尚未接到可在本网站播放的韩语合成，暂不可用。",
+    koVoiceCosyWhy: "没有可用的服务器地址，暂不可用。",
+    koVoiceLoading: "正在加载开源语音模型…",
+    koVoiceLoadFail: "开源语音模型加载失败，已改用本机朗读。",
+    koVoicePreview: "试听",
+    koVoicePreviewText: "안녕하세요. 한국어를 연습합시다.",
     pickWrongPart: "错在哪一部分？",
     autoDetected: "自动检测",
     nav_translate: "翻译对话",
@@ -1837,6 +1888,14 @@ const PARTS = ['syllable','ending','particle','other','unknown'];
 /********************
  * State
  ********************/
+function sanitizeKoVoiceChoice(raw) {
+  const c = (raw && typeof raw === 'object') ? raw : {};
+  const engine = c.engine === 'supertonic' ? 'supertonic' : 'device';
+  let sid = parseInt(c.sid, 10);
+  if (!(sid >= 0 && sid <= 9)) sid = 0;
+  return { engine: engine, sid: sid };
+}
+
 const defaultState = () => ({
   uiLang: 'zh',
   showEN: true,
@@ -1853,6 +1912,7 @@ const defaultState = () => ({
   grammarExamples: {},    // gid -> [{text, at}]
   composedSentences: [],  // [{id, wordIds, text, at}]
   dictationIndex: 0,
+  koVoiceChoice: { engine:'device', sid:0 }, // 韩语朗读音色，按账号钥匙存本机
   // Translate / Conversation (additive)
   translateSetup: { done:false, nativeLang:'zh', goal:'', level:'beginner', voiceOn:true },
   translateFavorites: [], // [{id, original, translation, roma, from, to, honorific, at}]
@@ -1918,6 +1978,7 @@ function loadState(key) {
         messages: Array.isArray((parsed.aiChat||{}).messages) ? parsed.aiChat.messages : [],
       }),
       auth: Object.assign(defaultState().auth, (parsed.auth||{})),
+      koVoiceChoice: sanitizeKoVoiceChoice(parsed.koVoiceChoice),
     });
   } catch (e) {
     console.warn('loadState failed', e);
@@ -1988,6 +2049,7 @@ function switchToStorage(nextId) {
   accounts.current = nextId || null;
   saveAccounts();
   state = loadState();
+  applyKoVoiceEngine();
   if (window.__koreanSite) window.__koreanSite.state = state;
 }
 function loginWithDemoCode(cc, phone, code) {
@@ -2023,6 +2085,7 @@ function loginWithDemoCode(cc, phone, code) {
     state = loadState();
   }
   state.auth = { signedIn:true, mode:'phone', phone: maskPhone(info.cc, norm.national), at: now };
+  applyKoVoiceEngine();
   saveState();
   if (window.__koreanSite) window.__koreanSite.state = state;
   closeAuthPanel();
@@ -2270,9 +2333,10 @@ function dueToday() {
  * 韩语朗读入口：speakKo（词卡/例句/选词造句/听写）、speakText（翻译对话，韩语走 speakKo）。
  * 音色可换，不要锁死某一模型。当前播放顺序：
  *   1) 若 KO_AUDIO_MANIFEST 有该句的静态音频（相对路径 audio/…），先播文件；
- *   2) 若挂了 KO_VOICE_ENGINE.play(text) 并返回 true，则由该引擎播放；
+ *   2) 若当前选中的引擎 KO_VOICE_ENGINE.play(text) 成功（同步或异步），则由该引擎播放；
  *   3) 否则用本机 speechSynthesis 兜底，语速 KO_TTS_RATE（略慢、更清楚）。
- * 以后若改用 GitHub 开源音色，只需实现并挂上 KO_VOICE_ENGINE，不必改朗读按钮。
+ * 选项在设置页「韩语朗读音色」中切换，按账号写入 localStorage（游客也用自己的钥匙）；默认本机朗读。
+ * 开源模型（Supertonic 3）按需从相对路径 voices/supertonic/ 加载，不进首屏、不打进本 HTML。
  ********************/
 let koVoice = null;
 let voicesReady = false;
@@ -2280,17 +2344,38 @@ let koAudioEl = null;
 const KO_TTS_RATE = 0.72;
 const KO_AUDIO_MANIFEST = {};
 const KO_VOICE_ENGINE = {
-  id: 'device-fallback',
-  // 换音色时实现 play(text)，成功播放则返回 true；返回假值或未实现则走下面的兜底。
+  id: 'device',
+  // 换音色时实现 play(text)，成功播放则返回 true（或成功的 Promise）；返回假值或未实现则走下面的兜底。
   play: null
 };
+const KO_VOICE_ASSET_BASE = 'voices/supertonic/';
+const KO_VOICE_WORKER_REL = KO_VOICE_ASSET_BASE + 'supertonic-worker.js';
+const KO_VOICE_ENGINES = [
+  { id: 'device', enabled: true },
+  { id: 'supertonic', enabled: true, speakers: 10, assetBase: KO_VOICE_ASSET_BASE },
+  { id: 'piper', enabled: false, reasonKey: 'koVoicePiperWhy' },
+  { id: 'kokoro', enabled: false, reasonKey: 'koVoiceKokoroWhy' },
+  { id: 'cosyvoice', enabled: false, reasonKey: 'koVoiceCosyWhy' }
+];
+let koEngineAudioCtx = null;
+let koEngineSource = null;
+let supertonicWorker = null;
+let supertonicReady = null;
+let supertonicGen = null;
 
 function siteAsset(relPath) {
   const rel = String(relPath || '').replace(/^\//, '');
   const dir = (location.pathname || '/').replace(/[^/]*$/, '');
   return dir + rel;
 }
+function stopKoEngineAudio() {
+  if (koEngineSource) {
+    try { koEngineSource.stop(); } catch (e) {}
+    koEngineSource = null;
+  }
+}
 function stopKoAudio() {
+  stopKoEngineAudio();
   if (koAudioEl) {
     try { koAudioEl.pause(); koAudioEl.removeAttribute('src'); koAudioEl.load(); } catch (e) {}
     koAudioEl = null;
@@ -2340,10 +2425,192 @@ function speakKoFallback(text) {
   speechSynthesis.speak(u);
   return true;
 }
+function setKoVoiceStatus(msg) {
+  const el = document.getElementById('s-ko-status');
+  if (el) el.textContent = msg || '';
+}
+function playPcmSamples(samples, sampleRate) {
+  return new Promise(function (resolve, reject) {
+    stopKoAudio();
+    if (window.speechSynthesis) { try { speechSynthesis.cancel(); } catch (e) {} }
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) { reject(new Error('no AudioContext')); return; }
+    if (!koEngineAudioCtx) koEngineAudioCtx = new Ctx();
+    const ctx = koEngineAudioCtx;
+    const go = function () {
+      try {
+        const buf = ctx.createBuffer(1, samples.length, sampleRate || 44100);
+        buf.getChannelData(0).set(samples);
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        src.connect(ctx.destination);
+        koEngineSource = src;
+        src.onended = function () { if (koEngineSource === src) koEngineSource = null; resolve(true); };
+        src.start();
+      } catch (e) { reject(e); }
+    };
+    if (ctx.state === 'suspended' && ctx.resume) {
+      ctx.resume().then(go).catch(reject);
+    } else {
+      go();
+    }
+  });
+}
+function handleSupertonicMessage(d) {
+  if (!d) return;
+  if (d.type === 'sherpa-onnx-tts-progress') {
+    const p = d.progress;
+    if (p && p.count) {
+      const part = (p.index + 1) + '/' + p.count;
+      setKoVoiceStatus(t('koVoiceLoading') + ' ' + part);
+    } else if (d.status) {
+      setKoVoiceStatus(String(d.status));
+    }
+    return;
+  }
+  if (d.type === 'sherpa-onnx-tts-generation-progress') return;
+  if (d.type === 'sherpa-onnx-tts-ready') {
+    if (supertonicReady && supertonicReady._resolve) {
+      const r = supertonicReady._resolve;
+      supertonicReady._resolve = null;
+      r(supertonicWorker);
+    }
+    setKoVoiceStatus('');
+    return;
+  }
+  if (d.type === 'sherpa-onnx-tts-result') {
+    if (supertonicGen) {
+      const g = supertonicGen;
+      supertonicGen = null;
+      g.resolve({ samples: d.samples, sampleRate: d.sampleRate });
+    }
+    return;
+  }
+  if (d.type === 'error') {
+    const err = new Error(d.message || 'supertonic error');
+    if (supertonicReady && supertonicReady._resolve) {
+      const r = supertonicReady._reject;
+      supertonicReady._resolve = null;
+      supertonicReady = null;
+      if (r) r(err);
+    }
+    if (supertonicGen) {
+      const g = supertonicGen;
+      supertonicGen = null;
+      g.reject(err);
+    }
+  }
+}
+function ensureSupertonic() {
+  if (supertonicReady) return supertonicReady;
+  toast(t('koVoiceLoading'), 8000);
+  setKoVoiceStatus(t('koVoiceLoading'));
+  let resolve, reject;
+  const p = new Promise(function (res, rej) { resolve = res; reject = rej; });
+  p._resolve = resolve;
+  p._reject = reject;
+  supertonicReady = p;
+  try {
+    const w = new Worker(siteAsset(KO_VOICE_WORKER_REL));
+    supertonicWorker = w;
+    w.onmessage = function (ev) { handleSupertonicMessage(ev.data || {}); };
+    w.onerror = function (ev) {
+      const err = new Error((ev && ev.message) || 'supertonic worker error');
+      if (supertonicReady && supertonicReady._reject) {
+        const r = supertonicReady._reject;
+        supertonicReady._resolve = null;
+        supertonicReady = null;
+        r(err);
+      }
+      if (supertonicGen) { const g = supertonicGen; supertonicGen = null; g.reject(err); }
+    };
+    w.postMessage({ type: 'init' });
+    setTimeout(function () {
+      if (supertonicReady && supertonicReady._reject) {
+        const r = supertonicReady._reject;
+        supertonicReady._resolve = null;
+        supertonicReady = null;
+        r(new Error('supertonic init timeout'));
+      }
+    }, 180000);
+  } catch (e) {
+    supertonicReady = null;
+    reject(e);
+  }
+  p.catch(function () {
+    try { if (supertonicWorker) supertonicWorker.terminate(); } catch (e) {}
+    supertonicWorker = null;
+  });
+  return p;
+}
+function generateSupertonic(text, sid) {
+  return ensureSupertonic().then(function (w) {
+    return new Promise(function (resolve, reject) {
+      if (supertonicGen) {
+        const old = supertonicGen;
+        supertonicGen = null;
+        try { old.reject(new Error('cancelled')); } catch (e) {}
+      }
+      supertonicGen = { resolve: resolve, reject: reject };
+      w.postMessage({
+        type: 'generateWithConfig',
+        text: text,
+        sid: sid,
+        speed: 1.0,
+        genConfig: { sid: sid, speed: 1.0, numSteps: 8, extra: { lang: 'ko' } }
+      });
+    });
+  });
+}
+function playSupertonicKo(text, sid) {
+  return generateSupertonic(text, sid).then(function (audio) {
+    if (!audio || !audio.samples || !audio.samples.length) throw new Error('empty audio');
+    setKoVoiceStatus('');
+    return playPcmSamples(audio.samples, audio.sampleRate);
+  });
+}
+function getKoVoiceChoice() {
+  const choice = sanitizeKoVoiceChoice(state && state.koVoiceChoice);
+  if (state) state.koVoiceChoice = choice;
+  return choice;
+}
+function setKoVoiceChoice(engine, sid) {
+  const choice = sanitizeKoVoiceChoice({ engine: engine, sid: sid });
+  if (!state.koVoiceChoice) state.koVoiceChoice = defaultState().koVoiceChoice;
+  state.koVoiceChoice = choice;
+  saveState();
+  applyKoVoiceEngine();
+  return choice;
+}
+function applyKoVoiceEngine() {
+  const choice = getKoVoiceChoice();
+  if (choice.engine === 'supertonic') {
+    KO_VOICE_ENGINE.id = 'supertonic';
+    KO_VOICE_ENGINE.sid = choice.sid;
+    KO_VOICE_ENGINE.play = function (text) { return playSupertonicKo(text, choice.sid); };
+  } else {
+    KO_VOICE_ENGINE.id = 'device';
+    KO_VOICE_ENGINE.sid = 0;
+    KO_VOICE_ENGINE.play = null;
+  }
+}
 function speakKoWithEngineOrDevice(text) {
   try {
     if (KO_VOICE_ENGINE && typeof KO_VOICE_ENGINE.play === 'function') {
-      if (KO_VOICE_ENGINE.play(text)) return true;
+      const r = KO_VOICE_ENGINE.play(text);
+      if (r && typeof r.then === 'function') {
+        r.then(function (ok) {
+          if (!ok) speakKoFallback(text);
+        }).catch(function (e) {
+          if (e && e.message === 'cancelled') return;
+          console.warn('KO_VOICE_ENGINE.play failed', e);
+          toast(t('koVoiceLoadFail'));
+          setKoVoiceStatus(t('koVoiceLoadFail'));
+          speakKoFallback(text);
+        });
+        return true;
+      }
+      if (r) return true;
     }
   } catch (e) { console.warn('KO_VOICE_ENGINE.play failed', e); }
   return speakKoFallback(text);
@@ -2379,12 +2646,12 @@ document.addEventListener('click', ev => {
 /********************
  * UI helpers
  ********************/
-function toast(msg) {
+function toast(msg, ms) {
   const el = document.getElementById('toast');
   el.textContent = msg;
   el.classList.add('show');
   clearTimeout(toast._t);
-  toast._t = setTimeout(() => el.classList.remove('show'), 2200);
+  toast._t = setTimeout(() => el.classList.remove('show'), ms || 2200);
 }
 function esc(s) {
   return String(s==null?'':s)
@@ -3682,6 +3949,26 @@ function renderSettings() {
     +'</div></div>'
     +'<button type="button" class="btn block" id="set-save-profile">'+esc(t('saveProfile'))+'</button>'
     +'</div>'
+    +'<div class="card" id="s-ko-voice"><h3>'+esc(t('koVoiceTitle'))+'</h3>'
+    +'<p class="muted">'+esc(t('koVoiceHint'))+'</p>'
+    +'<div class="field"><label for="s-ko-engine">'+esc(t('koVoiceTitle'))+'</label>'
+    +'<select id="s-ko-engine">'
+    +'<option value="device"'+(getKoVoiceChoice().engine==='device'?' selected':'')+'>'+esc(t('koVoiceDevice'))+'</option>'
+    +'<option value="supertonic"'+(getKoVoiceChoice().engine==='supertonic'?' selected':'')+'>'+esc(t('koVoiceSupertonic'))+'</option>'
+    +'<option value="piper" disabled>'+esc(t('koVoicePiper')+' — '+t('koVoiceUnavailable')+'：'+t('koVoicePiperWhy'))+'</option>'
+    +'<option value="kokoro" disabled>'+esc(t('koVoiceKokoro')+' — '+t('koVoiceUnavailable')+'：'+t('koVoiceKokoroWhy'))+'</option>'
+    +'<option value="cosyvoice" disabled>'+esc(t('koVoiceCosy')+' — '+t('koVoiceUnavailable')+'：'+t('koVoiceCosyWhy'))+'</option>'
+    +'</select></div>'
+    +'<div class="field" id="s-ko-sid-wrap"'+(getKoVoiceChoice().engine==='supertonic'?'':' style="display:none"')+'>'
+    +'<label for="s-ko-sid">'+esc(t('koVoiceSpeaker'))+'</label>'
+    +'<select id="s-ko-sid">'
+    +[0,1,2,3,4,5,6,7,8,9].map(function (n) {
+      return '<option value="'+n+'"'+(getKoVoiceChoice().sid===n?' selected':'')+'>'+esc(tf('koVoiceSpeakerN', { n: n }))+'</option>';
+    }).join('')
+    +'</select></div>'
+    +'<div class="row"><button type="button" class="btn secondary" id="s-ko-preview">'+esc(t('koVoicePreview'))+'</button></div>'
+    +'<p class="muted" id="s-ko-status"></p>'
+    +'</div>'
     +'<div class="card">'
     +'<div class="row" style="flex-direction:column;align-items:stretch">'
     +'<button type="button" class="btn secondary" id="s-tr-setup">'+esc(t('trEditSetup'))+'</button>'
@@ -3707,6 +3994,21 @@ function renderSettings() {
       btn.classList.add('active');
     };
   });
+  const engineSel = document.getElementById('s-ko-engine');
+  const sidSel = document.getElementById('s-ko-sid');
+  const sidWrap = document.getElementById('s-ko-sid-wrap');
+  if (engineSel) engineSel.onchange = function () {
+    const next = setKoVoiceChoice(engineSel.value, sidSel ? sidSel.value : 0);
+    if (sidWrap) sidWrap.style.display = next.engine === 'supertonic' ? '' : 'none';
+  };
+  if (sidSel) sidSel.onchange = function () {
+    setKoVoiceChoice('supertonic', sidSel.value);
+  };
+  const previewBtn = document.getElementById('s-ko-preview');
+  if (previewBtn) previewBtn.onclick = function () {
+    speakKo(t('koVoicePreviewText') || '안녕하세요. 한국어를 연습합시다.');
+  };
+
   document.getElementById('set-save-profile').onclick = () => {
     const nativeBtn = el.querySelector('#set-native .chip.active');
     const voiceBtn = el.querySelector('#set-voice button.active');
@@ -3745,12 +4047,15 @@ function renderSettings() {
     const uiLang = state.uiLang;
     const showEN = state.showEN;
     const showZH = state.showZH;
+    const koVoiceChoice = sanitizeKoVoiceChoice(state.koVoiceChoice);
     state = defaultState();
     state.mistakes = keepMistakes;
     state.auth = keepAuth;
     state.uiLang = uiLang;
     state.showEN = showEN;
     state.showZH = showZH;
+    state.koVoiceChoice = koVoiceChoice;
+    applyKoVoiceEngine();
     saveState();
     toast(t('saved'));
     renderAll();
@@ -3800,8 +4105,10 @@ function importProgressFile(e) {
           messages: Array.isArray((incoming.aiChat||{}).messages) ? incoming.aiChat.messages : [],
         }),
         auth: Object.assign(defaultState().auth, incoming.auth||{}),
+        koVoiceChoice: sanitizeKoVoiceChoice(incoming.koVoiceChoice),
       });
       if (keepAuth && !(state.auth && state.auth.signedIn)) state.auth = keepAuth;
+      applyKoVoiceEngine();
       saveState();
       toast(t('importOk'));
       renderAll();
@@ -4923,6 +5230,7 @@ function renderAll() {
 
 document.addEventListener('DOMContentLoaded', () => {
   try {
+    applyKoVoiceEngine();
     renderAll();
     initKrdict();
   } catch (e) {
@@ -4942,7 +5250,9 @@ window.__koreanSite = {
   aiConversationPlainText, saveAiConversation, renderAbout, renderFeatures, renderLoginHelp, renderAiHelp, renderSiteStatus, renderDaily, renderFavorites, renderMaterials,
   glossKo, meaningLabel, meaningHTML, buildMeaningChoices, startItemQuiz,
   STORAGE_KEY, ACCOUNTS_KEY, DEMO_SMS_CODE, DOMAIN_PLACEHOLDER, COUNTRY_CODES, normalizePhone, isAuthed, loginWithDemoCode, socialLogin, enterAsGuest, logoutAuth, syncAuthGate, renderAuthGate,
-  openAuthPanel, closeAuthPanel, currentAccount, activeStorageKey, getAccounts: () => accounts
+  openAuthPanel, closeAuthPanel, currentAccount, activeStorageKey, getAccounts: () => accounts,
+  speakKo, speakKoFallback, speakKoWithEngineOrDevice, siteAsset, sanitizeKoVoiceChoice, applyKoVoiceEngine,
+  getKoVoiceChoice, setKoVoiceChoice, KO_VOICE_ENGINE, KO_VOICE_ENGINES, KO_VOICE_ASSET_BASE, KO_VOICE_WORKER_REL, KO_TTS_RATE, KO_AUDIO_MANIFEST
 };
 </script>
 </body>

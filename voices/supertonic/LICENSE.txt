@@ -1,0 +1,10 @@
+Supertonic 3 TTS (int8) packaged for in-browser use with sherpa-onnx v2.0.2.
+
+Model: sherpa-onnx-supertonic-3-tts-int8-2026-05-11
+Upstream: https://github.com/k2-fsa/sherpa-onnx/releases/tag/v2.0.2
+         https://github.com/k2-fsa/sherpa-onnx/releases/tag/tts-models
+Original model: https://huggingface.co/Supertone/supertonic-3
+Sample page: https://k2-fsa.github.io/sherpa/onnx/tts/all/Korean/supertonic-3-ko.html
+Runtime: sherpa-onnx WebAssembly SIMD TTS (https://github.com/k2-fsa/sherpa-onnx)
+
+Follow the upstream project licenses when redistributing these files.
