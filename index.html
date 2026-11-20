@@ -597,6 +597,7 @@ const I18N = {
     dictPrev: "Previous",
     dictNext: "Next",
     dictCount: "{n} entries",
+    dictBrowseHint: "Sorted by Hangul. Default view is beginner words. Switch level or search to see the rest. Hyphenated affixes are hidden until you search or pick that class.",
     dictCreditBefore: "Dictionary text is from",
     dictCreditMid: ", licensed under",
     dictCreditAfter: ". Text only; official audio, images, and video are not included.",
@@ -976,6 +977,7 @@ const I18N = {
     dictPrev: "이전",
     dictNext: "다음",
     dictCount: "{n}개",
+    dictBrowseHint: "한글 순입니다. 기본은 초급 단어입니다. 나머지 등급은 필터나 검색으로 보세요. 접사(-가 등)는 검색하거나 해당 종류를 고를 때만 나옵니다.",
     dictCreditBefore: "어휘 텍스트는",
     dictCreditMid: "에서 제공하며, 이용 허락 조건은",
     dictCreditAfter: "입니다. 텍스트만 사용하며 공식 발음·그림·동영상은 넣지 않았습니다.",
@@ -1352,6 +1354,7 @@ const I18N = {
     dictPrev: "上一页",
     dictNext: "下一页",
     dictCount: "{n} 条",
+    dictBrowseHint: "按韩语字母排列。默认先显示初级词汇，其余等级请改筛选或搜索。词缀（如 -가）要搜索或改选种类才会出现。",
     dictCreditBefore: "词库文本来自",
     dictCreditMid: "，协议为",
     dictCreditAfter: "。仅使用文本，不含官方发音、图片或视频。",
@@ -2599,7 +2602,7 @@ let dictIndexLoading = null;
 let dictShardLoading = {};
 let dictItemCache = {};
 let coreOverridesApplied = false;
-let browseDict = { q:'', level:'all', pos:'all', unit:'all', page:1, status:'idle', error:'', hits:null };
+let browseDict = { q:'', level:'초급', pos:'all', unit:'단어', page:1, status:'idle', error:'', hits:null };
 
 function dictUrl(rel) { return siteAsset('dict/' + String(rel||'').replace(/^\//, '')); }
 function choseongOf(text) {
@@ -2713,6 +2716,9 @@ function dictRowMatches(row, q, level, pos, unit) {
   if (!dictLevelMatch(row[5], level)) return false;
   if (!dictPosMatch(row[4], pos)) return false;
   if (unit && unit!=='all' && row[6]!==unit) return false;
+  const ko = String(row[1]||'');
+  // Bare browse should not open on a wall of -가 / 가- affixes that all romanize as "ga".
+  if (!q && pos!=='접사' && (/^-/.test(ko) || /-$/.test(ko))) return false;
   if (!q) return true;
   const blob = ((row[1]||'')+' '+(row[2]||'')+' '+(row[3]||'')+' '+(row[0]||'')).toLowerCase();
   return blob.indexOf(q)!==-1;
@@ -2760,9 +2766,9 @@ function dictSelectOptions(prefix, values, current, allKey) {
 }
 function renderDictPager(page, pages) {
   return '<div class="dict-pager">'
-    +'<button type="button" class="btn ghost" id="dict-prev"'+(page<=1?' disabled':'')+'>'+esc(t('dictPrev'))+'</button>'
+    +'<button type="button" class="btn ghost dict-prev"'+(page<=1?' disabled':'')+'>'+esc(t('dictPrev'))+'</button>'
     +'<span class="muted">'+esc(tf('dictPage',{n:String(page), m:String(pages)}))+'</span>'
-    +'<button type="button" class="btn ghost" id="dict-next"'+(page>=pages?' disabled':'')+'>'+esc(t('dictNext'))+'</button>'
+    +'<button type="button" class="btn ghost dict-next"'+(page>=pages?' disabled':'')+'>'+esc(t('dictNext'))+'</button>'
     +'</div>';
 }
 function fillDictBrowse() {
@@ -2783,16 +2789,21 @@ function fillDictBrowse() {
   if (browseDict.page < 1) browseDict.page = 1;
   const start = (browseDict.page - 1) * KRDICT_PAGE_SIZE;
   const slice = hits.slice(start, start + KRDICT_PAGE_SIZE);
+  const pager = hits.length ? renderDictPager(browseDict.page, pages) : '';
   box.innerHTML =
     '<div class="muted">'+esc(tf('dictCount',{n:String(hits.length)}))
     + (hits.length ? '' : ' · '+esc(t('dictNoResult')))
     +'</div>'
+    +'<p class="muted">'+esc(t('dictBrowseHint'))+'</p>'
+    + pager
     +'<div id="dict-cards"></div>'
-    + (hits.length ? renderDictPager(browseDict.page, pages) : '');
-  const prev = document.getElementById('dict-prev');
-  const next = document.getElementById('dict-next');
-  if (prev) prev.onclick = function () { browseDict.page -= 1; fillDictBrowse(); };
-  if (next) next.onclick = function () { browseDict.page += 1; fillDictBrowse(); };
+    + pager;
+  Array.prototype.forEach.call(box.querySelectorAll('.dict-prev'), function (prev) {
+    prev.onclick = function () { browseDict.page -= 1; fillDictBrowse(); };
+  });
+  Array.prototype.forEach.call(box.querySelectorAll('.dict-next'), function (next) {
+    next.onclick = function () { browseDict.page += 1; fillDictBrowse(); };
+  });
   if (!slice.length) return;
   ensureDictItems(slice).then(function () {
     const cards = document.getElementById('dict-cards');
