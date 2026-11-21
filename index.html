@@ -2417,6 +2417,8 @@ function todayStr() {
 
 function getItem(id) {
   if (!id) return null;
+  const tile = findTileByMistakeId(id);
+  if (tile) return tileReviewItem(tile.sent);
   const local = ALL_ITEMS.find(x => x.id === id);
   if (local) return local;
   return dictItemCache[id] || null;
@@ -2478,6 +2480,7 @@ function recordMistake(itemId, stage, part, typed, correct) {
   m.lastTyped = typed || null;
   m.lastCorrect = correct || null;
   saveState();
+  enqueueReview(itemId, 0);
   return p;
 }
 
@@ -2497,9 +2500,13 @@ function setMistakePart(itemId, part) {
  * Review queue
  ********************/
 function enqueueReview(itemId, daysAhead) {
-  const due = new Date();
-  due.setDate(due.getDate() + (daysAhead||0));
-  const ds = due.toISOString().slice(0,10);
+  let ds;
+  if (!daysAhead) ds = todayStr();
+  else {
+    const due = new Date();
+    due.setDate(due.getDate() + daysAhead);
+    ds = due.toISOString().slice(0, 10);
+  }
   state.reviewQueue = (state.reviewQueue||[]).filter(x => x.id !== itemId);
   state.reviewQueue.push({ id: itemId, due: ds });
   saveState();
@@ -2924,6 +2931,7 @@ function stageLabel(stageKey) {
   return t('stage_' + stageKey);
 }
 function badgesHTML(item) {
+  if (item && item.source === 'tile') return '<span class="badge">'+esc(t('gradeNone'))+'</span>';
   if (item && item.source === 'krdict') {
     let h = '';
     if (item.unit) h += '<span class="badge">'+esc(dictLabel('unit', item.unit))+'</span> ';
@@ -4119,7 +4127,13 @@ function renderMistakes() {
   document.getElementById('m-stage').onchange = e => { mistakeFilter.stage = e.target.value; renderMistakes(); };
   document.getElementById('m-part').onchange = e => { mistakeFilter.part = e.target.value; renderMistakes(); };
   document.getElementById('m-sort').onchange = e => { mistakeFilter.sort = e.target.value; renderMistakes(); };
-  document.getElementById('m-review').onclick = () => { showPanel('practice'); startQuiz(true); };
+  document.getElementById('m-review').onclick = () => {
+    const ids = Object.keys(state.mistakes).filter(function (id) { return (state.mistakes[id].count || 0) > 0; });
+    const plan = splitReviewIds(ids);
+    if (plan.tiles.length) { startTileReview(plan.tiles, plan.words); return; }
+    showPanel('practice');
+    startQuiz(true);
+  };
   document.getElementById('m-clear').onclick = () => {
     if (confirm(t('confirmClear'))) { state.mistakes = {}; saveState(); renderMistakes(); }
   };
@@ -5330,10 +5344,13 @@ function renderDaily() {
   });
   document.getElementById('daily-start').onclick = () => {
     if (!due.length) { toast(t('dailyEmpty')); return; }
+    const plan = splitReviewIds(due.map(function (x) { return x.id; }));
+    if (plan.tiles.length) { startTileReview(plan.tiles, plan.words); return; }
+    if (!plan.words.length) { toast(t('dailyEmpty')); return; }
     if (!enabledTopics().length) { toast(t('noTopicsSelected')); return; }
     if (!enabledRegisters().length) { toast(t('noTypesSelected')); return; }
     quiz = {
-      queue: due.map(x => ({id: x.id, left: repeatsFor(x.id)})),
+      queue: plan.words.map(function (id) { return { id: id, left: repeatsFor(id) }; }),
       index: 0, correct: 0, total: 0, mode: 'recognition', fromDue: true
     };
     practiceMode = 'quiz';
@@ -5530,6 +5547,60 @@ let browseFocusId = null;
 let savedBrowse = null;
 let drillActive = false;
 
+function tileMistakeId(sent) { return 'tile:' + sent.id; }
+function findTileByMistakeId(id) {
+  if (typeof id !== 'string' || id.indexOf('tile:') !== 0) return null;
+  const index = TILE_BANK.findIndex(function (sent) { return sent.id === id.slice(5); });
+  if (index < 0) return null;
+  return { index: index, sent: TILE_BANK[index] };
+}
+function tileReviewItem(sent) {
+  return {
+    id: tileMistakeId(sent),
+    ko: sent.ko,
+    zh: sent.zh || '',
+    en: sent.en || '',
+    hanja: '',
+    register: 'daily',
+    topic: 'expression',
+    category: 'expression',
+    difficulty: 0,
+    source: 'tile',
+    sample: true
+  };
+}
+function splitReviewIds(ids) {
+  const tiles = [];
+  const words = [];
+  (ids || []).forEach(function (id) {
+    const tile = findTileByMistakeId(id);
+    if (tile) tiles.push(tile.index);
+    else if (getItem(id)) words.push(id);
+  });
+  return { tiles: tiles, words: words };
+}
+function startTileReview(indices, wordIds) {
+  draftLevel = 'ungraded';
+  practiceMode = 'tiles';
+  quiz = null;
+  tileRound = null;
+  matchRound = null;
+  gex = null;
+  dictAttempt = null;
+  session = {
+    mode: 'tiles',
+    level: 'ungraded',
+    order: indices.slice(),
+    total: indices.length,
+    index: 0,
+    done: 0,
+    recorded: {},
+    phase: 'question',
+    fromDue: true,
+    thenWords: (wordIds || []).slice()
+  };
+  showPanel('practice');
+}
 const TILE_BANK = [
   { id:'k89917-s12', ko:'나에게는 친구가 없다.', head:'없다', oid:'89917',
     glossKo:'일정한 관계를 가지는 사람이 존재하지 않는 상태이다.', zh:'没有', en:'not having', sense:'12' },
@@ -5927,8 +5998,18 @@ function sessionNext() {
   dictAttempt = null;
   dictDraft = '';
   dictHide = true;
-  if (session.index + 1 >= session.total) session.phase = 'done';
-  else session.index += 1;
+  if (session.index + 1 >= session.total) {
+    const words = session.thenWords || [];
+    session.phase = 'done';
+    if (words.length) {
+      quiz = {
+        queue: words.map(function (id) { return { id: id, left: repeatsFor(id) }; }),
+        index: 0, correct: 0, total: 0, mode: 'recognition', fromDue: true
+      };
+      session = null;
+      practiceMode = 'quiz';
+    }
+  } else session.index += 1;
   renderPractice();
 }
 function endSession() {
@@ -5965,7 +6046,9 @@ function practiceShell(mode) {
     ['dictation', 'nav_dictation'],
     ['grammar', 'nav_grammar']
   ];
-  const taskCount = draftLevel === 'ungraded' ? ungradedPoolCount(mode) : 0;
+  const ungraded = draftLevel === 'ungraded';
+  const taskCount = ungraded ? ungradedPoolCount(mode) : 0;
+  const countLabel = ungraded ? t('gradeNone') : t('gradeVerifiedCount');
   return '<div class="card"><h2>'+esc(t('nav_practice'))+'</h2>'
     + '<p class="muted">'+esc(t('draftScopeNote'))+'</p>'
     + levelBarHTML(mode)
@@ -5975,7 +6058,7 @@ function practiceShell(mode) {
         return '<button type="button" role="tab" data-pmode="'+pair[0]+'" class="btn '+(on ? '' : 'secondary')+(on ? ' active' : '')+'" aria-selected="'+(on ? 'true' : 'false')+'">'+esc(t(pair[1]))+'</button>';
       }).join('')
     + '</div>'
-    + '<p class="muted">'+esc(t('gradeVerifiedCount'))+': '+taskCount+'</p>'
+    + '<p class="muted">'+esc(countLabel)+': '+taskCount+'</p>'
     + '<div class="row" style="margin-top:8px">'
     + '<button type="button" class="btn" id="session-start"'+(taskCount ? '' : ' disabled')+'>'+esc(t('sessionStart'))+'</button>'
     + '<button type="button" class="btn ghost" id="pmode-quiz">'+esc(t('quizSecondary'))+'</button>'
@@ -6176,7 +6259,8 @@ function renderTileMode() {
         if (got[i] !== answer[i]) { tileRound.leadToken = answer[i] || got[i] || ''; break; }
       }
     }
-    sessionRecord();
+    const firstRecord = sessionRecord();
+    if (!tileRound.ok && firstRecord) recordMistake(tileMistakeId(sent), 'spelling', null, got.join(' '), answer.join(' '));
     renderPractice();
   };
   if (tileRound.checked) {
