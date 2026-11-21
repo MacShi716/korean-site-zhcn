@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- REVIEW DRAFT only. Not production. Input sha256 5e4604f80091d14e9edcc69b73e6ae473fb5adb272b284a8224200a1fb9b08d7 bytes 250405. -->
 <!-- 国内版初稿 2026-11-18：面向中国大陆用户的页面与核心学习流程。等他看过再改；不要替换现有 index.html。这是国内版初稿的预览。目前仍是初稿，不会替换现有网站。以英+韩待发布稿为底复制改，未写入第4节新词条。 -->
 <html lang="zh-CN">
 <head>
@@ -425,6 +426,32 @@ body.auth-locked { overflow: hidden; }
   .card:hover { transform: none; }
   .btn:active { transform: none; }
 }
+
+.nav-spacer { margin-top: auto; min-height: 12px; flex: 1 1 auto; }
+.subnav { display: flex; flex-wrap: wrap; gap: 6px; }
+.session-progress { display: flex; align-items: center; gap: 10px; margin: 4px 0 8px; }
+.session-progress-track { flex: 1; min-width: 0; height: 10px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.session-progress-fill { height: 100%; background: var(--primary); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.match-item.linked { outline: 2px solid var(--primary); }
+.subnav .btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.tile-bank, .tile-answer { display: flex; flex-wrap: wrap; gap: 8px; min-height: 52px; }
+.tile-answer { border: 1px dashed var(--border); border-radius: 12px; padding: 8px; margin: 8px 0; }
+.tile, .match-item, .explain-word { min-height: 44px; }
+.match-board { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.match-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 2; }
+.match-col { display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 1; }
+.match-item.selected { outline: 2px solid var(--primary); }
+.match-item.locked { background: var(--ok-soft); border-color: var(--primary); }
+.explain-box { margin-top: 10px; padding: 10px; border: 1px solid var(--border); border-radius: 12px; background: #fbfaf7; }
+.explain-item { padding: 8px 0; border-bottom: 1px solid var(--border); }
+.explain-lead { border-left: 3px solid var(--danger, #a33); padding-left: 8px; }
+.draft-return { position: fixed; left: 0; right: 0; bottom: 0; z-index: 80; display: flex; justify-content: center; padding: 10px; background: rgba(255,255,255,.96); border-top: 1px solid var(--border); }
+.draft-return[hidden] { display: none !important; }
+body.draft-return-open { padding-bottom: 72px; }
+.entry-drill, .entry-focus { outline: 2px solid var(--primary); }
+@media (min-width: 900px) { .draft-return { left: 200px; } }
+
 </style>
 </head>
 <body>
@@ -452,9 +479,9 @@ body.auth-locked { overflow: hidden; }
   <!-- SITE STATUS -->
   <section class="panel" id="panel-site-status" data-panel="site-status"></section>
   <!-- HOME / BROWSE -->
-  <section class="panel active" id="panel-browse" data-panel="browse"></section>
+  <section class="panel" id="panel-browse" data-panel="browse"></section>
   <!-- PRACTICE -->
-  <section class="panel" id="panel-practice" data-panel="practice"></section>
+  <section class="panel active" id="panel-practice" data-panel="practice"></section>
   <!-- DICTATION -->
   <section class="panel" id="panel-dictation" data-panel="dictation"></section>
   <!-- GRAMMAR -->
@@ -765,6 +792,7 @@ const I18N = {
     aiExampleNote: "Model list is an EXAMPLE placeholder — replace with server data.",
     draftBadge: "CN draft",
     authTitle: "Sign in / Register (optional)",
+    authUnconnected: "Demo only. This does not connect to an SMS server, WeChat, QQ, or KakaoTalk.",
     authSubtitle: "Registration is optional — you can keep learning without it. If you register, your learning records are saved on this device under that account.",
     authPhone: "Mobile number",
     authCountry: "Country / region code",
@@ -885,6 +913,52 @@ const I18N = {
     lang_zh: "Chinese",
     lang_en: "English",
     lang_ko: "Korean",
+    draftScopeNote: "Review draft: this sidebar and practice flow are not live.",
+    sub_tiles: "Build a sentence",
+    sub_match: "Match words",
+    viewExplain: "View explanation",
+    backToQuestion: "Back to this question",
+    practiceAgain: "Practice this word again",
+    explainLead: "The word this question missed",
+    explainOther: "Other words in this question",
+    explainMissing: "These forms have no current vocabulary entry, so no definition was invented.",
+    noMorePractice: "No other existing exercise uses this word, so none was invented.",
+    sourceHead: "Headword of this example",
+    fieldMissing: "Not in this entry",
+    undoLast: "Undo last",
+    tileReset: "Reset",
+    tileNext: "Next",
+    tileHint: "Tap tiles to rebuild the original sentence. Tap a chosen tile to remove it. After you check, only correct or incorrect is shown.",
+    tileDemoLabel: "Demo sentence",
+    tileGlossNote: "The line above is the dictionary headword gloss, not a translation of the whole sentence.",
+    tileCredit: "Example text: National Institute of Korean Language, Basic Korean Dictionary, CC BY-SA 2.0 KR.",
+    freeWriteTitle: "Free writing",
+    freeWriteNote: "The older pick-words-and-type tool stays here. It does not replace the tiles.",
+    matchHint: "Tap a meaning, then the Korean word. A line shows that pair. The explanation stays closed until you open it.",
+    grammarExHint: "Choose the pattern that matches the existing gloss. Right after you submit, only correct or incorrect is shown.",
+    grammarRefNote: "This page is the grammar reference and materials entrance. Grammar questions are inside Practice.",
+    grammarPatternLabel: "Pattern (existing entry, not a new definition)",
+    quizSecondary: "Original quiz",
+    helpTitle: "Notes",
+    helpHint: "Intro, features, sign-in, AI notes, site notes, and materials.",
+    drillNote: "This is the vocabulary entry itself. Read-aloud uses this page. Missing fields are marked.",
+    hintAfterSubmit: "The answer stays hidden until you submit. Then open the explanation.",
+    levelPick: "Choose a range before practicing",
+    levelVerifiedNote: "TOPIK 1–6 counts use only grades that can be checked. Beginner, intermediate, and advanced in the dictionary are not converted into TOPIK. Older numbers on entries are study estimates, not verified grades.",
+    levelEmpty: "Verified questions at this level: 0. Other levels are not used to fill the gap, and the ungraded demo is not counted here.",
+    levelUngradedNote: "Ungraded practice. These items do not have a verified TOPIK grade. Numbers already stored on entries are marked as study estimates.",
+    gradeHeuristic: "Study estimate",
+    gradeNone: "Ungraded",
+    gradeVerifiedCount: "Verified questions",
+    pickLevelFirst: "Choose TOPIK 1–6 or ungraded practice before starting.",
+    sentenceUngraded: "These demo sentences are dictionary examples. They have no verified TOPIK grade and are not graded from a word inside the sentence.",
+    sessionStart: "Start",
+    sessionDoneTitle: "Round complete",
+    sessionDoneBody: "Submitted {done} / {total}. This round does not start over.",
+    sessionEnd: "End and choose again",
+    sessionProgress: "This round",
+    matchTaskNote: "This matching board is one task, not one task per pair.",
+    freeWriteOpen: "Free writing",
   },
   ko: {
     brandName: "당신과 동행",
@@ -1160,6 +1234,7 @@ const I18N = {
     aiExampleNote: "모델 목록은 EXAMPLE 자리표시자입니다 — 서버 데이터로 교체하세요.",
     draftBadge: "국내판 초고",
     authTitle: "로그인 / 가입 (선택)",
+    authUnconnected: "데모입니다. 문자 서버, WeChat, QQ, 카카오톡에는 연결되지 않습니다.",
     authSubtitle: "가입은 선택입니다. 가입하지 않아도 바로 공부할 수 있습니다. 가입하면 학습 기록이 이 기기에 해당 계정으로 저장됩니다.",
     authPhone: "휴대폰 번호",
     authCountry: "국가·지역 번호",
@@ -1280,6 +1355,52 @@ const I18N = {
     lang_zh: "중국어",
     lang_en: "영어",
     lang_ko: "한국어",
+    draftScopeNote: "검토용 초안입니다. 이 사이드바와 연습 흐름은 아직 공개본이 아닙니다.",
+    sub_tiles: "단어 맞추기",
+    sub_match: "뜻 연결",
+    viewExplain: "풀이 보기",
+    backToQuestion: "이 문제로 돌아가기",
+    practiceAgain: "이 단어로 한 문제 더",
+    explainLead: "틀린 단어",
+    explainOther: "문제 속 다른 단어",
+    explainMissing: "아래 형태는 현재 어휘에 항목이 없어 뜻을 만들지 않았습니다.",
+    noMorePractice: "이 단어로 된 다른 기존 문제가 없어 새 문제를 만들지 않았습니다.",
+    sourceHead: "예문이 실린 표제어",
+    fieldMissing: "항목에 없음",
+    undoLast: "마지막 취소",
+    tileReset: "다시 놓기",
+    tileNext: "다음",
+    tileHint: "단어 조각을 눌러 원문을 맞추세요. 고른 조각을 다시 누르면 빠집니다. 확인 직후에는 맞음/틀림만 보입니다.",
+    tileDemoLabel: "시범 문장",
+    tileGlossNote: "위는 사전 표제어의 뜻풀이이며, 문장 전체의 번역이 아닙니다.",
+    tileCredit: "예문 텍스트: 국립국어원 《한국어기초사전》, CC BY-SA 2.0 KR.",
+    freeWriteTitle: "자유롭게 쓰기",
+    freeWriteNote: "기존의 단어를 고른 뒤 직접 쓰는 기능은 여기 있습니다. 위쪽 단어 배열을 대신하지 않습니다.",
+    matchHint: "뜻을 누른 다음 맞는 한국어를 누르세요. 선으로 짝이 표시됩니다. 풀이는 직접 열기 전에는 펼쳐지지 않습니다.",
+    grammarExHint: "기존 뜻풀이에 맞는 문법 형식을 고르세요. 제출 직후에는 맞음/틀림만 보입니다.",
+    grammarRefNote: "이 페이지는 문법 참고와 자료 입구입니다. 문법 문제는 「연습」 안에 있습니다.",
+    grammarPatternLabel: "문법 형식 (기존 항목, 새로 만든 뜻 아님)",
+    quizSecondary: "기존 퀴즈",
+    helpTitle: "안내",
+    helpHint: "소개, 주요 기능, 로그인, AI, 사이트 안내, 학습 자료.",
+    drillNote: "어휘 목록의 원래 항목입니다. 발음은 이 페이지의 읽기입니다. 없는 항목은 없다고 표시합니다.",
+    hintAfterSubmit: "제출 전에는 답을 보여 주지 않습니다. 제출 후 풀이를 여세요.",
+    levelPick: "연습 전에 범위를 고르세요",
+    levelVerifiedNote: "TOPIK 1–6 개수는 확인할 수 있는 등급만 셉니다. 사전의 초급·중급·고급은 TOPIK으로 바꾸지 않습니다. 예전에 적힌 숫자는 학습 추정입니다.",
+    levelEmpty: "이 등급의 확인된 문제는 0입니다. 다른 등급이나 등급 없는 시범 문제로 채우지 않습니다.",
+    levelUngradedNote: "등급 없는 연습입니다. 확인된 TOPIK 등급이 없습니다. 항목에 있던 숫자는 학습 추정으로만 표시합니다.",
+    gradeHeuristic: "학습 추정",
+    gradeNone: "등급 없음",
+    gradeVerifiedCount: "확인된 문제",
+    pickLevelFirst: "시작 전에 TOPIK 1–6 또는 등급 없는 연습을 고르세요.",
+    sentenceUngraded: "이 시범 문장은 사전 용례입니다. 확인된 TOPIK 등급이 없고, 문장 속 단어로 등급을 정하지 않습니다.",
+    sessionStart: "시작",
+    sessionDoneTitle: "이번 라운드 끝",
+    sessionDoneBody: "{done} / {total} 제출했습니다. 처음부터 다시 돌지 않습니다.",
+    sessionEnd: "끝내고 다시 고르기",
+    sessionProgress: "이번 라운드",
+    matchTaskNote: "이 연결판은 한 문제이고, 짝마다 한 문제로 세지 않습니다.",
+    freeWriteOpen: "자유롭게 쓰기",
   },
   zh: {
     brandName: "与你同行",
@@ -1555,6 +1676,7 @@ const I18N = {
     aiExampleNote: "模型列表为 EXAMPLE 占位 — 请用服务器数据替换。",
     draftBadge: "国内版初稿",
     authTitle: "登录 / 注册（可选）",
+    authUnconnected: "这是本机演示登录，不会连接短信服务器，也不会连接微信、QQ 或 KakaoTalk。",
     authSubtitle: "注册是自愿的，不注册也能直接学习。注册后，学习记录会绑定到这个账号，保存在本机。",
     authPhone: "手机号",
     authCountry: "国家/地区区号",
@@ -1675,6 +1797,52 @@ const I18N = {
     lang_zh: "中文",
     lang_en: "英语",
     lang_ko: "韩语",
+    draftScopeNote: "这是待审设计稿：侧栏和练习交互还没有上线。",
+    sub_tiles: "选词拼句",
+    sub_match: "选项连线",
+    viewExplain: "查看详解",
+    backToQuestion: "返回这道题",
+    practiceAgain: "用这个词再练一道",
+    explainLead: "这道题错在这个词",
+    explainOther: "题里其他能对上的词",
+    explainMissing: "这些形式在现有词库里没有对应条目，这里不编造释义。",
+    noMorePractice: "没有另一道现成练习，未新编题目。",
+    sourceHead: "例句所属词条",
+    fieldMissing: "词条未提供",
+    undoLast: "撤销上一个",
+    tileReset: "重置",
+    tileNext: "下一题",
+    tileHint: "点词块排成原句。再点已选词块可以撤下。提交后先只显示对错。",
+    tileDemoLabel: "示范句",
+    tileGlossNote: "上面是词典里这个词条的释义，不是整句译文。",
+    tileCredit: "例句文本来自国立国语院《韩国语基础词典》，CC BY-SA 2.0 KR。",
+    freeWriteTitle: "自由造句",
+    freeWriteNote: "原来的选词造句还在这里，可以自己写。它不代替上面的词块拼句。",
+    matchHint: "先点意思，再点对应的韩语。点对后会出现连线和对错。详解要自己点开。",
+    grammarExHint: "选出和现有释义对应的语法形式。提交后先只显示对错。",
+    grammarRefNote: "这一页是语法参考和资料入口。语法题在「练习」里。",
+    grammarPatternLabel: "语法形式（现有条目，不是新编释义）",
+    quizSecondary: "原有测验",
+    helpTitle: "说明与帮助",
+    helpHint: "简介、功能一览、登录说明、AI 说明、站点说明和学习资料。",
+    drillNote: "这是词库里的原条目。发音用本页朗读；没有的字段会标明未提供。",
+    hintAfterSubmit: "提交后才能查看详解，提交前不显示答案。",
+    levelPick: "做题前先选范围",
+    levelVerifiedNote: "TOPIK 1–6 的数量只统计能核对到来源的等级。词典里的初级、中级、高级没有折成 TOPIK。词条上原有的数字是学习估计，不是已核实等级。",
+    levelEmpty: "这一级已核实题目是 0。不会借用其他级，也不会把未分级示范算进这一级。",
+    levelUngradedNote: "未分级练习。这些题没有已核实的 TOPIK 等级。词条上原来的数字只标成学习估计。",
+    gradeHeuristic: "学习估计",
+    gradeNone: "未分级",
+    gradeVerifiedCount: "已核实题目",
+    pickLevelFirst: "做题前先选 TOPIK 1–6，或选未分级练习。",
+    sentenceUngraded: "这些示范句是词典例文，没有已核实的 TOPIK 等级，也不按句中某个词定级。",
+    sessionStart: "开始",
+    sessionDoneTitle: "本轮做完",
+    sessionDoneBody: "已提交 {done} / {total}。这一轮不会再从头循环。",
+    sessionEnd: "结束并重选",
+    sessionProgress: "本轮进度",
+    matchTaskNote: "这一整块连线算 1 题，不按每一对另计一题。",
+    freeWriteOpen: "自由造句",
   }
 };
 
@@ -2149,6 +2317,7 @@ function renderAuthGate() {
     '<div class="auth-card card">'
     +'<button type="button" class="auth-close" id="auth-close" aria-label="'+esc(t('authClose'))+'">✕</button>'
     +'<h2 id="auth-title" style="margin:4px 40px 6px 0">'+esc(t('authTitle'))+'</h2>'
+    +'<p class="muted">'+esc(t('authUnconnected'))+'</p>'
     +'<p class="muted">'+esc(t('authSubtitle'))+'</p>'
     +'<div class="field"><label for="auth-phone">'+esc(t('authPhone'))+'</label>'
     +'<div class="phone-row">'
@@ -2220,7 +2389,7 @@ function renderAuthTopButton() {
   }
 }
 function syncAuthGate() {
-  // 不再是一进站就挡路的登录墙：只有用户点「登录/注册」时才打开
+  // Login stays closed until the visitor uses the manual button. It never covers Practice on load.
   const gate = document.getElementById('auth-gate');
   renderAuthTopButton();
   if (!gate) return;
@@ -2740,13 +2909,12 @@ function exampleHTML(ex) {
   return h;
 }
 function topikLabel(level, item) {
-  const n = Number(level) || 1;
+  const n = Number(level) || 0;
+  if (!n) return t('gradeNone');
+  // Author-set difficulty numbers have no cited official TOPIK source.
+  // Dictionary 초급/중급/고급 is a different scale and is not relabeled here.
+  if (!(item && item.topikSource)) return t('gradeHeuristic') + ' ' + n;
   const lang = state.uiLang || 'zh';
-  if (item && item.estimated) {
-    if (lang === 'ko') return t('estimateLevel') + ' ' + n + '급';
-    if (lang === 'en') return t('estimateLevel') + ' · level ' + n;
-    return t('estimateLevel') + ' ' + n + '级';
-  }
   if (lang === 'ko') return 'TOPIK ' + n + '급';
   if (lang === 'en') return 'TOPIK Level ' + n;
   return 'TOPIK ' + n + '级';
@@ -2806,32 +2974,24 @@ function renderHeader() {
 }
 
 const NAV = [
-  {id:'about', icon:'ℹ️', key:'nav_about'},
-  {id:'features', icon:'📋', key:'nav_features'},
-  {id:'login-help', icon:'🔑', key:'nav_login_help'},
-  {id:'ai-help', icon:'💡', key:'nav_ai_help'},
-  {id:'site-status', icon:'📄', key:'nav_site_status'},
-  {sep:true},
-  {id:'browse', icon:'📚', key:'nav_browse'},
-  {id:'practice', icon:'✏️', key:'nav_practice'},
-  {id:'dictation', icon:'🎧', key:'nav_dictation'},
-  {id:'grammar', icon:'🧩', key:'nav_grammar'},
-  {id:'compose', icon:'✍️', key:'nav_compose'},
-  {id:'mistakes', icon:'📝', key:'nav_mistakes'},
-  {id:'daily', icon:'📅', key:'nav_daily'},
   {id:'translate', icon:'💬', key:'nav_translate'},
+  {id:'practice', icon:'✏️', key:'nav_practice'},
+  {id:'daily', icon:'📅', key:'nav_daily'},
   {id:'favorites', icon:'⭐', key:'nav_favorites'},
-  {id:'materials', icon:'🔗', key:'nav_materials'},
-  {id:'settings', icon:'⚙️', key:'nav_settings'},
   {id:'ai', icon:'🤖', key:'nav_ai'},
+  {id:'settings', icon:'⚙️', key:'nav_settings'},
+  {spacer:true},
+  {id:'grammar', icon:'🧩', key:'nav_grammar'},
+  {id:'browse', icon:'📚', key:'nav_browse'},
 ];
-let currentPanel = 'browse';
+let currentPanel = 'practice';
 
 document.getElementById('nav-toggle').onclick = () => document.body.classList.toggle('nav-open');
 document.getElementById('nav-backdrop').onclick = () => document.body.classList.remove('nav-open');
 function renderNav() {
   const nav = document.getElementById('main-nav');
   nav.innerHTML = NAV.map(n => {
+    if (n.spacer) return '<div class="nav-spacer"></div>';
     if (n.sep) return '<div class="nav-sep" role="separator"></div>';
     return '<button type="button" data-panel="'+n.id+'" class="'+(currentPanel===n.id?'active':'')+'">'
       +'<span class="ico">'+n.icon+'</span><span>'+esc(t(n.key))+'</span></button>';
@@ -2847,6 +3007,10 @@ function bindPanelJumps(root) {
   });
 }
 function showPanel(id) {
+  if (id === 'dictation') { quiz = null; practiceMode = 'dictation'; id = 'practice'; }
+  else if (id === 'compose') { quiz = null; practiceMode = 'tiles'; tileFocusCompose = true; id = 'practice'; }
+  else if (id === 'mistakes') { id = 'daily'; dailyJumpMistakes = true; }
+  else if (id === 'grammar-ex') { quiz = null; practiceMode = 'grammar'; id = 'practice'; }
   currentPanel = id;
   document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.dataset.panel === id));
   const mainEl = document.querySelector('.main');
@@ -3107,6 +3271,7 @@ function fillDictBrowse() {
     cards.innerHTML = ready.map(function (it) { return cardHTML(it, true); }).join('');
     bindReveal(cards);
     bindGlossSpeak(cards);
+    if (typeof focusDraftEntry === 'function') focusDraftEntry();
   }).catch(fail);
 }
 function renderBrowse() {
@@ -3161,6 +3326,7 @@ function renderBrowse() {
   bindReveal(el);
   bindGlossSpeak(el);
   fillDictBrowse();
+  if (typeof focusDraftEntry === 'function') focusDraftEntry();
 }
 
 function cardHTML(it, revealable) {
@@ -3223,8 +3389,8 @@ function buildQuizQueue(preferMissed) {
   return pool.map(it => ({ id: it.id, left: repeatsFor(it.id) }));
 }
 
-function renderPractice() {
-  const el = document.getElementById('panel-practice');
+function renderPracticeQuiz() {
+  const el = document.getElementById('practice-quiz-mount') || document.getElementById('panel-practice');
   if (quiz) { renderQuizView(el); return; }
 
   if (!state.practiceTypes) state.practiceTypes = Object.assign({}, defaultState().practiceTypes);
@@ -3374,6 +3540,7 @@ function renderQuizView(el) {
     return;
   }
   const it = getItem(cur.slot.id);
+  quiz._answered = false;
   // Cycle: recognition → recognition → spelling → usage
   const cycle = quiz.total % 4;
   const useSpelling = cycle === 2;
@@ -3472,55 +3639,70 @@ function buildMeaningChoices(it) {
   });
 }
 
+function showQuizResult(ok, it) {
+  document.querySelectorAll('#q-choices .choice').forEach(function (b) { b.disabled = true; });
+  const check = document.getElementById('q-check');
+  if (check) check.disabled = true;
+  let host = document.getElementById('q-result');
+  if (!host) {
+    host = document.createElement('div');
+    host.id = 'q-result';
+    const anchor = document.getElementById('q-feedback') || document.getElementById('q-choices') || document.getElementById('q-check');
+    if (anchor) anchor.insertAdjacentElement('afterend', host);
+  }
+  if (!host) return;
+  host.innerHTML = resultBarHTML(!!ok, 'quiz-explain')
+    + '<div class="row" style="margin-top:8px"><button type="button" class="btn ghost" id="q-next">'+esc(t('tileNext'))+'</button></div>';
+  bindExplainRoot(host, function () {
+    document.querySelectorAll('#q-choices .choice').forEach(function (b, idx) {
+      if (quiz && quiz._choices && quiz._choices[idx] && quiz._choices[idx].correct) b.classList.add('correct');
+    });
+    const leadId = ok ? null : it.id;
+    return explainListHTML([{ tok: it.ko, item: it, kr: null }], leadId, null, null);
+  });
+  const next = document.getElementById('q-next');
+  if (next) next.onclick = function () { advanceQuiz(!!ok, 1); };
+}
 function onChooseMeaning(i, btn) {
+  if (quiz && quiz._answered) return;
   const choices = quiz._choices;
   const chosen = choices[i];
   const it = getItem(quiz._curId);
   quiz.total += 1;
-  const buttons = document.querySelectorAll('#q-choices .choice');
-  buttons.forEach((b, idx) => {
-    b.disabled = true;
-    if (choices[idx].correct) b.classList.add('correct');
-  });
-  if (chosen.correct) {
+  quiz._answered = true;
+  const ok = !!chosen.correct;
+  if (ok) {
     btn.classList.add('correct');
     quiz.correct += 1;
     toast(t('correct'));
-    advanceQuiz(true, 600);
   } else {
     btn.classList.add('wrong');
     const stage = quiz._usage ? 'usage' : 'recognition';
-    const part = recordMistake(it.id, stage, quiz._usage ? 'other' : 'other', chosen.label, it.en);
-    toast(t('incorrect') + ' · ' + t('part_'+part));
-    // keep left the same (will retry)
-    setTimeout(() => { quiz.index = quiz._curIdx; renderQuizView(document.getElementById('panel-practice')); }, 900);
+    recordMistake(it.id, stage, 'other', chosen.label, it.en);
+    toast(t('incorrect'));
   }
+  showQuizResult(ok, it);
 }
 
 function normalizeAnswer(s) {
   return (s||'').trim().replace(/\s+/g,'').normalize('NFC');
 }
 function onSpellingCheck(val) {
+  if (quiz && quiz._answered) return;
   const it = getItem(quiz._curId);
   quiz.total += 1;
+  quiz._answered = true;
   const ok = normalizeAnswer(val) === normalizeAnswer(it.ko);
-  const fb = document.getElementById('q-feedback');
   if (ok) {
     quiz.correct += 1;
-    fb.innerHTML = '<span class="result-ok">'+esc(t('correct'))+'</span>';
-    advanceQuiz(true, 500);
+    toast(t('correct'));
   } else {
-    const part = recordMistake(it.id, 'spelling', null, val, it.ko);
-    fb.innerHTML = '<span class="result-bad">'+esc(t('incorrect'))+'</span> → <strong>'+esc(it.ko)+'</strong>'
-      +'<div class="muted">'+esc(t('autoDetected'))+': '+esc(t('part_'+part))+'</div>'
-      +'<div class="row" style="margin-top:8px" id="fix-part">'
-      + PARTS.map(p => '<button type="button" class="chip" data-p="'+p+'">'+esc(t('part_'+p))+'</button>').join('')
-      +'</div>';
-    document.querySelectorAll('#fix-part .chip').forEach(c => {
-      c.onclick = () => { setMistakePart(it.id, c.dataset.p); toast(t('saved')); };
-    });
-    setTimeout(() => { quiz.index = quiz._curIdx; renderQuizView(document.getElementById('panel-practice')); }, 1400);
+    recordMistake(it.id, 'spelling', null, val, it.ko);
+    toast(t('incorrect'));
   }
+  const fb = document.getElementById('q-feedback');
+  if (fb) fb.innerHTML = '';
+  showQuizResult(ok, it);
 }
 
 function advanceQuiz(wasCorrect, delay) {
@@ -3536,7 +3718,7 @@ function advanceQuiz(wasCorrect, delay) {
     }
   }
   quiz.index = (idx + 1) % quiz.queue.length;
-  setTimeout(() => renderQuizView(document.getElementById('panel-practice')), delay || 400);
+  setTimeout(() => renderPractice(), delay || 400);
 }
 
 /********************
@@ -3545,7 +3727,7 @@ function advanceQuiz(wasCorrect, delay) {
 let dictHide = true;
 
 function renderDictation() {
-  const el = document.getElementById('panel-dictation');
+  const el = document.getElementById('dictation-mount') || document.getElementById('panel-dictation');
   refreshVoices();
   let idx = state.dictationIndex || 0;
   if (idx < 0 || idx >= PERSON_ITEMS.length) idx = 0;
@@ -3561,11 +3743,11 @@ function renderDictation() {
     +'<div class="row"><button type="button" class="btn secondary" id="btn-voices">'+esc(t('voiceCheck'))+'</button></div>'
     +'</div>'
     +'<div class="card">'
-    +'<div class="row space"><span class="muted">'+(idx+1)+' / '+PERSON_ITEMS.length+'</span>'
+    + (session ? '' : '<div class="row space"><span class="muted">'+(idx+1)+' / '+PERSON_ITEMS.length+'</span>'
     +'<div class="row">'
     +'<button type="button" class="btn ghost" id="d-prev">‹</button>'
     +'<button type="button" class="btn ghost" id="d-next">›</button>'
-    +'</div></div>'
+    +'</div></div>')
     +'<div class="quiz-prompt">'
     + (dictHide
         ? '<div class="ko-big" style="filter:blur(7px);user-select:none">가나다</div>'
@@ -3574,11 +3756,12 @@ function renderDictation() {
     +'<div class="row" style="justify-content:center;margin:10px 0">'
     +'<button type="button" class="btn accent" id="d-play">🔊 '+esc(t('play'))+'</button>'
     +'<button type="button" class="btn secondary" id="d-replay">'+esc(t('replay'))+'</button>'
-    +'<button type="button" class="btn ghost" id="d-hint">'+(dictHide?esc(t('showHint')):esc(t('hideHint')))+'</button>'
+    + (session ? '' : '<button type="button" class="btn ghost" id="d-hint">'+(dictHide?esc(t('showHint')):esc(t('hideHint')))+'</button>')
     +'</div>'
     +'<div class="field"><label>'+esc(t('typeKorean'))+'</label>'
-    +'<input id="d-input" class="dict-input" autocomplete="off" autocapitalize="off" spellcheck="false"></div>'
-    +'<button type="button" class="btn block" id="d-submit">'+esc(t('submit'))+'</button>'
+    +'<input id="d-input" class="dict-input" autocomplete="off" autocapitalize="off" spellcheck="false" value="'+esc(dictDraft)+'"></div>'
+    +'<button type="button" class="btn block" id="d-submit"'+(dictDraft.trim() && !(dictAttempt && dictAttempt.id===it.id) ? '' : ' disabled')+'>'+esc(t('check'))+'</button>'
+    + (dictAttempt && dictAttempt.id===it.id ? '<button type="button" class="btn" id="d-next-session">'+esc(t('tileNext'))+'</button>' : '')
     +'<div id="d-feedback" style="margin-top:12px"></div>'
     +'</div>';
 
@@ -3586,41 +3769,51 @@ function renderDictation() {
   document.getElementById('d-play').onclick = play;
   document.getElementById('d-replay').onclick = play;
   document.getElementById('btn-voices').onclick = () => { refreshVoices(); renderDictation(); };
-  document.getElementById('d-hint').onclick = () => { dictHide = !dictHide; renderDictation(); };
-  document.getElementById('d-prev').onclick = () => {
+  const hintBtn = document.getElementById('d-hint');
+  if (hintBtn) hintBtn.onclick = () => {
+    if (!dictAttempt) { toast(t('hintAfterSubmit')); return; }
+    dictAttempt.explainOpen = true;
+    if (typeof restoreDictAttempt === 'function') restoreDictAttempt();
+  };
+  const prevBtn = document.getElementById('d-prev');
+  if (prevBtn) prevBtn.onclick = () => {
+    dictAttempt = null;
+    dictDraft = '';
     state.dictationIndex = (idx - 1 + PERSON_ITEMS.length) % PERSON_ITEMS.length;
     dictHide = true; saveState(); renderDictation();
   };
-  document.getElementById('d-next').onclick = () => {
+  const nextOld = document.getElementById('d-next');
+  if (nextOld) nextOld.onclick = () => {
+    dictAttempt = null;
+    dictDraft = '';
     state.dictationIndex = (idx + 1) % PERSON_ITEMS.length;
     dictHide = true; saveState(); renderDictation();
   };
+  const nextSess = document.getElementById('d-next-session');
+  if (nextSess) nextSess.onclick = sessionNext;
   const input = document.getElementById('d-input');
+  input.oninput = function () {
+    dictDraft = input.value;
+    const submit = document.getElementById('d-submit');
+    if (submit) submit.disabled = !dictDraft.trim() || !!(dictAttempt && dictAttempt.id === it.id);
+  };
   document.getElementById('d-submit').onclick = () => {
+    if (dictAttempt && dictAttempt.id === it.id) return;
     const val = input.value;
+    if (!String(val || '').trim()) return;
     const ok = normalizeAnswer(val) === normalizeAnswer(it.ko);
     const fb = document.getElementById('d-feedback');
-    if (ok) {
-      fb.innerHTML = '<span class="result-ok">'+esc(t('correct'))+'</span>';
-      toast(t('correct'));
-      setTimeout(() => {
-        state.dictationIndex = (idx + 1) % PERSON_ITEMS.length;
-        dictHide = true; saveState(); renderDictation();
-      }, 600);
-    } else {
-      const part = recordMistake(it.id, 'listening', null, val, it.ko);
-      fb.innerHTML = '<span class="result-bad">'+esc(t('incorrect'))+'</span> → <strong>'+esc(it.ko)+'</strong>'
-        + meaningHTML(it)
-        +'<div class="muted">'+esc(t('autoDetected'))+': '+esc(t('part_'+part))+'</div>'
-        +'<div class="row" style="margin-top:8px" id="d-fix">'
-        + PARTS.map(p => '<button type="button" class="chip" data-p="'+p+'">'+esc(t('part_'+p))+'</button>').join('')
-        +'</div>';
-      document.querySelectorAll('#d-fix .chip').forEach(c => {
-        c.onclick = () => { setMistakePart(it.id, c.dataset.p); toast(t('saved')); };
-      });
-    }
+    const first = sessionRecord();
+    dictAttempt = { id: it.id, ok: ok, explainOpen: false, part: (!ok && (first || !session)) ? recordMistake(it.id, 'listening', null, val, it.ko) : null };
+    if (typeof restoreDictAttempt === 'function') restoreDictAttempt();
+    else fb.innerHTML = '<span class="'+(ok?'result-ok':'result-bad')+'">'+esc(ok?t('correct'):t('incorrect'))+'</span>';
+    toast(ok ? t('correct') : t('incorrect'));
+    const submit = document.getElementById('d-submit');
+    if (submit) submit.disabled = true;
+    if (!document.getElementById('d-next-session') && session) renderDictation();
   };
   input.onkeydown = e => { if (e.key==='Enter') document.getElementById('d-submit').click(); };
+  if (typeof restoreDictAttempt === 'function') restoreDictAttempt();
 }
 
 /********************
@@ -3630,7 +3823,10 @@ function renderGrammar() {
   const el = document.getElementById('panel-grammar');
   el.innerHTML =
     '<div class="card"><h2>'+esc(t('grammarTitle'))+'</h2>'
-    +'<p class="muted">'+esc(t('grammarHint'))+'</p></div>'
+    +'<p class="muted">'+esc(t('grammarRefNote'))+'</p>'
+    +'<p class="muted">'+esc(t('grammarHint'))+'</p>'
+    +'<div class="row"><button type="button" class="btn" id="goto-grammar-ex">'+esc(t('nav_practice'))+' · '+esc(t('nav_grammar'))+'</button>'
+    +'<button type="button" class="btn secondary" data-jump="materials">'+esc(t('nav_materials'))+'</button></div></div>'
     + GRAMMAR.map(g => {
       const mine = state.grammarExamples[g.id] || [];
       return '<div class="card" data-gid="'+esc(g.id)+'">'
@@ -3650,6 +3846,9 @@ function renderGrammar() {
         +'</div></div>';
     }).join('');
 
+  const gexBtn = document.getElementById('goto-grammar-ex');
+  if (gexBtn) gexBtn.onclick = () => { quiz = null; practiceMode = 'grammar'; showPanel('practice'); };
+  bindPanelJumps(el);
   el.querySelectorAll('.ge-save').forEach(btn => {
     btn.onclick = () => {
       const gid = btn.dataset.gid;
@@ -3720,7 +3919,7 @@ function composeKoOfId(id) {
   return id;
 }
 function renderCompose() {
-  const el = document.getElementById('panel-compose');
+  const el = document.getElementById('compose-mount') || document.getElementById('panel-compose');
   const q = (composeQuery || '').trim().toLowerCase();
   const builtIn = ALL_ITEMS.filter(function (it) {
     if (!q) return true;
@@ -3838,7 +4037,7 @@ function renderCompose() {
       const list = document.getElementById('compose-word-list');
       if (list && !list.innerHTML) list.innerHTML = '<p class="muted">'+esc(t('dictLoading'))+'</p>';
       else if (list) list.insertAdjacentHTML('afterbegin', '<p class="muted">'+esc(t('dictLoading'))+'</p>');
-      loadDictIndex().then(function () { if (currentPanel==='compose') renderCompose(); }).catch(function (e) {
+      loadDictIndex().then(function () { if (currentPanel==='compose' || (currentPanel==='practice' && practiceMode==='tiles')) renderCompose(); }).catch(function (e) {
         console.warn(e);
         const box = document.getElementById('compose-word-list');
         if (box) box.insertAdjacentHTML('beforeend', '<p class="muted">'+esc(t('dictLoadError'))+'</p>');
@@ -3858,7 +4057,7 @@ function renderCompose() {
 let mistakeFilter = { stage:'all', part:'all', sort:'count' };
 
 function renderMistakes() {
-  const el = document.getElementById('panel-mistakes');
+  const el = document.getElementById('mistakes-mount') || document.getElementById('panel-mistakes');
   let entries = Object.keys(state.mistakes).map(id => ({ id, ...state.mistakes[id] }));
   entries = entries.filter(e => {
     if (mistakeFilter.stage !== 'all' && !(e.stages && e.stages[mistakeFilter.stage])) return false;
@@ -3997,6 +4196,16 @@ function renderSettings() {
     +'<div class="row"><button type="button" class="btn secondary" id="s-ko-preview">'+esc(t('koVoicePreview'))+'</button></div>'
     +'<p class="muted" id="s-ko-status"></p>'
     +'</div>'
+    +'<div class="card" id="s-help"><h3>'+esc(t('helpTitle'))+'</h3>'
+    +'<p class="muted">'+esc(t('helpHint'))+'</p>'
+    +'<div class="about-jumps">'
+    +'<button type="button" class="btn secondary" data-jump="about">'+esc(t('nav_about'))+'</button>'
+    +'<button type="button" class="btn secondary" data-jump="features">'+esc(t('nav_features'))+'</button>'
+    +'<button type="button" class="btn secondary" data-jump="login-help">'+esc(t('nav_login_help'))+'</button>'
+    +'<button type="button" class="btn secondary" data-jump="ai-help">'+esc(t('nav_ai_help'))+'</button>'
+    +'<button type="button" class="btn secondary" data-jump="site-status">'+esc(t('nav_site_status'))+'</button>'
+    +'<button type="button" class="btn secondary" data-jump="materials">'+esc(t('nav_materials'))+'</button>'
+    +'</div></div>'
     +'<div class="card">'
     +'<div class="row" style="flex-direction:column;align-items:stretch">'
     +'<button type="button" class="btn secondary" id="s-tr-setup">'+esc(t('trEditSetup'))+'</button>'
@@ -4010,6 +4219,7 @@ function renderSettings() {
     +' · favs: '+((state.translateFavorites||[]).length + (state.aiFavorites||[]).length)+'</div>'
     +'</div>';
 
+  bindPanelJumps(el);
   el.querySelectorAll('#set-native .chip').forEach(btn => {
     btn.onclick = () => {
       el.querySelectorAll('#set-native .chip').forEach(b => b.classList.remove('active'));
@@ -5097,7 +5307,8 @@ function renderDaily() {
             +'<button type="button" class="btn ghost mark-daily-due" data-id="'+esc(it.id)+'">'+esc(t('markKnown'))+'</button>'
             +'</div>';
         }).join('')
-      : '<div class="card empty">'+esc(t('dailyEmpty'))+'</div>');
+      : '<div class="card empty">'+esc(t('dailyEmpty'))+'</div>')
+    + '<div id="mistakes-mount"></div>';
 
   document.getElementById('daily-rep-default').onchange = e => {
     state.repeatDefault = Math.max(1, Math.min(10, parseInt(e.target.value,10)||2));
@@ -5125,8 +5336,15 @@ function renderDaily() {
       queue: due.map(x => ({id: x.id, left: repeatsFor(x.id)})),
       index: 0, correct: 0, total: 0, mode: 'recognition', fromDue: true
     };
+    practiceMode = 'quiz';
     showPanel('practice');
   };
+  renderMistakes();
+  if (dailyJumpMistakes) {
+    const box = document.getElementById('mistakes-mount');
+    if (box) box.scrollIntoView({ block: 'start' });
+    dailyJumpMistakes = false;
+  }
 }
 
 /********************
@@ -5256,11 +5474,33 @@ function renderAll() {
   syncAuthGate();
 }
 
+const KNOWN_ENTRY_PANELS = {
+  about:1, features:1, 'login-help':1, 'ai-help':1, 'site-status':1,
+  browse:1, practice:1, dictation:1, grammar:1, compose:1, mistakes:1,
+  'grammar-ex':1, daily:1, translate:1, favorites:1, materials:1, settings:1, ai:1
+};
+const KNOWN_ENTRY_MODES = { tiles:1, match:1, dictation:1, grammar:1, quiz:1 };
+function bootEntry() {
+  authOpen = false;
+  // Saved learning data is kept. A stored last page, if any older copy has one, is not used as the homepage.
+  const qs = new URLSearchParams(location.search);
+  const requested = qs.get('panel');
+  if (requested && KNOWN_ENTRY_PANELS[requested]) showPanel(requested);
+  else showPanel('practice');
+  const mode = qs.get('mode');
+  if (mode && currentPanel === 'practice' && KNOWN_ENTRY_MODES[mode]) {
+    quiz = null;
+    practiceMode = mode;
+    renderPractice();
+  }
+  if (location.hash === '#open-nav') document.body.classList.add('nav-open');
+}
 document.addEventListener('DOMContentLoaded', () => {
   try {
     applyKoVoiceEngine();
     renderAll();
     initKrdict();
+    bootEntry();
   } catch (e) {
     console.error(e);
     document.body.insertAdjacentHTML('afterbegin',
@@ -5269,6 +5509,1022 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Expose for tests
+
+/********************
+ * Review draft: sidebar + practice interactions (not a production change)
+ ********************/
+let practiceMode = 'tiles';
+let draftLevel = null;
+let session = null;
+let setupPane = null;
+let dictDraft = '';
+let dailyJumpMistakes = false;
+let tileFocusCompose = false;
+let dictAttempt = null;
+let tileIndex = 0;
+let tileRound = null;
+let matchRound = null;
+let matchPrefer = null;
+let gex = null;
+let browseFocusId = null;
+let savedBrowse = null;
+let drillActive = false;
+
+const TILE_BANK = [
+  { id:'k89917-s12', ko:'나에게는 친구가 없다.', head:'없다', oid:'89917',
+    glossKo:'일정한 관계를 가지는 사람이 존재하지 않는 상태이다.', zh:'没有', en:'not having', sense:'12' },
+  { id:'k65200-s1', ko:'집이 학교에서 가까워요.', head:'가깝다', oid:'65200',
+    glossKo:'어느 한 곳에서 멀리 떨어져 있지 않다.', zh:'近', en:'near; close; adjacent', sense:'1' },
+  { id:'k68752-s2', ko:'나는 오늘 오후에 책을 읽었다.', head:'읽다', oid:'68752',
+    glossKo:'글을 보고 뜻을 알다.', zh:'阅读', en:'read', sense:'2' },
+  { id:'k26788-s1', ko:'책이 꽤 가볍네요.', head:'가볍다', oid:'26788',
+    glossKo:'무게가 적다.', zh:'轻', en:'light', sense:'1' }
+];
+
+function shuffleCopy(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+function cleanHangul(s) {
+  return String(s || '').replace(/[^\uac00-\ud7a3]/g, '');
+}
+function bestEntriesForToken(tok) {
+  const clean = cleanHangul(tok);
+  if (!clean) return [];
+  let bestLen = 0;
+  let best = [];
+  ALL_ITEMS.forEach(function (it) {
+    koStems(it.ko).forEach(function (st) {
+      if (!st) return;
+      if (clean === st || clean.indexOf(st) === 0) {
+        if (st.length > bestLen) { bestLen = st.length; best = [it]; }
+        else if (st.length === bestLen && !best.some(function (x) { return x.id === it.id; })) best.push(it);
+      }
+    });
+  });
+  return best;
+}
+function hitsForText(text) {
+  return String(text || '').split(/\s+/).filter(Boolean).map(function (tok) {
+    const items = bestEntriesForToken(tok);
+    if (items.length) return items.map(function (it) { return { tok: tok, item: it, kr: null }; });
+    return [{ tok: tok, item: null, kr: null }];
+  }).reduce(function (acc, row) { return acc.concat(row); }, []);
+}
+function leadFirst(hits, leadId, leadToken) {
+  const arr = hits.slice();
+  arr.sort(function (a, b) {
+    const al = (leadId && a.item && a.item.id === leadId) || (leadToken && a.tok === leadToken) ? 1 : 0;
+    const bl = (leadId && b.item && b.item.id === leadId) || (leadToken && b.tok === leadToken) ? 1 : 0;
+    return bl - al;
+  });
+  return arr;
+}
+function isLeadHit(hit, leadId, leadToken) {
+  if (leadId && hit.item && hit.item.id === leadId) return true;
+  if (leadToken && hit.tok === leadToken) return true;
+  return false;
+}
+function fieldOrMissing(label, value, placeholder) {
+  if (!value || value === placeholder) return '<p class="muted">'+esc(label)+': '+esc(t('fieldMissing'))+'</p>';
+  return '';
+}
+function entryBodyHTML(it) {
+  let h = '<div class="ko-big">'+esc(it.ko || '')+glossSpeakBtnHTML(it.ko || '')+'</div>';
+  const roma = it.ko ? romanizeHangul(it.ko) : '';
+  if (roma) h += '<div class="gloss-roma">'+esc(roma)+'</div>';
+  else h += fieldOrMissing(t('trRoma'), '', '');
+  if (glossKo(it)) h += '<div>'+esc(glossKo(it))+'</div>';
+  else h += fieldOrMissing(t('meaningKO'), '', '');
+  if (it.zh && it.zh !== '(无对应词汇)') h += '<div class="zh">'+esc(it.zh)+'</div>';
+  else h += fieldOrMissing(t('meaningZH'), '', '');
+  if (it.en && it.en !== '(no equivalent expression)') h += '<div class="en">'+esc(it.en)+'</div>';
+  else h += fieldOrMissing(t('meaningEN'), '', '');
+  if (it.example && it.example.ko) h += exampleHTML(it.example);
+  else h += fieldOrMissing(t('example'), '', '');
+  return h;
+}
+function wordButtonHTML(hit, lead) {
+  const cls = 'btn secondary explain-word'+(lead ? ' explain-lead-btn' : '');
+  if (hit.item) {
+    return '<button type="button" class="'+cls+'" data-builtin="'+esc(hit.item.id)+'">'+esc(hit.item.ko)+'</button>';
+  }
+  if (hit.kr) {
+    return '<button type="button" class="'+cls+'" data-kr-id="'+esc(hit.kr.id)+'" data-kr-ko="'+esc(hit.kr.ko)+'">'+esc(hit.kr.ko)+'</button>';
+  }
+  return '<span class="muted">'+esc(hit.tok)+'</span>';
+}
+function practiceAgainButton(item) {
+  if (session && session.phase === 'question') return '';
+  if (!item || !item.id) return '<p class="muted">'+esc(t('noMorePractice'))+'</p>';
+  if (!canPracticeAgain(item)) return '<p class="muted">'+esc(t('noMorePractice'))+'</p>';
+  return '<button type="button" class="btn" data-again="'+esc(item.id)+'">'+esc(t('practiceAgain'))+'</button>';
+}
+function canPracticeAgain(item) {
+  if (!item) return false;
+  const stem = (koStems(item.ko)[0] || item.ko || '');
+  if (!stem) return false;
+  if (TILE_BANK.some(function (s, i) { return i !== tileIndex && s.ko.indexOf(stem) !== -1; })) return true;
+  if (PERSON_ITEMS.some(function (it) { return it.id === item.id; })) return true;
+  if ((item.zh && item.zh !== '(无对应词汇)') || (item.en && item.en !== '(no equivalent expression)')) return true;
+  if (GRAMMAR.some(function (g) { return g.example && g.example.ko && g.example.ko.indexOf(stem) !== -1; })) return true;
+  return false;
+}
+function explainListHTML(hits, leadId, leadToken, source) {
+  const ordered = leadFirst(hits, leadId, leadToken);
+  let h = '';
+  let led = false;
+  const missing = [];
+  ordered.forEach(function (hit) {
+    const lead = !led && isLeadHit(hit, leadId, leadToken);
+    if (lead) led = true;
+    if (!hit.item && !hit.kr) {
+      if (lead) h += '<div class="explain-item explain-lead"><strong>'+esc(t('explainLead'))+'</strong><div>'+esc(hit.tok)+'</div><p class="muted">'+esc(t('explainMissing'))+'</p></div>';
+      else missing.push(hit.tok);
+      return;
+    }
+    const it = hit.item;
+    h += '<div class="explain-item'+(lead ? ' explain-lead' : '')+'">';
+    if (lead) h += '<strong>'+esc(t('explainLead'))+'</strong>';
+    else h += '<div class="muted">'+esc(t('explainOther'))+'</div>';
+    h += '<div class="row">'+wordButtonHTML(hit, lead);
+    if (it) h += glossSpeakBtnHTML(it.ko);
+    h += '</div>';
+    if (hit.tok && it && hit.tok !== it.ko) h += '<div class="muted">'+esc(hit.tok)+'</div>';
+    if (it) h += entryBodyHTML(it) + practiceAgainButton(it);
+    h += '</div>';
+  });
+  if (source) {
+    h += '<div class="explain-item"><div class="muted">'+esc(t('sourceHead'))+'</div>'
+      + '<button type="button" class="btn secondary explain-word" data-kr-id="'+esc(source.id)+'" data-kr-ko="'+esc(source.head)+'">'+esc(source.head)+'</button>'
+      + '<div class="muted">'+esc(source.glossKo || '')+'</div>'
+      + (source.zh ? '<div>'+esc(source.zh)+'</div>' : '')
+      + (source.en ? '<div class="en">'+esc(source.en)+'</div>' : '')
+      + '<p class="muted">'+esc(t('tileCredit'))+'</p>'
+      + '<p class="muted"><a href="'+esc(source.url)+'" target="_blank" rel="noopener noreferrer">'+esc(source.url)+'</a></p>'
+      + '<p class="muted">'+esc(source.ko)+'</p>'
+      + '</div>';
+  }
+  if (missing.length) h += '<p class="muted">'+esc(t('explainMissing'))+' '+esc(missing.join(' · '))+'</p>';
+  return h;
+}
+function resultBarHTML(ok, boxId) {
+  return '<div class="result-line"><span class="'+(ok ? 'result-ok' : 'result-bad')+'">'+esc(ok ? t('correct') : t('incorrect'))+'</span></div>'
+    + '<button type="button" class="btn secondary explain-toggle" data-box="'+esc(boxId)+'" aria-expanded="false">'+esc(t('viewExplain'))+'</button>'
+    + '<div class="explain-box" id="'+esc(boxId)+'" hidden></div>';
+}
+function bindExplainRoot(root, fill) {
+  if (!root) return;
+  root.querySelectorAll('.explain-toggle').forEach(function (btn) {
+    btn.onclick = function () {
+      const box = document.getElementById(btn.getAttribute('data-box'));
+      if (!box) return;
+      const open = box.hasAttribute('hidden');
+      if (open) {
+        if (!box.dataset.filled) { box.innerHTML = fill(); box.dataset.filled = '1'; bindExplainActions(box); }
+        box.removeAttribute('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+        if (box.id === 'tile-explain' && tileRound) tileRound.explainOpen = true;
+        if (box.id === 'match-explain' && matchRound) matchRound.explainOpen = true;
+        if (box.id === 'gex-explain' && gex) gex.explainOpen = true;
+        if (box.id === 'dict-explain' && dictAttempt) dictAttempt.explainOpen = true;
+      } else {
+        box.setAttribute('hidden', '');
+        btn.setAttribute('aria-expanded', 'false');
+        if (box.id === 'tile-explain' && tileRound) tileRound.explainOpen = false;
+        if (box.id === 'match-explain' && matchRound) matchRound.explainOpen = false;
+        if (box.id === 'gex-explain' && gex) gex.explainOpen = false;
+        if (box.id === 'dict-explain' && dictAttempt) dictAttempt.explainOpen = false;
+      }
+    };
+  });
+  bindGlossSpeak(root);
+}
+function bindExplainActions(root) {
+  if (!root) return;
+  root.querySelectorAll('.explain-word').forEach(function (btn) {
+    btn.onclick = function () {
+      if (btn.dataset.builtin) openBuiltinEntry(btn.dataset.builtin);
+      else if (btn.dataset.krId) openKrdictEntry(btn.dataset.krKo, btn.dataset.krId);
+    };
+  });
+  root.querySelectorAll('[data-again]').forEach(function (btn) {
+    btn.onclick = function () { practiceAgainWord(btn.getAttribute('data-again')); };
+  });
+  root.querySelectorAll('[data-grammar-jump]').forEach(function (btn) {
+    btn.onclick = function () {
+      drillActive = true;
+      showReturnBar();
+      showPanel('grammar');
+      const card = document.querySelector('#panel-grammar [data-gid="'+btn.getAttribute('data-grammar-jump')+'"]');
+      if (card) card.scrollIntoView({ block: 'center' });
+    };
+  });
+  bindGlossSpeak(root);
+}
+function rememberBrowse() {
+  if (savedBrowse) return;
+  savedBrowse = {
+    filter: { category: browseFilter.category, register: browseFilter.register, difficulty: browseFilter.difficulty, topic: browseFilter.topic },
+    q: browseDict.q, page: browseDict.page, level: browseDict.level, pos: browseDict.pos, unit: browseDict.unit
+  };
+}
+function showReturnBar() {
+  drillActive = true;
+  let bar = document.getElementById('draft-return-bar');
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'draft-return-bar';
+    bar.className = 'draft-return';
+    bar.innerHTML = '<button type="button" class="btn" id="draft-return-btn">'+esc(t('backToQuestion'))+'</button>';
+    document.body.appendChild(bar);
+    bar.querySelector('#draft-return-btn').onclick = returnToQuestion;
+  }
+  bar.hidden = false;
+  document.body.classList.add('draft-return-open');
+}
+function hideReturnBar() {
+  const bar = document.getElementById('draft-return-bar');
+  if (bar) bar.hidden = true;
+  document.body.classList.remove('draft-return-open');
+  drillActive = false;
+}
+function returnToQuestion() {
+  if (savedBrowse) {
+    browseFilter = savedBrowse.filter;
+    browseDict.q = savedBrowse.q;
+    browseDict.page = savedBrowse.page;
+    browseDict.level = savedBrowse.level;
+    browseDict.pos = savedBrowse.pos;
+    browseDict.unit = savedBrowse.unit;
+    savedBrowse = null;
+  }
+  browseFocusId = null;
+  hideReturnBar();
+  showPanel('practice');
+}
+function openBuiltinEntry(id) {
+  const it = getItem(id);
+  if (!it) return;
+  rememberBrowse();
+  browseFocusId = id;
+  browseFilter = { category: 'all', register: 'all', difficulty: 'all', topic: 'all' };
+  showReturnBar();
+  showPanel('browse');
+}
+function openKrdictEntry(ko, krId) {
+  rememberBrowse();
+  browseFocusId = krId;
+  browseDict.q = ko || '';
+  browseDict.level = 'all';
+  browseDict.pos = 'all';
+  browseDict.unit = 'all';
+  browseDict.page = 1;
+  showReturnBar();
+  const cho = choseongOf(ko || '');
+  loadDictShard(cho).then(function () {
+    showPanel('browse');
+    focusDraftEntry();
+  }).catch(function () {
+    showPanel('browse');
+  });
+}
+function focusDraftEntry() {
+  if (!browseFocusId || currentPanel !== 'browse') return;
+  const panel = document.getElementById('panel-browse');
+  if (!panel) return;
+  const it = getItem(browseFocusId);
+  if (it && !document.getElementById('entry-drill')) {
+    const card = '<div class="card entry-drill" id="entry-drill" data-id="'+esc(it.id)+'">'
+      + '<div class="muted">'+esc(t('drillNote'))+'</div>'
+      + entryBodyHTML(it)
+      + '</div>';
+    panel.insertAdjacentHTML('afterbegin', card);
+    bindGlossSpeak(document.getElementById('entry-drill'));
+  }
+  panel.querySelectorAll('.card').forEach(function (card) {
+    if (card.getAttribute('data-id') !== browseFocusId || card.id === 'entry-drill') return;
+    card.classList.add('entry-focus');
+    const mask = card.querySelector('.reveal-mask');
+    if (mask) mask.classList.add('hidden');
+  });
+  const focus = document.getElementById('entry-drill') || panel.querySelector('.entry-focus');
+  if (focus) focus.scrollIntoView({ block: 'start' });
+  showReturnBar();
+}
+function practiceAgainWord(id) {
+  const it = getItem(id);
+  if (!it) return;
+  const stem = (koStems(it.ko)[0] || it.ko || '');
+  quiz = null;
+  const other = TILE_BANK.findIndex(function (s, i) { return i !== tileIndex && stem && s.ko.indexOf(stem) !== -1; });
+  if (other >= 0) {
+    practiceMode = 'tiles';
+    tileIndex = other;
+    tileRound = null;
+    showPanel('practice');
+    return;
+  }
+  const pIdx = PERSON_ITEMS.findIndex(function (x) { return x.id === it.id; });
+  if (pIdx >= 0) {
+    practiceMode = 'dictation';
+    state.dictationIndex = pIdx;
+    dictAttempt = null;
+    dictHide = true;
+    showPanel('practice');
+    return;
+  }
+  if ((it.zh && it.zh !== '(无对应词汇)') || (it.en && it.en !== '(no equivalent expression)')) {
+    practiceMode = 'match';
+    matchRound = null;
+    matchPrefer = it.id;
+    showPanel('practice');
+    return;
+  }
+  const gIdx = GRAMMAR.findIndex(function (g) { return g.example && g.example.ko && stem && g.example.ko.indexOf(stem) !== -1; });
+  if (gIdx >= 0) {
+    practiceMode = 'grammar';
+    gex = null;
+    gexPrefer = gIdx;
+    showPanel('practice');
+  }
+}
+let gexPrefer = 0;
+
+function verifiedTopikCount() { return 0; }
+function ungradedPoolCount(mode) {
+  const m = mode || practiceMode || 'tiles';
+  if (m === 'tiles') return TILE_BANK.length;
+  if (m === 'dictation') return PERSON_ITEMS.length;
+  if (m === 'grammar') return GRAMMAR.length;
+  if (m === 'quiz') return ALL_ITEMS.length;
+  if (m === 'match') return matchTaskCount();
+  return 0;
+}
+function levelBarHTML(mode) {
+  let h = '<p class="muted">'+esc(t('levelPick'))+'</p><div class="subnav level-bar">';
+  for (let n = 1; n <= 6; n++) {
+    const on = draftLevel === String(n);
+    h += '<button type="button" data-level="'+n+'" class="btn '+(on ? '' : 'secondary')+(on ? ' active' : '')+'">TOPIK '+n+' · '+verifiedTopikCount()+'</button>';
+  }
+  const onU = draftLevel === 'ungraded';
+  h += '<button type="button" data-level="ungraded" class="btn '+(onU ? '' : 'secondary')+(onU ? ' active' : '')+'">'+esc(t('gradeNone'))+' · '+ungradedPoolCount(mode)+'</button></div>';
+  h += '<p class="muted">'+esc(t('levelVerifiedNote'))+'</p>';
+  if (draftLevel === 'ungraded') {
+    h += '<p class="muted">'+esc(t('levelUngradedNote'))+'</p>';
+    h += '<p>'+esc(t('gradeVerifiedCount'))+': 0 · '+esc(t('gradeNone'))+': '+ungradedPoolCount(mode)+'</p>';
+  }
+  return h;
+}
+function levelBlockedHTML(level) {
+  return '<div class="card"><h3>TOPIK '+esc(String(level))+'</h3>'
+    + '<p>'+esc(t('gradeVerifiedCount'))+': <strong>0</strong></p>'
+    + '<p class="muted">'+esc(t('levelEmpty'))+'</p></div>';
+}
+function matchPoolIdList() {
+  const seen = {};
+  const ids = [];
+  ALL_ITEMS.forEach(function (it) {
+    const label = matchMeaning(it);
+    if (!label || seen[label]) return;
+    seen[label] = 1;
+    ids.push(it.id);
+  });
+  return ids;
+}
+function matchTaskCount() {
+  return Math.floor(matchPoolIdList().length / 4);
+}
+function buildSessionOrder(mode) {
+  if (draftLevel !== 'ungraded') return [];
+  if (mode === 'tiles') return TILE_BANK.map(function (_, i) { return i; });
+  if (mode === 'grammar') return GRAMMAR.map(function (g) { return g.id; });
+  if (mode === 'dictation') return PERSON_ITEMS.map(function (it) { return it.id; });
+  if (mode === 'match') {
+    const ids = matchPoolIdList();
+    const boards = [];
+    for (let i = 0; i + 4 <= ids.length; i += 4) boards.push(ids.slice(i, i + 4));
+    return boards;
+  }
+  return [];
+}
+function sessionRecord() {
+  if (!session || session.phase !== 'question') return false;
+  if (session.recorded[session.index]) return false;
+  session.recorded[session.index] = true;
+  session.done += 1;
+  return true;
+}
+function sessionNext() {
+  if (!session || !session.recorded[session.index]) return;
+  tileRound = null;
+  matchRound = null;
+  gex = null;
+  dictAttempt = null;
+  dictDraft = '';
+  dictHide = true;
+  if (session.index + 1 >= session.total) session.phase = 'done';
+  else session.index += 1;
+  renderPractice();
+}
+function endSession() {
+  session = null;
+  setupPane = null;
+  tileRound = null;
+  matchRound = null;
+  gex = null;
+  dictAttempt = null;
+  dictDraft = '';
+  quiz = null;
+  renderPractice();
+}
+function progressHTML() {
+  if (!session) return '';
+  const total = session.total || 0;
+  const done = session.done || 0;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  return '<div class="session-progress"><span>'+esc(t('sessionProgress'))+'</span>'
+    + '<div class="session-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="'+total+'" aria-valuenow="'+done+'">'
+    + '<div class="session-progress-fill" style="width:'+pct+'%"></div></div>'
+    + '<strong>'+done+' / '+total+'</strong></div>';
+}
+function practiceShell(mode) {
+  const inSession = session && (session.phase === 'question' || session.phase === 'done');
+  if (inSession) {
+    return '<div class="card">'+progressHTML()
+      + '<div class="row"><button type="button" class="btn ghost" id="session-end">'+esc(t('sessionEnd'))+'</button></div>'
+      + '</div><div id="practice-body"></div>';
+  }
+  const modes = [
+    ['tiles', 'sub_tiles'],
+    ['match', 'sub_match'],
+    ['dictation', 'nav_dictation'],
+    ['grammar', 'nav_grammar']
+  ];
+  const taskCount = draftLevel === 'ungraded' ? ungradedPoolCount(mode) : 0;
+  return '<div class="card"><h2>'+esc(t('nav_practice'))+'</h2>'
+    + '<p class="muted">'+esc(t('draftScopeNote'))+'</p>'
+    + levelBarHTML(mode)
+    + '<div class="subnav" role="tablist">'
+    + modes.map(function (pair) {
+        const on = mode === pair[0];
+        return '<button type="button" role="tab" data-pmode="'+pair[0]+'" class="btn '+(on ? '' : 'secondary')+(on ? ' active' : '')+'" aria-selected="'+(on ? 'true' : 'false')+'">'+esc(t(pair[1]))+'</button>';
+      }).join('')
+    + '</div>'
+    + '<p class="muted">'+esc(t('gradeVerifiedCount'))+': '+taskCount+'</p>'
+    + '<div class="row" style="margin-top:8px">'
+    + '<button type="button" class="btn" id="session-start"'+(taskCount ? '' : ' disabled')+'>'+esc(t('sessionStart'))+'</button>'
+    + '<button type="button" class="btn ghost" id="pmode-quiz">'+esc(t('quizSecondary'))+'</button>'
+    + '<button type="button" class="btn ghost" id="pmode-compose">'+esc(t('freeWriteOpen'))+'</button>'
+    + '</div></div><div id="practice-body"></div>';
+}
+function renderPractice() {
+  const el = document.getElementById('panel-practice');
+  if (!el) return;
+  if (quiz && !session) practiceMode = 'quiz';
+  const mode = practiceMode || 'tiles';
+  el.innerHTML = practiceShell(mode);
+  const endBtn = document.getElementById('session-end');
+  if (endBtn) endBtn.onclick = endSession;
+  if (session && session.phase === 'done') {
+    document.getElementById('practice-body').innerHTML = '<div class="card"><h3>'+esc(t('sessionDoneTitle'))+'</h3>'
+      + '<p>'+esc(tf('sessionDoneBody', { done: session.done, total: session.total }))+'</p></div>';
+    return;
+  }
+  if (session && session.phase === 'question') {
+    if (session.mode === 'dictation') {
+      document.getElementById('practice-body').innerHTML = '<div id="dictation-mount"></div>';
+      const cur = session.order[session.index];
+      const ix = PERSON_ITEMS.findIndex(function (it) { return it.id === cur; });
+      if (ix >= 0) state.dictationIndex = ix;
+      renderDictation();
+    } else if (session.mode === 'match') renderMatchMode();
+    else if (session.mode === 'grammar') renderGrammarExercise();
+    else renderTileMode();
+    bindGlossSpeak(el);
+    return;
+  }
+  el.querySelectorAll('[data-pmode]').forEach(function (btn) {
+    btn.onclick = function () {
+      quiz = null;
+      setupPane = null;
+      session = null;
+      practiceMode = btn.getAttribute('data-pmode');
+      renderPractice();
+    };
+  });
+  const qbtn = document.getElementById('pmode-quiz');
+  if (qbtn) qbtn.onclick = function () { session = null; setupPane = 'quiz'; quiz = null; practiceMode = 'quiz'; renderPractice(); };
+  const cbtn = document.getElementById('pmode-compose');
+  if (cbtn) cbtn.onclick = function () { session = null; setupPane = 'compose'; quiz = null; renderPractice(); };
+  const startBtn = document.getElementById('session-start');
+  if (startBtn) startBtn.onclick = function () {
+    const order = buildSessionOrder(practiceMode);
+    if (!order.length) return;
+    session = { mode: practiceMode, level: draftLevel, order: order, total: order.length, index: 0, done: 0, recorded: {}, phase: 'question' };
+    setupPane = null;
+    quiz = null;
+    tileRound = null;
+    matchRound = null;
+    gex = null;
+    dictAttempt = null;
+    dictDraft = '';
+    renderPractice();
+  };
+  el.querySelectorAll('[data-level]').forEach(function (btn) {
+    btn.onclick = function () {
+      draftLevel = btn.getAttribute('data-level');
+      session = null;
+      if (quiz && !quiz.fromDue) quiz = null;
+      renderPractice();
+    };
+  });
+  const reviewBypass = quiz && quiz.fromDue;
+  if (reviewBypass || setupPane === 'quiz' || practiceMode === 'quiz') {
+    document.getElementById('practice-body').innerHTML = '<div id="practice-quiz-mount"></div>';
+    renderPracticeQuiz();
+    return;
+  }
+  if (setupPane === 'compose') {
+    document.getElementById('practice-body').innerHTML = '<div class="card"><h3>'+esc(t('freeWriteTitle'))+'</h3><p class="muted">'+esc(t('freeWriteNote'))+'</p><div id="compose-mount"></div></div>';
+    renderCompose();
+    return;
+  }
+  const body = document.getElementById('practice-body');
+  if (!draftLevel) {
+    body.innerHTML = '<div class="card"><p>'+esc(t('pickLevelFirst'))+'</p></div>';
+    return;
+  }
+  if (draftLevel !== 'ungraded') {
+    body.innerHTML = levelBlockedHTML(draftLevel);
+    return;
+  }
+  body.innerHTML = '<div class="card"><p class="muted">'+esc(t('levelUngradedNote'))+'</p><p>'+esc(t('sessionStart'))+' · '+ungradedPoolCount(mode)+'</p></div>';
+}
+
+function ensureTile() {
+  if (session && session.mode === 'tiles' && session.phase === 'question') tileIndex = session.order[session.index];
+  if (tileRound && tileRound.index === tileIndex) return;
+  const sent = TILE_BANK[tileIndex] || TILE_BANK[0];
+  tileIndex = TILE_BANK.indexOf(sent);
+  const correct = sent.ko.split(/\s+/);
+  const extra = [];
+  TILE_BANK.forEach(function (s) {
+    if (s === sent) return;
+    s.ko.split(/\s+/).forEach(function (tok) {
+      if (correct.indexOf(tok) === -1 && extra.indexOf(tok) === -1) extra.push(tok);
+    });
+  });
+  tileRound = {
+    index: tileIndex,
+    bank: shuffleCopy(correct.concat(extra.slice(0, 2))),
+    picked: [],
+    checked: false,
+    ok: false,
+    explainOpen: false,
+    leadToken: null
+  };
+}
+function tileSource(sent) {
+  return {
+    id: sent.id, ko: sent.ko, head: sent.head, glossKo: sent.glossKo, zh: sent.zh, en: sent.en,
+    url: 'https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=' + sent.oid + '&mainSearchWord=' + encodeURIComponent(sent.head)
+  };
+}
+function renderTileMode() {
+  ensureTile();
+  const body = document.getElementById('practice-body');
+  if (!body) return;
+  const sent = TILE_BANK[tileRound.index];
+  const gloss = state.uiLang === 'en' ? sent.en : (sent.zh || sent.en);
+  let tiles = '';
+  tileRound.bank.forEach(function (tok, i) {
+    if (tileRound.picked.indexOf(i) !== -1) return;
+    tiles += '<button type="button" class="btn secondary tile" data-tile="'+i+'">'+esc(tok)+'</button>';
+  });
+  let picked = '';
+  tileRound.picked.forEach(function (i) {
+    picked += '<button type="button" class="btn tile" data-picked="'+i+'">'+esc(tileRound.bank[i])+'</button>';
+  });
+  body.innerHTML = '<div class="card"><h3>'+esc(t('sub_tiles'))+'</h3>'
+    + '<p class="muted">'+esc(t('tileHint'))+'</p>'
+    + '<p class="muted">'+esc(t('tileDemoLabel'))+' '+(tileRound.index+1)+' / '+TILE_BANK.length+'</p>'
+    + '<p class="muted">'+esc(t('sentenceUngraded'))+'</p>'
+    + '<p><strong>'+esc(sent.head)+'</strong> · '+esc(gloss)+'</p>'
+    + '<p class="muted">'+esc(t('tileGlossNote'))+'</p>'
+    + '<div class="tile-answer" id="tile-answer">'+picked+'</div>'
+    + '<div class="tile-bank" id="tile-bank">'+tiles+'</div>'
+    + '<div class="row" style="margin-top:10px">'
+    + '<button type="button" class="btn" id="tile-check"'+(tileRound.picked.length && !tileRound.checked ? '' : ' disabled')+'>'+esc(t('check'))+'</button>'
+    + '<button type="button" class="btn secondary" id="tile-undo"'+(tileRound.checked ? ' disabled' : '')+'>'+esc(t('undoLast'))+'</button>'
+    + '<button type="button" class="btn ghost" id="tile-reset"'+(tileRound.checked ? ' disabled' : '')+'>'+esc(t('tileReset'))+'</button>'
+    + (tileRound.checked ? '<button type="button" class="btn" id="tile-next">'+esc(t('tileNext'))+'</button>' : '')
+    + '</div>'
+    + '<div id="tile-result"></div>'
+    + '</div>'
+    + (session ? '' : '<div class="card" id="free-write"><h3>'+esc(t('freeWriteTitle'))+'</h3>'
+    + '<p class="muted">'+esc(t('freeWriteNote'))+'</p>'
+    + '<div id="compose-mount"></div></div>');
+  body.querySelectorAll('[data-tile]').forEach(function (btn) {
+    btn.onclick = function () {
+      if (tileRound.checked) return;
+      tileRound.picked.push(parseInt(btn.getAttribute('data-tile'), 10));
+      renderPractice();
+    };
+  });
+  body.querySelectorAll('[data-picked]').forEach(function (btn) {
+    btn.onclick = function () {
+      if (tileRound.checked) return;
+      const n = parseInt(btn.getAttribute('data-picked'), 10);
+      tileRound.picked = tileRound.picked.filter(function (x) { return x !== n; });
+      renderPractice();
+    };
+  });
+  const undoBtn = document.getElementById('tile-undo');
+  if (undoBtn) undoBtn.onclick = function () {
+    if (tileRound.checked) return;
+    tileRound.picked.pop();
+    renderPractice();
+  };
+  const resetBtn = document.getElementById('tile-reset');
+  if (resetBtn) resetBtn.onclick = function () {
+    if (tileRound.checked) return;
+    tileRound.picked = [];
+    tileRound.ok = false;
+    tileRound.explainOpen = false;
+    tileRound.leadToken = null;
+    renderPractice();
+  };
+  const nextBtn = document.getElementById('tile-next');
+  if (nextBtn) nextBtn.onclick = sessionNext;
+  document.getElementById('tile-check').onclick = function () {
+    if (tileRound.checked) return;
+    if (!tileRound.picked.length) return;
+    const answer = sent.ko.split(/\s+/);
+    const got = tileRound.picked.map(function (i) { return tileRound.bank[i]; });
+    tileRound.checked = true;
+    tileRound.ok = got.join(' ') === answer.join(' ');
+    tileRound.explainOpen = false;
+    tileRound.leadToken = null;
+    if (!tileRound.ok) {
+      const n = Math.max(got.length, answer.length);
+      for (let i = 0; i < n; i++) {
+        if (got[i] !== answer[i]) { tileRound.leadToken = answer[i] || got[i] || ''; break; }
+      }
+    }
+    sessionRecord();
+    renderPractice();
+  };
+  if (tileRound.checked) {
+    const box = document.getElementById('tile-result');
+    box.innerHTML = resultBarHTML(tileRound.ok, 'tile-explain');
+    bindExplainRoot(box, function () {
+      const hits = hitsForText(sent.ko);
+      const leadId = null;
+      return explainListHTML(hits, leadId, tileRound.ok ? null : tileRound.leadToken, tileSource(sent));
+    });
+    if (tileRound.explainOpen) {
+      const b = box.querySelector('.explain-toggle');
+      if (b) b.click();
+    }
+  }
+  if (session) return;
+  renderCompose();
+}
+
+function matchMeaning(it) {
+  if (!it) return '';
+  if (state.uiLang === 'en') return (it.en && it.en !== '(no equivalent expression)') ? it.en : '';
+  if (state.uiLang === 'ko') {
+    if (it.zh && it.zh !== '(无对应词汇)') return it.zh;
+    if (it.en && it.en !== '(no equivalent expression)') return it.en;
+    return '';
+  }
+  return (it.zh && it.zh !== '(无对应词汇)') ? it.zh : '';
+}
+function ensureMatch() {
+  if (draftLevel !== 'ungraded' && !(session && session.mode === 'match')) {
+    matchRound = { lang: state.uiLang || 'zh', ids: [], left: [], right: [], links: [], locked: [], selL: null, selR: null, flash: null, lastWrongId: null, explainOpen: false, submitted: false, checked: false, ok: false };
+    return;
+  }
+  if (session && session.mode === 'match' && session.phase === 'question') {
+    const ids = session.order[session.index] || [];
+    if (matchRound && matchRound.boardKey === session.index && matchRound.ids.join() === ids.join()) return;
+    matchRound = {
+      lang: state.uiLang || 'zh',
+      ids: ids.slice(),
+      left: shuffleCopy(ids),
+      right: shuffleCopy(ids.slice()),
+      links: [],
+      locked: [],
+      selL: null,
+      selR: null,
+      flash: null,
+      lastWrongId: null,
+      explainOpen: false,
+      submitted: false,
+      checked: false,
+      ok: false,
+      boardKey: session.index
+    };
+    return;
+  }
+  if (matchRound && matchRound.lang === (state.uiLang || 'zh') && !matchPrefer) return;
+  const lang = state.uiLang || 'zh';
+  const pool = [];
+  const seen = {};
+  ALL_ITEMS.forEach(function (it) {
+    const m = matchMeaning(it);
+    if (!m || seen[m]) return;
+    seen[m] = true;
+    pool.push(it);
+  });
+  let picked = [];
+  if (matchPrefer) {
+    const pref = pool.find(function (it) { return it.id === matchPrefer; });
+    if (pref) picked.push(pref);
+    matchPrefer = null;
+  }
+  const rest = shuffleCopy(pool.filter(function (it) { return !picked.some(function (p) { return p.id === it.id; }); }));
+  while (picked.length < 4 && rest.length) picked.push(rest.pop());
+  matchRound = {
+    lang: lang,
+    ids: picked.map(function (it) { return it.id; }),
+    left: shuffleCopy(picked.map(function (it) { return it.id; })),
+    right: shuffleCopy(picked.map(function (it) { return it.id; })),
+    links: [],
+    locked: [],
+    selL: null,
+    selR: null,
+    flash: null,
+    lastWrongId: null,
+    explainOpen: false,
+    submitted: false,
+    checked: false,
+    ok: false
+  };
+}
+function renderMatchMode() {
+  ensureMatch();
+  const body = document.getElementById('practice-body');
+  if (!body) return;
+  if (!matchRound.ids.length) {
+    body.innerHTML = '<div class="card"><p class="muted">'+esc(t('explainMissing'))+'</p></div>';
+    return;
+  }
+  const ready = (matchRound.links || []).length === matchRound.ids.length && !matchRound.checked;
+  function linked(id) {
+    return (matchRound.links || []).some(function (p) { return p.l === id || p.r === id; });
+  }
+  function col(side, ids) {
+    return ids.map(function (id) {
+      const it = getItem(id);
+      if (!it) return '';
+      const on = linked(id);
+      const sel = (side === 'l' ? matchRound.selL : matchRound.selR) === id;
+      const label = side === 'l' ? matchMeaning(it) : it.ko;
+      return '<button type="button" class="btn secondary match-item'+(on ? ' linked' : '')+(sel ? ' selected' : '')+'" data-side="'+side+'" data-id="'+esc(id)+'"'+(matchRound.checked ? ' disabled' : '')+'>'+esc(label || '')+'</button>';
+    }).join('');
+  }
+  body.innerHTML = '<div class="card"><h3>'+esc(t('sub_match'))+'</h3>'
+    + '<p class="muted">'+esc(t('matchHint'))+'</p>'
+    + '<p class="muted">'+esc(t('matchTaskNote'))+'</p>'
+    + '<div class="match-board" id="match-board"><svg class="match-svg" id="match-svg"></svg>'
+    + '<div class="match-col">'+col('l', matchRound.left)+'</div>'
+    + '<div class="match-col">'+col('r', matchRound.right)+'</div></div>'
+    + '<div class="row" style="margin-top:10px">'
+    + '<button type="button" class="btn" id="match-check"'+(ready ? '' : ' disabled')+'>'+esc(t('check'))+'</button>'
+    + '<button type="button" class="btn ghost" id="match-reset"'+(matchRound.checked ? ' disabled' : '')+'>'+esc(t('tileReset'))+'</button>'
+    + (matchRound.checked ? '<button type="button" class="btn" id="match-next">'+esc(t('tileNext'))+'</button>' : '')
+    + '</div>'
+    + '<div id="match-result"></div></div>';
+  body.querySelectorAll('.match-item').forEach(function (btn) {
+    btn.onclick = function () {
+      if (matchRound.checked) return;
+      const id = btn.getAttribute('data-id');
+      const side = btn.getAttribute('data-side');
+      if (side === 'l') matchRound.selL = id; else matchRound.selR = id;
+      if (matchRound.selL && matchRound.selR) {
+        const l = matchRound.selL;
+        const r = matchRound.selR;
+        matchRound.links = (matchRound.links || []).filter(function (p) { return p.l !== l && p.r !== r; });
+        matchRound.links.push({ l: l, r: r });
+        matchRound.selL = null;
+        matchRound.selR = null;
+      }
+      renderPractice();
+    };
+  });
+  document.getElementById('match-reset').onclick = function () {
+    if (matchRound.checked) return;
+    matchRound.links = [];
+    matchRound.selL = null;
+    matchRound.selR = null;
+    matchRound.lastWrongId = null;
+    renderPractice();
+  };
+  document.getElementById('match-check').onclick = function () {
+    if (matchRound.checked) return;
+    if ((matchRound.links || []).length !== matchRound.ids.length) return;
+    matchRound.checked = true;
+    matchRound.submitted = true;
+    matchRound.ok = matchRound.links.every(function (p) { return p.l === p.r; });
+    if (!matchRound.ok) {
+      const bad = matchRound.links.find(function (p) { return p.l !== p.r; });
+      matchRound.lastWrongId = bad ? bad.l : null;
+    }
+    sessionRecord();
+    renderPractice();
+  };
+  const matchNext = document.getElementById('match-next');
+  if (matchNext) matchNext.onclick = sessionNext;
+  if (matchRound.checked) {
+    const box = document.getElementById('match-result');
+    box.innerHTML = resultBarHTML(!!matchRound.ok, 'match-explain');
+    bindExplainRoot(box, function () {
+      const hits = matchRound.ids.map(function (id) {
+        const it = getItem(id);
+        return { tok: it ? it.ko : id, item: it, kr: null };
+      });
+      return explainListHTML(hits, matchRound.ok ? null : matchRound.lastWrongId, null, null);
+    });
+    if (matchRound.explainOpen) {
+      const b = box.querySelector('.explain-toggle');
+      if (b) b.click();
+    }
+  }
+  requestAnimationFrame(drawMatchLines);
+}
+function drawMatchLines() {
+  const board = document.getElementById('match-board');
+  const svg = document.getElementById('match-svg');
+  if (!board || !svg || !matchRound) return;
+  const br = board.getBoundingClientRect();
+  svg.setAttribute('width', String(br.width));
+  svg.setAttribute('height', String(br.height));
+  svg.setAttribute('viewBox', '0 0 '+br.width+' '+br.height);
+  function center(el) {
+    const r = el.getBoundingClientRect();
+    return { x: r.left + r.width / 2 - br.left, y: r.top + r.height / 2 - br.top };
+  }
+  let lines = '';
+  (matchRound.links || []).forEach(function (pair) {
+    const a = board.querySelector('[data-side="l"][data-id="'+pair.l+'"]');
+    const b = board.querySelector('[data-side="r"][data-id="'+pair.r+'"]');
+    if (!a || !b) return;
+    const p = center(a); const q = center(b);
+    lines += '<line x1="'+p.x+'" y1="'+p.y+'" x2="'+q.x+'" y2="'+q.y+'" stroke="#1a5f4a" stroke-width="3" />';
+  });
+  svg.innerHTML = lines;
+}
+
+function ensureGex() {
+  if (session && session.mode === 'grammar' && session.phase === 'question') {
+    if (gex && gex.sessionIndex === session.index) return;
+    gex = { ids: session.order.slice(), index: session.index, sessionIndex: session.index, checked: false, choice: null, pending: null, ok: false, explainOpen: false };
+    return;
+  }
+  if (gex) return;
+  const ids = shuffleCopy(GRAMMAR.map(function (g) { return g.id; }));
+  let index = 0;
+  if (gexPrefer) {
+    const g = GRAMMAR[gexPrefer];
+    if (g) index = Math.max(0, ids.indexOf(g.id));
+    gexPrefer = 0;
+  }
+  gex = { ids: ids, index: index, checked: false, choice: null, ok: false, explainOpen: false };
+}
+function renderGrammarExercise() {
+  ensureGex();
+  const body = document.getElementById('practice-body');
+  if (!body) return;
+  const gid = gex.ids[gex.index];
+  const g = GRAMMAR.find(function (x) { return x.id === gid; }) || GRAMMAR[0];
+  if (!gex.layout || gex.layoutFor !== g.id) {
+    const others = gex.ids.filter(function (id) { return id !== g.id; }).slice(0, 3);
+    gex.layout = shuffleCopy([g.id].concat(others));
+    gex.layoutFor = g.id;
+  }
+  const choices = gex.layout;
+  const prompt = state.uiLang === 'en' ? g.en : (g.zh || g.en);
+  body.innerHTML = '<div class="card"><h3>'+esc(t('nav_grammar'))+'</h3>'
+    + '<p class="muted">'+esc(t('grammarExHint'))+'</p>'
+    + '<p><strong>'+esc(prompt || '')+'</strong></p>'
+    + '<div class="choices" id="gex-choices">'
+    + choices.map(function (id) {
+        const item = GRAMMAR.find(function (x) { return x.id === id; });
+        const on = (gex.pending === id || gex.choice === id);
+        return '<button type="button" class="choice'+(on ? ' selected' : '')+'" data-gid="'+esc(id)+'">'+esc(item ? item.pattern : id)+'</button>';
+      }).join('')
+    + '</div>'
+    + '<div class="row" style="margin-top:8px">'
+    + '<button type="button" class="btn" id="gex-check"'+((gex.pending || gex.checked) && !gex.checked ? '' : ' disabled')+'>'+esc(t('check'))+'</button>'
+    + (gex.checked ? '<button type="button" class="btn" id="gex-next">'+esc(t('tileNext'))+'</button>' : '')
+    + '</div><div id="gex-result"></div>'
+    + '</div>';
+  if (!gex.checked) {
+    body.querySelectorAll('.choice').forEach(function (btn) {
+      btn.onclick = function () {
+        gex.pending = btn.getAttribute('data-gid');
+        renderPractice();
+      };
+    });
+    document.getElementById('gex-check').onclick = function () {
+      if (gex.checked || !gex.pending) return;
+      gex.choice = gex.pending;
+      gex.checked = true;
+      gex.ok = gex.choice === g.id;
+      gex.explainOpen = false;
+      sessionRecord();
+      renderPractice();
+    };
+  } else {
+    body.querySelectorAll('.choice').forEach(function (btn) { btn.disabled = true; });
+    const box = document.getElementById('gex-result');
+    box.innerHTML = resultBarHTML(gex.ok, 'gex-explain');
+    bindExplainRoot(box, function () {
+      const hits = hitsForText(g.example && g.example.ko);
+      let leadId = null;
+      if (!gex.ok) {
+        const chosen = GRAMMAR.find(function (x) { return x.id === gex.choice; });
+        const wrongIds = {};
+        hitsForText(chosen && chosen.example && chosen.example.ko).forEach(function (h) { if (h.item) wrongIds[h.item.id] = true; });
+        const diff = hits.find(function (h) { return h.item && !wrongIds[h.item.id]; });
+        if (diff && diff.item) leadId = diff.item.id;
+      }
+      let html = '<div class="explain-item"><div class="muted">'+esc(t('grammarPatternLabel'))+'</div>'
+        + '<button type="button" class="btn secondary" data-grammar-jump="'+esc(g.id)+'">'+esc(g.pattern)+'</button>'
+        + (g.zh ? '<div>'+esc(g.zh)+'</div>' : '')
+        + (g.en ? '<div class="en">'+esc(g.en)+'</div>' : '')
+        + (g.example && g.example.ko ? '<p>'+esc(g.example.ko)+'</p>' : fieldOrMissing(t('example'), '', ''))
+        + '</div>';
+      html += explainListHTML(hits, leadId, null, null);
+      return html;
+    });
+    if (gex.explainOpen) {
+      const b = box.querySelector('.explain-toggle');
+      if (b) b.click();
+    }
+  }
+  const gnext = document.getElementById('gex-next');
+  if (gnext) gnext.onclick = function () {
+    if (session && session.mode === 'grammar') { sessionNext(); return; }
+    gex.index = (gex.index + 1) % gex.ids.length;
+    gex.checked = false;
+    gex.choice = null;
+    gex.pending = null;
+    gex.ok = false;
+    gex.explainOpen = false;
+    gex.sessionIndex = null;
+    renderPractice();
+  };
+}
+
+function dictExplainHTML(it, attempt) {
+  const hits = [{ tok: it.ko, item: it, kr: null }];
+  let html = explainListHTML(hits, attempt && !attempt.ok ? it.id : null, null, null);
+  if (attempt && !attempt.ok) {
+    html += '<div class="muted">'+esc(t('pickWrongPart'))+'</div><div class="row" id="d-fix">'
+      + PARTS.map(function (p) { return '<button type="button" class="chip" data-p="'+p+'">'+esc(t('part_'+p))+'</button>'; }).join('')
+      + '</div>';
+  }
+  return html;
+}
+function restoreDictAttempt() {
+  if (!dictAttempt) return;
+  const idx = state.dictationIndex || 0;
+  const it = PERSON_ITEMS[idx];
+  if (!it || dictAttempt.id !== it.id) return;
+  const fb = document.getElementById('d-feedback');
+  if (!fb) return;
+  fb.innerHTML = resultBarHTML(!!dictAttempt.ok, 'dict-explain');
+  bindExplainRoot(fb, function () { return dictExplainHTML(it, dictAttempt); });
+  const box = document.getElementById('dict-explain');
+  if (box) {
+    box.addEventListener('click', function (ev) {
+      const chip = ev.target && ev.target.closest ? ev.target.closest('#d-fix .chip') : null;
+      if (!chip) return;
+      setMistakePart(it.id, chip.getAttribute('data-p'));
+      toast(t('saved'));
+    });
+  }
+  if (dictAttempt.explainOpen) {
+    const b = fb.querySelector('.explain-toggle');
+    if (b) b.click();
+  }
+}
+
+window.__draft = {
+  get mode() { return practiceMode; },
+  get tile() { return tileRound; },
+  get match() { return matchRound; },
+  get grammar() { return gex; }
+};
+
 window.__koreanSite = {
   state, PERSON_ITEMS, GRAMMAR, recordMistake, detectWrongPart, saveState, loadState,
   getState: () => state, setState: (s) => { state = s; }, showPanel, startQuiz, t, tf,
