@@ -253,6 +253,111 @@ test("practice defects: tile mistakes, same-day review, and ungraded labels", as
     assert.match(daily.text, /次数: 1/);
   });
 
+  await t.test("a mismatched linking board is saved once and reviews the same four entries", async () => {
+    await page.open(`${site.origin}/index.html`);
+    await page.evaluate("localStorage.clear()");
+    await page.open(`${site.origin}/index.html`);
+    await clickButton(page, "未分级");
+    await clickButton(page, "选项连线");
+    await clickButton(page, "开始");
+    const words = await page.evaluate(`[...document.querySelectorAll("[data-side='r']")].map((button) => button.textContent.trim())`);
+    assert.equal(words.length, 4);
+    const paired = await page.evaluate(`(() => {
+      const left = [...document.querySelectorAll("[data-side='l']")].map((button) => button.getAttribute("data-id"));
+      const right = [...document.querySelectorAll("[data-side='r']")].map((button) => button.getAttribute("data-id"));
+      const used = new Set();
+      const pairs = [];
+      for (const id of left) {
+        const other = right.find((candidate) => candidate !== id && !used.has(candidate));
+        if (!other) return null;
+        used.add(other);
+        pairs.push([id, other]);
+      }
+      return pairs;
+    })()`);
+    assert.equal(paired && paired.length, 4);
+    for (const [leftId, rightId] of paired) {
+      const step = await page.evaluate(`(() => {
+        const left = document.querySelector("[data-side='l'][data-id='${leftId}']");
+        const right = document.querySelector("[data-side='r'][data-id='${rightId}']");
+        if (!left || !right) return "missing";
+        left.click();
+        right.click();
+        return "clicked";
+      })()`);
+      assert.equal(step, "clicked");
+    }
+    await clickButton(page, "检查");
+    await page.shot("match-wrong");
+    const after = await storage(page);
+    assert.match(after.text, /不对/);
+    const ids = Object.keys(after.mistakes);
+    assert.equal(ids.length, 1);
+    assert.match(ids[0], /^match:/);
+    assert.equal(after.mistakes[ids[0]].count, 1);
+    assert.equal(after.reviewQueue.length, 1);
+    assert.equal(after.reviewQueue[0].id, ids[0]);
+    await page.evaluate("document.getElementById('match-check') && document.getElementById('match-check').click()");
+    assert.equal((await storage(page)).mistakes[ids[0]].count, 1);
+    await page.open(`${site.origin}/index.html`);
+    assert.equal((await storage(page)).mistakes[ids[0]].count, 1);
+    await clickButton(page, "每日复习");
+    const daily = await storage(page);
+    assert.equal(await page.evaluate("document.getElementById('daily-start').disabled"), false);
+    for (const word of words) assert.equal(daily.text.includes(word), true, word);
+    await page.shot("match-daily");
+    await clickButton(page, "开始今日复习");
+    const review = await storage(page);
+    assert.match(review.text, /选项连线/);
+    const reviewed = await page.evaluate(`[...document.querySelectorAll("[data-side='r']")].map((button) => button.textContent.trim()).sort()`);
+    assert.deepEqual(reviewed, words.slice().sort());
+    await page.shot("match-review-original");
+  });
+
+  await t.test("a wrong grammar choice is saved once and reviews the same prompt", async () => {
+    await page.open(`${site.origin}/index.html`);
+    await page.evaluate("localStorage.clear()");
+    await page.open(`${site.origin}/index.html`);
+    await clickButton(page, "未分级");
+    await clickButton(page, "语法");
+    await clickButton(page, "开始");
+    const prompt = await page.evaluate("document.querySelector('#gex-choices').previousElementSibling.textContent.trim()");
+    assert.notEqual(prompt, "");
+    const picked = await page.evaluate(`(() => {
+      const current = window.__draft.grammar;
+      const correct = current.ids[current.index];
+      const choice = [...document.querySelectorAll("#gex-choices .choice")].find((button) => button.getAttribute("data-gid") !== correct);
+      if (!choice) return "missing";
+      choice.click();
+      return "clicked";
+    })()`);
+    assert.equal(picked, "clicked");
+    await clickButton(page, "检查");
+    await page.shot("grammar-wrong");
+    const after = await storage(page);
+    assert.match(after.text, /不对/);
+    const ids = Object.keys(after.mistakes);
+    assert.equal(ids.length, 1);
+    assert.match(ids[0], /^grammar:/);
+    assert.equal(after.mistakes[ids[0]].count, 1);
+    assert.equal(after.reviewQueue.length, 1);
+    await page.evaluate("document.getElementById('gex-check') && document.getElementById('gex-check').click()");
+    assert.equal((await storage(page)).mistakes[ids[0]].count, 1);
+    await page.open(`${site.origin}/index.html`);
+    assert.equal((await storage(page)).mistakes[ids[0]].count, 1);
+    await clickButton(page, "每日复习");
+    const daily = await storage(page);
+    assert.equal(await page.evaluate("document.getElementById('daily-start').disabled"), false);
+    assert.equal(daily.text.includes(prompt), true);
+    await page.shot("grammar-daily");
+    await clickButton(page, "开始今日复习");
+    const review = await storage(page);
+    assert.match(review.text, /语法/);
+    const reviewedPrompt = await page.evaluate("document.querySelector('#gex-choices').previousElementSibling.textContent.trim()");
+    assert.equal(reviewedPrompt, prompt);
+    await page.shot("grammar-review-original");
+  });
+
   await t.test("ungraded pools are not labeled as verified questions", async () => {
     await page.open(`${site.origin}/index.html`);
     await page.evaluate("localStorage.clear()");

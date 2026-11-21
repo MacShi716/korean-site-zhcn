@@ -2419,6 +2419,10 @@ function getItem(id) {
   if (!id) return null;
   const tile = findTileByMistakeId(id);
   if (tile) return tileReviewItem(tile.sent);
+  const board = findMatchByMistakeId(id);
+  if (board) return matchReviewItem(board.ids);
+  const grammar = findGrammarByMistakeId(id);
+  if (grammar) return grammarReviewItem(grammar.item);
   const local = ALL_ITEMS.find(x => x.id === id);
   if (local) return local;
   return dictItemCache[id] || null;
@@ -2931,7 +2935,7 @@ function stageLabel(stageKey) {
   return t('stage_' + stageKey);
 }
 function badgesHTML(item) {
-  if (item && item.source === 'tile') return '<span class="badge">'+esc(t('gradeNone'))+'</span>';
+  if (item && (item.source === 'tile' || item.source === 'match' || item.source === 'grammar')) return '<span class="badge">'+esc(t('gradeNone'))+'</span>';
   if (item && item.source === 'krdict') {
     let h = '';
     if (item.unit) h += '<span class="badge">'+esc(dictLabel('unit', item.unit))+'</span> ';
@@ -4130,7 +4134,7 @@ function renderMistakes() {
   document.getElementById('m-review').onclick = () => {
     const ids = Object.keys(state.mistakes).filter(function (id) { return (state.mistakes[id].count || 0) > 0; });
     const plan = splitReviewIds(ids);
-    if (plan.tiles.length) { startTileReview(plan.tiles, plan.words); return; }
+    if (planHasWork(plan)) { startDueReview(plan); return; }
     showPanel('practice');
     startQuiz(true);
   };
@@ -5345,7 +5349,7 @@ function renderDaily() {
   document.getElementById('daily-start').onclick = () => {
     if (!due.length) { toast(t('dailyEmpty')); return; }
     const plan = splitReviewIds(due.map(function (x) { return x.id; }));
-    if (plan.tiles.length) { startTileReview(plan.tiles, plan.words); return; }
+    if (plan.tiles.length || plan.matches.length || plan.grammars.length) { startDueReview(plan); return; }
     if (!plan.words.length) { toast(t('dailyEmpty')); return; }
     if (!enabledTopics().length) { toast(t('noTopicsSelected')); return; }
     if (!enabledRegisters().length) { toast(t('noTypesSelected')); return; }
@@ -5569,17 +5573,98 @@ function tileReviewItem(sent) {
     sample: true
   };
 }
+function matchMistakeId(ids) { return 'match:' + ids.join(','); }
+function findMatchByMistakeId(id) {
+  if (typeof id !== 'string' || id.indexOf('match:') !== 0) return null;
+  const ids = id.slice(6).split(',').filter(Boolean);
+  if (ids.length !== 4) return null;
+  if (!ids.every(function (itemId) { return ALL_ITEMS.some(function (item) { return item.id === itemId; }); })) return null;
+  return { ids: ids };
+}
+function matchReviewItem(ids) {
+  const items = ids.map(function (itemId) { return ALL_ITEMS.find(function (item) { return item.id === itemId; }); });
+  return {
+    id: matchMistakeId(ids),
+    ko: items.map(function (item) { return item ? item.ko : ''; }).filter(Boolean).join(' · '),
+    zh: items.map(function (item) { return item && item.zh && item.zh !== '(无对应词汇)' ? item.zh : ''; }).filter(Boolean).join(' · '),
+    en: items.map(function (item) { return item && item.en && item.en !== '(no equivalent expression)' ? item.en : ''; }).filter(Boolean).join(' · '),
+    hanja: '',
+    register: 'daily',
+    topic: 'expression',
+    category: 'expression',
+    difficulty: 0,
+    source: 'match',
+    sample: true
+  };
+}
+function grammarMistakeId(item) { return 'grammar:' + item.id; }
+function findGrammarByMistakeId(id) {
+  if (typeof id !== 'string' || id.indexOf('grammar:') !== 0) return null;
+  const index = GRAMMAR.findIndex(function (item) { return item.id === id.slice(8); });
+  if (index < 0) return null;
+  return { index: index, item: GRAMMAR[index] };
+}
+function grammarReviewItem(item) {
+  return {
+    id: grammarMistakeId(item),
+    ko: (item.example && item.example.ko) || item.pattern || '',
+    zh: item.zh || '',
+    en: item.en || '',
+    hanja: '',
+    register: 'daily',
+    topic: 'grammar_endings',
+    category: 'expression',
+    difficulty: 0,
+    source: 'grammar',
+    sample: true
+  };
+}
+function emptyReviewPlan() { return { tiles: [], matches: [], grammars: [], words: [] }; }
+function planHasWork(plan) {
+  return !!(plan && ((plan.tiles && plan.tiles.length) || (plan.matches && plan.matches.length) || (plan.grammars && plan.grammars.length) || (plan.words && plan.words.length)));
+}
 function splitReviewIds(ids) {
   const tiles = [];
+  const matches = [];
+  const grammars = [];
   const words = [];
   (ids || []).forEach(function (id) {
     const tile = findTileByMistakeId(id);
-    if (tile) tiles.push(tile.index);
-    else if (getItem(id)) words.push(id);
+    if (tile) { tiles.push(tile.index); return; }
+    const board = findMatchByMistakeId(id);
+    if (board) { matches.push(board.ids); return; }
+    const grammar = findGrammarByMistakeId(id);
+    if (grammar) { grammars.push(grammar.index); return; }
+    if (getItem(id)) words.push(id);
   });
-  return { tiles: tiles, words: words };
+  return { tiles: tiles, matches: matches, grammars: grammars, words: words };
 }
-function startTileReview(indices, wordIds) {
+function withoutReviewKind(plan, kind) {
+  const next = {
+    tiles: (plan.tiles || []).slice(),
+    matches: (plan.matches || []).slice(),
+    grammars: (plan.grammars || []).slice(),
+    words: (plan.words || []).slice()
+  };
+  next[kind] = [];
+  return next;
+}
+function startDueReview(plan) {
+  if (!plan) return;
+  if (plan.tiles && plan.tiles.length) return startTileReview(plan.tiles, withoutReviewKind(plan, 'tiles'));
+  if (plan.matches && plan.matches.length) return startMatchReview(plan.matches, withoutReviewKind(plan, 'matches'));
+  if (plan.grammars && plan.grammars.length) return startGrammarReview(plan.grammars, withoutReviewKind(plan, 'grammars'));
+  if (!(plan.words && plan.words.length)) return;
+  if (!enabledTopics().length || !enabledRegisters().length) return;
+  quiz = {
+    queue: plan.words.map(function (id) { return { id: id, left: repeatsFor(id) }; }),
+    index: 0, correct: 0, total: 0, mode: 'recognition', fromDue: true
+  };
+  session = null;
+  practiceMode = 'quiz';
+  showPanel('practice');
+}
+function startTileReview(indices, thenPlan) {
   draftLevel = 'ungraded';
   practiceMode = 'tiles';
   quiz = null;
@@ -5597,7 +5682,52 @@ function startTileReview(indices, wordIds) {
     recorded: {},
     phase: 'question',
     fromDue: true,
-    thenWords: (wordIds || []).slice()
+    thenPlan: thenPlan || emptyReviewPlan()
+  };
+  showPanel('practice');
+}
+function startMatchReview(boards, thenPlan) {
+  draftLevel = 'ungraded';
+  practiceMode = 'match';
+  quiz = null;
+  tileRound = null;
+  matchRound = null;
+  gex = null;
+  dictAttempt = null;
+  session = {
+    mode: 'match',
+    level: 'ungraded',
+    order: boards.map(function (ids) { return ids.slice(); }),
+    total: boards.length,
+    index: 0,
+    done: 0,
+    recorded: {},
+    phase: 'question',
+    fromDue: true,
+    thenPlan: thenPlan || emptyReviewPlan()
+  };
+  showPanel('practice');
+}
+function startGrammarReview(indices, thenPlan) {
+  draftLevel = 'ungraded';
+  practiceMode = 'grammar';
+  quiz = null;
+  tileRound = null;
+  matchRound = null;
+  gex = null;
+  dictAttempt = null;
+  session = {
+    mode: 'grammar',
+    level: 'ungraded',
+    order: GRAMMAR.map(function (item) { return item.id; }),
+    reviewIndices: indices.slice(),
+    total: indices.length,
+    index: indices[0],
+    done: 0,
+    recorded: {},
+    phase: 'question',
+    fromDue: true,
+    thenPlan: thenPlan || emptyReviewPlan()
   };
   showPanel('practice');
 }
@@ -5998,17 +6128,19 @@ function sessionNext() {
   dictAttempt = null;
   dictDraft = '';
   dictHide = true;
-  if (session.index + 1 >= session.total) {
-    const words = session.thenWords || [];
-    session.phase = 'done';
-    if (words.length) {
-      quiz = {
-        queue: words.map(function (id) { return { id: id, left: repeatsFor(id) }; }),
-        index: 0, correct: 0, total: 0, mode: 'recognition', fromDue: true
-      };
+  if (session.reviewIndices) {
+    const pos = session.reviewIndices.indexOf(session.index);
+    const plan = session.thenPlan;
+    if (pos < 0 || pos + 1 >= session.reviewIndices.length) {
+      session.phase = 'done';
       session = null;
-      practiceMode = 'quiz';
-    }
+      if (plan) { startDueReview(plan); return; }
+    } else session.index = session.reviewIndices[pos + 1];
+  } else if (session.index + 1 >= session.total) {
+    const plan = session.thenPlan || { tiles: [], matches: [], grammars: [], words: session.thenWords || [] };
+    session.phase = 'done';
+    session = null;
+    if (planHasWork(plan)) { startDueReview(plan); return; }
   } else session.index += 1;
   renderPractice();
 }
@@ -6421,7 +6553,8 @@ function renderMatchMode() {
       const bad = matchRound.links.find(function (p) { return p.l !== p.r; });
       matchRound.lastWrongId = bad ? bad.l : null;
     }
-    sessionRecord();
+    const firstRecord = sessionRecord();
+    if (!matchRound.ok && firstRecord) recordMistake(matchMistakeId(matchRound.ids), 'recognition', 'other', 'mismatch', matchRound.ids.join(','));
     renderPractice();
   };
   const matchNext = document.getElementById('match-next');
@@ -6523,7 +6656,8 @@ function renderGrammarExercise() {
       gex.checked = true;
       gex.ok = gex.choice === g.id;
       gex.explainOpen = false;
-      sessionRecord();
+      const firstRecord = sessionRecord();
+      if (!gex.ok && firstRecord) recordMistake(grammarMistakeId(g), 'usage', 'other', gex.choice, g.id);
       renderPractice();
     };
   } else {
