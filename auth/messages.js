@@ -26,7 +26,7 @@ export const COPY = {
   reset_requested: "请求已交给认证服务。如果这个邮箱可以接收邮件，重置信会发出。服务不会说明账号是否存在。",
   signed_in: "已登录。学习记录、对话和健康相关数据没有上传。",
   signed_out: "已退出这个浏览器上的登录。其他设备上的会话不会被这次操作取消。",
-  guest: "现在是游客。可以继续学习。这份草稿没有读取或上传本机学习记录。",
+  guest: "现在是游客。可以返回继续学习。这里没有读取或上传本机练习记录。",
   password_updated: "密码已更新。学习数据仍然没有上传。",
   recovery_ready: "重置链接已确认。请设置一个新密码。设置完成前，不要把这次会话当成日常登录。",
   no_callback: "地址栏里没有待兑换的邮件链接。",
@@ -61,13 +61,13 @@ export function userMessage(code) {
 
 export function socialBlockedMessage(provider) {
   if (provider === "wechat") {
-    return "微信不是 Supabase 内置登录方式，当前也没有外部应用凭据。没有跳转，没有登录。";
+    return "微信登录暂未启用，没有外部应用凭据。没有跳转，没有登录。";
   }
   if (provider === "qq") {
-    return "QQ 不是 Supabase 内置登录方式，当前也没有外部应用凭据。没有跳转，没有登录。";
+    return "QQ 登录暂未启用，没有外部应用凭据。没有跳转，没有登录。";
   }
   if (provider === "kakao") {
-    return "Kakao 是 Supabase 内置提供方，但还没有 Kakao 应用凭据。没有跳转，没有登录。";
+    return "Kakao 登录暂未启用，还没有应用凭据。没有跳转，没有登录。";
   }
   return "这个登录方式还没有配置。没有跳转，没有登录。";
 }

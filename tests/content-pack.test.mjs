@@ -20,11 +20,13 @@ const FILES = {
   "data/videos/nmk-18863/nmk-18863.ko.vtt": "3bc9c42c80cf1507b9e44e479863a3f8560e5ba8c737ff942d3eb4138401ab4f",
   "data/videos/nmk-18863/nmk-18863.zh.vtt": "89a0273df935ae0bc4befb2c2435ef56b2926a6efacb572e8f746118569c50ae",
   "data/videos/nmk-18863/nmk-18863.en.vtt": "58acd166af0e1e8c210a507c48307e2bb5bcf29741066d0ace18856fa0229cb4",
+  "data/hangil-reading-55/hangil-text-mcq.json": "7d3ca99b0ab07e3fd5fb255ff06ec5fee7dd4153ad34ac94da8e535362b09eaa",
+  "data/hangil-reading-55/LICENSE-HANGIL-MIT.txt": "804739d091ac6139ed32457ead8d5c05c49c7d564dd4447fb011b4a2269e622f",
 };
 const PACK = JSON.parse(readFileSync(new URL("../data/krdict-graded-300/graded-exercises-pack.json", import.meta.url), "utf8"));
 const VOCAB = JSON.parse(readFileSync(new URL("../data/krdict-graded-300/graded-vocab-300.json", import.meta.url), "utf8"));
 
-test("the seven content files keep the supplied SHA256", () => {
+test("content files keep the supplied SHA256", () => {
   for (const [rel, expected] of Object.entries(FILES)) {
     const body = readFileSync(new URL("../" + rel, import.meta.url));
     const actual = createHash("sha256").update(body).digest("hex");
@@ -120,6 +122,17 @@ async function launchChrome() {
   };
 }
 
+async function ensureStarted(page) {
+  const status = await page.evaluate(`(() => {
+    if (document.querySelector(".choice-opt, .tile, .match-item, #d-input, #gex-choices, #reading-card")) return "ready";
+    const start = document.getElementById("session-start");
+    if (start && !start.disabled) { start.click(); return "started"; }
+    return "missing";
+  })()`);
+  assert.equal(status === "ready" || status === "started", true, "practice question did not open");
+  await page.evaluate("new Promise((resolve) => requestAnimationFrame(() => resolve('ok')))");
+}
+
 async function clickButton(page, label) {
   const status = await page.evaluate(`(() => {
     const label = ${JSON.stringify(label)};
@@ -170,22 +183,27 @@ test("graded practice, video, and real sign-in entry", async (t) => {
         active: document.querySelector(".panel.active").id,
         gateHidden: document.getElementById("auth-gate").hidden,
         locked: document.body.classList.contains("auth-locked"),
-        startDisabled: start.disabled,
+        start: start ? start.textContent.trim() : "",
         beginner: beginner.textContent.trim(),
         beginnerOn: beginner.classList.contains("active"),
         grades: [...document.querySelectorAll("[data-grade]")].map((button) => button.textContent.trim()),
         topik: [...document.querySelectorAll("[data-level]")].filter((button) => button.getAttribute("data-level") !== "ungraded").map((button) => button.textContent.trim()),
-        text: document.body.innerText
+        text: document.body.innerText,
+        sources: document.querySelector(".practice-sources") ? document.querySelector(".practice-sources").textContent : "",
+        stem: document.querySelector("#question-stem") ? document.querySelector("#question-stem").textContent.trim() : "",
+        options: document.querySelectorAll(".choice-opt").length
       };
     })()`);
     assert.equal(view.active, "panel-practice");
     assert.equal(view.gateHidden, true);
     assert.equal(view.locked, false);
-    assert.equal(view.startDisabled, false);
+    assert.equal(view.start, "");
     assert.equal(view.beginnerOn, true);
-    assert.deepEqual(view.grades, ["词典初级 · 100", "词典中级 · 100", "词典高级 · 100"]);
+    assert.equal(view.stem.length > 0, true);
+    assert.equal(view.options, 4);
+    assert.deepEqual(view.grades, ["词典初级 · 100", "词典中级 · 100", "词典高级 · 100", "实用阅读 · 55"]);
     assert.deepEqual(view.topik, ["TOPIK 1 · 0", "TOPIK 2 · 0", "TOPIK 3 · 0", "TOPIK 4 · 0", "TOPIK 5 · 0", "TOPIK 6 · 0"]);
-    assert.match(view.text, /TOPIK 1–6 官方核定：0（待官方授权词表）/);
+    assert.match(view.sources, /TOPIK 1–6 官方核定：0（待官方授权词表）/);
     assert.match(view.text, /국립국어원/);
     assert.match(view.text, /CC BY-SA 2.0 KR/);
     assert.equal(view.text.includes("真实登录尚未接通"), false);
@@ -204,7 +222,7 @@ test("graded practice, video, and real sign-in entry", async (t) => {
     await clickButton(page, "词典中级 · 100");
     await clickButton(page, "词典高级 · 100");
     const grades = await page.evaluate(`[...document.querySelectorAll("[data-grade]")].map((button) => button.textContent.trim())`);
-    assert.deepEqual(grades, ["词典初级 · 100", "词典中级 · 100", "词典高级 · 100"]);
+    assert.deepEqual(grades, ["词典初级 · 100", "词典中级 · 100", "词典高级 · 100", "实用阅读 · 55"]);
   });
 
   await t.test("a wrong meaning choice is saved and reviews the same prompt", async () => {
@@ -212,7 +230,7 @@ test("graded practice, video, and real sign-in entry", async (t) => {
     const wrong = item.options.find((option) => option.id !== item.answerOptionId);
     await fresh(page, site.origin);
     await clickButton(page, "词义选择");
-    await clickButton(page, "开始");
+    await ensureStarted(page);
     const before = await page.evaluate("document.querySelector('#panel-practice').innerText");
     assert.equal(before.includes(item.targetKo), true);
     assert.equal(before.includes(item.explanationKo), false);
@@ -243,7 +261,7 @@ test("graded practice, video, and real sign-in entry", async (t) => {
     const item = firstOf("tile", "beginner");
     await fresh(page, site.origin);
     await clickButton(page, "选词拼句");
-    await clickButton(page, "开始");
+    await ensureStarted(page);
     const before = await page.evaluate("document.querySelector('#panel-practice').innerText");
     assert.equal(before.includes(item.meaningHintZh), true);
     assert.equal(before.includes(item.answerSentenceKo), false);
@@ -280,7 +298,7 @@ test("graded practice, video, and real sign-in entry", async (t) => {
     const wrong = item.answerPairs.map((pair, index) => [pair.leftId, rights[(index + 1) % rights.length]]);
     await fresh(page, site.origin);
     await clickButton(page, "选项连线");
-    await clickButton(page, "开始");
+    await ensureStarted(page);
     const visible = await page.evaluate("document.querySelector('#panel-practice').innerText");
     assert.equal(visible.includes("answerPairs"), false);
     for (const [leftId, rightId] of wrong) {
@@ -313,7 +331,7 @@ test("graded practice, video, and real sign-in entry", async (t) => {
     const item = firstOf("dictation", "beginner");
     await fresh(page, site.origin);
     await clickButton(page, "听写");
-    await clickButton(page, "开始");
+    await ensureStarted(page);
     const before = await page.evaluate("document.querySelector('#dictation-mount').innerText");
     assert.equal(before.includes(item.meaningHintZh), true);
     assert.equal(before.includes(item.answerKo), false);
@@ -342,7 +360,7 @@ test("graded practice, video, and real sign-in entry", async (t) => {
   await t.test("grammar stays on its own bank and still reviews the same prompt", async () => {
     await fresh(page, site.origin);
     await clickButton(page, "语法");
-    await clickButton(page, "开始");
+    await ensureStarted(page);
     const prompt = await page.evaluate("document.querySelector('#gex-choices').previousElementSibling.textContent.trim()");
     const picked = await page.evaluate(`(() => {
       const current = window.__draft.grammar;

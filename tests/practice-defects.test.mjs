@@ -126,6 +126,17 @@ async function launchChrome() {
   };
 }
 
+async function ensureStarted(page) {
+  const status = await page.evaluate(`(() => {
+    if (document.querySelector(".choice-opt, .tile, .match-item, #d-input, #gex-choices, #reading-card")) return "ready";
+    const start = document.getElementById("session-start");
+    if (start && !start.disabled) { start.click(); return "started"; }
+    return "missing";
+  })()`);
+  assert.equal(status === "ready" || status === "started", true, "practice question did not open");
+  await page.evaluate("new Promise((resolve) => requestAnimationFrame(() => resolve('ok')))");
+}
+
 async function clickButton(page, label) {
   const status = await page.evaluate(`(() => {
     const label = ${JSON.stringify(label)};
@@ -183,8 +194,9 @@ test("practice defects: tile mistakes, same-day review, and ungraded labels", as
     await page.open(`${site.origin}/index.html`);
     await page.evaluate("localStorage.clear()");
     await page.open(`${site.origin}/index.html`);
+    await clickButton(page, "选词拼句");
     await clickButton(page, "未分级");
-    await clickButton(page, "开始");
+    await ensureStarted(page);
     const prompt = await page.evaluate(`(() => {
       const heads = [...document.querySelectorAll("#panel-practice p strong")];
       return heads.length ? heads[heads.length - 1].textContent : "";
@@ -232,9 +244,9 @@ test("practice defects: tile mistakes, same-day review, and ungraded labels", as
     await page.open(`${site.origin}/index.html`);
     await page.evaluate("localStorage.clear()");
     await page.open(`${site.origin}/index.html`);
-    await clickButton(page, "未分级");
     await clickButton(page, "听写");
-    await clickButton(page, "开始");
+    await clickButton(page, "未分级");
+    await ensureStarted(page);
     await page.evaluate(`(() => {
       const input = document.getElementById("d-input");
       input.value = "가나다QA오답";
@@ -258,9 +270,9 @@ test("practice defects: tile mistakes, same-day review, and ungraded labels", as
     await page.open(`${site.origin}/index.html`);
     await page.evaluate("localStorage.clear()");
     await page.open(`${site.origin}/index.html`);
-    await clickButton(page, "未分级");
     await clickButton(page, "选项连线");
-    await clickButton(page, "开始");
+    await clickButton(page, "未分级");
+    await ensureStarted(page);
     const words = await page.evaluate(`[...document.querySelectorAll("[data-side='r']")].map((button) => button.textContent.trim())`);
     assert.equal(words.length, 4);
     const paired = await page.evaluate(`(() => {
@@ -311,9 +323,9 @@ test("practice defects: tile mistakes, same-day review, and ungraded labels", as
     await page.open(`${site.origin}/index.html`);
     await page.evaluate("localStorage.clear()");
     await page.open(`${site.origin}/index.html`);
-    await clickButton(page, "未分级");
     await clickButton(page, "语法");
-    await clickButton(page, "开始");
+    await clickButton(page, "未分级");
+    await ensureStarted(page);
     const prompt = await page.evaluate("document.querySelector('#gex-choices').previousElementSibling.textContent.trim()");
     assert.notEqual(prompt, "");
     const picked = await page.evaluate(`(() => {
@@ -362,7 +374,7 @@ test("practice defects: tile mistakes, same-day review, and ungraded labels", as
       ["语法", "7"],
     ];
     for (const [mode, count] of modes) {
-      if (mode !== "选词拼句") await clickButton(page, mode);
+      await clickButton(page, mode);
       await clickButton(page, "未分级");
       const lines = await page.evaluate(`[...document.querySelectorAll("#panel-practice p")].map((p) => p.textContent.trim())`);
       assert.equal(lines.some((line) => line === `已核实题目: ${count}`), false, mode);
@@ -410,9 +422,9 @@ test("practice defects: tile mistakes, same-day review, and ungraded labels", as
     await clickNav(page, "练习");
     view = await storage(page);
     assert.equal(view.active, "panel-practice");
-    await clickButton(page, "未分级");
     await clickButton(page, "听写");
-    await clickButton(page, "开始");
+    await clickButton(page, "未分级");
+    await ensureStarted(page);
     await page.evaluate(`(() => {
       const input = document.getElementById("d-input");
       input.value = "가나다QA오답";

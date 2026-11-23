@@ -32,7 +32,8 @@
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", "Noto Sans SC", "PingFang SC", "Apple SD Gothic Neo", sans-serif;
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.5; min-height: 100%; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.5; min-height: 100%; max-width: 100%; }
+.main, .panel, .card, .app-header, .site-foot, .header-row, .header-actions { min-width: 0; max-width: 100%; }
 body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
 button, input, select, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; border: none; background: none; }
@@ -42,12 +43,12 @@ a { color: var(--primary); }
   position: sticky; top: 0; z-index: 40;
   background: rgba(246,243,238,.92); backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
-  padding: 10px 14px 8px;
+  padding: 8px 12px 6px;
 }
-.header-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.header-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
 .brand { font-weight: 700; font-size: 1.05rem; color: var(--primary); letter-spacing: -.02em; }
 .brand small { display: block; font-weight: 500; font-size: .7rem; color: var(--muted); letter-spacing: 0; }
-.chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
 .chip {
   display: inline-flex; align-items: center; gap: 4px;
   padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border);
@@ -124,8 +125,20 @@ a { color: var(--primary); }
 .compose-hint-soft { color: var(--accent); font-size: .9rem; margin-top: 8px; }
 .compose-meta { font-size: .8rem; color: var(--muted); }
 .dict-pager { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:10px; }
-.dict-credit { font-size:.85rem; color:var(--muted); margin-top:10px; }
+.dict-credit { font-size:.85rem; color:var(--muted); margin-top:10px; overflow-wrap:anywhere; word-break:break-word; }
+.dict-credit a, .card a, .cue-row, .site-foot, .site-foot a { overflow-wrap:anywhere; word-break:break-word; }
 .dict-credit a { color:var(--primary); }
+.practice-toolbar { padding: 8px 10px; }
+.practice-scroll { display:flex; flex-wrap:nowrap; gap:6px; overflow-x:auto; max-width:100%; min-width:0; margin:6px 0; }
+.practice-scroll .btn { flex:0 0 auto; min-height:34px; padding:4px 10px; font-size:.78rem; }
+.practice-credit { margin:4px 0 0; font-size:.75rem; }
+.practice-sources { margin-top:6px; }
+.practice-sources summary { cursor:pointer; color:var(--muted); font-size:.82rem; }
+.practice-question h3 { font-size:.9rem; margin-bottom:4px; }
+.practice-question p { margin:4px 0; }
+.practice-question .ko-big { font-size:1.35rem; }
+.practice-question .choice-opt { min-height:40px; padding:8px 12px; text-align:left; }
+.study-video, img, video { max-width:100%; }
 
 .reveal-zone { position: relative; }
 .reveal-mask {
@@ -179,7 +192,7 @@ a { color: var(--primary); }
 .progress-bar > span { display: block; height: 100%; background: var(--primary); width: 0%; transition: width .25s; }
 
 .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-.seg button { padding: 8px 12px; min-height: 36px; background: #fff; font-size: .8rem; }
+.seg button { padding: 6px 8px; min-height: 34px; background: #fff; font-size: .78rem; }
 .seg button.active { background: var(--primary); color: #fff; }
 
 .placeholder-box {
@@ -924,7 +937,7 @@ const I18N = {
     lang_zh: "Chinese",
     lang_en: "English",
     lang_ko: "Korean",
-    draftScopeNote: "Practice opens first. Sign-in stays closed until you use the account button, which opens the real Supabase page. Dictionary grades are not TOPIK.",
+    draftScopeNote: "Practice opens first. Sign-in stays closed until you use the account button. Dictionary grades are not TOPIK.",
     nav_video: "Video",
     sub_choice: "Word meaning",
     modeTaskCount: "Questions in this grade",
@@ -978,10 +991,25 @@ const I18N = {
     sessionStart: "Start",
     sessionDoneTitle: "Round complete",
     sessionDoneBody: "Submitted {done} / {total}. This round does not start over.",
-    sessionEnd: "End and choose again",
+    sessionEnd: "End this round",
     sessionProgress: "This round",
     matchTaskNote: "This matching board is one task, not one task per pair.",
     freeWriteOpen: "Free writing",
+    readingGrade: "Practical reading",
+    readingNotice: "Original practical Korean reading under the MIT license. Not an official TOPIK item, and not a TOPIK 1–6 grade.",
+    readingCreditBefore: "Reading items are from",
+    readingCreditMid: ", original practical Korean reading, licensed under",
+    readingCreditAfter: ". Not official TOPIK.",
+    readingCreditShort: "not official TOPIK",
+    packLoading: "Loading questions…",
+    packError: "The question bank did not load. This is not an empty bank of 0 questions.",
+    packRetry: "Try again",
+    sessionAgain: "Practice another round",
+    sessionExitedTitle: "Round closed",
+    sessionExitedBody: "This round stays closed. It will not open again on its own.",
+    sourcesSummary: "Sources and grades",
+    readingEmpty: "The practical reading bank did not load. This is not 0 questions.",
+    scopeEmpty: "This range has no questions to start.",
   },
   ko: {
     brandName: "당신과 동행",
@@ -1378,7 +1406,7 @@ const I18N = {
     lang_zh: "중국어",
     lang_en: "영어",
     lang_ko: "한국어",
-    draftScopeNote: "연습이 먼저 열립니다. 로그인은 계정 버튼을 누를 때만 실제 Supabase 페이지로 이동합니다. 사전 등급은 TOPIK이 아닙니다.",
+    draftScopeNote: "연습이 먼저 열립니다. 로그인은 계정 버튼을 누를 때만 계정 페이지로 이동합니다. 사전 등급은 TOPIK이 아닙니다.",
     nav_video: "영상",
     sub_choice: "뜻 고르기",
     modeTaskCount: "이 등급 문제",
@@ -1432,10 +1460,25 @@ const I18N = {
     sessionStart: "시작",
     sessionDoneTitle: "이번 라운드 끝",
     sessionDoneBody: "{done} / {total} 제출했습니다. 처음부터 다시 돌지 않습니다.",
-    sessionEnd: "끝내고 다시 고르기",
+    sessionEnd: "이 라운드 끝내기",
     sessionProgress: "이번 라운드",
     matchTaskNote: "이 연결판은 한 문제이고, 짝마다 한 문제로 세지 않습니다.",
     freeWriteOpen: "자유롭게 쓰기",
+    readingGrade: "실용 읽기",
+    readingNotice: "MIT 라이선스의 원작 실용 한국어 읽기입니다. TOPIK 공식 문제가 아니고 TOPIK 1–6 등급도 아닙니다.",
+    readingCreditBefore: "읽기 문항 출처",
+    readingCreditMid: ", 원작 실용 한국어 읽기, 라이선스",
+    readingCreditAfter: ". TOPIK 공식 문제가 아닙니다.",
+    readingCreditShort: "TOPIK 공식 문제 아님",
+    packLoading: "문제를 불러오는 중…",
+    packError: "문제 은행을 불러오지 못했습니다. 0문제가 아닙니다.",
+    packRetry: "다시 시도",
+    sessionAgain: "한 라운드 더",
+    sessionExitedTitle: "라운드를 닫았습니다",
+    sessionExitedBody: "이 화면에서 멈춥니다. 저절로 다시 시작하지 않습니다.",
+    sourcesSummary: "출처와 등급 설명",
+    readingEmpty: "실용 읽기 문제 은행을 불러오지 못했습니다. 0문제가 아닙니다.",
+    scopeEmpty: "이 범위에는 지금 풀 문제가 없습니다.",
   },
   zh: {
     brandName: "与你同行",
@@ -1832,7 +1875,7 @@ const I18N = {
     lang_zh: "中文",
     lang_en: "英语",
     lang_ko: "韩语",
-    draftScopeNote: "打开页面直接进入练习。登录不会自动弹出；点账号按钮才进入现有 Supabase 登录页。词典分级不是 TOPIK 核定。",
+    draftScopeNote: "打开页面直接进入练习。登录不会自动弹出；点账号按钮才进入账号登录页。词典分级不是 TOPIK 核定。",
     nav_video: "视频学习",
     sub_choice: "词义选择",
     modeTaskCount: "本档本题",
@@ -1886,10 +1929,25 @@ const I18N = {
     sessionStart: "开始",
     sessionDoneTitle: "本轮做完",
     sessionDoneBody: "已提交 {done} / {total}。这一轮不会再从头循环。",
-    sessionEnd: "结束并重选",
+    sessionEnd: "结束本轮",
     sessionProgress: "本轮进度",
     matchTaskNote: "这一整块连线算 1 题，不按每一对另计一题。",
     freeWriteOpen: "自由造句",
+    readingGrade: "实用阅读",
+    readingNotice: "原创实用韩语阅读（MIT）。不是 TOPIK 官方真题，也没有 TOPIK 1–6 逐题等级。",
+    readingCreditBefore: "阅读题来自",
+    readingCreditMid: "，原创实用韩语阅读，协议为",
+    readingCreditAfter: "。不是 TOPIK 官方真题。",
+    readingCreditShort: "不是 TOPIK 官方真题",
+    packLoading: "题库加载中…",
+    packError: "题库没有加载成功。这不是 0 道题。",
+    packRetry: "重试",
+    sessionAgain: "再练一轮",
+    sessionExitedTitle: "本轮已退出",
+    sessionExitedBody: "停留在这里，不会自动重开。要继续请点再练一轮，或另选档位和题型。",
+    sourcesSummary: "来源与分级说明",
+    readingEmpty: "实用阅读题库没有加载成功。这不是 0 道题。",
+    scopeEmpty: "这个范围现在没有可做的题。",
   }
 };
 
@@ -2476,6 +2534,8 @@ function getItem(id) {
   if (choice) return gradedChoiceReviewItem(choice);
   const dictated = findGradedDictationByMistakeId(id);
   if (dictated) return gradedDictationReviewItem(dictated);
+  const reading = findReadingByMistakeId(id);
+  if (reading) return readingReviewItem(reading);
   const local = ALL_ITEMS.find(x => x.id === id);
   if (local) return local;
   return dictItemCache[id] || null;
@@ -2988,7 +3048,7 @@ function stageLabel(stageKey) {
   return t('stage_' + stageKey);
 }
 function badgesHTML(item) {
-  if (item && (item.source === 'tile' || item.source === 'match' || item.source === 'grammar')) return '<span class="badge">'+esc(t('gradeNone'))+'</span>';
+  if (item && (item.source === 'tile' || item.source === 'match' || item.source === 'grammar' || item.source === 'reading')) return '<span class="badge">'+esc(t('gradeNone'))+'</span>';
   if (item && item.source === 'krdict') {
     let h = '';
     if (item.unit) h += '<span class="badge">'+esc(dictLabel('unit', item.unit))+'</span> ';
@@ -5404,7 +5464,7 @@ function renderDaily() {
   document.getElementById('daily-start').onclick = () => {
     if (!due.length) { toast(t('dailyEmpty')); return; }
     const plan = splitReviewIds(due.map(function (x) { return x.id; }));
-    if (planHasWork(plan) && (plan.tiles.length || plan.matches.length || plan.grammars.length || plan.gradedTiles.length || plan.gradedMatches.length || plan.gradedChoices.length || plan.gradedDictations.length)) { startDueReview(plan); return; }
+    if (planHasWork(plan) && (plan.tiles.length || plan.matches.length || plan.grammars.length || plan.gradedTiles.length || plan.gradedMatches.length || plan.gradedChoices.length || plan.gradedDictations.length || plan.readings.length)) { startDueReview(plan); return; }
     if (!plan.words.length) { toast(t('dailyEmpty')); return; }
     if (!enabledTopics().length) { toast(t('noTopicsSelected')); return; }
     if (!enabledRegisters().length) { toast(t('noTypesSelected')); return; }
@@ -5561,7 +5621,7 @@ const KNOWN_ENTRY_PANELS = {
   browse:1, practice:1, dictation:1, grammar:1, compose:1, mistakes:1,
   'grammar-ex':1, daily:1, translate:1, favorites:1, materials:1, settings:1, ai:1, video:1
 };
-const KNOWN_ENTRY_MODES = { tiles:1, match:1, dictation:1, grammar:1, quiz:1, choice:1 };
+const KNOWN_ENTRY_MODES = { tiles:1, match:1, dictation:1, grammar:1, quiz:1, choice:1, reading:1 };
 function bootEntry() {
   authOpen = false;
   // Saved learning data is kept. A stored last page, if any older copy has one, is not used as the homepage.
@@ -5580,7 +5640,7 @@ function bootEntry() {
 document.addEventListener('DOMContentLoaded', () => {
   startSite();
   loadGradedPack().then(function () {
-    if (session) return;
+    maybeStartColdSession();
     renderFooter();
     if (currentPanel === 'practice') renderPractice();
     else if (currentPanel === 'daily') renderDaily();
@@ -5605,11 +5665,19 @@ function startSite() {
 /********************
  * Review draft: sidebar + practice interactions (not a production change)
  ********************/
-let practiceMode = 'tiles';
+let practiceMode = 'choice';
 let draftLevel = 'beginner';
+let dictGrade = 'beginner';
+let lastDrillMode = 'choice';
 let gradedPack = null;
 let gradedVocab = null;
+let readingPack = null;
+let packStatus = 'loading';
+let readingStatus = 'loading';
+let practiceHold = null;
+let bootSessionStarted = false;
 let choiceRound = null;
+let readingRound = null;
 let gradedTileRound = null;
 let gradedMatchRound = null;
 let session = null;
@@ -5699,11 +5767,11 @@ function grammarReviewItem(item) {
   };
 }
 function emptyReviewPlan() {
-  return { tiles: [], matches: [], grammars: [], words: [], gradedTiles: [], gradedMatches: [], gradedChoices: [], gradedDictations: [] };
+  return { tiles: [], matches: [], grammars: [], words: [], gradedTiles: [], gradedMatches: [], gradedChoices: [], gradedDictations: [], readings: [] };
 }
 function planHasWork(plan) {
   if (!plan) return false;
-  return ['tiles', 'matches', 'grammars', 'words', 'gradedTiles', 'gradedMatches', 'gradedChoices', 'gradedDictations'].some(function (key) {
+  return ['tiles', 'matches', 'grammars', 'words', 'gradedTiles', 'gradedMatches', 'gradedChoices', 'gradedDictations', 'readings'].some(function (key) {
     return plan[key] && plan[key].length;
   });
 }
@@ -5723,6 +5791,8 @@ function splitReviewIds(ids) {
     if (choice) { plan.gradedChoices.push(choice.id); return; }
     const dictated = findGradedDictationByMistakeId(id);
     if (dictated) { plan.gradedDictations.push(dictated.id); return; }
+    const reading = findReadingByMistakeId(id);
+    if (reading) { plan.readings.push(reading.id); return; }
     if (getItem(id)) plan.words.push(id);
   });
   return plan;
@@ -5739,6 +5809,7 @@ function startDueReview(plan) {
   if (plan.gradedMatches && plan.gradedMatches.length) return startGradedSession('match', plan.gradedMatches, withoutReviewKind(plan, 'gradedMatches'));
   if (plan.gradedChoices && plan.gradedChoices.length) return startGradedSession('choice', plan.gradedChoices, withoutReviewKind(plan, 'gradedChoices'));
   if (plan.gradedDictations && plan.gradedDictations.length) return startGradedSession('dictation', plan.gradedDictations, withoutReviewKind(plan, 'gradedDictations'));
+  if (plan.readings && plan.readings.length) return startReadingReview(plan.readings, withoutReviewKind(plan, 'readings'));
   if (plan.tiles && plan.tiles.length) return startTileReview(plan.tiles, withoutReviewKind(plan, 'tiles'));
   if (plan.matches && plan.matches.length) return startMatchReview(plan.matches, withoutReviewKind(plan, 'matches'));
   if (plan.grammars && plan.grammars.length) return startGrammarReview(plan.grammars, withoutReviewKind(plan, 'grammars'));
@@ -5750,6 +5821,28 @@ function startDueReview(plan) {
   };
   session = null;
   practiceMode = 'quiz';
+  showPanel('practice');
+}
+function startReadingReview(ids, thenPlan) {
+  draftLevel = 'reading';
+  practiceMode = 'reading';
+  quiz = null;
+  setupPane = null;
+  practiceHold = null;
+  resetPracticeRounds();
+  session = {
+    mode: 'reading',
+    level: 'reading',
+    graded: true,
+    order: ids.slice(),
+    total: ids.length,
+    index: 0,
+    done: 0,
+    recorded: {},
+    phase: 'question',
+    fromDue: true,
+    thenPlan: thenPlan || emptyReviewPlan()
+  };
   showPanel('practice');
 }
 function startTileReview(indices, thenPlan) {
@@ -6168,16 +6261,42 @@ function vocabCount(grade) {
   if (!Array.isArray(items)) return 0;
   return items.filter(function (row) { return row.grade === grade && row.topikVerified !== true; }).length;
 }
+function fetchJsonOk(url) {
+  return fetch(url).then(function (res) {
+    if (!res || !res.ok) return null;
+    return res.json();
+  }).catch(function () { return null; });
+}
 function loadGradedPack() {
+  packStatus = 'loading';
+  readingStatus = 'loading';
   return Promise.all([
-    fetch(siteAsset('data/krdict-graded-300/graded-exercises-pack.json')).then(function (res) { return res.ok ? res.json() : null; }),
-    fetch(siteAsset('data/krdict-graded-300/graded-vocab-300.json')).then(function (res) { return res.ok ? res.json() : null; })
-  ]).then(function (pair) {
-    gradedPack = pair[0];
-    gradedVocab = pair[1];
+    fetchJsonOk(siteAsset('data/krdict-graded-300/graded-exercises-pack.json')),
+    fetchJsonOk(siteAsset('data/krdict-graded-300/graded-vocab-300.json')),
+    fetchJsonOk(siteAsset('data/hangil-reading-55/hangil-text-mcq.json'))
+  ]).then(function (triple) {
+    if (!triple[0] || !triple[1] || !Array.isArray(triple[0].choice)) {
+      gradedPack = null;
+      gradedVocab = null;
+      packStatus = 'error';
+    } else {
+      gradedPack = triple[0];
+      gradedVocab = triple[1];
+      packStatus = 'ready';
+    }
+    if (!triple[2] || !Array.isArray(triple[2].items) || !triple[2].items.length) {
+      readingPack = null;
+      readingStatus = 'error';
+    } else {
+      readingPack = triple[2];
+      readingStatus = 'ready';
+    }
   }).catch(function () {
-    gradedPack = gradedPack || null;
-    gradedVocab = gradedVocab || null;
+    gradedPack = null;
+    gradedVocab = null;
+    readingPack = null;
+    packStatus = 'error';
+    readingStatus = 'error';
   });
 }
 function reviewShell(ko, zh) {
@@ -6232,6 +6351,31 @@ function findGradedDictationByMistakeId(id) {
   if (typeof id !== 'string' || id.indexOf('dict:') !== 0) return null;
   return gradedById('dictation', id.slice(5));
 }
+function readingItems() {
+  const rows = readingPack && readingPack.items;
+  return Array.isArray(rows) ? rows : [];
+}
+function readingById(id) {
+  return readingItems().find(function (row) { return row.id === id; }) || null;
+}
+function findReadingByMistakeId(id) {
+  if (typeof id !== 'string' || id.indexOf('reading:') !== 0) return null;
+  return readingById(id.slice(8));
+}
+function readingReviewItem(item) {
+  const row = reviewShell(item.contextKo || '', '');
+  row.id = 'reading:' + item.id;
+  row.ko = item.contextKo || item.promptKo || '';
+  row.zh = '';
+  row.en = '';
+  row.source = 'reading';
+  return row;
+}
+function readingButtonLabel() {
+  if (readingStatus === 'ready') return t('readingGrade') + ' · ' + readingItems().length;
+  if (readingStatus === 'loading') return t('readingGrade') + ' · …';
+  return t('readingGrade');
+}
 function startGradedSession(mode, ids, thenPlan) {
   const first = gradedById(packKeyForMode(mode), ids[0]);
   draftLevel = (first && first.grade) || draftLevel || 'beginner';
@@ -6244,6 +6388,8 @@ function startGradedSession(mode, ids, thenPlan) {
   choiceRound = null;
   gradedTileRound = null;
   gradedMatchRound = null;
+  readingRound = null;
+  practiceHold = null;
   session = {
     mode: mode,
     level: draftLevel,
@@ -6269,9 +6415,9 @@ function renderGradedChoice() {
   const options = choiceRound.order.map(function (id) {
     return item.options.find(function (opt) { return opt.id === id; });
   }).filter(Boolean);
-  body.innerHTML = '<div class="card"><h3>'+esc(t('sub_choice'))+'</h3>'
+  body.innerHTML = '<div class="card practice-question"><h3>'+esc(t('sub_choice'))+'</h3>'
     + '<p>'+esc(item.promptZh || '')+'</p>'
-    + '<p class="ko-big">'+esc(item.targetKo || '')+'</p>'
+    + '<p class="ko-big" id="question-stem">'+esc(item.targetKo || '')+'</p>'
     + (item.contextKo ? '<p class="muted">'+esc(item.contextKo)+'</p>' : '')
     + '<div class="row" id="choice-options">'
     + options.map(function (opt) {
@@ -6306,6 +6452,53 @@ function renderGradedChoice() {
     result.innerHTML = '<p class="'+(choiceRound.ok ? 'result-ok' : 'result-bad')+'">'+esc(choiceRound.ok ? t('correct') : t('incorrect'))+'</p>'
       + (chosen ? '<p>'+esc(chosen.textZh || '')+'</p>' : '')
       + (item.explanationKo ? '<p class="muted">'+esc(item.explanationKo)+'</p>' : '');
+  }
+}
+function renderReading() {
+  const body = document.getElementById('practice-body');
+  const item = readingById(session.order[session.index]);
+  if (!body || !item) return;
+  if (!readingRound || readingRound.id !== item.id) {
+    readingRound = { id: item.id, picked: null, checked: false, ok: false, order: shuffleCopy(item.options.map(function (opt) { return opt.id; })) };
+  }
+  const options = readingRound.order.map(function (id) {
+    return item.options.find(function (opt) { return opt.id === id; });
+  }).filter(Boolean);
+  body.innerHTML = '<div class="card practice-question" id="reading-card"><h3>'+esc(t('readingGrade'))+'</h3>'
+    + '<p class="ko-big" id="question-stem">'+esc(item.contextKo || '')+'</p>'
+    + '<p id="reading-prompt">'+esc(item.promptKo || '')+'</p>'
+    + '<div class="choices" id="choice-options">'
+    + options.map(function (opt) {
+        const on = readingRound.picked === opt.id;
+        return '<button type="button" class="btn '+(on ? '' : 'secondary')+' choice-opt" data-choice="'+esc(opt.id)+'"'+(readingRound.checked ? ' disabled' : '')+'>'+esc(opt.text || '')+'</button>';
+      }).join('')
+    + '</div><div class="row" style="margin-top:10px">'
+    + '<button type="button" class="btn" id="choice-check"'+(readingRound.picked && !readingRound.checked ? '' : ' disabled')+'>'+esc(t('check'))+'</button>'
+    + (readingRound.checked ? '<button type="button" class="btn" id="choice-next">'+esc(t('tileNext'))+'</button>' : '')
+    + '</div><div id="choice-result"></div></div>';
+  body.querySelectorAll('.choice-opt').forEach(function (btn) {
+    btn.onclick = function () {
+      if (readingRound.checked) return;
+      readingRound.picked = btn.getAttribute('data-choice');
+      renderPractice();
+    };
+  });
+  const check = document.getElementById('choice-check');
+  if (check) check.onclick = function () {
+    if (!readingRound.picked || readingRound.checked) return;
+    readingRound.checked = true;
+    readingRound.ok = readingRound.picked === item.answerOptionId;
+    const first = sessionRecord();
+    if (!readingRound.ok && first) recordMistake('reading:' + item.id, 'recognition', null, readingRound.picked, '');
+    renderPractice();
+  };
+  const next = document.getElementById('choice-next');
+  if (next) next.onclick = sessionNext;
+  if (readingRound.checked) {
+    const result = document.getElementById('choice-result');
+    const note = item.explanationKo || item.explanationEn || '';
+    result.innerHTML = '<p class="'+(readingRound.ok ? 'result-ok' : 'result-bad')+'">'+esc(readingRound.ok ? t('correct') : t('incorrect'))+'</p>'
+      + (note ? '<p class="muted">'+esc(note)+'</p>' : '');
   }
 }
 function renderGradedTile() {
@@ -6514,7 +6707,7 @@ function paintVideo(el) {
     + '<div class="cue-list" id="cue-list"></div>'
     + '<p class="dict-credit">'+esc(meta.license && meta.license.attribution || '국립중앙박물관 · 공공누리 제1유형(KOGL1)')
     + ' · <a href="'+esc(meta.license && meta.license.url || 'https://www.kogl.or.kr/info/licenseType1.do')+'" target="_blank" rel="noopener noreferrer">KOGL1</a>'
-    + ' · <a href="'+esc(meta.sourcePage || '')+'" target="_blank" rel="noopener noreferrer">'+esc(meta.sourcePage || '')+'</a></p>'
+    + ' · <a class="source-link" href="'+esc(meta.sourcePage || '')+'" target="_blank" rel="noopener noreferrer">'+esc(meta.sourcePage || '')+'</a></p>'
     + '</div>';
   const video = document.getElementById('study-video');
   video.addEventListener('error', function () {
@@ -6613,26 +6806,22 @@ function dictGradeButtonLabel(grade) {
   const key = grade === 'intermediate' ? 'dictGradeIntermediate' : (grade === 'advanced' ? 'dictGradeAdvanced' : 'dictGradeBeginner');
   return t(key) + ' · ' + vocabCount(grade);
 }
-function levelBarHTML(mode) {
-  let h = '<p class="muted">'+esc(t('levelPick'))+'</p><div class="subnav grade-bar">';
-  DICT_GRADES.forEach(function (grade) {
-    const on = draftLevel === grade;
-    h += '<button type="button" data-grade="'+grade+'" class="btn '+(on ? '' : 'secondary')+(on ? ' active' : '')+'">'+esc(dictGradeButtonLabel(grade))+'</button>';
-  });
-  h += '</div><p class="muted">'+esc(t('dictGradeSource'))+'</p>';
-  h += '<p>'+esc(t('topikOfficialZero'))+'</p><div class="subnav level-bar">';
-  for (let n = 1; n <= 6; n++) {
-    const on = draftLevel === String(n);
-    h += '<button type="button" data-level="'+n+'" class="btn '+(on ? '' : 'secondary')+(on ? ' active' : '')+'">TOPIK '+n+' · '+verifiedTopikCount()+'</button>';
+function readingCreditHTML() {
+  const file = siteAsset('data/hangil-reading-55/LICENSE-HANGIL-MIT.txt');
+  return esc(t('readingCreditBefore'))
+    + ' <a href="https://github.com/itsdoubleem/Hangil_app" target="_blank" rel="noopener noreferrer">Hangil_app</a>'
+    + esc(t('readingCreditMid'))
+    + ' <a href="'+esc(file)+'" target="_blank" rel="noopener noreferrer">MIT</a>'
+    + esc(t('readingCreditAfter'));
+}
+function shortCreditHTML() {
+  if (practiceMode === 'reading' || draftLevel === 'reading') {
+    return '<a href="https://github.com/itsdoubleem/Hangil_app" target="_blank" rel="noopener noreferrer">Hangil_app</a>'
+      + ' · <a href="https://opensource.org/license/mit" target="_blank" rel="noopener noreferrer">MIT</a>'
+      + ' · '+esc(t('readingCreditShort'));
   }
-  const onU = draftLevel === 'ungraded';
-  h += '<button type="button" data-level="ungraded" class="btn '+(onU ? '' : 'secondary')+(onU ? ' active' : '')+'">'+esc(t('gradeNone'))+' · '+ungradedPoolCount(mode)+'</button></div>';
-  h += '<p class="muted">'+esc(t('levelVerifiedNote'))+'</p>';
-  if (draftLevel === 'ungraded') {
-    h += '<p class="muted">'+esc(t('levelUngradedNote'))+'</p>';
-    h += '<p>'+esc(t('gradeVerifiedCount'))+': 0 · '+esc(t('gradeNone'))+': '+ungradedPoolCount(mode)+'</p>';
-  }
-  return h;
+  return '<a href="https://krdict.korean.go.kr/" target="_blank" rel="noopener noreferrer">국립국어원 《한국어기초사전》</a>'
+    + ' · <a href="https://creativecommons.org/licenses/by-sa/2.0/kr/" target="_blank" rel="noopener noreferrer">CC BY-SA 2.0 KR</a>';
 }
 function levelBlockedHTML(level) {
   return '<div class="card"><h3>TOPIK '+esc(String(level))+'</h3>'
@@ -6655,16 +6844,20 @@ function matchTaskCount() {
 }
 function taskCountFor(mode) {
   if (mode === 'grammar') return GRAMMAR.length;
+  if (mode === 'reading' || draftLevel === 'reading') return readingStatus === 'ready' ? readingItems().length : 0;
   if (isDictGrade(draftLevel)) return gradedItems(mode, draftLevel).length;
   if (draftLevel === 'ungraded') return ungradedPoolCount(mode);
   return 0;
 }
 function buildSessionOrder(mode) {
   if (mode === 'grammar') return GRAMMAR.map(function (item) { return item.id; });
+  if (mode === 'reading' || draftLevel === 'reading') {
+    if (readingStatus !== 'ready') return [];
+    return readingItems().map(function (item) { return item.id; });
+  }
   if (isDictGrade(draftLevel)) return gradedItems(mode, draftLevel).map(function (item) { return item.id; });
   if (draftLevel !== 'ungraded') return [];
   if (mode === 'tiles') return TILE_BANK.map(function (_, i) { return i; });
-  if (mode === 'grammar') return GRAMMAR.map(function (g) { return g.id; });
   if (mode === 'dictation') return PERSON_ITEMS.map(function (it) { return it.id; });
   if (mode === 'match') {
     const ids = matchPoolIdList();
@@ -6681,8 +6874,7 @@ function sessionRecord() {
   session.done += 1;
   return true;
 }
-function sessionNext() {
-  if (!session || !session.recorded[session.index]) return;
+function resetPracticeRounds() {
   tileRound = null;
   matchRound = null;
   gex = null;
@@ -6692,31 +6884,80 @@ function sessionNext() {
   choiceRound = null;
   gradedTileRound = null;
   gradedMatchRound = null;
+  readingRound = null;
+}
+function startPracticeSession(mode, level) {
+  if (mode) practiceMode = mode;
+  if (level) draftLevel = level;
+  if (practiceMode === 'reading') draftLevel = 'reading';
+  resetPracticeRounds();
+  const order = buildSessionOrder(practiceMode);
+  if (!order.length) {
+    session = null;
+    return false;
+  }
+  session = {
+    mode: practiceMode,
+    level: practiceMode === 'grammar' ? 'ungraded' : draftLevel,
+    graded: practiceMode === 'reading' || (isDictGrade(draftLevel) && practiceMode !== 'grammar'),
+    order: order,
+    total: order.length,
+    index: 0,
+    done: 0,
+    recorded: {},
+    phase: 'question'
+  };
+  practiceHold = null;
+  setupPane = null;
+  quiz = null;
+  return true;
+}
+function maybeStartColdSession() {
+  if (bootSessionStarted || packStatus !== 'ready') return;
+  if (currentPanel !== 'practice' || session || quiz || setupPane || practiceHold) return;
+  bootSessionStarted = true;
+  startPracticeSession(practiceMode || 'choice', draftLevel || 'beginner');
+}
+function practiceAgainRound() {
+  practiceHold = null;
+  startPracticeSession(practiceMode, draftLevel);
+  renderPractice();
+}
+function finishOrChain(plan) {
+  if (plan && planHasWork(plan)) {
+    session = null;
+    startDueReview(plan);
+    return;
+  }
+  if (session) session.phase = 'done';
+  practiceHold = 'done';
+  renderPractice();
+}
+function sessionNext() {
+  if (!session || !session.recorded[session.index]) return;
+  resetPracticeRounds();
   if (session.reviewIndices) {
     const pos = session.reviewIndices.indexOf(session.index);
     const plan = session.thenPlan;
     if (pos < 0 || pos + 1 >= session.reviewIndices.length) {
-      session.phase = 'done';
-      session = null;
-      if (plan) { startDueReview(plan); return; }
-    } else session.index = session.reviewIndices[pos + 1];
+      finishOrChain(plan);
+      return;
+    }
+    session.index = session.reviewIndices[pos + 1];
   } else if (session.index + 1 >= session.total) {
-    const plan = session.thenPlan || { tiles: [], matches: [], grammars: [], words: session.thenWords || [] };
-    session.phase = 'done';
-    session = null;
-    if (planHasWork(plan)) { startDueReview(plan); return; }
+    const plan = session.thenPlan || emptyReviewPlan();
+    if (!session.thenPlan && session.thenWords) plan.words = session.thenWords.slice();
+    finishOrChain(plan);
+    return;
   } else session.index += 1;
   renderPractice();
 }
 function endSession() {
   session = null;
   setupPane = null;
-  tileRound = null;
-  matchRound = null;
-  gex = null;
-  dictAttempt = null;
-  dictDraft = '';
   quiz = null;
+  resetPracticeRounds();
+  practiceHold = 'exited';
   renderPractice();
 }
 function progressHTML() {
@@ -6729,145 +6970,249 @@ function progressHTML() {
     + '<div class="session-progress-fill" style="width:'+pct+'%"></div></div>'
     + '<strong>'+done+' / '+total+'</strong></div>';
 }
-function practiceShell(mode) {
-  const inSession = session && (session.phase === 'question' || session.phase === 'done');
-  if (inSession) {
-    return '<div class="card">'+progressHTML()
-      + '<div class="row"><button type="button" class="btn ghost" id="session-end">'+esc(t('sessionEnd'))+'</button></div>'
-      + '</div><div id="practice-body"></div>';
+function countLineHTML(mode) {
+  if (mode === 'reading' || draftLevel === 'reading') {
+    if (readingStatus !== 'ready') return '';
+    return '<p>'+esc(t('modeTaskCount'))+': '+readingItems().length+'</p>';
   }
+  if (mode === 'grammar' || draftLevel === 'ungraded') {
+    const n = mode === 'grammar' ? GRAMMAR.length : ungradedPoolCount(mode);
+    return '<p>'+esc(t('gradeNone'))+': '+n+'</p>';
+  }
+  if (isDictGrade(draftLevel)) return '<p>'+esc(t('modeTaskCount'))+': '+taskCountFor(mode)+'</p>';
+  return '';
+}
+function scopeButtonsHTML(mode) {
+  let h = '<div class="practice-scroll" role="group" aria-label="'+esc(t('levelPick'))+'">';
+  DICT_GRADES.forEach(function (grade) {
+    const on = draftLevel === grade && practiceMode !== 'reading';
+    h += '<button type="button" data-grade="'+grade+'" class="btn'+(on ? ' active' : ' secondary')+'">'+esc(dictGradeButtonLabel(grade))+'</button>';
+  });
+  const onReading = draftLevel === 'reading' || practiceMode === 'reading';
+  h += '<button type="button" data-grade="reading" class="btn'+(onReading ? ' active' : ' secondary')+'">'+esc(readingButtonLabel())+'</button>';
+  const poolMode = mode === 'reading' ? 'tiles' : mode;
+  const poolN = ungradedPoolCount(poolMode);
+  const onU = draftLevel === 'ungraded' && practiceMode !== 'reading';
+  const ungradedText = poolN ? (t('gradeNone') + ' · ' + poolN) : t('gradeNone');
+  h += '<button type="button" data-level="ungraded" class="btn'+(onU ? ' active' : ' secondary')+'">'+esc(ungradedText)+'</button>';
+  h += '</div>';
+  return h;
+}
+function modeButtonsHTML(mode) {
   const modes = [
     ['choice', 'sub_choice'],
     ['tiles', 'sub_tiles'],
     ['match', 'sub_match'],
     ['dictation', 'nav_dictation'],
-    ['grammar', 'nav_grammar']
+    ['grammar', 'nav_grammar'],
+    ['reading', 'readingGrade']
   ];
-  const taskCount = taskCountFor(mode);
-  const countLine = (mode === 'grammar' || draftLevel === 'ungraded')
-    ? (t('gradeNone') + ': ' + (mode === 'grammar' ? GRAMMAR.length : ungradedPoolCount(mode)))
-    : (isDictGrade(draftLevel) ? (t('modeTaskCount') + ': ' + taskCount) : (t('gradeVerifiedCount') + ': 0'));
-  return '<div class="card"><h2>'+esc(t('nav_practice'))+'</h2>'
+  return '<div class="practice-scroll" role="tablist">'+modes.map(function (pair) {
+    const on = mode === pair[0];
+    return '<button type="button" role="tab" data-pmode="'+pair[0]+'" class="btn'+(on ? ' active' : ' secondary')+'" aria-selected="'+(on ? 'true' : 'false')+'">'+esc(t(pair[1]))+'</button>';
+  }).join('')+'</div>';
+}
+function sourcesDetailsHTML(mode) {
+  let levels = '';
+  for (let n = 1; n <= 6; n++) {
+    const on = draftLevel === String(n);
+    levels += '<button type="button" data-level="'+n+'" class="btn'+(on ? ' active' : ' secondary')+'">TOPIK '+n+' · '+verifiedTopikCount()+'</button>';
+  }
+  const ungradedN = ungradedPoolCount(mode === 'reading' ? 'tiles' : mode);
+  return '<details class="practice-sources"><summary>'+esc(t('sourcesSummary'))+'</summary>'
     + '<p class="muted">'+esc(t('draftScopeNote'))+'</p>'
-    + levelBarHTML(mode)
-    + '<div class="subnav" role="tablist">'
-    + modes.map(function (pair) {
-        const on = mode === pair[0];
-        return '<button type="button" role="tab" data-pmode="'+pair[0]+'" class="btn '+(on ? '' : 'secondary')+(on ? ' active' : '')+'" aria-selected="'+(on ? 'true' : 'false')+'">'+esc(t(pair[1]))+'</button>';
-      }).join('')
-    + '</div>'
-    + '<p class="muted">'+esc(countLine)+'</p>'
+    + '<p class="muted">'+esc(t('dictGradeSource'))+'</p>'
     + '<p class="dict-credit">'+dictCreditHTML()+'</p>'
-    + '<div class="row" style="margin-top:8px">'
-    + '<button type="button" class="btn" id="session-start"'+(taskCount ? '' : ' disabled')+'>'+esc(t('sessionStart'))+'</button>'
-    + '<button type="button" class="btn ghost" id="pmode-quiz">'+esc(t('quizSecondary'))+'</button>'
-    + '<button type="button" class="btn ghost" id="pmode-compose">'+esc(t('freeWriteOpen'))+'</button>'
-    + '</div></div><div id="practice-body"></div>';
+    + '<p class="muted">'+esc(t('readingNotice'))+'</p>'
+    + '<p class="dict-credit">'+readingCreditHTML()+'</p>'
+    + '<p>'+esc(t('topikOfficialZero'))+'</p>'
+    + '<div class="subnav level-bar">'+levels+'</div>'
+    + '<p class="muted">'+esc(t('levelVerifiedNote'))+'</p>'
+    + '<p>'+esc(t('gradeVerifiedCount'))+': 0</p>'
+    + (draftLevel === 'ungraded' ? '<p class="muted">'+esc(t('levelUngradedNote'))+'</p><p>'+esc(t('gradeVerifiedCount'))+': 0 · '+esc(t('gradeNone'))+': '+ungradedN+'</p>' : '')
+    + '<div class="row"><button type="button" class="btn ghost" id="pmode-quiz">'+esc(t('quizSecondary'))+'</button>'
+    + '<button type="button" class="btn ghost" id="pmode-compose">'+esc(t('freeWriteOpen'))+'</button></div>'
+    + '</details>';
+}
+function practiceChromeHTML(mode) {
+  const answering = session && session.phase === 'question';
+  const showProgress = session && (session.phase === 'question' || session.phase === 'done');
+  return '<div class="card practice-toolbar">'
+    + (showProgress ? progressHTML() : '')
+    + scopeButtonsHTML(mode)
+    + modeButtonsHTML(mode)
+    + countLineHTML(mode)
+    + (answering ? '<div class="row"><button type="button" class="btn ghost" id="session-end">'+esc(t('sessionEnd'))+'</button></div>' : '')
+    + sourcesDetailsHTML(mode)
+    + '</div><div id="practice-body"></div>'
+    + '<p class="dict-credit practice-credit">'+shortCreditHTML()+'</p>';
+}
+function onPickMode(mode) {
+  if (!mode) return;
+  if (mode !== 'reading') lastDrillMode = mode;
+  practiceMode = mode;
+  if (mode === 'reading') draftLevel = 'reading';
+  else if (draftLevel === 'reading') draftLevel = dictGrade || 'beginner';
+  quiz = null;
+  setupPane = null;
+  practiceHold = null;
+  startPracticeSession(practiceMode, draftLevel);
+  renderPractice();
+}
+function onPickGrade(grade) {
+  if (grade === 'reading') {
+    draftLevel = 'reading';
+    practiceMode = 'reading';
+  } else if (isDictGrade(grade)) {
+    dictGrade = grade;
+    draftLevel = grade;
+    if (practiceMode === 'reading' || practiceMode === 'quiz') practiceMode = lastDrillMode || 'choice';
+  }
+  quiz = null;
+  setupPane = null;
+  practiceHold = null;
+  startPracticeSession(practiceMode, draftLevel);
+  renderPractice();
+}
+function onPickLevel(level) {
+  quiz = null;
+  setupPane = null;
+  practiceHold = null;
+  if (level === 'ungraded') {
+    draftLevel = 'ungraded';
+    if (practiceMode === 'reading' || practiceMode === 'quiz') practiceMode = lastDrillMode || 'choice';
+    startPracticeSession(practiceMode, 'ungraded');
+    renderPractice();
+    return;
+  }
+  draftLevel = String(level);
+  session = null;
+  renderPractice();
+}
+function retryPack() {
+  loadGradedPack().then(function () {
+    if (packStatus === 'ready' && !session && !practiceHold) {
+      bootSessionStarted = false;
+      maybeStartColdSession();
+    }
+    renderFooter();
+    renderPractice();
+  });
+}
+function bindPracticeChrome(el) {
+  el.querySelectorAll('.practice-scroll .btn.active').forEach(function (button) {
+    const scroller = button.closest('.practice-scroll');
+    if (!scroller) return;
+    const left = button.offsetLeft;
+    const right = left + button.offsetWidth;
+    if (left < scroller.scrollLeft) scroller.scrollLeft = left;
+    else if (right > scroller.scrollLeft + scroller.clientWidth) scroller.scrollLeft = right - scroller.clientWidth;
+  });
+  const endBtn = el.querySelector('#session-end');
+  if (endBtn) endBtn.onclick = endSession;
+  el.querySelectorAll('[data-pmode]').forEach(function (btn) {
+    btn.onclick = function () { onPickMode(btn.getAttribute('data-pmode')); };
+  });
+  el.querySelectorAll('[data-grade]').forEach(function (btn) {
+    btn.onclick = function () { onPickGrade(btn.getAttribute('data-grade')); };
+  });
+  el.querySelectorAll('[data-level]').forEach(function (btn) {
+    btn.onclick = function () { onPickLevel(btn.getAttribute('data-level')); };
+  });
+  const qbtn = el.querySelector('#pmode-quiz');
+  if (qbtn) qbtn.onclick = function () {
+    session = null;
+    quiz = null;
+    setupPane = 'quiz';
+    practiceMode = 'quiz';
+    practiceHold = 'quiz';
+    renderPractice();
+  };
+  const cbtn = el.querySelector('#pmode-compose');
+  if (cbtn) cbtn.onclick = function () {
+    session = null;
+    quiz = null;
+    setupPane = 'compose';
+    practiceHold = 'compose';
+    renderPractice();
+  };
+}
+function renderSessionQuestion() {
+  if (session.mode === 'reading') renderReading();
+  else if (session.graded && session.mode === 'choice') renderGradedChoice();
+  else if (session.graded && session.mode === 'tiles') renderGradedTile();
+  else if (session.graded && session.mode === 'match') renderGradedMatch();
+  else if (session.graded && session.mode === 'dictation') {
+    document.getElementById('practice-body').innerHTML = '<div id="dictation-mount"></div>';
+    renderGradedDictation();
+  } else if (session.mode === 'dictation') {
+    document.getElementById('practice-body').innerHTML = '<div id="dictation-mount"></div>';
+    const cur = session.order[session.index];
+    const ix = PERSON_ITEMS.findIndex(function (it) { return it.id === cur; });
+    if (ix >= 0) state.dictationIndex = ix;
+    renderDictation();
+  } else if (session.mode === 'match') renderMatchMode();
+  else if (session.mode === 'grammar') renderGrammarExercise();
+  else renderTileMode();
+  bindGlossSpeak(document.getElementById('panel-practice'));
 }
 function renderPractice() {
   const el = document.getElementById('panel-practice');
   if (!el) return;
-  if (quiz && !session) practiceMode = 'quiz';
-  const mode = practiceMode || 'tiles';
-  el.innerHTML = practiceShell(mode);
-  const endBtn = document.getElementById('session-end');
-  if (endBtn) endBtn.onclick = endSession;
+  if (quiz && !session && !practiceHold) practiceMode = 'quiz';
+  const mode = practiceMode || 'choice';
+  if (packStatus === 'loading') {
+    el.innerHTML = '<div class="card" id="pack-status" role="status"><p>'+esc(t('packLoading'))+'</p></div>';
+    return;
+  }
+  if (packStatus === 'error') {
+    el.innerHTML = '<div class="card" id="pack-status" role="alert"><p>'+esc(t('packError'))+'</p>'
+      + '<button type="button" class="btn" id="pack-retry">'+esc(t('packRetry'))+'</button></div>';
+    document.getElementById('pack-retry').onclick = retryPack;
+    return;
+  }
+  el.innerHTML = practiceChromeHTML(mode);
+  bindPracticeChrome(el);
+  const body = document.getElementById('practice-body');
   if (session && session.phase === 'done') {
-    document.getElementById('practice-body').innerHTML = '<div class="card"><h3>'+esc(t('sessionDoneTitle'))+'</h3>'
-      + '<p>'+esc(tf('sessionDoneBody', { done: session.done, total: session.total }))+'</p></div>';
+    body.innerHTML = '<div class="card"><h3>'+esc(t('sessionDoneTitle'))+'</h3>'
+      + '<p>'+esc(tf('sessionDoneBody', { done: session.done, total: session.total }))+'</p>'
+      + '<button type="button" class="btn" id="session-again">'+esc(t('sessionAgain'))+'</button></div>';
+    document.getElementById('session-again').onclick = practiceAgainRound;
+    return;
+  }
+  if (practiceHold === 'exited' && !session) {
+    body.innerHTML = '<div class="card"><h3>'+esc(t('sessionExitedTitle'))+'</h3>'
+      + '<p>'+esc(t('sessionExitedBody'))+'</p>'
+      + '<button type="button" class="btn" id="session-again">'+esc(t('sessionAgain'))+'</button></div>';
+    document.getElementById('session-again').onclick = practiceAgainRound;
     return;
   }
   if (session && session.phase === 'question') {
-    if (session.graded && session.mode === 'choice') renderGradedChoice();
-    else if (session.graded && session.mode === 'tiles') renderGradedTile();
-    else if (session.graded && session.mode === 'match') renderGradedMatch();
-    else if (session.graded && session.mode === 'dictation') {
-      document.getElementById('practice-body').innerHTML = '<div id="dictation-mount"></div>';
-      renderGradedDictation();
-    } else if (session.mode === 'dictation') {
-      document.getElementById('practice-body').innerHTML = '<div id="dictation-mount"></div>';
-      const cur = session.order[session.index];
-      const ix = PERSON_ITEMS.findIndex(function (it) { return it.id === cur; });
-      if (ix >= 0) state.dictationIndex = ix;
-      renderDictation();
-    } else if (session.mode === 'match') renderMatchMode();
-    else if (session.mode === 'grammar') renderGrammarExercise();
-    else renderTileMode();
-    bindGlossSpeak(el);
+    renderSessionQuestion();
     return;
   }
-  el.querySelectorAll('[data-pmode]').forEach(function (btn) {
-    btn.onclick = function () {
-      quiz = null;
-      setupPane = null;
-      session = null;
-      practiceMode = btn.getAttribute('data-pmode');
-      renderPractice();
-    };
-  });
-  const qbtn = document.getElementById('pmode-quiz');
-  if (qbtn) qbtn.onclick = function () { session = null; setupPane = 'quiz'; quiz = null; practiceMode = 'quiz'; renderPractice(); };
-  const cbtn = document.getElementById('pmode-compose');
-  if (cbtn) cbtn.onclick = function () { session = null; setupPane = 'compose'; quiz = null; renderPractice(); };
-  const startBtn = document.getElementById('session-start');
-  if (startBtn) startBtn.onclick = function () {
-    const order = buildSessionOrder(practiceMode);
-    if (!order.length) return;
-    const graded = isDictGrade(draftLevel) && practiceMode !== 'grammar';
-    session = { mode: practiceMode, level: practiceMode === 'grammar' ? 'ungraded' : draftLevel, graded: graded, order: order, total: order.length, index: 0, done: 0, recorded: {}, phase: 'question' };
-    setupPane = null;
-    quiz = null;
-    tileRound = null;
-    matchRound = null;
-    gex = null;
-    dictAttempt = null;
-    dictDraft = '';
-    choiceRound = null;
-    gradedTileRound = null;
-    gradedMatchRound = null;
-    renderPractice();
-  };
-  el.querySelectorAll('[data-grade]').forEach(function (btn) {
-    btn.onclick = function () {
-      draftLevel = btn.getAttribute('data-grade');
-      session = null;
-      if (quiz && !quiz.fromDue) quiz = null;
-      renderPractice();
-    };
-  });
-  el.querySelectorAll('[data-level]').forEach(function (btn) {
-    btn.onclick = function () {
-      draftLevel = btn.getAttribute('data-level');
-      session = null;
-      if (quiz && !quiz.fromDue) quiz = null;
-      renderPractice();
-    };
-  });
-  const reviewBypass = quiz && quiz.fromDue;
-  if (reviewBypass || setupPane === 'quiz' || practiceMode === 'quiz') {
-    document.getElementById('practice-body').innerHTML = '<div id="practice-quiz-mount"></div>';
+  if ((practiceMode === 'reading' || draftLevel === 'reading') && readingStatus !== 'ready') {
+    body.innerHTML = '<div class="card" role="alert"><p>'+esc(t('readingEmpty'))+'</p>'
+      + '<button type="button" class="btn" id="pack-retry">'+esc(t('packRetry'))+'</button></div>';
+    document.getElementById('pack-retry').onclick = retryPack;
+    return;
+  }
+  if ((quiz && quiz.fromDue) || setupPane === 'quiz' || practiceMode === 'quiz') {
+    body.innerHTML = '<div id="practice-quiz-mount"></div>';
     renderPracticeQuiz();
     return;
   }
   if (setupPane === 'compose') {
-    document.getElementById('practice-body').innerHTML = '<div class="card"><h3>'+esc(t('freeWriteTitle'))+'</h3><p class="muted">'+esc(t('freeWriteNote'))+'</p><div id="compose-mount"></div></div>';
+    body.innerHTML = '<div class="card"><h3>'+esc(t('freeWriteTitle'))+'</h3><p class="muted">'+esc(t('freeWriteNote'))+'</p><div id="compose-mount"></div></div>';
     renderCompose();
     return;
   }
-  const body = document.getElementById('practice-body');
-  if (!draftLevel) {
-    body.innerHTML = '<div class="card"><p>'+esc(t('pickLevelFirst'))+'</p></div>';
-    return;
-  }
-  if (isDictGrade(draftLevel)) {
-    body.innerHTML = '<div class="card"><p>'+esc(dictGradeButtonLabel(draftLevel))+'</p><p class="muted">'+esc(t('dictGradeSource'))+'</p><p>'+esc(t('sessionStart'))+' · '+taskCountFor(mode)+'</p></div>';
-    return;
-  }
-  if (draftLevel !== 'ungraded') {
+  if (draftLevel && draftLevel !== 'ungraded' && draftLevel !== 'reading' && !isDictGrade(draftLevel)) {
     body.innerHTML = levelBlockedHTML(draftLevel);
     return;
   }
-  body.innerHTML = '<div class="card"><p class="muted">'+esc(t('levelUngradedNote'))+'</p><p>'+esc(t('sessionStart'))+' · '+ungradedPoolCount(mode)+'</p></div>';
+  body.innerHTML = '<div class="card"><p>'+esc(t('scopeEmpty'))+'</p></div>';
 }
 
 function ensureTile() {
@@ -7329,7 +7674,9 @@ window.__draft = {
   get mode() { return practiceMode; },
   get tile() { return tileRound; },
   get match() { return matchRound; },
-  get grammar() { return gex; }
+  get grammar() { return gex; },
+  get session() { return session; },
+  get packStatus() { return packStatus; }
 };
 
 window.__koreanSite = {
