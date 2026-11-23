@@ -1,0 +1,2536 @@
+{
+  "schemaVersion": 1,
+  "noticeZh": "原创 EPS 风格韩语阅读练习，不是 NIIED TOPIK 真题，也没有 TOPIK 1–6 逐题等级。",
+  "items": [
+    {
+      "id": "hangil-exam-drills-d01-01",
+      "type": "reading-mcq",
+      "promptKo": "이 표지의 뜻으로 맞는 것을 고르십시오.",
+      "contextKo": "출입 금지",
+      "options": [
+        {
+          "id": "o1",
+          "text": "들어가면 안 됩니다"
+        },
+        {
+          "id": "o2",
+          "text": "빨리 들어가십시오"
+        },
+        {
+          "id": "o3",
+          "text": "문을 닫으십시오"
+        },
+        {
+          "id": "o4",
+          "text": "여기에서 기다리십시오"
+        }
+      ],
+      "answerOptionId": "o1",
+      "explanationEn": "출입 is entry and 금지 is prohibition.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d01",
+        "itemIndexZeroBased": 0,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d01-02",
+      "type": "reading-mcq",
+      "promptKo": "이 표지의 뜻으로 맞는 것을 고르십시오.",
+      "contextKo": "안전모 착용",
+      "options": [
+        {
+          "id": "o1",
+          "text": "안전모를 벗어야 합니다"
+        },
+        {
+          "id": "o2",
+          "text": "안전모를 팝니다"
+        },
+        {
+          "id": "o3",
+          "text": "안전모가 없습니다"
+        },
+        {
+          "id": "o4",
+          "text": "안전모를 써야 합니다"
+        }
+      ],
+      "answerOptionId": "o4",
+      "explanationEn": "착용 means wearing or putting on.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d01",
+        "itemIndexZeroBased": 1,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d01-03",
+      "type": "reading-mcq",
+      "promptKo": "이 표지의 뜻으로 맞는 것을 고르십시오.",
+      "contextKo": "미끄럼 주의",
+      "options": [
+        {
+          "id": "o1",
+          "text": "여기는 계단입니다"
+        },
+        {
+          "id": "o2",
+          "text": "신발을 벗으십시오"
+        },
+        {
+          "id": "o3",
+          "text": "바닥이 미끄러우니 조심하십시오"
+        },
+        {
+          "id": "o4",
+          "text": "바닥을 닦으십시오"
+        }
+      ],
+      "answerOptionId": "o3",
+      "explanationEn": "미끄럼 is slipping, 주의 is caution.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d01",
+        "itemIndexZeroBased": 2,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d01-04",
+      "type": "reading-mcq",
+      "promptKo": "이 표지가 가리키는 곳은 어디입니까?",
+      "contextKo": "비상구",
+      "options": [
+        {
+          "id": "o1",
+          "text": "식당"
+        },
+        {
+          "id": "o2",
+          "text": "급할 때 나가는 문"
+        },
+        {
+          "id": "o3",
+          "text": "화장실"
+        },
+        {
+          "id": "o4",
+          "text": "사무실"
+        }
+      ],
+      "answerOptionId": "o2",
+      "explanationEn": "비상 is emergency, 구 is an exit or opening.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d01",
+        "itemIndexZeroBased": 3,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d01-05",
+      "type": "reading-mcq",
+      "promptKo": "이 표지가 붙어 있는 기계는 어떻습니까?",
+      "contextKo": "고장",
+      "options": [
+        {
+          "id": "o1",
+          "text": "쓸 수 없습니다"
+        },
+        {
+          "id": "o2",
+          "text": "새 기계입니다"
+        },
+        {
+          "id": "o3",
+          "text": "청소했습니다"
+        },
+        {
+          "id": "o4",
+          "text": "수리가 끝났습니다"
+        }
+      ],
+      "answerOptionId": "o1",
+      "explanationEn": "고장 means the machine has broken down.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d01",
+        "itemIndexZeroBased": 4,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d01-06",
+      "type": "reading-mcq",
+      "promptKo": "누가 들어갈 수 있습니까?",
+      "contextKo": "관계자 외 출입 금지",
+      "options": [
+        {
+          "id": "o1",
+          "text": "누구나"
+        },
+        {
+          "id": "o2",
+          "text": "손님만"
+        },
+        {
+          "id": "o3",
+          "text": "아무도 못 들어갑니다"
+        },
+        {
+          "id": "o4",
+          "text": "일하는 사람만"
+        }
+      ],
+      "answerOptionId": "o4",
+      "explanationEn": "관계자 is a person concerned with the work; 외 is other than.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d01",
+        "itemIndexZeroBased": 5,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d01-07",
+      "type": "reading-mcq",
+      "promptKo": "이곳에서 하면 안 되는 것은 무엇입니까?",
+      "contextKo": "화기 엄금",
+      "options": [
+        {
+          "id": "o1",
+          "text": "이야기하는 것"
+        },
+        {
+          "id": "o2",
+          "text": "앉는 것"
+        },
+        {
+          "id": "o3",
+          "text": "담배를 피우는 것"
+        },
+        {
+          "id": "o4",
+          "text": "물을 마시는 것"
+        }
+      ],
+      "answerOptionId": "o3",
+      "explanationEn": "화기 is fire or flame, 엄금 is a strict prohibition.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d01",
+        "itemIndexZeroBased": 6,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d01-08",
+      "type": "reading-mcq",
+      "promptKo": "이 말의 뜻으로 맞는 것을 고르십시오.",
+      "contextKo": "안전 제일",
+      "options": [
+        {
+          "id": "o1",
+          "text": "첫 번째 문입니다"
+        },
+        {
+          "id": "o2",
+          "text": "안전이 가장 중요합니다"
+        },
+        {
+          "id": "o3",
+          "text": "빨리 일해야 합니다"
+        },
+        {
+          "id": "o4",
+          "text": "한 사람만 들어갑니다"
+        }
+      ],
+      "answerOptionId": "o2",
+      "explanationEn": "제일 means first, in the sense of most important.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d01",
+        "itemIndexZeroBased": 7,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d02-01",
+      "type": "reading-mcq",
+      "promptKo": "기계가 ( ) 나서 오늘은 작업을 못 합니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "고장"
+        },
+        {
+          "id": "o2",
+          "text": "청소"
+        },
+        {
+          "id": "o3",
+          "text": "검사"
+        },
+        {
+          "id": "o4",
+          "text": "포장"
+        }
+      ],
+      "answerOptionId": "o1",
+      "explanationEn": "고장이 나다 is the set phrase for breaking down.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d02",
+        "itemIndexZeroBased": 0,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d02-02",
+      "type": "reading-mcq",
+      "promptKo": "작업장에 들어갈 때는 ( )를 써야 합니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "신발장"
+        },
+        {
+          "id": "o2",
+          "text": "사무실"
+        },
+        {
+          "id": "o3",
+          "text": "점심"
+        },
+        {
+          "id": "o4",
+          "text": "안전모"
+        }
+      ],
+      "answerOptionId": "o4",
+      "explanationEn": "안전모 is the safety helmet; the verb 쓰다 confirms it is worn on the head.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d02",
+        "itemIndexZeroBased": 1,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d02-03",
+      "type": "reading-mcq",
+      "promptKo": "이번 달 ( )이 아직 통장에 안 들어왔습니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "교육"
+        },
+        {
+          "id": "o2",
+          "text": "주소"
+        },
+        {
+          "id": "o3",
+          "text": "월급"
+        },
+        {
+          "id": "o4",
+          "text": "휴가"
+        }
+      ],
+      "answerOptionId": "o3",
+      "explanationEn": "월급 is the monthly wage, and 통장 is a bank account.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d02",
+        "itemIndexZeroBased": 2,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d02-04",
+      "type": "reading-mcq",
+      "promptKo": "허리를 다쳐서 ( )에 갔습니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "시장"
+        },
+        {
+          "id": "o2",
+          "text": "병원"
+        },
+        {
+          "id": "o3",
+          "text": "은행"
+        },
+        {
+          "id": "o4",
+          "text": "공장"
+        }
+      ],
+      "answerOptionId": "o2",
+      "explanationEn": "An injury goes to 병원.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d02",
+        "itemIndexZeroBased": 3,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d02-05",
+      "type": "reading-mcq",
+      "promptKo": "오늘 일이 많아서 ( )을 두 시간 했습니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "잔업"
+        },
+        {
+          "id": "o2",
+          "text": "휴일"
+        },
+        {
+          "id": "o3",
+          "text": "지각"
+        },
+        {
+          "id": "o4",
+          "text": "퇴근"
+        }
+      ],
+      "answerOptionId": "o1",
+      "explanationEn": "잔업 is overtime.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d02",
+        "itemIndexZeroBased": 4,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d02-06",
+      "type": "reading-mcq",
+      "promptKo": "쓰레기는 ( )해서 버리십시오.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "포장"
+        },
+        {
+          "id": "o2",
+          "text": "수리"
+        },
+        {
+          "id": "o3",
+          "text": "신청"
+        },
+        {
+          "id": "o4",
+          "text": "분리수거"
+        }
+      ],
+      "answerOptionId": "o4",
+      "explanationEn": "분리수거 is separating waste for collection.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d02",
+        "itemIndexZeroBased": 5,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d02-07",
+      "type": "reading-mcq",
+      "promptKo": "계약서에 ( )하기 전에 꼭 읽어 보십시오.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "운동"
+        },
+        {
+          "id": "o2",
+          "text": "전화"
+        },
+        {
+          "id": "o3",
+          "text": "사인"
+        },
+        {
+          "id": "o4",
+          "text": "출근"
+        }
+      ],
+      "answerOptionId": "o3",
+      "explanationEn": "사인하다 is to sign.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d02",
+        "itemIndexZeroBased": 6,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d02-08",
+      "type": "reading-mcq",
+      "promptKo": "기계를 만지기 전에 ( )을 끄십시오.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "서류"
+        },
+        {
+          "id": "o2",
+          "text": "전원"
+        },
+        {
+          "id": "o3",
+          "text": "장갑"
+        },
+        {
+          "id": "o4",
+          "text": "의자"
+        }
+      ],
+      "answerOptionId": "o2",
+      "explanationEn": "전원 is the power supply; 끄다 is to switch off.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d02",
+        "itemIndexZeroBased": 7,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d03-01",
+      "type": "reading-mcq",
+      "promptKo": "다음과 같은 뜻의 문장을 고르십시오.\n\n내일은 쉬는 날입니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "내일은 일을 하지 않습니다"
+        },
+        {
+          "id": "o2",
+          "text": "내일은 일이 많습니다"
+        },
+        {
+          "id": "o3",
+          "text": "내일 일을 시작합니다"
+        },
+        {
+          "id": "o4",
+          "text": "내일까지 일합니다"
+        }
+      ],
+      "answerOptionId": "o1",
+      "explanationEn": "쉬는 날 is a day of rest — no work.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d03",
+        "itemIndexZeroBased": 0,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d03-02",
+      "type": "reading-mcq",
+      "promptKo": "다음과 같은 뜻의 문장을 고르십시오.\n\n월급이 아직 안 나왔습니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "월급을 벌써 받았습니다"
+        },
+        {
+          "id": "o2",
+          "text": "월급이 올랐습니다"
+        },
+        {
+          "id": "o3",
+          "text": "월급을 안 받습니다"
+        },
+        {
+          "id": "o4",
+          "text": "월급을 아직 받지 못했습니다"
+        }
+      ],
+      "answerOptionId": "o4",
+      "explanationEn": "나오다 here means to be paid out; 아직 안 means not yet.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d03",
+        "itemIndexZeroBased": 1,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d03-03",
+      "type": "reading-mcq",
+      "promptKo": "다음과 같은 뜻의 문장을 고르십시오.\n\n이 기계는 위험하니까 혼자 쓰지 마십시오.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "혼자 써도 괜찮습니다"
+        },
+        {
+          "id": "o2",
+          "text": "기계를 고쳐야 합니다"
+        },
+        {
+          "id": "o3",
+          "text": "다른 사람과 같이 써야 합니다"
+        },
+        {
+          "id": "o4",
+          "text": "아무도 쓸 수 없습니다"
+        }
+      ],
+      "answerOptionId": "o3",
+      "explanationEn": "Do not use it alone implies someone else must be there.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d03",
+        "itemIndexZeroBased": 2,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d03-04",
+      "type": "reading-mcq",
+      "promptKo": "다음과 같은 뜻의 문장을 고르십시오.\n\n비가 와서 오늘 작업이 취소됐습니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "작업이 내일 시작합니다"
+        },
+        {
+          "id": "o2",
+          "text": "오늘은 일을 안 합니다"
+        },
+        {
+          "id": "o3",
+          "text": "오늘 일이 빨리 끝납니다"
+        },
+        {
+          "id": "o4",
+          "text": "비가 오면 일합니다"
+        }
+      ],
+      "answerOptionId": "o2",
+      "explanationEn": "취소되다 means to be cancelled.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d03",
+        "itemIndexZeroBased": 3,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d03-05",
+      "type": "reading-mcq",
+      "promptKo": "다음과 같은 뜻의 문장을 고르십시오.\n\n점심시간은 12시부터 1시까지입니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "한 시간 동안 점심을 먹습니다"
+        },
+        {
+          "id": "o2",
+          "text": "12시에 일이 끝납니다"
+        },
+        {
+          "id": "o3",
+          "text": "1시에 점심이 시작됩니다"
+        },
+        {
+          "id": "o4",
+          "text": "점심시간이 두 시간입니다"
+        }
+      ],
+      "answerOptionId": "o1",
+      "explanationEn": "From 12 to 1 is one hour.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d03",
+        "itemIndexZeroBased": 4,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d03-06",
+      "type": "reading-mcq",
+      "promptKo": "다음과 같은 뜻의 문장을 고르십시오.\n\n안전화를 신지 않으면 작업장에 들어갈 수 없습니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "안전화는 필요 없습니다"
+        },
+        {
+          "id": "o2",
+          "text": "작업장에 못 들어갑니다"
+        },
+        {
+          "id": "o3",
+          "text": "안전화를 작업장에서 줍니다"
+        },
+        {
+          "id": "o4",
+          "text": "안전화를 신어야 들어갈 수 있습니다"
+        }
+      ],
+      "answerOptionId": "o4",
+      "explanationEn": "A negative condition restated as a positive requirement.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d03",
+        "itemIndexZeroBased": 5,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d06-01",
+      "type": "reading-mcq",
+      "promptKo": "교육은 몇 시간 동안 합니까?",
+      "contextKo": "[안전 교육 안내]\n\n일시: 3월 15일 (금) 오후 2시 ~ 4시\n장소: 3층 회의실\n대상: 전 직원 (신입 사원 필수)\n\n※ 교육에 참석하지 못하는 사람은 미리 사무실에 알려 주시기 바랍니다.\n※ 교육 시간은 근무 시간으로 인정됩니다.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "네 시간"
+        },
+        {
+          "id": "o2",
+          "text": "한 시간"
+        },
+        {
+          "id": "o3",
+          "text": "두 시간"
+        },
+        {
+          "id": "o4",
+          "text": "세 시간"
+        }
+      ],
+      "answerOptionId": "o3",
+      "explanationEn": "2pm to 4pm is two hours.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d06",
+        "itemIndexZeroBased": 0,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d06-02",
+      "type": "reading-mcq",
+      "promptKo": "이 안내문의 내용과 같은 것을 고르십시오.",
+      "contextKo": "[안전 교육 안내]\n\n일시: 3월 15일 (금) 오후 2시 ~ 4시\n장소: 3층 회의실\n대상: 전 직원 (신입 사원 필수)\n\n※ 교육에 참석하지 못하는 사람은 미리 사무실에 알려 주시기 바랍니다.\n※ 교육 시간은 근무 시간으로 인정됩니다.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "교육은 회사 밖에서 합니다"
+        },
+        {
+          "id": "o2",
+          "text": "못 가는 사람은 사무실에 미리 말해야 합니다"
+        },
+        {
+          "id": "o3",
+          "text": "교육은 쉬는 시간에 합니다"
+        },
+        {
+          "id": "o4",
+          "text": "신입 사원은 안 가도 됩니다"
+        }
+      ],
+      "answerOptionId": "o2",
+      "explanationEn": "미리 사무실에 알려 주시기 바랍니다 says exactly that.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d06",
+        "itemIndexZeroBased": 1,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d06-03",
+      "type": "reading-mcq",
+      "promptKo": "기숙사에서 할 수 없는 것은 무엇입니까?",
+      "contextKo": "[기숙사 이용 안내]\n\n1. 세탁기는 오전 6시부터 오후 10시까지 사용할 수 있습니다.\n2. 쓰레기는 분리수거해서 1층에 버려 주십시오.\n3. 방에서 요리하면 안 됩니다. 주방을 이용해 주십시오.\n4. 문제가 있으면 관리실(1층)로 오십시오.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "방에서 요리하기"
+        },
+        {
+          "id": "o2",
+          "text": "1층에 쓰레기 버리기"
+        },
+        {
+          "id": "o3",
+          "text": "저녁 8시에 세탁하기"
+        },
+        {
+          "id": "o4",
+          "text": "관리실에 가기"
+        }
+      ],
+      "answerOptionId": "o1",
+      "explanationEn": "Rule 3 forbids cooking in the room.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d06",
+        "itemIndexZeroBased": 2,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-drills-d06-04",
+      "type": "reading-mcq",
+      "promptKo": "밤 11시에 세탁기를 쓸 수 있습니까?",
+      "contextKo": "[기숙사 이용 안내]\n\n1. 세탁기는 오전 6시부터 오후 10시까지 사용할 수 있습니다.\n2. 쓰레기는 분리수거해서 1층에 버려 주십시오.\n3. 방에서 요리하면 안 됩니다. 주방을 이용해 주십시오.\n4. 문제가 있으면 관리실(1층)로 오십시오.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "쓸 수 있습니다"
+        },
+        {
+          "id": "o2",
+          "text": "관리실에 물어봐야 합니다"
+        },
+        {
+          "id": "o3",
+          "text": "주말에만 쓸 수 있습니다"
+        },
+        {
+          "id": "o4",
+          "text": "쓸 수 없습니다"
+        }
+      ],
+      "answerOptionId": "o4",
+      "explanationEn": "The washing machine is available until 10pm.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-drills.json",
+        "file": "exam-drills.json",
+        "groupId": "d06",
+        "itemIndexZeroBased": 3,
+        "fileSha256": "1c396f49484b7214524983adb65ff726a01eaceb8bda85ef778f380b53dd2db9",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-1-reading-02",
+      "type": "reading-mcq",
+      "promptKo": "이 표지가 있는 곳에서 조심해야 하는 것은 무엇입니까?",
+      "contextKo": "손 조심",
+      "options": [
+        {
+          "id": "o1",
+          "text": "발을 조심합니다"
+        },
+        {
+          "id": "o2",
+          "text": "눈을 조심합니다"
+        },
+        {
+          "id": "o3",
+          "text": "손을 다치지 않게 조심합니다"
+        },
+        {
+          "id": "o4",
+          "text": "머리를 조심합니다"
+        }
+      ],
+      "answerOptionId": "o3",
+      "explanationEn": "손 is the hand.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-1.json",
+        "file": "exam-mock-1.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 1,
+        "fileSha256": "3406b838b614c6bb31998b07952eca74d09c35055dce1b4f4afa20562007517d",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-1-reading-03",
+      "type": "reading-mcq",
+      "promptKo": "누가 사용할 수 있습니까?",
+      "contextKo": "직원 외 사용 금지",
+      "options": [
+        {
+          "id": "o1",
+          "text": "아무도 못 씁니다"
+        },
+        {
+          "id": "o2",
+          "text": "직원만"
+        },
+        {
+          "id": "o3",
+          "text": "누구나"
+        },
+        {
+          "id": "o4",
+          "text": "손님만"
+        }
+      ],
+      "answerOptionId": "o2",
+      "explanationEn": "Only staff; 외 means other than.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-1.json",
+        "file": "exam-mock-1.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 2,
+        "fileSha256": "3406b838b614c6bb31998b07952eca74d09c35055dce1b4f4afa20562007517d",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-1-reading-05",
+      "type": "reading-mcq",
+      "promptKo": "요즘 일이 많아서 매일 (   )을 합니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "잔업"
+        },
+        {
+          "id": "o2",
+          "text": "휴가"
+        },
+        {
+          "id": "o3",
+          "text": "지각"
+        },
+        {
+          "id": "o4",
+          "text": "퇴사"
+        }
+      ],
+      "answerOptionId": "o1",
+      "explanationEn": "Lots of work means overtime.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-1.json",
+        "file": "exam-mock-1.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 4,
+        "fileSha256": "3406b838b614c6bb31998b07952eca74d09c35055dce1b4f4afa20562007517d",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-1-reading-06",
+      "type": "reading-mcq",
+      "promptKo": "비가 와서 길이 (   ) 조심하십시오.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "더우니까"
+        },
+        {
+          "id": "o2",
+          "text": "밝으니까"
+        },
+        {
+          "id": "o3",
+          "text": "넓으니까"
+        },
+        {
+          "id": "o4",
+          "text": "미끄러우니까"
+        }
+      ],
+      "answerOptionId": "o4",
+      "explanationEn": "Rain makes the road slippery.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-1.json",
+        "file": "exam-mock-1.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 5,
+        "fileSha256": "3406b838b614c6bb31998b07952eca74d09c35055dce1b4f4afa20562007517d",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-1-reading-07",
+      "type": "reading-mcq",
+      "promptKo": "외국인등록증을 (   ) 다니십시오.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "보내고"
+        },
+        {
+          "id": "o2",
+          "text": "팔고"
+        },
+        {
+          "id": "o3",
+          "text": "가지고"
+        },
+        {
+          "id": "o4",
+          "text": "벗고"
+        }
+      ],
+      "answerOptionId": "o3",
+      "explanationEn": "가지고 다니다 — to carry around with you.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-1.json",
+        "file": "exam-mock-1.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 6,
+        "fileSha256": "3406b838b614c6bb31998b07952eca74d09c35055dce1b4f4afa20562007517d",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-1-reading-09",
+      "type": "reading-mcq",
+      "promptKo": "다음과 같은 뜻의 문장을 고르십시오.\n\n작업장에서는 반드시 안전화를 신어야 합니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "안전화를 회사에서 삽니다"
+        },
+        {
+          "id": "o2",
+          "text": "안전화 없이 작업장에 들어갈 수 없습니다"
+        },
+        {
+          "id": "o3",
+          "text": "안전화는 신어도 되고 안 신어도 됩니다"
+        },
+        {
+          "id": "o4",
+          "text": "작업장에 안전화가 있습니다"
+        }
+      ],
+      "answerOptionId": "o2",
+      "explanationEn": "반드시 — without fail.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-1.json",
+        "file": "exam-mock-1.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 8,
+        "fileSha256": "3406b838b614c6bb31998b07952eca74d09c35055dce1b4f4afa20562007517d",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-1-reading-10",
+      "type": "reading-mcq",
+      "promptKo": "다음과 같은 뜻의 문장을 고르십시오.\n\n이 일은 처음이라서 아직 익숙하지 않습니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "일을 시작한 지 얼마 안 됐습니다"
+        },
+        {
+          "id": "o2",
+          "text": "일이 아주 쉽습니다"
+        },
+        {
+          "id": "o3",
+          "text": "일을 오래 했습니다"
+        },
+        {
+          "id": "o4",
+          "text": "일을 그만두었습니다"
+        }
+      ],
+      "answerOptionId": "o1",
+      "explanationEn": "Not yet used to it, because it is new.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-1.json",
+        "file": "exam-mock-1.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 9,
+        "fileSha256": "3406b838b614c6bb31998b07952eca74d09c35055dce1b4f4afa20562007517d",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-1-reading-11",
+      "type": "reading-mcq",
+      "promptKo": "다음과 같은 뜻의 문장을 고르십시오.\n\n월급날은 매달 십 일입니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "십 일 동안 일합니다"
+        },
+        {
+          "id": "o2",
+          "text": "월급이 십만 원입니다"
+        },
+        {
+          "id": "o3",
+          "text": "십 일에 쉽니다"
+        },
+        {
+          "id": "o4",
+          "text": "한 달에 한 번 월급을 받습니다"
+        }
+      ],
+      "answerOptionId": "o4",
+      "explanationEn": "매달 십 일 — the tenth of every month.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-1.json",
+        "file": "exam-mock-1.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 10,
+        "fileSha256": "3406b838b614c6bb31998b07952eca74d09c35055dce1b4f4afa20562007517d",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-1-reading-12",
+      "type": "reading-mcq",
+      "promptKo": "다음과 같은 뜻의 문장을 고르십시오.\n\n기숙사에서 회사까지 걸어서 십 분 걸립니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "버스를 타야 합니다"
+        },
+        {
+          "id": "o2",
+          "text": "십 분마다 차가 옵니다"
+        },
+        {
+          "id": "o3",
+          "text": "회사가 기숙사에서 가깝습니다"
+        },
+        {
+          "id": "o4",
+          "text": "회사가 아주 멉니다"
+        }
+      ],
+      "answerOptionId": "o3",
+      "explanationEn": "Ten minutes on foot means it is close.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-1.json",
+        "file": "exam-mock-1.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 11,
+        "fileSha256": "3406b838b614c6bb31998b07952eca74d09c35055dce1b4f4afa20562007517d",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-1-reading-13",
+      "type": "reading-mcq",
+      "promptKo": "4월 3일은 무슨 날입니까?",
+      "contextKo": "[공지]\n\n다음 주 월요일(4월 3일)은 회사 창립기념일로 쉽니다.\n화요일부터 평소대로 근무합니다.\n월요일에 근무하시는 분은 미리 사무실에 신청해 주십시오. 휴일 근무 수당이 지급됩니다.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "잔업이 많은 날"
+        },
+        {
+          "id": "o2",
+          "text": "회사가 쉬는 날"
+        },
+        {
+          "id": "o3",
+          "text": "교육이 있는 날"
+        },
+        {
+          "id": "o4",
+          "text": "월급날"
+        }
+      ],
+      "answerOptionId": "o2",
+      "explanationEn": "A company anniversary holiday.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-1.json",
+        "file": "exam-mock-1.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 12,
+        "fileSha256": "3406b838b614c6bb31998b07952eca74d09c35055dce1b4f4afa20562007517d",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-1-reading-14",
+      "type": "reading-mcq",
+      "promptKo": "월요일에 일하고 싶은 사람은 어떻게 해야 합니까?",
+      "contextKo": "[공지]\n\n다음 주 월요일(4월 3일)은 회사 창립기념일로 쉽니다.\n화요일부터 평소대로 근무합니다.\n월요일에 근무하시는 분은 미리 사무실에 신청해 주십시오. 휴일 근무 수당이 지급됩니다.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "사무실에 미리 신청합니다"
+        },
+        {
+          "id": "o2",
+          "text": "그냥 회사에 나옵니다"
+        },
+        {
+          "id": "o3",
+          "text": "반장님께 전화합니다"
+        },
+        {
+          "id": "o4",
+          "text": "화요일에 말합니다"
+        }
+      ],
+      "answerOptionId": "o1",
+      "explanationEn": "미리 사무실에 신청 — apply at the office in advance.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-1.json",
+        "file": "exam-mock-1.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 13,
+        "fileSha256": "3406b838b614c6bb31998b07952eca74d09c35055dce1b4f4afa20562007517d",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-1-reading-17",
+      "type": "reading-mcq",
+      "promptKo": "이 사람은 처음에 왜 힘들었습니까?",
+      "contextKo": "한국에 온 지 이제 1년이 되었습니다. 처음에는 한국말을 하나도 몰라서 아주 힘들었습니다. 반장님이 무슨 말을 하는지 몰라서 그냥 고개만 끄덕였습니다. 그래서 일이 끝난 후에 매일 한 시간씩 한국어를 공부했습니다. 지금은 반장님과 이야기할 수 있고, 모르는 것이 있으면 물어볼 수도 있습니다. 아직 어렵지만 처음보다 훨씬 나아졌습니다.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "일이 너무 많았기 때문에"
+        },
+        {
+          "id": "o2",
+          "text": "친구가 없었기 때문에"
+        },
+        {
+          "id": "o3",
+          "text": "돈이 없었기 때문에"
+        },
+        {
+          "id": "o4",
+          "text": "한국말을 몰랐기 때문에"
+        }
+      ],
+      "answerOptionId": "o4",
+      "explanationEn": "한국말을 하나도 몰라서 — because they knew no Korean at all.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-1.json",
+        "file": "exam-mock-1.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 16,
+        "fileSha256": "3406b838b614c6bb31998b07952eca74d09c35055dce1b4f4afa20562007517d",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-1-reading-18",
+      "type": "reading-mcq",
+      "promptKo": "이 사람은 한국어를 언제 공부했습니까?",
+      "contextKo": "한국에 온 지 이제 1년이 되었습니다. 처음에는 한국말을 하나도 몰라서 아주 힘들었습니다. 반장님이 무슨 말을 하는지 몰라서 그냥 고개만 끄덕였습니다. 그래서 일이 끝난 후에 매일 한 시간씩 한국어를 공부했습니다. 지금은 반장님과 이야기할 수 있고, 모르는 것이 있으면 물어볼 수도 있습니다. 아직 어렵지만 처음보다 훨씬 나아졌습니다.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "점심시간에"
+        },
+        {
+          "id": "o2",
+          "text": "주말에만"
+        },
+        {
+          "id": "o3",
+          "text": "일이 끝난 후에"
+        },
+        {
+          "id": "o4",
+          "text": "일하기 전에"
+        }
+      ],
+      "answerOptionId": "o3",
+      "explanationEn": "일이 끝난 후에 매일 한 시간씩.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-1.json",
+        "file": "exam-mock-1.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 17,
+        "fileSha256": "3406b838b614c6bb31998b07952eca74d09c35055dce1b4f4afa20562007517d",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-1-reading-19",
+      "type": "reading-mcq",
+      "promptKo": "지금 이 사람은 어떻습니까?",
+      "contextKo": "한국에 온 지 이제 1년이 되었습니다. 처음에는 한국말을 하나도 몰라서 아주 힘들었습니다. 반장님이 무슨 말을 하는지 몰라서 그냥 고개만 끄덕였습니다. 그래서 일이 끝난 후에 매일 한 시간씩 한국어를 공부했습니다. 지금은 반장님과 이야기할 수 있고, 모르는 것이 있으면 물어볼 수도 있습니다. 아직 어렵지만 처음보다 훨씬 나아졌습니다.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "고향에 돌아갔습니다"
+        },
+        {
+          "id": "o2",
+          "text": "전보다 한국말을 잘합니다"
+        },
+        {
+          "id": "o3",
+          "text": "아직 한 마디도 못 합니다"
+        },
+        {
+          "id": "o4",
+          "text": "한국어 공부를 그만두었습니다"
+        }
+      ],
+      "answerOptionId": "o2",
+      "explanationEn": "처음보다 훨씬 나아졌습니다 — much better than at the start.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-1.json",
+        "file": "exam-mock-1.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 18,
+        "fileSha256": "3406b838b614c6bb31998b07952eca74d09c35055dce1b4f4afa20562007517d",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-1-reading-20",
+      "type": "reading-mcq",
+      "promptKo": "계약서에 사인한 다음에 해야 하는 일은 무엇입니까?",
+      "contextKo": "근로계약서를 쓸 때는 다음을 꼭 확인해야 합니다. 첫째, 일하는 곳과 하는 일이 정확히 적혀 있는지 봅니다. 둘째, 하루에 몇 시간 일하는지, 쉬는 시간이 언제인지 확인합니다. 셋째, 임금이 얼마인지, 언제 받는지 봅니다. 넷째, 계약 기간을 봅니다. 잘 모르는 내용이 있으면 사인하기 전에 물어보십시오. 사인한 계약서는 한 장 받아서 보관하십시오.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "계약서 한 장을 받아서 보관합니다"
+        },
+        {
+          "id": "o2",
+          "text": "회사에 계약서를 모두 줍니다"
+        },
+        {
+          "id": "o3",
+          "text": "계약서를 버립니다"
+        },
+        {
+          "id": "o4",
+          "text": "다시 사인합니다"
+        }
+      ],
+      "answerOptionId": "o1",
+      "explanationEn": "The last line says to keep a copy.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-1.json",
+        "file": "exam-mock-1.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 19,
+        "fileSha256": "3406b838b614c6bb31998b07952eca74d09c35055dce1b4f4afa20562007517d",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-2-reading-04",
+      "type": "reading-mcq",
+      "promptKo": "이 통에 넣는 것은 무엇입니까?",
+      "contextKo": "재활용",
+      "options": [
+        {
+          "id": "o1",
+          "text": "음식 쓰레기"
+        },
+        {
+          "id": "o2",
+          "text": "위험한 물건"
+        },
+        {
+          "id": "o3",
+          "text": "고장 난 기계"
+        },
+        {
+          "id": "o4",
+          "text": "다시 쓸 수 있는 것"
+        }
+      ],
+      "answerOptionId": "o4",
+      "explanationEn": "재활용 — recycling.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-2.json",
+        "file": "exam-mock-2.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 3,
+        "fileSha256": "eb67e8c8b3b3717024c5dbceeb96c20f17d6fbda91f9902e970f6ecbcca5f6e0",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-2-reading-05",
+      "type": "reading-mcq",
+      "promptKo": "버스를 (   ) 회사에 갑니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "먹고"
+        },
+        {
+          "id": "o2",
+          "text": "보고"
+        },
+        {
+          "id": "o3",
+          "text": "타고"
+        },
+        {
+          "id": "o4",
+          "text": "입고"
+        }
+      ],
+      "answerOptionId": "o3",
+      "explanationEn": "타다 is the verb used for getting on transport.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-2.json",
+        "file": "exam-mock-2.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 4,
+        "fileSha256": "eb67e8c8b3b3717024c5dbceeb96c20f17d6fbda91f9902e970f6ecbcca5f6e0",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-2-reading-07",
+      "type": "reading-mcq",
+      "promptKo": "월급을 받으면 고향에 돈을 (   ).",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "엽니다"
+        },
+        {
+          "id": "o2",
+          "text": "보냅니다"
+        },
+        {
+          "id": "o3",
+          "text": "만듭니다"
+        },
+        {
+          "id": "o4",
+          "text": "삽니다"
+        }
+      ],
+      "answerOptionId": "o2",
+      "explanationEn": "돈을 보내다 — to send money.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-2.json",
+        "file": "exam-mock-2.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 6,
+        "fileSha256": "eb67e8c8b3b3717024c5dbceeb96c20f17d6fbda91f9902e970f6ecbcca5f6e0",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-2-reading-08",
+      "type": "reading-mcq",
+      "promptKo": "눈이 와서 길이 (   ) 조심하십시오.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "미끄러우니까"
+        },
+        {
+          "id": "o2",
+          "text": "따뜻하니까"
+        },
+        {
+          "id": "o3",
+          "text": "조용하니까"
+        },
+        {
+          "id": "o4",
+          "text": "깨끗하니까"
+        }
+      ],
+      "answerOptionId": "o1",
+      "explanationEn": "Snow makes the road slippery.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-2.json",
+        "file": "exam-mock-2.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 7,
+        "fileSha256": "eb67e8c8b3b3717024c5dbceeb96c20f17d6fbda91f9902e970f6ecbcca5f6e0",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-2-reading-10",
+      "type": "reading-mcq",
+      "promptKo": "다음과 같은 뜻의 문장을 고르십시오.\n\n기숙사에서는 밤 열한 시 이후에 큰 소리를 내면 안 됩니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "밤에 큰 소리를 내도 됩니다"
+        },
+        {
+          "id": "o2",
+          "text": "열한 시에 자야 합니다"
+        },
+        {
+          "id": "o3",
+          "text": "기숙사에 살면 안 됩니다"
+        },
+        {
+          "id": "o4",
+          "text": "밤늦게는 조용히 해야 합니다"
+        }
+      ],
+      "answerOptionId": "o4",
+      "explanationEn": "-면 안 됩니다 makes it a prohibition.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-2.json",
+        "file": "exam-mock-2.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 9,
+        "fileSha256": "eb67e8c8b3b3717024c5dbceeb96c20f17d6fbda91f9902e970f6ecbcca5f6e0",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-2-reading-11",
+      "type": "reading-mcq",
+      "promptKo": "다음과 같은 뜻의 문장을 고르십시오.\n\n외국인등록증은 항상 가지고 다녀야 합니다.",
+      "contextKo": "",
+      "options": [
+        {
+          "id": "o1",
+          "text": "등록증은 필요 없습니다"
+        },
+        {
+          "id": "o2",
+          "text": "등록증을 회사에 맡깁니다"
+        },
+        {
+          "id": "o3",
+          "text": "등록증을 늘 몸에 지니고 있어야 합니다"
+        },
+        {
+          "id": "o4",
+          "text": "등록증은 집에 둡니다"
+        }
+      ],
+      "answerOptionId": "o3",
+      "explanationEn": "항상 가지고 다니다 — to carry it with you at all times.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-2.json",
+        "file": "exam-mock-2.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 10,
+        "fileSha256": "eb67e8c8b3b3717024c5dbceeb96c20f17d6fbda91f9902e970f6ecbcca5f6e0",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-2-reading-13",
+      "type": "reading-mcq",
+      "promptKo": "방 안에서 할 수 없는 것은 무엇입니까?",
+      "contextKo": "[기숙사 이용 안내]\n\n· 방은 두 사람이 함께 씁니다.\n· 주방과 세탁실은 같이 쓰는 곳이니 쓰고 나서 치워 주십시오.\n· 밤 11시 이후에는 조용히 해 주십시오.\n· 방 안에서는 요리를 할 수 없습니다. 주방을 이용하십시오.\n· 고장 난 곳이 있으면 관리실(1층)에 알려 주십시오.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "옷을 갈아입는 것"
+        },
+        {
+          "id": "o2",
+          "text": "요리하는 것"
+        },
+        {
+          "id": "o3",
+          "text": "자는 것"
+        },
+        {
+          "id": "o4",
+          "text": "공부하는 것"
+        }
+      ],
+      "answerOptionId": "o2",
+      "explanationEn": "방 안에서는 요리를 할 수 없습니다.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-2.json",
+        "file": "exam-mock-2.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 12,
+        "fileSha256": "eb67e8c8b3b3717024c5dbceeb96c20f17d6fbda91f9902e970f6ecbcca5f6e0",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-2-reading-14",
+      "type": "reading-mcq",
+      "promptKo": "세탁기가 고장 났을 때 어디에 알립니까?",
+      "contextKo": "[기숙사 이용 안내]\n\n· 방은 두 사람이 함께 씁니다.\n· 주방과 세탁실은 같이 쓰는 곳이니 쓰고 나서 치워 주십시오.\n· 밤 11시 이후에는 조용히 해 주십시오.\n· 방 안에서는 요리를 할 수 없습니다. 주방을 이용하십시오.\n· 고장 난 곳이 있으면 관리실(1층)에 알려 주십시오.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "일층 관리실"
+        },
+        {
+          "id": "o2",
+          "text": "주방"
+        },
+        {
+          "id": "o3",
+          "text": "회사 사무실"
+        },
+        {
+          "id": "o4",
+          "text": "옆방"
+        }
+      ],
+      "answerOptionId": "o1",
+      "explanationEn": "관리실(1층)에 알려 주십시오.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-2.json",
+        "file": "exam-mock-2.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 13,
+        "fileSha256": "eb67e8c8b3b3717024c5dbceeb96c20f17d6fbda91f9902e970f6ecbcca5f6e0",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-2-reading-15",
+      "type": "reading-mcq",
+      "promptKo": "이번 달에 실제로 받는 돈은 얼마입니까?",
+      "contextKo": "[월급명세서]\n\n기본급           1,800,000원\n연장근로수당       240,000원\n야간근로수당        60,000원\n─────────────────────\n지급 합계        2,100,000원\n\n국민연금            81,000원\n건강보험            63,000원\n고용보험            16,800원\n기숙사비           100,000원\n─────────────────────\n공제 합계          260,800원\n\n실수령액        1,839,200원",
+      "options": [
+        {
+          "id": "o1",
+          "text": "2,100,000원"
+        },
+        {
+          "id": "o2",
+          "text": "1,800,000원"
+        },
+        {
+          "id": "o3",
+          "text": "260,800원"
+        },
+        {
+          "id": "o4",
+          "text": "1,839,200원"
+        }
+      ],
+      "answerOptionId": "o4",
+      "explanationEn": "실수령액 — what is actually received after deductions.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-2.json",
+        "file": "exam-mock-2.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 14,
+        "fileSha256": "eb67e8c8b3b3717024c5dbceeb96c20f17d6fbda91f9902e970f6ecbcca5f6e0",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-2-reading-16",
+      "type": "reading-mcq",
+      "promptKo": "이 명세서에서 잔업을 해서 받은 돈은 얼마입니까?",
+      "contextKo": "[월급명세서]\n\n기본급           1,800,000원\n연장근로수당       240,000원\n야간근로수당        60,000원\n─────────────────────\n지급 합계        2,100,000원\n\n국민연금            81,000원\n건강보험            63,000원\n고용보험            16,800원\n기숙사비           100,000원\n─────────────────────\n공제 합계          260,800원\n\n실수령액        1,839,200원",
+      "options": [
+        {
+          "id": "o1",
+          "text": "300,000원"
+        },
+        {
+          "id": "o2",
+          "text": "100,000원"
+        },
+        {
+          "id": "o3",
+          "text": "240,000원"
+        },
+        {
+          "id": "o4",
+          "text": "60,000원"
+        }
+      ],
+      "answerOptionId": "o3",
+      "explanationEn": "연장근로수당 is the overtime allowance; 야간 is the separate night allowance.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-2.json",
+        "file": "exam-mock-2.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 15,
+        "fileSha256": "eb67e8c8b3b3717024c5dbceeb96c20f17d6fbda91f9902e970f6ecbcca5f6e0",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-2-reading-17",
+      "type": "reading-mcq",
+      "promptKo": "대피할 때 쓰면 안 되는 것은 무엇입니까?",
+      "contextKo": "[소방 훈련 안내]\n\n날짜: 10월 12일 (목) 오전 10시\n대상: 전 직원\n\n1. 사이렌이 울리면 하던 일을 멈추고 기계 전원을 끕니다.\n2. 짐은 두고 가까운 비상구로 나갑니다.\n3. 엘리베이터는 쓰지 않습니다. 계단을 이용하십시오.\n4. 운동장에 모여 반별로 인원을 확인합니다.\n5. 확인이 끝날 때까지 자리를 떠나지 마십시오.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "운동장"
+        },
+        {
+          "id": "o2",
+          "text": "엘리베이터"
+        },
+        {
+          "id": "o3",
+          "text": "계단"
+        },
+        {
+          "id": "o4",
+          "text": "비상구"
+        }
+      ],
+      "answerOptionId": "o2",
+      "explanationEn": "엘리베이터는 쓰지 않습니다.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-2.json",
+        "file": "exam-mock-2.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 16,
+        "fileSha256": "eb67e8c8b3b3717024c5dbceeb96c20f17d6fbda91f9902e970f6ecbcca5f6e0",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-2-reading-18",
+      "type": "reading-mcq",
+      "promptKo": "운동장에 모인 다음에는 무엇을 합니까?",
+      "contextKo": "[소방 훈련 안내]\n\n날짜: 10월 12일 (목) 오전 10시\n대상: 전 직원\n\n1. 사이렌이 울리면 하던 일을 멈추고 기계 전원을 끕니다.\n2. 짐은 두고 가까운 비상구로 나갑니다.\n3. 엘리베이터는 쓰지 않습니다. 계단을 이용하십시오.\n4. 운동장에 모여 반별로 인원을 확인합니다.\n5. 확인이 끝날 때까지 자리를 떠나지 마십시오.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "반별로 사람 수를 셉니다"
+        },
+        {
+          "id": "o2",
+          "text": "바로 일하러 갑니다"
+        },
+        {
+          "id": "o3",
+          "text": "집에 갑니다"
+        },
+        {
+          "id": "o4",
+          "text": "짐을 가지러 갑니다"
+        }
+      ],
+      "answerOptionId": "o1",
+      "explanationEn": "반별로 인원을 확인합니다 — a headcount by team.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-2.json",
+        "file": "exam-mock-2.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 17,
+        "fileSha256": "eb67e8c8b3b3717024c5dbceeb96c20f17d6fbda91f9902e970f6ecbcca5f6e0",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-2-reading-19",
+      "type": "reading-mcq",
+      "promptKo": "이 사람이 한 달을 쉰 이유는 무엇입니까?",
+      "contextKo": "한국에 온 지 삼 년이 되었습니다. 처음 일 년은 돈을 모으는 것만 생각했습니다. 쉬는 날에도 잔업을 했고, 아프면 참았습니다. 그러다가 허리를 다쳐서 한 달을 쉬었습니다. 그때 알았습니다. 몸이 상하면 돈도 벌 수 없다는 것을. 지금은 쉬는 날에는 꼭 쉽니다. 몸이 이상하면 바로 병원에 갑니다. 버는 돈은 그때보다 조금 적지만, 삼 년 뒤에도 일할 수 있는 몸이 남습니다.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "고향에 가서"
+        },
+        {
+          "id": "o2",
+          "text": "일이 없어서"
+        },
+        {
+          "id": "o3",
+          "text": "회사를 옮겨서"
+        },
+        {
+          "id": "o4",
+          "text": "허리를 다쳐서"
+        }
+      ],
+      "answerOptionId": "o4",
+      "explanationEn": "허리를 다쳐서 한 달을 쉬었습니다.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-2.json",
+        "file": "exam-mock-2.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 18,
+        "fileSha256": "eb67e8c8b3b3717024c5dbceeb96c20f17d6fbda91f9902e970f6ecbcca5f6e0",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    },
+    {
+      "id": "hangil-exam-mock-2-reading-20",
+      "type": "reading-mcq",
+      "promptKo": "이 사람이 지금 가장 중요하게 생각하는 것은 무엇입니까?",
+      "contextKo": "한국에 온 지 삼 년이 되었습니다. 처음 일 년은 돈을 모으는 것만 생각했습니다. 쉬는 날에도 잔업을 했고, 아프면 참았습니다. 그러다가 허리를 다쳐서 한 달을 쉬었습니다. 그때 알았습니다. 몸이 상하면 돈도 벌 수 없다는 것을. 지금은 쉬는 날에는 꼭 쉽니다. 몸이 이상하면 바로 병원에 갑니다. 버는 돈은 그때보다 조금 적지만, 삼 년 뒤에도 일할 수 있는 몸이 남습니다.",
+      "options": [
+        {
+          "id": "o1",
+          "text": "승진"
+        },
+        {
+          "id": "o2",
+          "text": "고향"
+        },
+        {
+          "id": "o3",
+          "text": "건강"
+        },
+        {
+          "id": "o4",
+          "text": "잔업"
+        }
+      ],
+      "answerOptionId": "o3",
+      "explanationEn": "The whole passage turns on 몸이 상하면 돈도 벌 수 없다 — health first.",
+      "levelSystem": "ungraded-original-EPS-style",
+      "topikLevel": null,
+      "topikVerified": false,
+      "source": {
+        "url": "https://github.com/itsdoubleem/Hangil_app/blob/5e1c010a0143ccfe1d02ee2ff9f9ae2d1006e27f/data/exam-mock-2.json",
+        "file": "exam-mock-2.json",
+        "groupId": "reading",
+        "itemIndexZeroBased": 19,
+        "fileSha256": "eb67e8c8b3b3717024c5dbceeb96c20f17d6fbda91f9902e970f6ecbcca5f6e0",
+        "author": "DOUBLEEM",
+        "copyright": "Copyright (c) 2026 DOUBLEEM",
+        "license": "MIT",
+        "licenseUrl": "https://opensource.org/license/mit",
+        "changes": "Normalized schema; deterministically rotated options; original wording retained."
+      },
+      "quality": {
+        "assistantTextReview": true,
+        "nativeTeacherSignoff": false,
+        "scope": "Fictional language comprehension only; not work, legal, medical or safety guidance."
+      }
+    }
+  ]
+}

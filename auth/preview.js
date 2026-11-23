@@ -44,7 +44,7 @@ function h(tag, props, children) {
   return node;
 }
 
-const status = h("p", { id: "auth-status", role: "status", "aria-live": "polite", text: "正在准备登录草稿。" });
+const status = h("p", { id: "auth-status", role: "status", "aria-live": "polite", text: "正在打开账号登录。" });
 const blockers = h("ul", { id: "auth-blockers" });
 const callbackBox = h("div", { id: "auth-callback", className: "card", hidden: "hidden" });
 const callbackText = h("p", { id: "auth-callback-text", text: "" });
@@ -71,19 +71,13 @@ function paintAvailability() {
   blockers.replaceChildren();
   const info = service.availability();
   const lines = [];
-  if (!info.emailPasswordLogin) lines.push("邮箱密码登录：停住，还没有可公开的项目配置。");
-  else lines.push("邮箱密码登录：配置格式可用。尚未对真实项目做端到端验证。");
-  if (harnessOn) lines.push("发信：本地模拟只记在内存里，不会真正发信。");
-  else if (info.emailPolicy === "autoconfirm_without_smtp") lines.push("邮箱确认已关闭：可以用邮箱和密码直接注册登录。找回密码和邮箱验证仍待自定义 SMTP。");
-  else if (info.emailPolicy === "custom_smtp") lines.push("发信：已配置自定义 SMTP。注册和重置会调用发信接口。");
-  else lines.push("内置发信仅限管理员测试邮箱，公网注册/找回密码需先配置自有域名与自定义 SMTP。");
-  lines.push(info.phoneSms
-    ? "手机短信：配置标记为已接通。发送会走短信商。"
-    : "手机短信：停住。没有短信服务商，000000 不会成功。");
-  lines.push("微信：未接通。Supabase 没有内置微信。");
-  lines.push("QQ：未接通。Supabase 没有内置 QQ。");
-  lines.push(info.kakao ? "Kakao：配置标记为已接通，点击会跳转。" : "Kakao：未接通。还没有 Kakao 应用凭据。");
-  lines.push("游客：可用。云同步：关闭，不会上传学习记录。");
+  if (!info.emailPasswordLogin) lines.push("邮箱登录暂时不可用：公开配置不完整，没有登录成功。");
+  else if (info.emailPolicy === "custom_smtp") lines.push("邮箱和密码可以注册、登录。自定义发信已配置。");
+  else lines.push("邮箱和密码可以填写。公网邮箱验证和找回密码所需的自定义发信服务与回调白名单尚未配置完成，现在不能保证验证信会送到邮箱。");
+  if (harnessOn) lines.push("当前是本机模拟，不会真正发信。");
+  lines.push(info.phoneSms ? "手机短信已启用，验证码由短信服务商发送。" : "手机短信暂未启用，不会发送验证码。");
+  lines.push(info.kakao ? "Kakao 已启用，点击会跳转。微信和 QQ 仍未启用。" : "微信、QQ 和 Kakao 等第三方登录暂未启用。");
+  lines.push("云同步暂未启用，不会上传学习记录。游客可以随时返回继续学习。");
   for (const line of lines) blockers.append(h("li", { text: line }));
 }
 
@@ -202,7 +196,7 @@ if (harnessOn) {
   });
   harnessBox.append(
     h("h2", { text: "仅本机模拟" }),
-    h("p", { className: "muted", text: "这些按钮只存在于 localhost 或 127.0.0.1 且地址带 ?harness=1 时。它们使用内存账号，不会访问 Supabase，也不会发邮件或短信。" }),
+    h("p", { className: "muted", text: "这些按钮只在本机 127.0.0.1 且地址带 ?harness=1 时出现。它们使用内存账号，不会访问线上认证服务，也不会发邮件或短信。" }),
     h("div", { className: "actions" }, [confirmButton, recoveryButton]),
   );
 }
@@ -212,10 +206,10 @@ const banner = h("div", {
   id: "auth-banner",
 });
 banner.append(
-  h("h1", { text: harnessOn ? "本地模拟登录（不是真实账号）" : "登录草稿（未接入首页，未发布）" }),
+  h("h1", { text: harnessOn ? "本地模拟登录（不是真实账号）" : (flow === "recovery" ? "设置新密码" : "账号登录") }),
   h("p", { text: harnessOn
     ? "这是内存里的合成账号。没有网络请求，没有真实邮件或短信，不能当成端到端通过。"
-    : "首页的 000000 演示登录没有被替换。这里是单独的 Supabase Auth 草稿。缺少项目、发信或短信配置时，对应按钮会停住并说明原因。" }),
+    : "这是线上账号登录页。游客可以随时返回继续学习。这里不会读取或上传本机练习记录。" }),
 );
 
 root.append(
@@ -236,7 +230,7 @@ root.append(
   ]),
   h("form", { className: "card", onSubmit: (event) => event.preventDefault() }, [
     h("h2", { text: "找回密码" }),
-    h("p", { className: "muted", text: "重置回跳到 auth/recovery.html。PKCE 的 code 要在发起请求的同一个浏览器里兑换。没有自定义 SMTP 时不会发信。" }),
+    h("p", { className: "muted", text: "找回密码会回到设置新密码页。链接需要在发起请求的同一个浏览器里打开。自定义发信服务和回调白名单尚未配置完成时，不能保证邮件会送到。" }),
     h("label", { for: "auth-reset-email", text: "接收重置邮件的邮箱" }),
     resetEmail,
     h("div", { className: "actions" }, [resetButton]),
@@ -246,7 +240,7 @@ root.append(
   ]),
   h("div", { className: "card" }, [
     h("h2", { text: "手机号" }),
-    h("p", { className: "muted", text: "区号会保留。没有短信服务商时不能发送，也不能用 000000 登录。" }),
+    h("p", { className: "muted", text: "区号会保留。短信暂未启用时不能发送验证码，也不会登录。" }),
     h("div", { className: "row" }, [cc, phone]),
     h("label", { for: "auth-sms-code", text: "短信验证码" }),
     smsCode,
@@ -259,9 +253,9 @@ root.append(
   h("div", { className: "actions" }, [guest, logout]),
   harnessBox,
   h("div", { className: "note" }, [
-    h("p", { id: "auth-privacy", text: "学习记录、对话和健康相关数据只留在本机原有钥匙里。这个草稿不读取、不迁移、不上传。云同步没有实现，勾选同意也不会打开它。" }),
-    h("p", { className: "muted", text: "回跳地址按当前域名计算：GitHub Pages 会带上 /korean-site-zhcn/，Vercel 使用站点根下的 /auth/。将来接到首页时，只替换登录、社交、退出和游客这几个函数，不要改练习和词库。" }),
-    h("p", {}, [h("a", { href: "../index.html", text: "返回学习首页（游客仍可用，首页登录仍是原来的演示）" })]),
+    h("p", { id: "auth-privacy", text: "学习记录只留在本机。这个登录页不会读取或上传，云同步暂未启用。" }),
+    h("p", { className: "muted", text: "公网邮箱验证和找回密码所需的自定义发信服务与回调白名单尚未配置完成。短信、第三方登录和云同步暂未启用。" }),
+    h("p", {}, [h("a", { href: "../index.html", text: "返回学习首页（游客可继续学习）" })]),
   ]),
 );
 
@@ -271,13 +265,13 @@ async function boot() {
   if (harnessOn) {
     service.attachListener(() => {});
     show(service.continueAsGuest());
-    status.textContent = "本地模拟已就绪。可以注册一个合成邮箱。不会发信。";
+    status.textContent = "本地模拟已就绪。可以注册一个合成邮箱。不会发信，也不会改动本机练习记录。";
     return;
   }
   const created = await createBrowserAuthClient(activeConfig);
   if (!created.ok) {
     const guestResult = service.continueAsGuest();
-    status.textContent = `${guestResult.message} 真实账号还停在缺失的配置上。`;
+    status.textContent = guestResult.message;
     return;
   }
   service = createAuthService({

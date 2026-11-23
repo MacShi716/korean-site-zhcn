@@ -470,8 +470,18 @@ test("source files do not wire the home page or ship a usable secret", () => {
     assert.equal(text.includes("service_role"), mayNameTheSecretRole.has(name), name);
   }
   const preview = readFileSync(join(authDir, "preview.js"), "utf8");
+  const previewHtml = readFileSync(join(authDir, "preview.html"), "utf8");
   assert.equal(preview.includes("index.html"), true);
-  assert.equal(preview.includes("000000"), true);
+  assert.equal(preview.includes("000000"), false);
+  assert.equal(preview.includes("未接入"), false);
+  assert.equal(preview.includes("演示登录"), false);
+  assert.equal(preview.includes("Vercel"), false);
+  assert.equal(preview.includes("GitHub Pages"), false);
+  assert.match(preview, /不会读取或上传/);
+  assert.match(preview, /游客/);
+  assert.match(preview, /自定义发信/);
+  assert.equal(previewHtml.includes("未接入"), false);
+  assert.equal(previewHtml.includes("000000"), false);
   const home = readFileSync(join(dirname(authDir), "index.html"), "utf8");
   assert.match(home, /function bootEntry\(\) \{\n  authOpen = false;/);
   assert.equal(home.includes("supabase.co"), false);
