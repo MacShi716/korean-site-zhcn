@@ -24,6 +24,7 @@ const TYPES = {
   ".bin": "application/octet-stream",
   ".txt": "text/plain",
   ".md": "text/plain",
+  ".vtt": "text/vtt",
 };
 
 function startSite() {

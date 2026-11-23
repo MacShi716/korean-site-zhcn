@@ -1,0 +1,36 @@
+{
+  "title": "KRDICT text-only graded vocabulary and derived exercises, first 300",
+  "copyrightAttribution": "국립국어원 한국어기초사전",
+  "sourceUrl": "https://krdict.korean.go.kr/",
+  "officialCopyrightPolicy": "https://krdict.korean.go.kr/kor/kboardPolicy/copyRightTermsInfo",
+  "licenseId": "CC-BY-SA-2.0-KR",
+  "licenseName": "Creative Commons Attribution-ShareAlike 2.0 Korea",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/kr/",
+  "licenseLegalCode": "https://creativecommons.org/licenses/by-sa/2.0/kr/legalcode",
+  "permissions": [
+    "commercial use",
+    "adaptation",
+    "redistribution subject to license conditions"
+  ],
+  "requirements": [
+    "Credit 국립국어원 한국어기초사전 and link source and license.",
+    "Indicate changes.",
+    "Distribute adapted dictionary text/exercise data under the same CC BY-SA 2.0 KR license.",
+    "No claim of endorsement or official TOPIK certification."
+  ],
+  "changes": [
+    "Selected 300 main lexical entries and one sense each.",
+    "Selected exact official Korean example sentences without paraphrasing.",
+    "Selected a concise Chinese lemma alternative already present in the source.",
+    "Normalized source headword pronunciation notation to Hangul for a separate display field.",
+    "Created question structure, distractor groupings, tile segmentation and matching groups."
+  ],
+  "excluded": [
+    "All dictionary recordings, images, video and their external asset URLs.",
+    "NIKL/KLP curriculum attachments and their grade mappings.",
+    "Any user account, personal learning history or private material."
+  ],
+  "scopeNote": "This license notice covers the derived dictionary text and exercise pack, not unrelated application software, voices or video.",
+  "licenseEvidence": "../evidence/krdict-license-live-20261124.md",
+  "originalArchiveSha256": "347fe2d225ff2adb48e4ca04fc7ad2004ff4b051b16925b3f43f4d8ce9584adc"
+}
