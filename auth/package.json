@@ -1,0 +1,6 @@
+{
+  "name": "korean-site-auth-draft",
+  "private": true,
+  "type": "module",
+  "description": "Unpublished Supabase Auth draft for the static Korean learning site. Not deployed."
+}

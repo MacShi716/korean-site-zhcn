@@ -263,17 +263,9 @@ test("practice defects: tile mistakes, same-day review, and ungraded labels", as
     const words = await page.evaluate(`[...document.querySelectorAll("[data-side='r']")].map((button) => button.textContent.trim())`);
     assert.equal(words.length, 4);
     const paired = await page.evaluate(`(() => {
-      const left = [...document.querySelectorAll("[data-side='l']")].map((button) => button.getAttribute("data-id"));
-      const right = [...document.querySelectorAll("[data-side='r']")].map((button) => button.getAttribute("data-id"));
-      const used = new Set();
-      const pairs = [];
-      for (const id of left) {
-        const other = right.find((candidate) => candidate !== id && !used.has(candidate));
-        if (!other) return null;
-        used.add(other);
-        pairs.push([id, other]);
-      }
-      return pairs;
+      const ids = [...document.querySelectorAll("[data-side='l']")].map((button) => button.getAttribute("data-id"));
+      if (ids.length !== 4 || new Set(ids).size !== 4) return null;
+      return ids.map((id, index) => [id, ids[(index + 1) % ids.length]]);
     })()`);
     assert.equal(paired && paired.length, 4);
     for (const [leftId, rightId] of paired) {
