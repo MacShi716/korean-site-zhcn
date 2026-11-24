@@ -4,12 +4,13 @@
  */
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { spawn } from "node:child_process";
 import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, extname } from "node:path";
 import test from "node:test";
+import { ensureArtifactDir } from "./test-artifacts.mjs";
 
 const ROOT = new URL("..", import.meta.url);
 const TYPES = {
@@ -105,13 +106,32 @@ async function launchChrome() {
     return result.result.value;
   }
   async function open(url) {
+    const navToken = `nav-${Date.now()}-${Math.random()}`;
+    try { await evaluate(`window.__koreanNavToken = ${JSON.stringify(navToken)}`); } catch (error) {}
     await send("Page.navigate", { url }, sessionId);
-    await send("Page.loadEventFired", {}, sessionId).catch(() => {});
-    await evaluate("document.readyState");
+    for (let attempt = 0; attempt < 50; attempt += 1) {
+      try {
+        const state = await evaluate("({ ready: document.readyState, href: location.href, token: window.__koreanNavToken || null })");
+        if (state.ready === "complete" && state.href === url && state.token !== navToken) break;
+      } catch (error) { /* the old execution context was replaced */ }
+      await new Promise((resolve) => setTimeout(resolve, 40));
+    }
+    if (url.includes("index.html")) {
+      try {
+        await evaluate(`new Promise((resolve) => {
+          let ticks = 0;
+          const tick = () => {
+            if (document.querySelector("#question-stem, #reading-card .choice-opt, #pack-retry")) resolve(true);
+            else if (++ticks > 500) resolve(false);
+            else setTimeout(tick, 20);
+          };
+          tick();
+        })`);
+      } catch (error) {}
+    }
     await evaluate("new Promise((resolve) => requestAnimationFrame(() => resolve('ok')))");
   }
-  const shotDir = "/opt/cursor/artifacts/practice-defect-fixes";
-  mkdirSync(shotDir, { recursive: true });
+  const shotDir = ensureArtifactDir("practice-defect-fixes");
   return {
     evaluate,
     open,
@@ -138,20 +158,28 @@ async function ensureStarted(page) {
 }
 
 async function clickButton(page, label) {
-  const status = await page.evaluate(`(() => {
+  const status = await page.evaluate(`new Promise((resolve) => {
     const label = ${JSON.stringify(label)};
     function textOf(button) { return button.textContent.replace(/\\s+/g, " ").trim(); }
     function matches(text) {
       return text === label || text.endsWith(label) || text.startsWith(label + " ") || text.startsWith(label + " ·");
     }
-    const roots = [document.querySelector("#panel-practice"), document.querySelector("#main-nav"), document.body];
-    for (const root of roots) {
-      if (!root) continue;
-      const found = [...root.querySelectorAll("button")].find((button) => matches(textOf(button)) && !button.disabled);
-      if (found) { found.click(); return "clicked"; }
-    }
-    return "missing";
-  })()`);
+    const practiceOnly = new Set(["词义选择", "选词拼句", "选项连线", "听写", "语法", "实用阅读", "未分级"]);
+    const started = Date.now();
+    const tick = () => {
+      const roots = practiceOnly.has(label)
+        ? [document.querySelector("#panel-practice")]
+        : [document.querySelector("#panel-practice"), document.querySelector("#main-nav"), document.body];
+      for (const root of roots) {
+        if (!root) continue;
+        const found = [...root.querySelectorAll("button")].find((button) => matches(textOf(button)) && !button.disabled);
+        if (found) { found.click(); resolve("clicked"); return; }
+      }
+      if (Date.now() - started > 8000) resolve("missing");
+      else setTimeout(tick, 40);
+    };
+    tick();
+  })`);
   assert.equal(status, "clicked", `button not found: ${label}`);
   await page.evaluate("new Promise((resolve) => requestAnimationFrame(() => resolve('ok')))");
 }
