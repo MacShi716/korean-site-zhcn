@@ -34,6 +34,9 @@ jobs:
           cache: npm
           cache-dependency-path: mobile-android/package-lock.json
 
+      - name: Run the web regression tests
+        run: node --test tests/*.mjs auth/tests/*.js
+
       - name: Install Android SDK packages
         run: |
           set -euo pipefail
@@ -89,17 +92,17 @@ jobs:
         run: |
           set -euo pipefail
           cp mobile-android/android/app/build/outputs/apk/debug/app-debug.apk korean-study-v1.0.0-debug.apk
-          notes="$(cat <<'EOF'
-Debug APK for the Korean learning site. The static pages, question banks, dictionary, and voices/ audio are packaged inside the app and load from https://localhost, so the lessons work offline.
-
-Install it by allowing unknown sources. The debug key signs the APK with JAR v1 and APK Signature Scheme v2. Android 11 and newer install it using the v2 signature.
-
-Online-only pieces stay online: the museum video stream and Supabase email login. Email confirmation, password reset, and OAuth do not return into the app. This workflow does not add a native OAuth callback.
-EOF
-          )"
+          printf '%s\n' \
+            'Debug APK for the Korean learning site. The static pages, question banks, dictionary, and voices/ audio are packaged inside the app and load from https://localhost, so the lessons work offline.' \
+            '' \
+            'Install it by allowing unknown sources. The debug key signs the APK with JAR v1 and APK Signature Scheme v2. Android 11 and newer install it using the v2 signature.' \
+            '' \
+            'Online-only pieces stay online: the museum video stream and Supabase email login. Email confirmation, password reset, and OAuth do not return into the app. This workflow does not add a native OAuth callback.' \
+            > release-notes.txt
           gh release delete android-latest --yes --cleanup-tag || true
+          sleep 2
           gh release create android-latest \
             --target "${{ github.sha }}" \
             --title "韩语学习 Android 1.0.0 debug" \
-            --notes "$notes" \
+            --notes-file release-notes.txt \
             korean-study-v1.0.0-debug.apk
