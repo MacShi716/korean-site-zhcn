@@ -1339,3 +1339,30 @@ body.auth-page #auth-app :is(#auth-wechat, #auth-qq, #auth-kakao, #auth-sms-requ
   opacity: .72 !important;
 }
 body.auth-page #auth-app :is(#auth-wechat, #auth-qq, #auth-kakao, #auth-sms-request)::before { opacity: .12 !important; }
+
+/* Two isolated header rows: account actions above; touch capsules below.
+   Meaning-language settings remain visible in their own learning toolbar. */
+.header-actions { gap: 20px; }
+.header-tools {
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 16px;
+  overflow: visible;
+  padding: 0 4px;
+}
+.header-tools > .theme-switch-slot { margin-left: 20px; }
+.meaning-toolbar { display:flex; justify-content:flex-end; margin-bottom:8px; min-width:0; }
+.meaning-toolbar #meaning-toggles { flex-wrap:wrap; justify-content:flex-end; }
+.theme-switch, #ui-lang-seg { touch-action: none; }
+.theme-track, .theme-thumb, .theme-switch .pix, .theme-switch svg, .lang-thumb { pointer-events: none; touch-action: none; }
+#ui-lang-seg button { touch-action: none; }
+.auth-page .auth-topbar { gap:20px; padding:4px 8px; }
+@media (hover: none) {
+  /* No sticky :hover paint on phones; pressed/selected/focus remain intentional. */
+  body :is(button, [role="button"]):not(.theme-switch):not(#ui-lang-seg button):where(:hover):not(:focus-visible):not(:active):not(.active):not(.selected):not([aria-pressed="true"]):not(.btn:not(.secondary):not(.ghost)):not(:disabled) {
+    background: var(--action-surface) !important;
+    border-color: var(--action-border) !important;
+    box-shadow: inset 0 1px 0 var(--action-highlight), 0 2px 5px rgba(15,24,32,.07) !important;
+  }
+  body :is(button, [role="button"]):not(.theme-switch):not(#ui-lang-seg button):where(:hover):not(:focus-visible):not(:active):not(.active):not(.selected):not([aria-pressed="true"]):not(.btn:not(.secondary):not(.ghost))::before { opacity:.2; }
+}

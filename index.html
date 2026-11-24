@@ -501,16 +501,16 @@ body.draft-return-open { padding-bottom: 72px; }
     <div class="brand"><span id="brand-name">당신과 동행</span> <small id="brand-sub">v0.1</small> <span class="draft-badge" id="draft-badge">国内版初稿</span></div>
     <div class="header-actions">
       <button type="button" class="auth-top-btn" id="auth-top-btn">登录 / 注册</button>
-      <span class="theme-switch-slot" data-theme-switch></span>
     </div>
   </div>
   <div class="header-tools">
     <div class="seg" id="ui-lang-seg" role="group" aria-label="UI language"></div>
-    <div class="chip-row" id="meaning-toggles"></div>
+    <span class="theme-switch-slot" data-theme-switch></span>
   </div>
 </div>
 
 <main class="main">
+  <div class="meaning-toolbar"><div class="chip-row" id="meaning-toggles"></div></div>
   <!-- ABOUT (short intro) -->
   <section class="panel" id="panel-about" data-panel="about"></section>
   <!-- FEATURES -->
@@ -3094,8 +3094,7 @@ const UI_LANG_DRAG_SLOP = 9;
 const UI_LANG_SETTLE_MS = 190; // matches the accepted .18s theme-switch travel
 let uiLangSliderBound = false;
 let uiLangDrag = null;
-let uiLangIgnoreClick = false;
-let uiLangIgnoreTimer = 0;
+let uiLangSuppressClickUntil = 0;
 let uiLangSyncFrame = 0;
 let uiLangResizeObserver = null;
 let uiLangRenderTimer = 0;
@@ -3290,8 +3289,7 @@ function bindUiLangSlider() {
     if (event.pointerType === 'mouse' && event.button !== 0) return;
     const geom = uiLangGeometry(seg);
     if (!geom) return;
-    uiLangIgnoreClick = false;
-    clearTimeout(uiLangIgnoreTimer);
+    uiLangSuppressClickUntil = 0;
     uiLangDrag = {
       id: event.pointerId,
       x: event.clientX,
@@ -3303,6 +3301,7 @@ function bindUiLangSlider() {
       decided: false,
       scroll: false
     };
+    try { seg.setPointerCapture(event.pointerId); } catch (error) { /* synthetic pointer */ }
   });
 
   seg.addEventListener('pointermove', function (event) {
@@ -3318,7 +3317,6 @@ function bindUiLangSlider() {
       }
       uiLangDrag.active = true;
       seg.classList.add('dragging');
-      try { seg.setPointerCapture(event.pointerId); } catch (error) { /* synthetic events */ }
     }
     if (!uiLangDrag.active || uiLangDrag.scroll) return;
     if (event.cancelable) event.preventDefault();
@@ -3332,9 +3330,7 @@ function bindUiLangSlider() {
     seg.classList.remove('dragging');
     const wasActive = drag.active && !drag.scroll;
     if (wasActive) {
-      uiLangIgnoreClick = true;
-      clearTimeout(uiLangIgnoreTimer);
-      uiLangIgnoreTimer = setTimeout(function () { uiLangIgnoreClick = false; }, 0);
+      uiLangSuppressClickUntil = Date.now() + 700;
       const pos = uiLangReadPos(seg);
       const next = Math.round(pos);
       const lang = UI_LANG_ORDER[Math.min(UI_LANG_ORDER.length - 1, Math.max(0, next))];
@@ -3342,9 +3338,7 @@ function bindUiLangSlider() {
       else uiLangPaint(uiLangIndex(lang));
     } else {
       if (drag.scroll) {
-        uiLangIgnoreClick = true;
-        clearTimeout(uiLangIgnoreTimer);
-        uiLangIgnoreTimer = setTimeout(function () { uiLangIgnoreClick = false; }, 0);
+        uiLangSuppressClickUntil = Date.now() + 700;
       }
       uiLangPaint(uiLangIndex(drag.startLang));
     }
@@ -3353,21 +3347,25 @@ function bindUiLangSlider() {
   seg.addEventListener('pointercancel', function (event) {
     if (!uiLangDrag || event.pointerId !== uiLangDrag.id) return;
     cancelUiLangDrag();
-    uiLangIgnoreClick = true;
-    clearTimeout(uiLangIgnoreTimer);
-    uiLangIgnoreTimer = setTimeout(function () { uiLangIgnoreClick = false; }, 0);
+    uiLangSuppressClickUntil = Date.now() + 700;
   });
 
-  seg.addEventListener('lostpointercapture', function () {
-    if (uiLangDrag) cancelUiLangDrag();
+  seg.addEventListener('lostpointercapture', function (event) {
+    if (event.target !== seg || !uiLangDrag || event.pointerId !== uiLangDrag.id) return;
+    cancelUiLangDrag();
+    uiLangSuppressClickUntil = Date.now() + 700;
   });
 
   seg.addEventListener('click', function (event) {
-    const button = event.target && event.target.closest ? event.target.closest('button[data-lang]') : null;
+    let button = event.target && event.target.closest ? event.target.closest('button[data-lang]') : null;
+    // Explicit parent capture retargets a touch tap's click to the track.
+    if (!button && event.target === seg) {
+      const slots = uiLangGeometry(seg).slots;
+      const localX = event.clientX - seg.getBoundingClientRect().left - seg.clientLeft;
+      button = slots.reduce((nearest, slot) => Math.abs(slot.center-localX) < Math.abs(nearest.center-localX) ? slot : nearest).button;
+    }
     if (!button || !seg.contains(button)) return;
-    if (uiLangIgnoreClick) {
-      uiLangIgnoreClick = false;
-      clearTimeout(uiLangIgnoreTimer);
+    if (Date.now() < uiLangSuppressClickUntil) {
       event.preventDefault();
       return;
     }
