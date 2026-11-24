@@ -174,16 +174,13 @@
 
   function bindSwitch(sw) {
     var drag = null;
-    var ignoreClick = false;
-    var ignoreTimer = 0;
+    var suppressClickUntil = 0;
     var suppressClick = false;
     var suppressTimer = 0;
     var cancelledGesture = false;
 
     function armIgnoreClick() {
-      ignoreClick = true;
-      clearTimeout(ignoreTimer);
-      ignoreTimer = setTimeout(function () { ignoreClick = false; }, 0);
+      suppressClickUntil = Date.now() + 700;
     }
     function clearSuppress() {
       suppressClick = false;
@@ -204,9 +201,8 @@
     sw.addEventListener("pointerdown", function (event) {
       if (event.pointerType === "mouse" && event.button !== 0) return;
       clearSuppress();
-      ignoreClick = false;
+      suppressClickUntil = 0;
       cancelledGesture = false;
-      clearTimeout(ignoreTimer);
       drag = {
         id: event.pointerId,
         x: event.clientX,
@@ -217,6 +213,7 @@
         decided: false,
         scroll: false
       };
+      try { sw.setPointerCapture(event.pointerId); } catch (error) { /* synthetic pointer */ }
     });
 
     sw.addEventListener("pointermove", function (event) {
@@ -232,7 +229,6 @@
         }
         drag.active = true;
         sw.classList.add("dragging");
-        try { sw.setPointerCapture(event.pointerId); } catch (error) { /* synthetic events */ }
       }
       if (!drag.active || drag.scroll) return;
       if (event.cancelable) event.preventDefault();
@@ -275,8 +271,7 @@
     });
 
     sw.addEventListener("click", function (event) {
-      if (ignoreClick) {
-        ignoreClick = false;
+      if (Date.now() < suppressClickUntil) {
         event.preventDefault();
         return;
       }
@@ -306,8 +301,10 @@
       }
     });
 
-    sw.addEventListener("lostpointercapture", function () {
-      if (drag) cancelDrag();
+    sw.addEventListener("lostpointercapture", function (event) {
+      if (event.target !== sw || !drag || event.pointerId !== drag.id) return;
+      cancelDrag();
+      armIgnoreClick();
     });
   }
 

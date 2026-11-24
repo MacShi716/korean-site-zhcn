@@ -96,6 +96,9 @@ async function launchChrome() {
     const page = pages.get(msg.sessionId);
     if (!page || !msg.method) return;
     if (msg.method === "Network.requestWillBeSent") page.requests.push(msg.params.request.url);
+    if (msg.method === "Runtime.consoleAPICalled" && msg.params.type === "error") {
+      page.errors.push("console.error: " + msg.params.args.map(arg => arg.value || arg.description || "").join(" "));
+    }
     if (msg.method === "Runtime.exceptionThrown") {
       page.errors.push(msg.params.exceptionDetails?.exception?.description || msg.params.exceptionDetails?.text || "runtime error");
     }
@@ -130,6 +133,7 @@ async function launchChrome() {
         return result.result.value;
       },
       async open(url) {
+        await send("Page.bringToFront", {}, sessionId);
         // Capture both identity signals of the document we are leaving. A
         // same-URL Page.navigate keeps location.href unchanged while the old
         // document is still live, so URL equality alone is not proof of a
@@ -158,18 +162,13 @@ async function launchChrome() {
         }
         if (url.includes("index.html")) {
           try {
-            const content = await this.evaluate(`new Promise((resolve) => {
-              const token = window.__koreanDocToken || null;
-              const origin = performance.timeOrigin;
-              let ticks = 0;
-              const tick = () => {
-                if (document.querySelector("#question-stem, #reading-card .choice-opt, #pack-retry")
-                  && document.querySelector(".theme-switch")) resolve({ ok: true, token, origin });
-                else if (++ticks > 500) resolve({ ok: false, token, origin, ready: document.readyState, href: location.href });
-                else setTimeout(tick, 20);
-              };
-              tick();
-            })`);
+            const deadline = Date.now() + 10000;
+            let content;
+            do {
+              content = await this.evaluate(`({ok:!!(document.querySelector("#question-stem, #reading-card .choice-opt, #pack-retry") && document.querySelector(".theme-switch")), token:window.__koreanDocToken, origin:performance.timeOrigin})`);
+              if (content.ok) break;
+              await new Promise(resolve => setTimeout(resolve, 20));
+            } while (Date.now() < deadline);
             if (!content || content.token !== fresh.token || content.origin !== fresh.origin) {
               throw new Error(`document changed while waiting for ${url} (${JSON.stringify({ fresh, content })})`);
             }
@@ -204,17 +203,15 @@ async function launchChrome() {
 }
 
 async function waitFor(page, expression, timeout = 8000) {
-  return page.evaluate(`new Promise((resolve) => {
-    const started = Date.now();
-    const tick = () => {
-      let value = false;
-      try { value = !!(${expression}); } catch (error) { value = false; }
-      if (value) resolve(true);
-      else if (Date.now() - started > ${timeout}) resolve(false);
-      else setTimeout(tick, 30);
-    };
-    tick();
-  })`);
+  // Re-evaluate in the current document on each tick. An awaitPromise polling
+  // closure can remain bound to a departing execution context during reload.
+  const deadline = Date.now() + timeout;
+  do {
+    try { if (await page.evaluate(`!!(${expression})`)) return true; }
+    catch (error) { /* navigation replaced the current execution context */ }
+    await new Promise(resolve => setTimeout(resolve, 30));
+  } while (Date.now() < deadline);
+  return false;
 }
 
 async function waitForAuth(page, timeout = 8000) {
@@ -1223,7 +1220,7 @@ test("all action buttons share an outside-only glass rim in home and auth", asyn
         const rim = getComputedStyle(button, '::before');
         return {text:button.textContent.trim(), disabled:button.disabled, rim:style.getPropertyValue('--action-rim').trim(), mask:rim.maskComposite, glow:style.boxShadow, image:style.backgroundImage, color:style.color};
       })`);
-      assert.ok(controls.length > 5, path);
+      assert.ok(controls.length > 5, path + ": " + await page.evaluate(`JSON.stringify({url:location.href,visibility:document.visibilityState,ready:document.readyState,text:document.body.innerText.slice(0,300),scripts:[...document.scripts].map(s=>s.src)})`));
       for (const control of controls) {
         assert.ok(control.rim, `${theme} ${path}: ${control.text}`);
         assert.ok(control.mask.split(",").every(value => value.trim() === "exclude"), control.text);
@@ -1232,4 +1229,79 @@ test("all action buttons share an outside-only glass rim in home and auth", asyn
       }
     }
   }
+});
+
+async function nativeTouch(page, selector, distance, axis = "x") {
+  const start = await page.evaluate(`(() => {const r=document.querySelector(${JSON.stringify(selector)}).getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2};})()`);
+  const point = (fraction) => ({x:start.x+(axis==="x"?distance*fraction:0),y:start.y+(axis==="y"?distance*fraction:0),id:1,force:1,radiusX:2,radiusY:2});
+  await page.send("Input.dispatchTouchEvent", {type:"touchStart",touchPoints:[point(0)]});
+  let mid;
+  for(let i=1;i<=8;i++) {
+    await page.send("Input.dispatchTouchEvent", {type:"touchMove",touchPoints:[point(i/8)]});
+    if(i===4) mid=await page.evaluate(`({theme:Number(document.querySelector('.theme-switch').style.getPropertyValue('--pos')),lang:Number(document.querySelector('#ui-lang-seg').style.getPropertyValue('--lang-pos'))})`);
+    await new Promise(resolve=>setTimeout(resolve,20));
+  }
+  await page.send("Input.dispatchTouchEvent", {type:"touchEnd",touchPoints:[]});
+  await new Promise(resolve=>setTimeout(resolve,550));
+  return mid;
+}
+async function nativeTap(page, selector) {
+  const p=await page.evaluate(`(() => {const r=document.querySelector(${JSON.stringify(selector)}).getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2,id:1};})()`);
+  await page.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[p]});
+  await page.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+  await new Promise(resolve=>setTimeout(resolve,550));
+}
+test("native touch: isolated header controls never lose capture or bounce after release",async(t)=>{
+  const site=await startSite();const browser=await launchChrome();const page=await browser.newPage();
+  t.after(async()=>{await page.close();await browser.close();await new Promise(resolve=>site.server.close(resolve));});
+  await page.setSize(390,844,true);
+  await page.send('Emulation.setTouchEmulationEnabled',{enabled:true,maxTouchPoints:1});
+  await resetHome(page,site.origin,'light');
+  await t.test('login and both capsules have safe independent hit areas without header scrolling',async()=>{
+    for(const [width,height] of [[360,800],[375,667],[390,844],[430,932],[1280,800]]){
+      await page.setSize(width,height,width<900);
+      const layout=await page.evaluate(`(() => {
+        const rect=s=>{const r=document.querySelector(s).getBoundingClientRect();return {left:r.left,right:r.right,top:r.top,bottom:r.bottom};};
+        const a=rect('.auth-top-btn'),theme=rect('.theme-switch'),lang=rect('#ui-lang-seg');
+        const gap=b=>({x:Math.max(b.left-a.right,a.left-b.right),y:Math.max(b.top-a.bottom,a.top-b.bottom)});
+        const tools=document.querySelector('.header-tools');
+        return {theme:gap(theme),lang:gap(lang),noScroll:tools.scrollWidth<=tools.clientWidth,noOverflow:document.documentElement.scrollWidth<=innerWidth};
+      })()`);
+      for(const gap of [layout.theme,layout.lang])assert.ok(gap.x>=14||gap.y>=8,`${width}: ${JSON.stringify(layout)}`);
+      assert.equal(layout.noScroll,true);assert.equal(layout.noOverflow,true);
+    }
+    await page.setSize(390,844,true);
+  });
+  await t.test('theme thumb real-touch drag works both ways, survives delayed clicks and persists',async()=>{
+    let mid=await nativeTouch(page,'.theme-thumb',-30);assert.ok(mid.theme>0&&mid.theme<1,JSON.stringify(mid));
+    assert.equal(await page.evaluate('document.documentElement.dataset.theme'),'dark');
+    await page.evaluate(`document.querySelector('.theme-switch').dispatchEvent(new MouseEvent('click',{bubbles:true}))`);
+    assert.equal(await page.evaluate('document.documentElement.dataset.theme'),'dark');
+    await page.open(site.origin+'/index.html');assert.equal(await page.evaluate('document.documentElement.dataset.theme'),'dark');
+    mid=await nativeTouch(page,'.theme-thumb',30);assert.ok(mid.theme>0&&mid.theme<1,JSON.stringify(mid));
+    assert.equal(await page.evaluate('document.documentElement.dataset.theme'),'light');
+    await page.open(site.origin+'/index.html');assert.equal(await page.evaluate('document.documentElement.dataset.theme'),'light');
+    await nativeTap(page,'.theme-switch');assert.equal(await page.evaluate('document.documentElement.dataset.theme'),'dark');
+    await nativeTap(page,'.theme-switch');assert.equal(await page.evaluate('document.documentElement.dataset.theme'),'light');
+  });
+  await t.test('language thumb real-touch Chinese/Korean/English round trip keeps the same node and actual UI',async()=>{
+    await page.evaluate(`window.__nativeThumb=document.querySelector('.lang-thumb');window.__authClicks=0;document.querySelector('.auth-top-btn').addEventListener('click',()=>window.__authClicks++);`);
+    for(const [distance,expected] of [[1,'ko'],[1,'en'],[-1,'ko'],[-1,'zh']]){
+      const step=await page.evaluate(`uiLangGeometry(document.querySelector('#ui-lang-seg')).travel`);
+      const mid=await nativeTouch(page,'.lang-thumb',step*distance);
+      assert.ok(Math.abs(mid.lang-Math.round(mid.lang))>.1,JSON.stringify(mid));
+      await page.evaluate(`document.querySelector('#ui-lang-seg button[data-lang="${expected === 'en' ? 'zh' : 'en'}"]').dispatchEvent(new MouseEvent('click',{bubbles:true}))`);
+      const result=await page.evaluate(`({lang:document.documentElement.lang,active:document.querySelector('#ui-lang-seg button.active').dataset.lang,same:window.__nativeThumb===document.querySelector('.lang-thumb'),auth:window.__authClicks,gate:document.querySelector('#auth-gate').hidden})`);
+      assert.equal(result.active,expected);assert.equal(result.same,true);assert.equal(result.auth,0);assert.equal(result.gate,true);
+      assert.equal(result.lang,expected==='zh'?'zh-CN':expected);
+    }
+    for(const lang of ['en','ko','zh']){await nativeTap(page,`#ui-lang-seg button[data-lang="${lang}"]`);assert.equal(await page.evaluate(`document.querySelector('#ui-lang-seg button.active').dataset.lang`),lang);}
+    const result=await page.evaluate('({clicks:window.__authClicks,path:location.pathname})');assert.equal(result.clicks,0);assert.equal(result.path,'/index.html');
+  });
+  await t.test('touch scrolling outside capsules remains native and no console/runtime errors occur',async()=>{
+    await page.setSize(390,500,true);
+    await nativeTouch(page,'#question-stem',-180,'y');
+    assert.ok(await page.evaluate('scrollY>20'));
+    assert.deepEqual(page.errors,[]);
+  });
 });
