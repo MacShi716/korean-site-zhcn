@@ -4,10 +4,34 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f2ebdd">
   <title>账号登录</title>
+  <script>
+  /* Day/night theme: set before first paint so there is no light flash. */
+  (function () {
+    try {
+      var key = "koreanSite_theme_v1";
+      var saved = localStorage.getItem(key);
+      var mode = saved === "light" || saved === "dark"
+        ? saved
+        : (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", mode);
+      document.documentElement.style.colorScheme = mode;
+      document.documentElement.style.setProperty("--pos", mode === "light" ? "1" : "0");
+    } catch (error) {
+      document.documentElement.setAttribute("data-theme", "light");
+    }
+  })();
+  </script>
   <link rel="stylesheet" href="./preview.css">
+  <link rel="stylesheet" href="../theme.css">
+  <script src="../theme.js" defer></script>
 </head>
-<body>
+<body class="auth-page">
+  <header class="auth-topbar">
+    <a class="auth-brand" href="../index.html"><span>동행 · Together</span><small>账号</small></a>
+    <span class="theme-switch-slot" data-theme-switch></span>
+  </header>
   <main id="auth-app"></main>
   <script type="module" src="./preview.js?v=20261120b"></script>
 </body>

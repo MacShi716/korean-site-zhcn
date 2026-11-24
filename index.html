@@ -11,6 +11,23 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script>
+/* Day/night theme: set before first paint so there is no light flash. */
+(function () {
+  try {
+    var key = "koreanSite_theme_v1";
+    var saved = localStorage.getItem(key);
+    var mode = saved === "light" || saved === "dark"
+      ? saved
+      : (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", mode);
+    document.documentElement.style.colorScheme = mode;
+    document.documentElement.style.setProperty("--pos", mode === "light" ? "1" : "0");
+  } catch (error) {
+    document.documentElement.setAttribute("data-theme", "light");
+  }
+})();
+</script>
 <style>
 :root {
   --bg: #f6f3ee;
@@ -474,6 +491,8 @@ body.draft-return-open { padding-bottom: 72px; }
 @media (min-width: 900px) { .draft-return { left: 200px; } }
 
 </style>
+<link rel="stylesheet" href="theme.css">
+<script src="theme.js" defer></script>
 </head>
 <body>
 <div class="app-header">
@@ -482,10 +501,13 @@ body.draft-return-open { padding-bottom: 72px; }
     <div class="brand"><span id="brand-name">당신과 동행</span> <small id="brand-sub">v0.1</small> <span class="draft-badge" id="draft-badge">国内版初稿</span></div>
     <div class="header-actions">
       <button type="button" class="auth-top-btn" id="auth-top-btn">登录 / 注册</button>
-      <div class="seg" id="ui-lang-seg" aria-label="UI language"></div>
+      <span class="theme-switch-slot" data-theme-switch></span>
     </div>
   </div>
-  <div class="chip-row" id="meaning-toggles"></div>
+  <div class="header-tools">
+    <div class="seg" id="ui-lang-seg" role="group" aria-label="UI language"></div>
+    <div class="chip-row" id="meaning-toggles"></div>
+  </div>
 </div>
 
 <main class="main">
@@ -3066,6 +3088,321 @@ function badgesHTML(item) {
 /********************
  * Header + Nav
  ********************/
+const UI_LANG_ORDER = ['zh','ko','en'];
+const UI_LANG_LABELS = { zh: '中文', ko: '한국어', en: 'English' };
+const UI_LANG_DRAG_SLOP = 9;
+const UI_LANG_SETTLE_MS = 190; // matches the accepted .18s theme-switch travel
+let uiLangSliderBound = false;
+let uiLangDrag = null;
+let uiLangIgnoreClick = false;
+let uiLangIgnoreTimer = 0;
+let uiLangSyncFrame = 0;
+let uiLangResizeObserver = null;
+let uiLangRenderTimer = 0;
+let uiLangRenderFocus = false;
+
+function uiLangIndex(lang) {
+  const index = UI_LANG_ORDER.indexOf(lang);
+  return index < 0 ? 0 : index;
+}
+
+function uiLangReadPos(seg) {
+  const parsed = parseFloat(seg && seg.style.getPropertyValue('--lang-pos'));
+  return Number.isFinite(parsed) ? Math.min(2, Math.max(0, parsed)) : uiLangIndex(state.uiLang);
+}
+
+function uiLangGeometry(seg) {
+  if (!seg || !seg.isConnected) return null;
+  const buttons = Array.from(seg.querySelectorAll('button[data-lang]'));
+  if (!buttons.length) return null;
+  const segRect = seg.getBoundingClientRect();
+  const style = getComputedStyle(seg);
+  const originX = segRect.left + (parseFloat(style.borderLeftWidth) || 0);
+  const slots = buttons.map(function (button) {
+    const rect = button.getBoundingClientRect();
+    const left = rect.left - originX;
+    return {
+      button: button,
+      lang: button.dataset.lang,
+      left: left,
+      width: rect.width,
+      right: left + rect.width,
+      center: left + rect.width / 2
+    };
+  });
+  return {
+    seg: seg,
+    slots: slots,
+    travel: Math.max(1, (slots[slots.length - 1].center - slots[0].center) / (slots.length - 1))
+  };
+}
+
+function uiLangPaint(pos) {
+  const seg = document.getElementById('ui-lang-seg');
+  if (!seg) return 0;
+  const firstPaint = seg.dataset.langPainted !== '1';
+  if (firstPaint) seg.classList.add('lang-no-transition');
+  const clamped = Math.min(2, Math.max(0, Number.isFinite(pos) ? pos : uiLangIndex(state.uiLang)));
+  seg.style.setProperty('--lang-pos', String(clamped));
+  const geom = uiLangGeometry(seg);
+  if (!geom || geom.slots.length < 2) return clamped;
+  const lower = Math.min(geom.slots.length - 2, Math.floor(clamped));
+  const fraction = clamped - lower;
+  const from = geom.slots[lower];
+  const to = geom.slots[lower + 1];
+  const left = from.left + (to.left - from.left) * fraction;
+  const width = from.width + (to.width - from.width) * fraction;
+  seg.style.setProperty('--lang-x', left.toFixed(2) + 'px');
+  seg.style.setProperty('--lang-w', width.toFixed(2) + 'px');
+  const nearest = Math.round(clamped);
+  geom.slots.forEach(function (slot, index) {
+    const selected = index === nearest;
+    slot.button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+    slot.button.classList.toggle('active', selected);
+  });
+  if (firstPaint) {
+    void seg.offsetWidth;
+    requestAnimationFrame(function () {
+      seg.classList.remove('lang-no-transition');
+      seg.dataset.langPainted = '1';
+    });
+  }
+  return clamped;
+}
+
+function observeUiLangGeometry() {
+  if (!uiLangResizeObserver) return;
+  const seg = document.getElementById('ui-lang-seg');
+  if (!seg) return;
+  uiLangResizeObserver.disconnect();
+  uiLangResizeObserver.observe(seg);
+  seg.querySelectorAll('button[data-lang]').forEach(function (button) {
+    uiLangResizeObserver.observe(button);
+  });
+}
+
+function scheduleUiLangSync() {
+  if (uiLangSyncFrame) return;
+  uiLangSyncFrame = requestAnimationFrame(function () {
+    uiLangSyncFrame = 0;
+    // Never let a layout observer snap the thumb back while a finger/mouse is
+    // still controlling the continuous position.
+    if (uiLangDrag && uiLangDrag.active) return;
+    uiLangPaint(uiLangIndex(state.uiLang));
+  });
+}
+
+function syncUiLangSlider() {
+  const seg = document.getElementById('ui-lang-seg');
+  if (!seg) return;
+  uiLangPaint(uiLangIndex(state.uiLang));
+}
+
+function focusUiLangButton(lang) {
+  const next = document.querySelector('#ui-lang-seg button[data-lang="'+lang+'"]');
+  if (!next) return;
+  try { next.focus({ preventScroll: true }); } catch (e) { next.focus(); }
+}
+
+function paintUiLangImmediate() {
+  const seg = document.getElementById('ui-lang-seg');
+  if (!seg) return;
+  seg.classList.add('lang-no-transition');
+  uiLangPaint(uiLangIndex(state.uiLang));
+  void seg.offsetWidth;
+  requestAnimationFrame(function () { seg.classList.remove('lang-no-transition'); });
+}
+
+function finishUiLangRender() {
+  clearTimeout(uiLangRenderTimer);
+  uiLangRenderTimer = 0;
+  const focus = uiLangRenderFocus;
+  uiLangRenderFocus = false;
+  renderAll();
+  // The language swap can change font metrics, so re-measure once without a
+  // second transition; the travel has already finished by now.
+  paintUiLangImmediate();
+  if (focus) focusUiLangButton(state.uiLang);
+}
+
+function scheduleUiLangRender(focus) {
+  uiLangRenderFocus = focus;
+  clearTimeout(uiLangRenderTimer);
+  uiLangRenderTimer = 0;
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) {
+    finishUiLangRender();
+    return;
+  }
+  // The full UI re-render rebuilds the practice panel. Defer it until the
+  // thumb has finished travelling, otherwise that synchronous layout work
+  // runs before the first animation frame and the thumb appears to jump.
+  uiLangRenderTimer = setTimeout(finishUiLangRender, UI_LANG_SETTLE_MS);
+}
+
+function selectUiLang(lang, focus) {
+  if (UI_LANG_ORDER.indexOf(lang) < 0) return;
+  const changed = state.uiLang !== lang;
+  state.uiLang = lang;
+  if (state.uiLang === 'ko') { state.showKO = true; state.showEN = false; state.showZH = false; }
+  else if (state.uiLang === 'en') { state.showEN = true; state.showKO = false; state.showZH = false; }
+  else { state.showZH = true; state.showEN = true; state.showKO = false; }
+  saveState();
+  if (!changed) {
+    renderAll();
+    if (focus) focusUiLangButton(lang);
+    return;
+  }
+  // Reuse the one mounted thumb so the browser can interpolate its current
+  // transform to the new slot. renderHeader() only replaces the buttons.
+  uiLangPaint(uiLangIndex(lang));
+  if (focus) focusUiLangButton(lang);
+  scheduleUiLangRender(focus);
+}
+
+function cancelUiLangDrag() {
+  if (!uiLangDrag) return;
+  const stateAtStart = uiLangDrag;
+  uiLangDrag = null;
+  const seg = document.getElementById('ui-lang-seg');
+  if (seg) seg.classList.remove('dragging');
+  uiLangPaint(stateAtStart.startPos);
+}
+
+function bindUiLangSlider() {
+  const seg = document.getElementById('ui-lang-seg');
+  if (!seg) return;
+  if (uiLangSliderBound) {
+    observeUiLangGeometry();
+    scheduleUiLangSync();
+    return;
+  }
+  uiLangSliderBound = true;
+  if ('ResizeObserver' in window) uiLangResizeObserver = new ResizeObserver(function () { scheduleUiLangSync(); });
+  window.addEventListener('resize', scheduleUiLangSync, { passive: true });
+  window.addEventListener('koreansthemechange', scheduleUiLangSync);
+  if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+    document.fonts.ready.then(scheduleUiLangSync).catch(function () {});
+  }
+  window.addEventListener('load', scheduleUiLangSync, { once: true });
+
+  seg.addEventListener('pointerdown', function (event) {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    const geom = uiLangGeometry(seg);
+    if (!geom) return;
+    uiLangIgnoreClick = false;
+    clearTimeout(uiLangIgnoreTimer);
+    uiLangDrag = {
+      id: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
+      startPos: uiLangReadPos(seg),
+      startLang: state.uiLang,
+      travel: geom.travel,
+      active: false,
+      decided: false,
+      scroll: false
+    };
+  });
+
+  seg.addEventListener('pointermove', function (event) {
+    if (!uiLangDrag || event.pointerId !== uiLangDrag.id) return;
+    const dx = event.clientX - uiLangDrag.x;
+    const dy = event.clientY - uiLangDrag.y;
+    if (!uiLangDrag.decided) {
+      if (Math.hypot(dx, dy) < UI_LANG_DRAG_SLOP) return;
+      uiLangDrag.decided = true;
+      if (Math.abs(dy) > Math.abs(dx)) {
+        uiLangDrag.scroll = true;
+        return;
+      }
+      uiLangDrag.active = true;
+      seg.classList.add('dragging');
+      try { seg.setPointerCapture(event.pointerId); } catch (error) { /* synthetic events */ }
+    }
+    if (!uiLangDrag.active || uiLangDrag.scroll) return;
+    if (event.cancelable) event.preventDefault();
+    uiLangPaint(uiLangDrag.startPos + dx / uiLangDrag.travel);
+  }, { passive: false });
+
+  seg.addEventListener('pointerup', function (event) {
+    if (!uiLangDrag || event.pointerId !== uiLangDrag.id) return;
+    const drag = uiLangDrag;
+    uiLangDrag = null;
+    seg.classList.remove('dragging');
+    const wasActive = drag.active && !drag.scroll;
+    if (wasActive) {
+      uiLangIgnoreClick = true;
+      clearTimeout(uiLangIgnoreTimer);
+      uiLangIgnoreTimer = setTimeout(function () { uiLangIgnoreClick = false; }, 0);
+      const pos = uiLangReadPos(seg);
+      const next = Math.round(pos);
+      const lang = UI_LANG_ORDER[Math.min(UI_LANG_ORDER.length - 1, Math.max(0, next))];
+      if (lang !== drag.startLang) selectUiLang(lang, false);
+      else uiLangPaint(uiLangIndex(lang));
+    } else {
+      if (drag.scroll) {
+        uiLangIgnoreClick = true;
+        clearTimeout(uiLangIgnoreTimer);
+        uiLangIgnoreTimer = setTimeout(function () { uiLangIgnoreClick = false; }, 0);
+      }
+      uiLangPaint(uiLangIndex(drag.startLang));
+    }
+  });
+
+  seg.addEventListener('pointercancel', function (event) {
+    if (!uiLangDrag || event.pointerId !== uiLangDrag.id) return;
+    cancelUiLangDrag();
+    uiLangIgnoreClick = true;
+    clearTimeout(uiLangIgnoreTimer);
+    uiLangIgnoreTimer = setTimeout(function () { uiLangIgnoreClick = false; }, 0);
+  });
+
+  seg.addEventListener('lostpointercapture', function () {
+    if (uiLangDrag) cancelUiLangDrag();
+  });
+
+  seg.addEventListener('click', function (event) {
+    const button = event.target && event.target.closest ? event.target.closest('button[data-lang]') : null;
+    if (!button || !seg.contains(button)) return;
+    if (uiLangIgnoreClick) {
+      uiLangIgnoreClick = false;
+      clearTimeout(uiLangIgnoreTimer);
+      event.preventDefault();
+      return;
+    }
+    selectUiLang(button.dataset.lang, true);
+  });
+
+  seg.addEventListener('keydown', function (event) {
+    const button = event.target && event.target.closest ? event.target.closest('button[data-lang]') : null;
+    if (!button) return;
+    const index = UI_LANG_ORDER.indexOf(button.dataset.lang);
+    if (index < 0) return;
+    let next = index;
+    if (event.key === 'ArrowLeft') next = Math.max(0, index - 1);
+    else if (event.key === 'ArrowRight') next = Math.min(UI_LANG_ORDER.length - 1, index + 1);
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = UI_LANG_ORDER.length - 1;
+    else if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+      event.preventDefault();
+      selectUiLang(button.dataset.lang, true);
+      return;
+    } else if (event.key === 'Escape' && uiLangDrag) {
+      event.preventDefault();
+      cancelUiLangDrag();
+      return;
+    } else {
+      return;
+    }
+    event.preventDefault();
+    if (next !== index) selectUiLang(UI_LANG_ORDER[next], true);
+  });
+
+  observeUiLangGeometry();
+  syncUiLangSlider();
+}
+
 function renderHeader() {
   const bn = document.getElementById('brand-name');
   if (bn) bn.textContent = t('brandName');
@@ -3074,19 +3411,18 @@ function renderHeader() {
   if (db) db.textContent = t('draftBadge');
   document.title = '동행 · Together · 同行';
   const seg = document.getElementById('ui-lang-seg');
-  const uiLangLabels = { zh: '中文', ko: '한국어', en: 'English' };
-  seg.innerHTML = ['zh','ko','en'].map(l =>
-    '<button type="button" data-lang="'+l+'" class="'+(state.uiLang===l?'active':'')+'">'+(uiLangLabels[l]||l)+'</button>'
-  ).join('');
-  seg.querySelectorAll('button').forEach(btn => {
-    btn.onclick = () => {
-      state.uiLang = btn.dataset.lang;
-      if (state.uiLang === 'ko') { state.showKO = true; state.showEN = false; state.showZH = false; }
-      else if (state.uiLang === 'en') { state.showEN = true; state.showKO = false; state.showZH = false; }
-      else { state.showZH = true; state.showEN = true; state.showKO = false; }
-      saveState(); renderAll();
-    };
-  });
+  const activeLang = UI_LANG_ORDER.indexOf(state.uiLang) < 0 ? 'zh' : state.uiLang;
+  // Keep the mounted thumb across re-renders: replacing it would restart the
+  // .18s travel from the new paint, which reads as a jump instead of a slide.
+  if (!seg.querySelector('.lang-thumb')) {
+    seg.insertAdjacentHTML('afterbegin', '<span class="lang-thumb" aria-hidden="true"></span>');
+  }
+  seg.querySelectorAll('button[data-lang]').forEach(function (button) { button.remove(); });
+  seg.insertAdjacentHTML('beforeend', UI_LANG_ORDER.map(function (l) {
+      const selected = activeLang === l;
+      return '<button type="button" data-lang="'+l+'" class="'+(selected?'active':'')+'" aria-pressed="'+(selected?'true':'false')+'">'+(UI_LANG_LABELS[l]||l)+'</button>';
+    }).join(''));
+  bindUiLangSlider();
   const mt = document.getElementById('meaning-toggles');
   mt.innerHTML =
     '<span class="muted" style="align-self:center">'+esc(t('meaningShow'))+'</span>'
@@ -7037,12 +7373,17 @@ function sourcesDetailsHTML(mode) {
 function practiceChromeHTML(mode) {
   const answering = session && session.phase === 'question';
   const showProgress = session && (session.phase === 'question' || session.phase === 'done');
+  const topline = (showProgress || answering)
+    ? '<div class="practice-topline">'
+      + (showProgress ? progressHTML() : '')
+      + (answering ? '<button type="button" class="btn ghost" id="session-end">'+esc(t('sessionEnd'))+'</button>' : '')
+      + '</div>'
+    : '';
   return '<div class="card practice-toolbar">'
-    + (showProgress ? progressHTML() : '')
+    + topline
     + scopeButtonsHTML(mode)
     + modeButtonsHTML(mode)
-    + countLineHTML(mode)
-    + (answering ? '<div class="row"><button type="button" class="btn ghost" id="session-end">'+esc(t('sessionEnd'))+'</button></div>' : '')
+    + '<div class="practice-countline">'+countLineHTML(mode)+'</div>'
     + sourcesDetailsHTML(mode)
     + '</div><div id="practice-body"></div>'
     + '<p class="dict-credit practice-credit">'+shortCreditHTML()+'</p>';
@@ -7528,7 +7869,7 @@ function drawMatchLines() {
     const b = board.querySelector('[data-side="r"][data-id="'+pair.r+'"]');
     if (!a || !b) return;
     const p = center(a); const q = center(b);
-    lines += '<line x1="'+p.x+'" y1="'+p.y+'" x2="'+q.x+'" y2="'+q.y+'" stroke="#1a5f4a" stroke-width="3" />';
+    lines += '<line x1="'+p.x+'" y1="'+p.y+'" x2="'+q.x+'" y2="'+q.y+'" stroke="currentColor" stroke-width="3" />';
   });
   svg.innerHTML = lines;
 }

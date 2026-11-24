@@ -5,16 +5,17 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { createServer } from "node:http";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { spawn } from "node:child_process";
 import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, extname } from "node:path";
 import test from "node:test";
+import { ensureArtifactDir } from "./test-artifacts.mjs";
 
 const ROOT = new URL("..", import.meta.url);
 const HANGIL = JSON.parse(readFileSync(new URL("../data/hangil-reading-55/hangil-text-mcq.json", import.meta.url), "utf8"));
-const SHOTS = "/opt/cursor/artifacts";
+const SHOTS = ensureArtifactDir();
 const VIEWPORTS = [
   { name: "375x667", width: 375, height: 667, mobile: true },
   { name: "390x844", width: 390, height: 844, mobile: true },
@@ -125,7 +126,6 @@ async function launchChrome() {
   const { sessionId } = await send("Target.attachToTarget", { targetId, flatten: true });
   await send("Page.enable", {}, sessionId);
   await send("Runtime.enable", {}, sessionId);
-  mkdirSync(SHOTS, { recursive: true });
   async function evaluate(expression) {
     const result = await send("Runtime.evaluate", { expression, awaitPromise: true, returnByValue: true }, sessionId);
     if (result.exceptionDetails) throw new Error(result.exceptionDetails.text || JSON.stringify(result.exceptionDetails));
@@ -137,8 +137,29 @@ async function launchChrome() {
       await send("Emulation.setDeviceMetricsOverride", { width, height, deviceScaleFactor: 1, mobile }, sessionId);
     },
     async open(url) {
+      const navToken = `nav-${Date.now()}-${Math.random()}`;
+      try { await evaluate(`window.__koreanNavToken = ${JSON.stringify(navToken)}`); } catch (error) {}
       await send("Page.navigate", { url }, sessionId);
-      await evaluate("document.readyState");
+      for (let attempt = 0; attempt < 50; attempt += 1) {
+        try {
+          const state = await evaluate("({ ready: document.readyState, href: location.href, token: window.__koreanNavToken || null })");
+          if (state.ready === "complete" && state.href === url && state.token !== navToken) break;
+        } catch (error) { /* the old execution context was replaced */ }
+        await new Promise((resolve) => setTimeout(resolve, 40));
+      }
+      if (url.includes("index.html")) {
+        try {
+          await evaluate(`new Promise((resolve) => {
+            let ticks = 0;
+            const tick = () => {
+              if (document.querySelector("#question-stem, #reading-card .choice-opt, #pack-retry")) resolve(true);
+              else if (++ticks > 500) resolve(false);
+              else setTimeout(tick, 20);
+            };
+            tick();
+          })`);
+        } catch (error) {}
+      }
       await evaluate("new Promise((resolve) => requestAnimationFrame(() => resolve('ok')))");
     },
     async shot(name) {

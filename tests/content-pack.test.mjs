@@ -4,12 +4,13 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { createServer } from "node:http";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { spawn } from "node:child_process";
 import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, extname } from "node:path";
 import test from "node:test";
+import { ensureArtifactDir } from "./test-artifacts.mjs";
 
 const ROOT = new URL("..", import.meta.url);
 const FILES = {
@@ -109,14 +110,35 @@ async function launchChrome() {
   return {
     evaluate,
     async open(url) {
+      const navToken = `nav-${Date.now()}-${Math.random()}`;
+      try { await evaluate(`window.__koreanNavToken = ${JSON.stringify(navToken)}`); } catch (error) {}
       await send("Page.navigate", { url }, sessionId);
-      await evaluate("document.readyState");
+      for (let attempt = 0; attempt < 50; attempt += 1) {
+        try {
+          const state = await evaluate("({ ready: document.readyState, href: location.href, token: window.__koreanNavToken || null })");
+          if (state.ready === "complete" && state.href === url && state.token !== navToken) break;
+        } catch (error) { /* the old execution context was replaced */ }
+        await new Promise((resolve) => setTimeout(resolve, 40));
+      }
+      if (url.includes("index.html")) {
+        try {
+          await evaluate(`new Promise((resolve) => {
+            let ticks = 0;
+            const tick = () => {
+              if (document.querySelector("#question-stem, #reading-card .choice-opt, #pack-retry")) resolve(true);
+              else if (++ticks > 500) resolve(false);
+              else setTimeout(tick, 20);
+            };
+            tick();
+          })`);
+        } catch (error) {}
+      }
       await evaluate("new Promise((resolve) => requestAnimationFrame(() => resolve('ok')))");
     },
     async shot(name) {
-      mkdirSync("/opt/cursor/artifacts/content-pack", { recursive: true });
+      const dir = ensureArtifactDir("content-pack");
       const { data } = await send("Page.captureScreenshot", { format: "png" }, sessionId);
-      writeFileSync(join("/opt/cursor/artifacts/content-pack", `${name}.png`), Buffer.from(data, "base64"));
+      writeFileSync(join(dir, `${name}.png`), Buffer.from(data, "base64"));
     },
     async close() { browser.close(); chrome.kill(); },
   };
@@ -134,16 +156,21 @@ async function ensureStarted(page) {
 }
 
 async function clickButton(page, label) {
-  const status = await page.evaluate(`(() => {
+  const status = await page.evaluate(`new Promise((resolve) => {
     const label = ${JSON.stringify(label)};
-    const found = [...document.querySelectorAll("#panel-practice button, #main-nav button, #panel-daily button, #panel-video button, .site-foot button, #auth-top-btn")].find((button) => {
-      const text = button.textContent.replace(/\\s+/g, " ").trim();
-      return !button.disabled && (text === label || text.endsWith(label) || text.startsWith(label + " ") || text.startsWith(label + " ·"));
-    });
-    if (!found) return "missing";
-    found.click();
-    return "clicked";
-  })()`);
+    const selector = "#panel-practice button, #main-nav button, #panel-daily button, #panel-video button, .site-foot button, #auth-top-btn";
+    const started = Date.now();
+    const tick = () => {
+      const found = [...document.querySelectorAll(selector)].find((button) => {
+        const text = button.textContent.replace(/\\s+/g, " ").trim();
+        return !button.disabled && (text === label || text.endsWith(label) || text.startsWith(label + " ") || text.startsWith(label + " ·"));
+      });
+      if (found) { found.click(); resolve("clicked"); return; }
+      if (Date.now() - started > 8000) resolve("missing");
+      else setTimeout(tick, 40);
+    };
+    tick();
+  })`);
   assert.equal(status, "clicked", `button not found: ${label}`);
   await page.evaluate("new Promise((resolve) => requestAnimationFrame(() => resolve('ok')))");
 }
@@ -162,7 +189,16 @@ async function fresh(page, origin) {
     };
     tick();
   })`);
-  assert.equal(ready, true, "graded pack did not load");
+  if (!ready) {
+    const debug = await page.evaluate(`(() => ({
+      href: location.href,
+      ready: document.readyState,
+      status: document.querySelector("#pack-status") ? document.querySelector("#pack-status").innerText : null,
+      panel: document.querySelector("#panel-practice") ? document.querySelector("#panel-practice").innerText.slice(0, 120) : null,
+      body: document.body ? document.body.innerText.slice(0, 160) : null
+    }))()`);
+    assert.equal(ready, true, "graded pack did not load " + JSON.stringify(debug));
+  }
 }
 
 function firstOf(type, grade) {
