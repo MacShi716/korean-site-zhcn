@@ -1,0 +1,20 @@
+{
+  "name": "korean-site-android",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Offline Android shell for the Korean learning site. The publishable static site stays at the repository root.",
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync-www.mjs && npx cap sync android",
+    "icons": "python3 scripts/generate-icons.py",
+    "verify-apk": "node scripts/verify-apk.mjs",
+    "test": "node --test scripts/sync-www.test.mjs"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.6.2",
+    "@capacitor/core": "8.6.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.6.2"
+  }
+}

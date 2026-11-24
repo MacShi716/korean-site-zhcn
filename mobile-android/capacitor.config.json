@@ -1,0 +1,23 @@
+{
+  "appId": "com.macshi716.koreansite",
+  "appName": "韩语学习",
+  "webDir": "www",
+  "android": {
+    "path": "android",
+    "allowMixedContent": false,
+    "backgroundColor": "#f2ebdd",
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false
+  },
+  "server": {
+    "androidScheme": "https",
+    "hostname": "localhost"
+  },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "css",
+      "style": "LIGHT",
+      "initialViewportFitValueHint": "cover"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+# Android packaging lives in mobile-android/. The repository root stays a
+# static site published by GitHub Pages and Vercel, so do not ignore it.
+mobile-android/node_modules/
+mobile-android/www/
+mobile-android/android/.gradle/
+mobile-android/android/build/
+mobile-android/android/app/build/
+mobile-android/android/local.properties
+mobile-android/android/captures/
+mobile-android/android/app/src/main/assets/public/
+mobile-android/android/app/src/main/assets/capacitor.config.json
+mobile-android/android/app/src/main/assets/capacitor.plugins.json
+
+# Generated installers and signing material. Debug builds use the local
+# Android debug keystore and are not committed.
+*.apk
+*.aab
+*.keystore
+*.jks
+*.idsig
+
+.DS_Store
