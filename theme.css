@@ -1366,3 +1366,41 @@ body.auth-page #auth-app :is(#auth-wechat, #auth-qq, #auth-kakao, #auth-sms-requ
   }
   body :is(button, [role="button"]):not(.theme-switch):not(#ui-lang-seg button):where(:hover):not(:focus-visible):not(:active):not(.active):not(.selected):not([aria-pressed="true"]):not(.btn:not(.secondary):not(.ghost))::before { opacity:.2; }
 }
+
+/* ------------------------------------------------------------------ *
+ * Golden ratio (additive). Do not restyle .theme-switch* or the language slider.
+ * ------------------------------------------------------------------ */
+.main {
+  max-width: var(--gr-content);
+  padding: var(--gr-space-lg) var(--gr-space-md) var(--gr-space-xl);
+}
+.site-foot {
+  max-width: var(--gr-content);
+  padding-left: var(--gr-space-sm);
+  padding-right: var(--gr-space-sm);
+  padding-bottom: var(--gr-space-lg);
+}
+.brand { font-size: var(--gr-fs-md); line-height: var(--gr-lh-tight); }
+.brand small { font-size: var(--gr-fs-xs); }
+.card h2, .card > h2 { font-size: var(--gr-fs-md); line-height: var(--gr-lh-tight); }
+.practice-question .ko-big { font-size: var(--gr-fs-lg); line-height: var(--gr-lh-tight); }
+.study-video,
+.study-video video,
+.study-video iframe,
+.study-video img {
+  aspect-ratio: var(--gr-ratio);
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+@media (min-width: 640px) {
+  .nav { max-width: var(--gr-content); }
+}
+/* Header switches, chips, icons and the 200px side nav stay as designed. */
+.theme-switch,
+.theme-switch-slot,
+.chip,
+.lang-switch,
+#lang-switch {
+  aspect-ratio: auto;
+}
