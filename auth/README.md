@@ -39,6 +39,8 @@ node --test auth/tests/auth-service.test.js
 
 会话存在单独的 `korean-site-auth-session`。读写会拒绝 `koreanSite_zhcn_draft_v01` 及其账号钥匙。不会把游客进度拷进账号。
 
+首页 AI 导师只认这个真实 Supabase 会话，页面内的 `000000` 演示登录不算数。导师聊天还需要服务端会员和 AI 额度，购买 / 结账尚未实现；这不会影响站内其他练习，也和学习能量无关。详见 `api/README.md` 与 `api/sql/ai-membership.sql`。
+
 ## 你需要补上的配置
 
 只把可公开的值写进 `auth/public-config.js`。不要把 `sb_secret_...` 或 `service_role` 交给这个文件；草稿会拒绝它们，不会拿去创建客户端。

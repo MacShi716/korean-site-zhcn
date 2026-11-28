@@ -362,6 +362,17 @@ body { padding-bottom: 0; }
   background: #fff; resize: vertical;
 }
 .ai-empty { text-align: center; color: var(--muted); padding: 28px 12px; font-size: .9rem; }
+.ai-guide-list { margin: 0 0 10px; padding-left: 18px; color: var(--muted); font-size: .84rem; line-height: 1.5; }
+.ai-guide-list li { margin: 5px 0; }
+.ai-gate-box { border-top: 1px solid var(--border); padding-top: 10px; }
+.ai-stt-label { font-size: .78rem; }
+.ai-chat-toolbar select {
+  min-height: 34px; padding: 4px 8px; border-radius: 9px;
+  border: 1px solid var(--border); background: var(--control-bg); color: var(--ink);
+}
+.tr-mic.mic-unsupported { opacity: .72; }
+.ai-msg.system .ai-msg-actions { justify-content: center; }
+#ai-session-notice { margin-bottom: 8px; }
 @media (min-width: 900px) {
   .ai-layout { display: grid; grid-template-columns: 320px 1fr; gap: 14px; align-items: start; }
   .ai-filter-panel { position: sticky; top: 70px; max-height: calc(100vh - 90px); overflow: auto; }
@@ -810,7 +821,7 @@ const I18N = {
     privacy: "Privacy: localStorage only. Export before clearing browser data.",
     aiTitle: "AI Tutor",
     aiPlaceholder: "Coming later",
-    aiDesc: "Chat with a tutor model. API keys and prompts stay on the server.",
+    aiDesc: "Practice natural Korean conversation by text or voice. Chat needs a paid membership; purchase is not connected yet.",
     aiFilter: "Filter",
     aiReset: "Reset",
     aiVendor: "Provider",
@@ -837,15 +848,44 @@ const I18N = {
     aiCopyAll: "Copy as plain text",
     aiCopyMsg: "Copy",
     aiCopied: "Copied",
-    aiInputPh: "Message the tutor… (Enter send, Shift+Enter newline)",
+    aiInputPh: "Write in Korean, Chinese, or English... (Enter send, Shift+Enter newline)",
     aiSend: "Send",
-    aiEmpty: "No messages yet. Pick a model and say hello.",
-    aiNotConnected: "Server not connected yet: API keys and prompts stay on the server only",
-    aiSending: "Sending…",
+    aiEmpty: "Start with a Korean greeting. Ask how to say something, then try it in a sentence.",
+    aiNotConnected: "The tutor endpoint is not configured.",
+    aiSending: "Sending...",
     aiErr: "Request failed",
     aiYou: "Me",
-    aiBot: "AI",
-    aiExampleNote: "Model list is an EXAMPLE placeholder — replace with server data.",
+    aiBot: "Tutor",
+    aiExampleNote: "Model list is an EXAMPLE placeholder - replace with server data.",
+    aiTutorTag: "Korean speaking practice",
+    aiMembershipNote: "Tutor chat requires a paid membership. AI quota is bought through membership and is separate from site learning energy. Purchase is not connected yet.",
+    aiPracticeFree: "The rest of the site's practice stays usable without login or membership.",
+    aiLoginRequired: "Sign in with a real account to use the tutor. The login/register button is in the page header. The local demo phone login does not count.",
+    aiSignIn: "Sign in / Register",
+    aiMembershipRequired: "Tutor chat requires a membership. Purchase is not connected yet.",
+    aiQuotaExhausted: "Not enough AI quota. Buy AI quota through membership (this is not site learning energy). Purchase is not connected yet.",
+    aiMembershipUnconfigured: "The server's membership or AI quota store is not configured yet, so the tutor cannot reply.",
+    aiAiUnconfigured: "The AI service is not configured on the server yet, so the tutor cannot reply.",
+    aiServerNotReady: "The tutor is not ready yet.",
+    aiGuideTitle: "How practice works",
+    aiGuide1: "Keep the conversation going in Korean.",
+    aiGuide2: "Ask for a phrase, then use it in your own sentence.",
+    aiGuide3: "Brief, specific fixes, then another try. When you get it right, the tutor praises you and asks a follow-up.",
+    aiGuide4: "Answers stay brief, like a normal chat message.",
+    aiAutoSpeakOn: "Auto-speak: on",
+    aiAutoSpeakOff: "Auto-speak: off",
+    aiSpeakMsg: "Play",
+    aiMic: "Speak",
+    aiMicUnsupported: "Speech recognition is not supported in this browser. You can still type.",
+    aiListening: "Listening...",
+    aiMicOff: "Microphone stopped or permission was denied.",
+    aiSttLang: "Speech language",
+    aiQuotaRemaining: "AI quota left: {n}",
+    aiSignedIn: "Signed in. The server verifies your session and membership.",
+    aiNotSignedIn: "Not signed in. Tutor chat stays locked until you sign in.",
+    aiMembershipGap: "Purchase / checkout is not implemented.",
+    aiHistoryLocal: "Chat history stays on this device only.",
+    aiNoFakeReply: "No tutor reply was generated.",
     draftBadge: "CN draft",
     authTitle: "Sign in / Register (optional)",
     authUnconnected: "Demo only. This does not connect to an SMS server, WeChat, QQ, or KakaoTalk.",
@@ -1309,7 +1349,7 @@ const I18N = {
     privacy: "개인정보: localStorage만 사용. 브라우저 데이터 삭제 전 내보내기하세요.",
     aiTitle: "AI 튜터",
     aiPlaceholder: "곧 제공 예정",
-    aiDesc: "튜터 모델과 대화합니다. API 키와 프롬프트는 서버에만 둡니다.",
+    aiDesc: "텍스트나 음성으로 자연스러운 한국어 대화를 연습합니다. 대화는 유료 멤버십이 필요하며 결제는 아직 연결되지 않았습니다.",
     aiFilter: "필터",
     aiReset: "초기화",
     aiVendor: "공급자",
@@ -1336,15 +1376,44 @@ const I18N = {
     aiCopyAll: "일반 텍스트로 복사",
     aiCopyMsg: "복사",
     aiCopied: "복사됨",
-    aiInputPh: "튜터에게 메시지… (Enter 전송, Shift+Enter 줄바꿈)",
+    aiInputPh: "한국어, 중국어, 영어로 입력하세요... (Enter 전송, Shift+Enter 줄바꿈)",
     aiSend: "전송",
-    aiEmpty: "아직 메시지 없음. 모델을 고르고 인사해 보세요.",
-    aiNotConnected: "아직 서버 미연동: API 키와 프롬프트는 서버에만 둡니다",
-    aiSending: "전송 중…",
+    aiEmpty: "한국어 인사로 시작해 보세요. 어떻게 말하는지 물어본 뒤 문장으로 사용해 보세요.",
+    aiNotConnected: "튜터 주소가 설정되지 않았습니다.",
+    aiSending: "전송 중...",
     aiErr: "요청 실패",
     aiYou: "나",
-    aiBot: "AI",
-    aiExampleNote: "모델 목록은 EXAMPLE 자리표시자입니다 — 서버 데이터로 교체하세요.",
+    aiBot: "튜터",
+    aiExampleNote: "모델 목록은 EXAMPLE 자리표시자입니다 - 서버 데이터로 교체하세요.",
+    aiTutorTag: "한국어 회화 연습",
+    aiMembershipNote: "튜터 대화는 유료 멤버십이 필요합니다. AI 할당량은 멤버십으로 구매하며 사이트 학습 에너지와 별개입니다. 결제는 아직 연결되지 않았습니다.",
+    aiPracticeFree: "사이트의 나머지 연습은 로그인이나 멤버십 없이 사용할 수 있습니다.",
+    aiLoginRequired: "튜터를 쓰려면 실제 계정으로 로그인하세요. 로그인/가입 버튼은 페이지 상단에 있습니다. 이 페이지의 데모 휴대폰 로그인은 인정되지 않습니다.",
+    aiSignIn: "로그인 / 가입",
+    aiMembershipRequired: "튜터 대화는 멤버십이 필요합니다. 결제는 아직 연결되지 않았습니다.",
+    aiQuotaExhausted: "AI 할당량이 부족합니다. 멤버십으로 AI 할당량을 구매해야 합니다(사이트 학습 에너지가 아닙니다). 결제는 아직 연결되지 않았습니다.",
+    aiMembershipUnconfigured: "서버에 멤버십 또는 AI 할당량 저장소가 아직 설정되지 않아 튜터가 답할 수 없습니다.",
+    aiAiUnconfigured: "서버에 AI 서비스가 아직 설정되지 않아 튜터가 답할 수 없습니다.",
+    aiServerNotReady: "튜터를 아직 사용할 수 없습니다.",
+    aiGuideTitle: "연습 방식",
+    aiGuide1: "한국어로 대화를 이어 갑니다.",
+    aiGuide2: "표현을 물어본 뒤 내 문장으로 사용해 봅니다.",
+    aiGuide3: "짧고 구체적으로 고친 뒤 다시 말합니다. 맞으면 칭찬하고 다음 질문을 합니다.",
+    aiGuide4: "답변은 일반 채팅처럼 짧게 유지됩니다.",
+    aiAutoSpeakOn: "자동 읽기: 켜짐",
+    aiAutoSpeakOff: "자동 읽기: 꺼짐",
+    aiSpeakMsg: "읽기",
+    aiMic: "말하기",
+    aiMicUnsupported: "이 브라우저는 음성 인식을 지원하지 않습니다. 타이핑은 가능합니다.",
+    aiListening: "듣는 중...",
+    aiMicOff: "마이크가 멈췄거나 권한이 거부되었습니다.",
+    aiSttLang: "음성 인식 언어",
+    aiQuotaRemaining: "남은 AI 할당량: {n}",
+    aiSignedIn: "로그인됨. 서버가 세션과 멤버십을 확인합니다.",
+    aiNotSignedIn: "로그인하지 않았습니다. 로그인 전에는 튜터 대화를 사용할 수 없습니다.",
+    aiMembershipGap: "구매/결제는 아직 구현되지 않았습니다.",
+    aiHistoryLocal: "대화 기록은 이 기기에만 저장됩니다.",
+    aiNoFakeReply: "튜터 답변은 생성되지 않았습니다.",
     draftBadge: "국내판 초고",
     authTitle: "로그인 / 가입 (선택)",
     authUnconnected: "데모입니다. 문자 서버, WeChat, QQ, 카카오톡에는 연결되지 않습니다.",
@@ -1808,7 +1877,7 @@ const I18N = {
     privacy: "隐私：仅 localStorage。清除浏览器数据前请先导出。",
     aiTitle: "AI 导师",
     aiPlaceholder: "稍后推出",
-    aiDesc: "与导师模型对话。API 密钥与提示词只放在服务器端。",
+    aiDesc: "用文字或语音练习自然的韩语对话。聊天需要付费会员，购买尚未接入。",
     aiFilter: "筛选",
     aiReset: "重置",
     aiVendor: "供应商",
@@ -1835,15 +1904,44 @@ const I18N = {
     aiCopyAll: "复制为纯文本",
     aiCopyMsg: "复制",
     aiCopied: "已复制",
-    aiInputPh: "给导师发消息…（Enter 发送，Shift+Enter 换行）",
+    aiInputPh: "用韩语、中文或英文输入...（Enter 发送，Shift+Enter 换行）",
     aiSend: "发送",
-    aiEmpty: "还没有消息。先选模型，打个招呼吧。",
-    aiNotConnected: "尚未接入服务器：API 密钥和提示词只放服务器端",
-    aiSending: "发送中…",
+    aiEmpty: "先用韩语打个招呼吧。可以问「怎么说」，再把它用进句子里。",
+    aiNotConnected: "导师接口尚未配置。",
+    aiSending: "发送中...",
     aiErr: "请求失败",
     aiYou: "我",
-    aiBot: "AI",
-    aiExampleNote: "模型列表为 EXAMPLE 占位 — 请用服务器数据替换。",
+    aiBot: "导师",
+    aiExampleNote: "模型列表为 EXAMPLE 占位 - 请用服务器数据替换。",
+    aiTutorTag: "韩语口语练习",
+    aiMembershipNote: "导师聊天需要付费会员。AI 额度通过会员购买，和站点学习能量分开。购买尚未接入。",
+    aiPracticeFree: "站内其他练习无需登录或会员，照常可用。",
+    aiLoginRequired: "请用真实账号登录后再使用导师。登录/注册入口在页面顶部。本页的演示手机号登录不算真实登录。",
+    aiSignIn: "登录 / 注册",
+    aiMembershipRequired: "要充会员才能聊天。购买尚未接入。",
+    aiQuotaExhausted: "AI 额度不足，需要通过会员购买额度（不是站点学习能量）。购买尚未接入。",
+    aiMembershipUnconfigured: "服务器尚未配置会员或 AI 额度存储，导师暂时无法回复。",
+    aiAiUnconfigured: "服务器尚未配置 AI 服务，导师暂时无法回复。",
+    aiServerNotReady: "导师暂时不可用。",
+    aiGuideTitle: "练习方式",
+    aiGuide1: "用韩语把对话继续下去。",
+    aiGuide2: "先问一个说法，再用自己的句子说出来。",
+    aiGuide3: "简短具体地纠正，然后再试一次。说对了会表扬并继续追问。",
+    aiGuide4: "回复像普通聊天一样简短。",
+    aiAutoSpeakOn: "自动朗读：开",
+    aiAutoSpeakOff: "自动朗读：关",
+    aiSpeakMsg: "朗读",
+    aiMic: "说话",
+    aiMicUnsupported: "当前浏览器不支持语音识别，仍可打字输入。",
+    aiListening: "正在听...",
+    aiMicOff: "麦克风已停止或权限被拒绝。",
+    aiSttLang: "语音识别语言",
+    aiQuotaRemaining: "剩余 AI 额度：{n}",
+    aiSignedIn: "已登录。服务器会校验会话和会员状态。",
+    aiNotSignedIn: "尚未登录。登录前导师聊天保持锁定。",
+    aiMembershipGap: "购买 / 结账尚未实现。",
+    aiHistoryLocal: "聊天记录只保存在本机。",
+    aiNoFakeReply: "没有生成导师回复。",
     draftBadge: "国内版初稿",
     authTitle: "登录 / 注册（可选）",
     authUnconnected: "这是本机演示登录，不会连接短信服务器，也不会连接微信、QQ 或 KakaoTalk。",
@@ -2260,22 +2358,27 @@ const GRAMMAR = [
 const STORAGE_KEY = 'koreanSite_zhcn_draft_v01';
 
 /********************
- * AI endpoint (client NEVER holds API keys or system prompts)
- * Leave empty until a mainland-China cloud proxy is deployed (placeholder).
- * Prefer a mainland China cloud host when this draft is later connected.
+ * API endpoints (client NEVER holds API keys or system prompts)
+ * Localhost and Vercel deployments call their own /api routes. GitHub Pages
+ * calls the public Vercel origin.
  ********************/
-const AI_ENDPOINT = ''; // 占位：接入后填国内云代理地址，例如 'https://[域名前缀].example.cn/api/chat'
-const TRANSLATE_ENDPOINT = (function () {
+function apiEndpointForHost(hostname, route) {
+  const name = String(route || '').replace(/^\/+/, '');
   try {
-    const host = String(location.hostname || '').toLowerCase();
-    if (!host) return 'https://korean-site-zhcn.vercel.app/api/translate';
-    if (host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]') return '/api/translate';
-    if (/\.vercel\.app$/.test(host)) return '/api/translate';
-    return 'https://korean-site-zhcn.vercel.app/api/translate';
+    const host = String(hostname || '').toLowerCase();
+    if (!host) return 'https://korean-site-zhcn.vercel.app/api/' + name;
+    if (host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]') return '/api/' + name;
+    if (/\.vercel\.app$/.test(host)) return '/api/' + name;
+    return 'https://korean-site-zhcn.vercel.app/api/' + name;
   } catch (e) {
-    return 'https://korean-site-zhcn.vercel.app/api/translate';
+    return 'https://korean-site-zhcn.vercel.app/api/' + name;
   }
-})();
+}
+function apiEndpoint(route) {
+  return apiEndpointForHost(location.hostname, route);
+}
+const AI_ENDPOINT = apiEndpoint('chat');
+const TRANSLATE_ENDPOINT = apiEndpoint('translate');
 
 /**
  * EXAMPLE placeholder model list — REPLACE with server-provided data.
@@ -2343,6 +2446,9 @@ const defaultState = () => ({
     selectedModelId: 'deepseek-chat',
     filters: { vendor:'', group:'', billing:'', tag:'', endpoint:'' },
     messages: [], // [{id, role:'user'|'assistant'|'system', content, at, model}]
+    autoSpeak: true, // local-only voice preference
+    sttLang: '',     // '' follows state.uiLang; otherwise zh-CN / en-US / ko-KR
+    lastQuotaRemaining: null,
   },
   auth: { signedIn:false, mode:null, phone:'', at:null },
   version: 1,
@@ -5422,11 +5528,17 @@ function renderTranslate() {
 /********************
  * AI Tutor chat
  ********************/
+let aiSending = false;
+let aiActiveMic = null;
+
 function ensureAiChat() {
   if (!state.aiChat) state.aiChat = defaultState().aiChat;
   if (!state.aiChat.filters) state.aiChat.filters = defaultState().aiChat.filters;
   if (!Array.isArray(state.aiChat.messages)) state.aiChat.messages = [];
   if (!state.aiChat.selectedModelId) state.aiChat.selectedModelId = 'deepseek-chat';
+  if (typeof state.aiChat.autoSpeak !== 'boolean') state.aiChat.autoSpeak = true;
+  if (typeof state.aiChat.sttLang !== 'string') state.aiChat.sttLang = '';
+  if (!(typeof state.aiChat.lastQuotaRemaining === 'number')) state.aiChat.lastQuotaRemaining = null;
 }
 
 function aiUid() {
@@ -5458,30 +5570,109 @@ function getSelectedAiModel() {
 }
 
 /**
- * Single network entry for AI chat.
- * POSTs to AI_ENDPOINT. No keys / system prompts in the client.
- * @param {Array<{role:string,content:string}>} messages
- * @param {string} model
- * @returns {Promise<{ok:boolean, content?:string, error?:string, notConnected?:boolean}>}
+ * The tutor API only trusts a real Supabase session. This reads the isolated
+ * auth storage key directly and never the in-page demo account state.
  */
-async function callAI(messages, model) {
-  if (!AI_ENDPOINT) {
-    return { ok: false, notConnected: true, error: t('aiNotConnected') };
+const TUTOR_AUTH_STORAGE_KEY = 'korean-site-auth-session';
+function readTutorSession() {
+  try {
+    const raw = localStorage.getItem(TUTOR_AUTH_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') return null;
+    const token = typeof parsed.access_token === 'string' ? parsed.access_token.trim() : '';
+    if (!token) return null;
+    const expiresAt = Number(parsed.expires_at) || 0;
+    // An expired token is not a usable session; auth/preview.html can refresh it.
+    if (expiresAt && expiresAt * 1000 < Date.now() - 60000) return null;
+    return {
+      accessToken: token,
+      userId: parsed.user && typeof parsed.user.id === 'string' ? parsed.user.id : '',
+      expiresAt,
+    };
+  } catch (e) {
+    return null;
   }
+}
+
+function aiErrorText(code) {
+  const keys = {
+    login_required: 'aiLoginRequired',
+    membership_required: 'aiMembershipRequired',
+    quota_exhausted: 'aiQuotaExhausted',
+    membership_unconfigured: 'aiMembershipUnconfigured',
+    ai_unconfigured: 'aiAiUnconfigured',
+    ai_upstream_error: 'aiErr',
+    invalid_request: 'aiErr',
+    method_not_allowed: 'aiErr',
+    network_error: 'aiErr',
+  };
+  return t(keys[code] || 'aiErr');
+}
+
+function aiProfile() {
+  const setup = state.translateSetup || {};
+  return {
+    nativeLang: setup.nativeLang || state.uiLang || 'zh',
+    goal: setup.goal || '',
+    level: setup.level || '',
+  };
+}
+
+/**
+ * Single network entry for AI chat.
+ * No keys, model id, or system prompt are chosen by the client.
+ * @param {Array<{role:string,content:string}>} messages
+ * @returns {Promise<{ok:boolean, content?:string, code?:string, error?:string, quotaRemaining?:number}>}
+ */
+async function callAI(messages) {
+  if (!AI_ENDPOINT) {
+    return { ok: false, code: 'ai_unconfigured', error: t('aiNotConnected') };
+  }
+  const session = readTutorSession();
+  if (!session) {
+    return { ok: false, code: 'login_required', error: t('aiLoginRequired') };
+  }
+
+  const history = (Array.isArray(messages) ? messages : [])
+    .filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
+    .map(m => ({ role: m.role, content: m.content.slice(0, 4000) }))
+    .slice(-20);
+  if (!history.some(m => m.role === 'user')) {
+    return { ok: false, code: 'invalid_request', error: t('aiErr') };
+  }
+
   try {
     const res = await fetch(AI_ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages, model }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + session.accessToken,
+      },
+      body: JSON.stringify({
+        messages: history,
+        locale: state.uiLang || 'zh',
+        profile: aiProfile(),
+      }),
     });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    const content = (data && (data.content || data.reply || (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content))) || '';
-    if (!content) return { ok: false, error: t('aiErr') };
-    return { ok: true, content: String(content) };
+    let data = null;
+    try { data = await res.json(); } catch (e) { data = null; }
+    if (!res.ok) {
+      const fallback = res.status === 401 ? 'login_required'
+        : res.status === 403 ? 'membership_required'
+          : res.status === 503 ? 'ai_unconfigured'
+            : 'ai_upstream_error';
+      const code = data && typeof data.code === 'string' ? data.code : fallback;
+      return { ok: false, code, status: res.status, error: aiErrorText(code) };
+    }
+    const content = data && (data.reply || data.content);
+    if (!content || !String(content).trim()) {
+      return { ok: false, code: 'ai_upstream_error', status: res.status, error: t('aiErr') };
+    }
+    const quotaRemaining = data && typeof data.quotaRemaining === 'number' ? data.quotaRemaining : null;
+    return { ok: true, content: String(content).trim(), quotaRemaining };
   } catch (e) {
-    console.warn('callAI failed', e);
-    return { ok: false, error: t('aiErr') + ': ' + (e && e.message ? e.message : String(e)) };
+    return { ok: false, code: 'network_error', error: t('aiErr') };
   }
 }
 
@@ -5489,6 +5680,83 @@ function aiPlainLabel(role) {
   if (role === 'user') return t('aiYou');
   if (role === 'assistant') return t('aiBot');
   return 'system';
+}
+
+function aiSttLang() {
+  const selected = document.getElementById('ai-stt-lang');
+  if (selected && selected.value) return selected.value;
+  ensureAiChat();
+  if (state.aiChat.sttLang) return state.aiChat.sttLang;
+  const lang = state.uiLang || 'zh';
+  return lang === 'ko' ? 'ko-KR' : (lang === 'en' ? 'en-US' : 'zh-CN');
+}
+
+function stopAiMic() {
+  if (aiActiveMic) {
+    try { aiActiveMic.stop(); } catch (e) {}
+  }
+  aiActiveMic = null;
+  const btn = document.getElementById('ai-mic');
+  if (btn) btn.classList.remove('recording');
+}
+
+function startAiMic() {
+  const SR = getSpeechRecognition();
+  if (!SR) { toast(t('aiMicUnsupported')); return; }
+  stopAiMic();
+  const recog = new SR();
+  recog.lang = aiSttLang();
+  recog.interimResults = false;
+  recog.maxAlternatives = 1;
+  const btn = document.getElementById('ai-mic');
+  aiActiveMic = recog;
+  toast(t('aiListening'));
+  if (btn) btn.classList.add('recording');
+  recog.onresult = (ev) => {
+    const said = (ev.results && ev.results[0] && ev.results[0][0] && ev.results[0][0].transcript) || '';
+    const ta = document.getElementById('ai-input');
+    if (ta && said) {
+      ta.value = (ta.value ? ta.value + ' ' : '') + said.trim();
+    }
+  };
+  recog.onerror = () => {
+    toast(t('aiMicOff'));
+    stopAiMic();
+  };
+  recog.onend = () => {
+    if (btn) btn.classList.remove('recording');
+    aiActiveMic = null;
+  };
+  try { recog.start(); } catch (e) { toast(t('aiMicOff')); stopAiMic(); }
+}
+
+/**
+ * Korean tutor text goes through speakKo (Supertonic preferred, device
+ * fallback). Replies with no Hangul use the matching device voice.
+ */
+function speakTutorText(text) {
+  const value = String(text || '').trim();
+  if (!value) return;
+  if (/[\uAC00-\uD7A3]/.test(value)) {
+    speakKo(value);
+    return;
+  }
+  if (!window.speechSynthesis) {
+    toast(t('noKoVoice'));
+    return;
+  }
+  const isZh = /[\u4E00-\u9FFF]/.test(value);
+  const lang = isZh ? 'zh-CN' : 'en-US';
+  stopKoAudio();
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(value);
+  u.lang = lang;
+  u.rate = 0.9;
+  u.pitch = 1;
+  const voices = speechSynthesis.getVoices() || [];
+  const pref = voices.find(v => (v.lang || '').toLowerCase().startsWith(lang.slice(0, 2)));
+  if (pref) u.voice = pref;
+  speechSynthesis.speak(u);
 }
 
 function aiConversationPlainText(msgs) {
@@ -5561,60 +5829,38 @@ function renderAI() {
   ensureAiChat();
   const el = document.getElementById('panel-ai');
   if (!el) return;
-  const f = state.aiChat.filters;
-  const models = filteredAiModels();
-  const selected = getSelectedAiModel();
   const msgs = state.aiChat.messages || [];
+  const session = readTutorSession();
+  const SR = getSpeechRecognition();
+  const autoSpeak = state.aiChat.autoSpeak !== false;
+  const quota = state.aiChat.lastQuotaRemaining;
+  const sttLang = aiSttLang();
+  const langOptions = [
+    { value: 'zh-CN', label: '中文' },
+    { value: 'en-US', label: 'English' },
+    { value: 'ko-KR', label: '한국어' },
+  ];
+  const sttOptions = langOptions.map(option =>
+    '<option value="'+option.value+'"'+(option.value === sttLang ? ' selected' : '')+'>'+esc(option.label)+'</option>'
+  ).join('');
 
-  let filterHtml =
-    '<div class="ai-filter-panel" id="ai-filter-panel">'
-    +'<div class="ai-filter-head"><h3>'+esc(t('aiFilter'))+'</h3>'
-    +'<button type="button" class="btn ghost" id="ai-filter-reset">'+esc(t('aiReset'))+'</button></div>'
-    +'<p class="muted" style="margin:0 0 6px;font-size:.75rem">'+esc(t('aiExampleNote'))+'</p>'
-
-    +'<div class="ai-filter-section"><div class="ai-filter-label">'+esc(t('aiVendor'))+'</div>'
-    +'<div class="ai-filter-chips">'
-    + renderAiFilterChip('vendor','',t('aiAllVendors'),'all-vendors')
-    + renderAiFilterChip('vendor','DeepSeek','DeepSeek','')
-    +'</div></div>'
-
-    +'<div class="ai-filter-section"><div class="ai-filter-label">'+esc(t('aiTokenGroup'))+'</div>'
-    +'<div class="ai-filter-chips">'
-    + renderAiFilterChip('group','',t('aiAllGroups'),'all-groups')
-    + renderAiFilterChip('group','default','default','')
-    + renderAiFilterChip('group','vip','vip','')
-    +'</div></div>'
-
-    +'<div class="ai-filter-section"><div class="ai-filter-label">'+esc(t('aiBilling'))+'</div>'
-    +'<div class="ai-filter-chips">'
-    + renderAiFilterChip('billing','',t('aiAllBilling'),'all-billing')
-    + renderAiFilterChip('billing','usage',t('aiBillingUsage'),'')
-    + renderAiFilterChip('billing','per_call',t('aiBillingPerCall'),'')
-    +'</div></div>'
-
-    +'<div class="ai-filter-section"><div class="ai-filter-label">'+esc(t('aiTags'))+'</div>'
-    +'<div class="ai-filter-chips">'
-    + renderAiFilterChip('tag','',t('aiAllTags'),'all-tags')
-    +'</div></div>'
-
-
-    +'<div class="ai-filter-section"><div class="ai-filter-label">'+esc(t('aiModels'))+'</div>'
-    +'<div class="ai-model-list" id="ai-model-list">';
-
-  if (!models.length) {
-    filterHtml += '<div class="ai-empty">'+esc(t('aiNoModels'))+'</div>';
-  } else {
-    models.forEach(m => {
-      const isSel = selected && m.id === selected.id;
-      filterHtml +=
-        '<button type="button" class="ai-model-card'+(isSel?' active':'')+'" data-ai-model="'+esc(m.id)+'">'
-        +'<div class="name">'+esc(m.name)+(isSel?' · '+esc(t('aiSelected')):'')+'</div>'
-        +'<div class="meta">'+esc(m.vendor)+' · '+esc(m.group)+'</div>'
-        +'<div class="price">'+esc(t('aiPricePending'))+'</div>'
-        +'</button>';
-    });
-  }
-  filterHtml += '</div></div>';
+  let guideHtml =
+    '<div class="ai-filter-panel" id="ai-guide">'
+    +'<div class="ai-filter-head"><h3>'+esc(t('aiGuideTitle'))+'</h3><span class="badge">'+esc(t('aiTutorTag'))+'</span></div>'
+    +'<ul class="ai-guide-list">'
+    +'<li>'+esc(t('aiGuide1'))+'</li>'
+    +'<li>'+esc(t('aiGuide2'))+'</li>'
+    +'<li>'+esc(t('aiGuide3'))+'</li>'
+    +'<li>'+esc(t('aiGuide4'))+'</li>'
+    +'</ul>'
+    +'<div class="ai-gate-box" id="ai-gate-box">'
+    +'<p class="muted" style="margin:0 0 8px">'+esc(session ? t('aiSignedIn') : t('aiNotSignedIn'))+'</p>'
+    +(session ? '' : '<button type="button" class="btn secondary block" id="ai-login-btn">'+esc(t('aiSignIn'))+'</button>')
+    +'<p class="ai-notice" style="margin:10px 0 0">'+esc(t('aiMembershipNote'))+'</p>'
+    +'<p class="muted" style="margin:8px 0 0;font-size:.78rem">'+esc(t('aiPracticeFree'))+'</p>'
+    +'<p class="muted" style="margin:4px 0 0;font-size:.78rem">'+esc(t('aiMembershipGap'))+'</p>'
+    +'<p class="muted" style="margin:4px 0 0;font-size:.78rem">'+esc(t('aiHistoryLocal'))+'</p>'
+    +'</div></div>';
 
   let msgsHtml = '';
   if (!msgs.length) {
@@ -5622,87 +5868,94 @@ function renderAI() {
   } else {
     msgs.forEach(m => {
       const role = m.role === 'user' ? 'user' : (m.role === 'assistant' ? 'assistant' : 'system');
+      const code = typeof m.code === 'string' ? m.code : '';
       msgsHtml +=
-        '<div class="ai-msg '+role+'" data-msg-id="'+esc(m.id)+'">'
-        +'<div class="ai-msg-body">'+esc(m.content||'')+'</div>';
-      if (role === 'user' || role === 'assistant') {
+        '<div class="ai-msg '+role+'" data-msg-id="'+esc(m.id)+'"'+(code ? ' data-code="'+esc(code)+'"' : '')+'>'
+        +'<div class="ai-msg-body">'+esc(m.content || '')+'</div>';
+      if (role === 'assistant') {
+        msgsHtml +=
+          '<div class="ai-msg-actions">'
+          +'<button type="button" class="chip" data-ai-speak-msg="'+esc(m.id)+'">🔊 '+esc(t('aiSpeakMsg'))+'</button>'
+          +'<button type="button" class="chip" data-ai-copy-msg="'+esc(m.id)+'">'+esc(t('aiCopyMsg'))+'</button>'
+          +'<button type="button" class="chip soft'+(isAiFav(m.id) ? ' active' : '')+'" data-ai-fav-msg="'+esc(m.id)+'">'+(isAiFav(m.id) ? '★ ' : '☆ ')+esc(isAiFav(m.id) ? t('trUnfav') : t('trFav'))+'</button>'
+          +'</div>';
+      } else if (role === 'user') {
         msgsHtml +=
           '<div class="ai-msg-actions">'
           +'<button type="button" class="chip" data-ai-copy-msg="'+esc(m.id)+'">'+esc(t('aiCopyMsg'))+'</button>'
-          +'<button type="button" class="chip soft'+(isAiFav(m.id)?' active':'')+'" data-ai-fav-msg="'+esc(m.id)+'">'+(isAiFav(m.id)?'★ ':'☆ ')+esc(isAiFav(m.id)?t('trUnfav'):t('trFav'))+'</button>'
+          +'<button type="button" class="chip soft'+(isAiFav(m.id) ? ' active' : '')+'" data-ai-fav-msg="'+esc(m.id)+'">'+(isAiFav(m.id) ? '★ ' : '☆ ')+esc(isAiFav(m.id) ? t('trUnfav') : t('trFav'))+'</button>'
+          +'</div>';
+      } else if (code === 'login_required') {
+        msgsHtml +=
+          '<div class="ai-msg-actions">'
+          +'<button type="button" class="btn secondary" data-ai-login>'+esc(t('aiSignIn'))+'</button>'
           +'</div>';
       }
       msgsHtml += '</div>';
     });
   }
 
-  const notice = AI_ENDPOINT
-    ? ''
-    : '<div class="ai-notice" id="ai-not-connected">'+esc(t('aiNotConnected'))+'</div>'
-      +'<div class="ai-notice" id="ai-domestic-plan" style="margin-top:8px">'+esc(t('aiDomesticPlan'))+'</div>';
+  const autoLabel = autoSpeak ? '🔊 ' + t('aiAutoSpeakOn') : '🔇 ' + t('aiAutoSpeakOff');
+  let statusText = '';
+  if (aiSending) statusText = t('aiSending');
+  else if (typeof quota === 'number') statusText = tf('aiQuotaRemaining', { n: quota });
+  else if (!session) statusText = t('aiNotSignedIn');
+  const sessionNotice = session ? '' : '<div class="ai-notice" id="ai-session-notice">'+esc(t('aiLoginRequired'))+'</div>';
 
   el.innerHTML =
     '<div class="card" style="margin-bottom:10px">'
-    +'<div class="row space"><h2 style="margin:0">'+esc(t('aiTitle'))+'</h2>'
-    +'<span class="badge">v0.1</span></div>'
+    +'<div class="row space"><h2 style="margin:0">'+esc(t('aiTitle'))+'</h2><span class="badge">'+esc(t('aiTutorTag'))+'</span></div>'
     +'<p class="muted" style="margin:6px 0 0">'+esc(t('aiDesc'))+'</p>'
     +'</div>'
-    + notice
     +'<div class="ai-layout">'
-    + filterHtml
+    + guideHtml
     +'<div class="ai-chat-card">'
     +'<div class="ai-chat-toolbar">'
-    +'<span class="model-tag">'+(selected ? esc(selected.name) : '—')+'</span>'
+    +'<button type="button" class="btn ghost" id="ai-autospeak" aria-pressed="'+(autoSpeak ? 'true' : 'false')+'">'+esc(autoLabel)+'</button>'
+    +'<label class="muted ai-stt-label" for="ai-stt-lang">'+esc(t('aiSttLang'))+'</label>'
+    +'<select id="ai-stt-lang" aria-label="'+esc(t('aiSttLang'))+'">'+sttOptions+'</select>'
     +'<span class="grow"></span>'
     +'<button type="button" class="btn ghost" id="ai-new-chat">'+esc(t('aiNewChat'))+'</button>'
     +'<button type="button" class="btn ghost" id="ai-clear-chat">'+esc(t('aiClearChat'))+'</button>'
     +'<button type="button" class="btn secondary" id="ai-copy-all">'+esc(t('aiCopyAll'))+'</button>'
-    +'<span class="muted" style="font-size:.78rem">'+esc(t('aiSaveLocal'))+'</span>'
     +'<div class="seg" id="ai-save-seg" aria-label="'+esc(t('aiSaveLocal'))+'">'
     +'<button type="button" data-ai-save="txt">'+esc(t('aiSaveTxt'))+'</button>'
     +'<button type="button" data-ai-save="json">'+esc(t('aiSaveJson'))+'</button>'
     +'</div>'
     +'</div>'
+    + sessionNotice
     +'<div class="ai-msgs" id="ai-msgs">'+msgsHtml+'</div>'
     +'<div class="ai-compose">'
     +'<textarea id="ai-input" placeholder="'+esc(t('aiInputPh'))+'" rows="3"></textarea>'
-    +'<div class="row"><button type="button" class="btn" id="ai-send">'+esc(t('aiSend'))+'</button>'
-    +'<span class="muted grow" id="ai-status"></span></div>'
+    +'<div class="row">'
+    +'<button type="button" class="btn secondary tr-mic'+(SR ? '' : ' mic-unsupported')+'" id="ai-mic" aria-disabled="'+(SR ? 'false' : 'true')+'">🎙 '+esc(t('aiMic'))+'</button>'
+    +'<button type="button" class="btn" id="ai-send"'+(aiSending ? ' disabled' : '')+'>'+esc(t('aiSend'))+'</button>'
+    +'<span class="muted grow" id="ai-status">'+esc(statusText)+'</span>'
     +'</div>'
-    +'</div>'
-    +'</div>';
+    +(SR ? '' : '<div class="muted" id="ai-mic-note" style="font-size:.78rem">'+esc(t('aiMicUnsupported'))+'</div>')
+    +'</div></div></div>';
 
-  // filter chips
-  el.querySelectorAll('[data-ai-filter]').forEach(btn => {
-    btn.onclick = () => {
-      const section = btn.getAttribute('data-ai-filter');
-      const value = btn.getAttribute('data-ai-value') || '';
-      ensureAiChat();
-      state.aiChat.filters[section] = value;
-      // if selected model filtered out, pick first remaining
-      const still = filteredAiModels();
-      if (still.length && !still.find(m => m.id === state.aiChat.selectedModelId)) {
-        state.aiChat.selectedModelId = still[0].id;
-      }
-      saveState();
-      renderAI();
-    };
-  });
-  const resetBtn = document.getElementById('ai-filter-reset');
-  if (resetBtn) resetBtn.onclick = () => {
+  const openLogin = () => openAuthPanel();
+  const guideLogin = document.getElementById('ai-login-btn');
+  if (guideLogin) guideLogin.onclick = openLogin;
+  el.querySelectorAll('[data-ai-login]').forEach(btn => { btn.onclick = openLogin; });
+
+  const autoBtn = document.getElementById('ai-autospeak');
+  if (autoBtn) autoBtn.onclick = () => {
     ensureAiChat();
-    state.aiChat.filters = { vendor:'', group:'', billing:'', tag:'', endpoint:'' };
+    state.aiChat.autoSpeak = !state.aiChat.autoSpeak;
     saveState();
-    renderAI();
+    const on = state.aiChat.autoSpeak;
+    autoBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    autoBtn.textContent = on ? '🔊 ' + t('aiAutoSpeakOn') : '🔇 ' + t('aiAutoSpeakOff');
   };
-  el.querySelectorAll('[data-ai-model]').forEach(btn => {
-    btn.onclick = () => {
-      ensureAiChat();
-      state.aiChat.selectedModelId = btn.getAttribute('data-ai-model');
-      saveState();
-      renderAI();
-    };
-  });
+
+  const sttSelect = document.getElementById('ai-stt-lang');
+  if (sttSelect) sttSelect.onchange = () => {
+    ensureAiChat();
+    state.aiChat.sttLang = sttSelect.value;
+    saveState();
+  };
 
   const newBtn = document.getElementById('ai-new-chat');
   const clearBtn = document.getElementById('ai-clear-chat');
@@ -5734,7 +5987,7 @@ function renderAI() {
       const id = btn.getAttribute('data-ai-copy-msg');
       const msg = (state.aiChat.messages || []).find(m => m.id === id);
       if (!msg) return;
-      const plain = aiPlainLabel(msg.role) + '：' + String(msg.content || '');
+      const plain = aiPlainLabel(msg.role) + ': ' + String(msg.content || '');
       const ok = await copyTextToClipboard(plain);
       toast(ok ? t('aiCopied') : t('aiErr'));
     };
@@ -5742,57 +5995,72 @@ function renderAI() {
   el.querySelectorAll('[data-ai-fav-msg]').forEach(btn => {
     btn.onclick = () => toggleAiFavorite(btn.getAttribute('data-ai-fav-msg'));
   });
+  el.querySelectorAll('[data-ai-speak-msg]').forEach(btn => {
+    btn.onclick = () => {
+      ensureAiChat();
+      const id = btn.getAttribute('data-ai-speak-msg');
+      const msg = (state.aiChat.messages || []).find(m => m.id === id);
+      if (msg) speakTutorText(msg.content);
+    };
+  });
 
-  const input = document.getElementById('ai-input');
+  const micBtn = document.getElementById('ai-mic');
+  if (micBtn) micBtn.onclick = startAiMic;
   const sendBtn = document.getElementById('ai-send');
+  const input = document.getElementById('ai-input');
+
   async function doSend() {
-    if (!input) return;
+    if (aiSending || !input) return;
     const text = (input.value || '').trim();
     if (!text) return;
     ensureAiChat();
-    const model = getSelectedAiModel();
-    const modelId = model ? model.id : 'deepseek-chat';
-    const userMsg = { id: aiUid(), role: 'user', content: text, at: new Date().toISOString(), model: modelId };
-    state.aiChat.messages.push(userMsg);
+    const at = new Date().toISOString();
+    if (!readTutorSession()) {
+      state.aiChat.messages.push({
+        id: aiUid(), role: 'system', content: t('aiLoginRequired'), at, code: 'login_required',
+      });
+      saveState();
+      renderAI();
+      return;
+    }
+    state.aiChat.messages.push({ id: aiUid(), role: 'user', content: text, at });
     input.value = '';
+    aiSending = true;
     saveState();
     renderAI();
-    const status = document.getElementById('ai-status');
-    const sendEl = document.getElementById('ai-send');
-    if (status) status.textContent = t('aiSending');
-    if (sendEl) sendEl.disabled = true;
 
     const history = state.aiChat.messages
       .filter(m => m.role === 'user' || m.role === 'assistant')
       .map(m => ({ role: m.role, content: m.content }));
-    const result = await callAI(history, modelId);
+    const result = await callAI(history);
 
     ensureAiChat();
-    if (result.notConnected) {
-      state.aiChat.messages.push({
-        id: aiUid(), role: 'system', content: t('aiNotConnected'),
-        at: new Date().toISOString(), model: modelId,
-      });
-    } else if (result.ok) {
+    aiSending = false;
+    if (result.ok) {
       state.aiChat.messages.push({
         id: aiUid(), role: 'assistant', content: result.content,
-        at: new Date().toISOString(), model: modelId,
+        at: new Date().toISOString(),
       });
+      if (typeof result.quotaRemaining === 'number') {
+        state.aiChat.lastQuotaRemaining = result.quotaRemaining;
+      }
     } else {
       state.aiChat.messages.push({
         id: aiUid(), role: 'system', content: result.error || t('aiErr'),
-        at: new Date().toISOString(), model: modelId,
+        at: new Date().toISOString(), code: result.code || 'ai_error',
       });
     }
     saveState();
     renderAI();
+    if (result.ok && state.aiChat.autoSpeak) speakTutorText(result.content);
   }
+
   if (sendBtn) sendBtn.onclick = doSend;
   if (input) {
     input.onkeydown = (ev) => {
-      if (ev.key === 'Enter' && !ev.shiftKey) {
+      if (ev.key === 'Enter' && !ev.shiftKey && !ev.isComposing) {
         ev.preventDefault();
-        doSend();
+        if (!aiSending) doSend();
       }
     };
   }
@@ -8740,8 +9008,8 @@ window.__koreanSite = {
   getState: () => state, setState: (s) => { state = s; }, showPanel, startQuiz, t, tf,
   topikLabel, stageLabel, enabledRegisters, enabledTopics, filterByPracticeTypes, buildQuizQueue, STAGES, REGISTERS, TOPICS, ALL_ITEMS,
   romanizeHangul, translate, renderTranslate, addUtterance,
-  AI_ENDPOINT, EXAMPLE_AI_MODELS, callAI, renderAI, filteredAiModels, getSelectedAiModel,
-  aiConversationPlainText, saveAiConversation, renderAbout, renderFeatures, renderLoginHelp, renderAiHelp, renderSiteStatus, renderDaily, renderFavorites, renderMaterials,
+  AI_ENDPOINT, TRANSLATE_ENDPOINT, apiEndpointForHost, EXAMPLE_AI_MODELS, callAI, renderAI, filteredAiModels, getSelectedAiModel,
+  aiConversationPlainText, saveAiConversation, readTutorSession, aiErrorText, startAiMic, stopAiMic, speakTutorText, aiSttLang, TUTOR_AUTH_STORAGE_KEY, renderAbout, renderFeatures, renderLoginHelp, renderAiHelp, renderSiteStatus, renderDaily, renderFavorites, renderMaterials,
   glossKo, meaningLabel, meaningHTML, buildMeaningChoices, startItemQuiz,
   STORAGE_KEY, ACCOUNTS_KEY, DEMO_SMS_CODE, DOMAIN_PLACEHOLDER, COUNTRY_CODES, normalizePhone, isAuthed, loginWithDemoCode, socialLogin, enterAsGuest, logoutAuth, syncAuthGate, renderAuthGate,
   openAuthPanel, closeAuthPanel, currentAccount, activeStorageKey, getAccounts: () => accounts,

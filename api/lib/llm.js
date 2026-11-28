@@ -24,6 +24,16 @@ function pickModel() {
   return allowed[0] || DEFAULT_MODEL;
 }
 
+/**
+ * Chat model is chosen on the server only. A client-supplied model id is
+ * ignored by the chat handler.
+ */
+function pickChatModel() {
+  const chat = String(process.env.AI_CHAT_MODEL || '').trim();
+  if (chat) return chat;
+  return pickModel();
+}
+
 function timeoutSignal(ms) {
   try {
     if (typeof AbortSignal !== 'undefined' && typeof AbortSignal.timeout === 'function') {
@@ -100,10 +110,82 @@ async function llmTranslate({ text, from, to, honorific, profile }) {
   return parseLLMContent(content);
 }
 
+function clampTokens(value) {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) return 600;
+  return Math.max(64, Math.min(1600, Math.floor(parsed)));
+}
+
+/**
+ * Plain-text tutor chat completion. Do not run the result through
+ * parseLLMContent: that helper extracts the translation JSON shape.
+ */
+async function llmChat({ messages, system, maxTokens } = {}) {
+  if (!hasLLMKey()) {
+    const error = new Error('AI_API_KEY missing');
+    error.code = 'ai_unconfigured';
+    error.status = 503;
+    throw error;
+  }
+
+  const history = (Array.isArray(messages) ? messages : [])
+    .filter((message) => message && (message.role === 'user' || message.role === 'assistant'))
+    .map((message) => ({ role: message.role, content: String(message.content || '') }))
+    .filter((message) => message.content.trim())
+    .slice(-20);
+
+  if (!history.length) {
+    const error = new Error('empty messages');
+    error.code = 'invalid_request';
+    error.status = 400;
+    throw error;
+  }
+
+  const response = await fetch(baseUrl() + '/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + process.env.AI_API_KEY.trim(),
+    },
+    body: JSON.stringify({
+      model: pickChatModel(),
+      messages: [
+        ...(system ? [{ role: 'system', content: String(system) }] : []),
+        ...history,
+      ],
+      max_tokens: clampTokens(maxTokens),
+      temperature: 0.7,
+    }),
+    signal: timeoutSignal(LLM_TIMEOUT_MS),
+  });
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const error = new Error('upstream LLM error');
+    error.code = 'ai_upstream_error';
+    error.status = 502;
+    error.upstreamStatus = response.status;
+    throw error;
+  }
+
+  const content = data && data.choices && data.choices[0]
+    && data.choices[0].message && data.choices[0].message.content;
+  const reply = String(content == null ? '' : content).trim();
+  if (!reply) {
+    const error = new Error('empty upstream reply');
+    error.code = 'ai_upstream_error';
+    error.status = 502;
+    throw error;
+  }
+  return reply;
+}
+
 module.exports = {
   hasLLMKey,
   llmTranslate,
+  llmChat,
   parseLLMContent,
   sanitizeProfile,
   pickModel,
+  pickChatModel,
 };
