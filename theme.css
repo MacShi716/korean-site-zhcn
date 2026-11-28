@@ -1404,3 +1404,69 @@ body.auth-page #auth-app :is(#auth-wechat, #auth-qq, #auth-kakao, #auth-sms-requ
 #lang-switch {
   aspect-ratio: auto;
 }
+
+/* New practice modes: local picture options, spelling, flashcards, timed match. */
+.pic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+.pic-opt {
+  min-width: 0;
+  min-height: 0;
+  padding: 6px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pic-opt img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.pic-prompt {
+  display: block;
+  width: min(230px, 58%);
+  height: auto;
+  margin: 8px auto;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}
+.match-timer-row {
+  align-items: center;
+  margin-top: 6px;
+}
+.match-timer {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--primary);
+}
+.match-timer.low {
+  color: #b3261e;
+}
+.match-timeout {
+  border-color: #b3261e !important;
+  border-style: dashed !important;
+}
+.spell-answer, .spell-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 8px;
+}
+.spell-prompt {
+  letter-spacing: .08em;
+}
+.spell-blank {
+  display: inline-block;
+  min-width: 1.3em;
+  text-align: center;
+  border-bottom: 2px solid var(--primary);
+  color: var(--primary);
+}
+.flash-gloss {
+  margin-top: 4px;
+}

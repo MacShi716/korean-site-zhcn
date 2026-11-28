@@ -40,6 +40,12 @@ test("sync copies the runtime site and leaves tests behind", async () => {
   writeFileSync(path.join(repo, "auth", "recovery.html"), "<html><head></head><body>recovery</body></html>");
   mkdirSync(path.join(repo, "data", "hangil-reading-55"), { recursive: true });
   writeFileSync(path.join(repo, "data", "hangil-reading-55", "hangil-text-mcq.json"), "{\"items\":[]}");
+  mkdirSync(path.join(repo, "data", "practice-modes-20261128"), { recursive: true });
+  writeFileSync(path.join(repo, "data", "practice-modes-20261128", "image-manifest.json"), "{\"images\":[]}");
+  writeFileSync(path.join(repo, "data", "practice-modes-20261128", "practice-modes-pack.json"), "{}");
+  mkdirSync(path.join(repo, "assets", "practice-images", "openmoji"), { recursive: true });
+  writeFileSync(path.join(repo, "assets", "practice-images", "openmoji", "ATTRIBUTION.md"), "OpenMoji");
+  writeFileSync(path.join(repo, "assets", "practice-images", "openmoji", "1F392.svg"), "<svg></svg>");
   mkdirSync(path.join(repo, "dict"), { recursive: true });
   writeFileSync(path.join(repo, "dict", "index.json"), "{}");
   mkdirSync(path.join(repo, "voices", "supertonic"), { recursive: true });
@@ -62,5 +68,8 @@ test("sync copies the runtime site and leaves tests behind", async () => {
   assert.equal(existsSync(path.join(www, ".github")), false);
   assert.equal(existsSync(path.join(www, "mobile-android")), false);
   assert.equal(readFileSync(path.join(www, "theme.css"), "utf8"), "x");
+  assert.equal(readFileSync(path.join(www, "golden-ratio.css"), "utf8"), "x");
   assert.ok(readFileSync(path.join(www, "data/hangil-reading-55/hangil-text-mcq.json"), "utf8").length > 0);
+  assert.ok(readFileSync(path.join(www, "data/practice-modes-20261128/image-manifest.json"), "utf8").length > 0);
+  assert.equal(readFileSync(path.join(www, "assets/practice-images/openmoji/1F392.svg"), "utf8"), "<svg></svg>");
 });

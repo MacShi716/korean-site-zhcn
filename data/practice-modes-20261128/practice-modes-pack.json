@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "id": "practice-modes-20261128",
+  "generatedBy": "scripts/build-practice-images.mjs",
+  "sourceVocab": "data/krdict-graded-300/graded-vocab-300.json",
+  "imageManifest": "data/practice-modes-20261128/image-manifest.json",
+  "modeConfig": {
+    "pictureWord": {
+      "optionCount": 4,
+      "distractorsPerItem": 3,
+      "autoSpeak": false
+    },
+    "pictureWordReverse": {
+      "optionCount": 4,
+      "autoSpeak": false
+    },
+    "listenMeaning": {
+      "optionCount": 4,
+      "autoSpeak": false
+    },
+    "spelling": {
+      "variants": [
+        "fill",
+        "assemble",
+        "full"
+      ],
+      "acceptNfc": true,
+      "ignoreSpaces": true,
+      "optionalAudio": true
+    },
+    "flashcard": {
+      "typeAnswer": true,
+      "selfMark": true,
+      "requeueWrongInSession": true
+    },
+    "timedMatch": {
+      "defaultEnabled": false,
+      "seconds": 60,
+      "unfinishedCountsWrong": true
+    }
+  },
+  "credits": {
+    "openmoji": "All emojis designed by OpenMoji - the open-source emoji and icon project. License: CC BY-SA 4.0",
+    "openmojiLicenseFile": "assets/practice-images/openmoji/LICENSE-CC-BY-SA-4.0.txt",
+    "openmojiAttributionFile": "assets/practice-images/openmoji/ATTRIBUTION.md",
+    "krdict": "국립국어원 《한국어기초사전》 CC BY-SA 2.0 KR"
+  }
+}

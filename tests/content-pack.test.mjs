@@ -42,7 +42,7 @@ test("content files keep the supplied SHA256", () => {
 });
 
 function startSite() {
-  const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".json": "application/json", ".css": "text/css", ".vtt": "text/vtt", ".png": "image/png", ".ico": "image/x-icon" };
+  const types = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".json": "application/json", ".css": "text/css", ".vtt": "text/vtt", ".png": "image/png", ".ico": "image/x-icon", ".svg": "image/svg+xml", ".txt": "text/plain; charset=utf-8", ".md": "text/plain; charset=utf-8" };
   const server = createServer((req, res) => {
     const url = new URL(req.url, "http://127.0.0.1");
     let path = decodeURIComponent(url.pathname);

@@ -15,13 +15,14 @@ export const WWW_ROOT = path.join(MOBILE_ROOT, "www");
 export const ROOT_FILES = [
   "index.html",
   "theme.css",
+  "golden-ratio.css",
   "theme.js",
   "favicon.ico",
   "favicon-32.png",
   "apple-touch-icon.png",
 ];
 
-export const CONTENT_DIRS = ["auth", "data", "dict", "voices"];
+export const CONTENT_DIRS = ["auth", "assets", "data", "dict", "voices"];
 
 const SKIP_DIR_NAMES = new Set([
   "tests",
@@ -124,10 +125,14 @@ export async function syncWww({ repoRoot = REPO_ROOT, wwwRoot = WWW_ROOT } = {})
   const required = [
     "index.html",
     "theme.css",
+    "golden-ratio.css",
     "theme.js",
     "android-shell.js",
     "auth/preview.html",
+    "assets/practice-images/openmoji/ATTRIBUTION.md",
     "data/hangil-reading-55/hangil-text-mcq.json",
+    "data/practice-modes-20261128/image-manifest.json",
+    "data/practice-modes-20261128/practice-modes-pack.json",
     "dict/index.json",
     "voices/supertonic/manifest.json",
     "voices/supertonic/supertonic-worker.js",

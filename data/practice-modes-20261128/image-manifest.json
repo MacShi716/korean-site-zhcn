@@ -1,0 +1,4583 @@
+{
+  "schemaVersion": 1,
+  "id": "practice-images-20261128",
+  "generatedBy": "scripts/build-practice-images.mjs",
+  "generatedAt": "2026-11-28T05:44:33.245Z",
+  "sourceVocab": "data/krdict-graded-300/graded-vocab-300.json",
+  "imageSource": {
+    "project": "OpenMoji",
+    "version": "17.0.0",
+    "repository": "https://github.com/hfg-gmuend/openmoji",
+    "colorSvgBase": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/",
+    "license": "CC-BY-SA-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "attribution": "All emojis designed by OpenMoji - the open-source emoji and icon project. License: CC BY-SA 4.0"
+  },
+  "licenseBoundary": "OpenMoji images are CC BY-SA 4.0. They are kept in assets/practice-images/openmoji/ and are not part of the krdict text pack licensed CC BY-SA 2.0 KR.",
+  "reasonCodes": {
+    "abstract": "Abstract or non-depictable concept; kept in text-only modes.",
+    "time": "Time, season, or calendar concept; not a distinctive object or scene.",
+    "person-role": "Person/relationship noun without a distinctive, unambiguous approved icon.",
+    "place-no-icon": "Place or room without a distinctive approved icon.",
+    "body-no-icon": "Body/health concept without a distinctive approved icon.",
+    "food-no-icon": "Food or condiment without a distinct approved icon.",
+    "object-no-icon": "Object without a distinct approved icon.",
+    "clothing-no-icon": "Clothing item without a distinct approved icon.",
+    "media-no-icon": "Media or communication concept without a distinct approved icon.",
+    "transport-concept": "Transport/energy concept without a distinct vehicle or scene icon.",
+    "action": "General action without one unambiguous scene."
+  },
+  "counts": {
+    "total": 300,
+    "picturable": 66,
+    "skipped": 234,
+    "byGrade": {
+      "picturable": {
+        "beginner": 55,
+        "intermediate": 5,
+        "advanced": 6
+      },
+      "skipped": {
+        "beginner": 45,
+        "intermediate": 95,
+        "advanced": 94
+      }
+    }
+  },
+  "images": [
+    {
+      "id": "k18259-s1",
+      "grade": "beginner",
+      "headwordKo": "가방",
+      "glossZh": "包",
+      "glossEn": "bag",
+      "posKo": "명사",
+      "semanticTags": [
+        "household-objects"
+      ],
+      "family": "household",
+      "note": "",
+      "emoji": "🎒",
+      "hexcode": "1F392",
+      "openmojiAnnotation": "backpack",
+      "openmojiAuthor": "Jonas Roßner",
+      "file": "assets/practice-images/openmoji/1F392.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F392.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k63986-s1",
+        "k43832-s1",
+        "k20260-s1"
+      ]
+    },
+    {
+      "id": "k28029-s1",
+      "grade": "beginner",
+      "headwordKo": "건물",
+      "glossZh": "建筑物",
+      "glossEn": "building; structure; edifice",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "family": "places",
+      "note": "",
+      "emoji": "🏢",
+      "hexcode": "1F3E2",
+      "openmojiAnnotation": "office building",
+      "openmojiAuthor": "Martin Wehl",
+      "file": "assets/practice-images/openmoji/1F3E2.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F3E2.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k71358-s1",
+        "k19243-s1",
+        "k31486-s1"
+      ]
+    },
+    {
+      "id": "k25949-s1",
+      "grade": "beginner",
+      "headwordKo": "경찰",
+      "glossZh": "警方",
+      "glossEn": "police; policing",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family"
+      ],
+      "family": "people",
+      "note": "",
+      "emoji": "👮",
+      "hexcode": "1F46E",
+      "openmojiAnnotation": "police officer",
+      "openmojiAuthor": "Lisa Thiel",
+      "file": "assets/practice-images/openmoji/1F46E.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F46E.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k31670-s1",
+        "k27375-s1",
+        "k31450-s1"
+      ]
+    },
+    {
+      "id": "k18779-s1",
+      "grade": "beginner",
+      "headwordKo": "고양이",
+      "glossZh": "猫",
+      "glossEn": "cat",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "family": "nature",
+      "note": "",
+      "emoji": "🐱",
+      "hexcode": "1F431",
+      "openmojiAnnotation": "cat face",
+      "openmojiAuthor": "Sofie Ascherl",
+      "file": "assets/practice-images/openmoji/1F431.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F431.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k64487-s1",
+        "k37278-s2",
+        "k62269-s1"
+      ]
+    },
+    {
+      "id": "k31849-s1",
+      "grade": "beginner",
+      "headwordKo": "공원",
+      "glossZh": "公园",
+      "glossEn": "park",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "family": "places",
+      "note": "",
+      "emoji": "🏞️",
+      "hexcode": "1F3DE",
+      "openmojiAnnotation": "national park",
+      "openmojiAuthor": "Martin Wehl",
+      "file": "assets/practice-images/openmoji/1F3DE.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F3DE.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k28029-s1",
+        "k26891-s1",
+        "k31486-s1"
+      ]
+    },
+    {
+      "id": "k25620-s1",
+      "grade": "beginner",
+      "headwordKo": "공항",
+      "glossZh": "机场",
+      "glossEn": "airport",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "family": "places",
+      "note": "",
+      "emoji": "🛫",
+      "hexcode": "1F6EB",
+      "openmojiAnnotation": "airplane departure",
+      "openmojiAuthor": "Ronja Bäurlen",
+      "file": "assets/practice-images/openmoji/1F6EB.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F6EB.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k16219-s1",
+        "k26891-s1",
+        "k71358-s1"
+      ]
+    },
+    {
+      "id": "k15252-s1",
+      "grade": "beginner",
+      "headwordKo": "공책",
+      "glossZh": "笔记本",
+      "glossEn": "notebook",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "family": "stationery",
+      "note": "",
+      "emoji": "📓",
+      "hexcode": "1F4D3",
+      "openmojiAnnotation": "notebook",
+      "openmojiAuthor": "Jonas Roßner",
+      "file": "assets/practice-images/openmoji/1F4D3.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F4D3.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k67785-s1",
+        "k28629-s1",
+        "k65337-s1"
+      ]
+    },
+    {
+      "id": "k18286-s1",
+      "grade": "beginner",
+      "headwordKo": "과자",
+      "glossZh": "饼干",
+      "glossEn": "snack",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink"
+      ],
+      "family": "food",
+      "note": "",
+      "emoji": "🍪",
+      "hexcode": "1F36A",
+      "openmojiAnnotation": "cookie",
+      "openmojiAuthor": "Miriam Vollmeier",
+      "file": "assets/practice-images/openmoji/1F36A.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F36A.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k71113-s2",
+        "k64512-s1",
+        "k61167-s1"
+      ]
+    },
+    {
+      "id": "k64472-s1",
+      "grade": "beginner",
+      "headwordKo": "교실",
+      "glossZh": "教室",
+      "glossEn": "classroom",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "family": "places",
+      "note": "",
+      "emoji": "🏫",
+      "hexcode": "1F3EB",
+      "openmojiAnnotation": "school",
+      "openmojiAuthor": "Niklas Kuntz",
+      "file": "assets/practice-images/openmoji/1F3EB.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F3EB.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k31849-s1",
+        "k62271-s1",
+        "k26891-s1"
+      ]
+    },
+    {
+      "id": "k64487-s1",
+      "grade": "beginner",
+      "headwordKo": "구름",
+      "glossZh": "云",
+      "glossEn": "cloud",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "family": "nature",
+      "note": "",
+      "emoji": "☁️",
+      "hexcode": "2601",
+      "openmojiAnnotation": "cloud",
+      "openmojiAuthor": "Vanessa Boutzikoudi",
+      "file": "assets/practice-images/openmoji/2601.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/2601.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k20954-s1",
+        "k26497-s1",
+        "k18779-s1"
+      ]
+    },
+    {
+      "id": "k38579-s1",
+      "grade": "beginner",
+      "headwordKo": "국수",
+      "glossZh": "面条",
+      "glossEn": "noodle",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink"
+      ],
+      "family": "food",
+      "note": "",
+      "emoji": "🍜",
+      "hexcode": "1F35C",
+      "openmojiAnnotation": "steaming bowl",
+      "openmojiAuthor": "Hend Hourani",
+      "file": "assets/practice-images/openmoji/1F35C.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F35C.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k60487-s1",
+        "k64512-s1",
+        "k18286-s1"
+      ]
+    },
+    {
+      "id": "k60201-s1",
+      "grade": "beginner",
+      "headwordKo": "귀",
+      "glossZh": "耳朵",
+      "glossEn": "ear",
+      "posKo": "명사",
+      "semanticTags": [
+        "body-health"
+      ],
+      "family": "body",
+      "note": "",
+      "emoji": "👂️",
+      "hexcode": "1F442",
+      "openmojiAnnotation": "ear",
+      "openmojiAuthor": "Julian Grüneberg",
+      "file": "assets/practice-images/openmoji/1F442.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F442.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k24764-s1",
+        "k31484-s1",
+        "k69521-s1"
+      ]
+    },
+    {
+      "id": "k62838-s1",
+      "grade": "beginner",
+      "headwordKo": "꽃",
+      "glossZh": "花",
+      "glossEn": "flower",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "family": "nature",
+      "note": "",
+      "emoji": "🌸",
+      "hexcode": "1F338",
+      "openmojiAnnotation": "cherry blossom",
+      "openmojiAuthor": "Hilda Kalyoncu",
+      "file": "assets/practice-images/openmoji/1F338.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F338.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k62269-s1",
+        "k18779-s1",
+        "k26497-s1"
+      ]
+    },
+    {
+      "id": "k24147-s1",
+      "grade": "beginner",
+      "headwordKo": "편지",
+      "glossZh": "信",
+      "glossEn": "letter",
+      "posKo": "명사",
+      "semanticTags": [
+        "art-media-communication"
+      ],
+      "family": "stationery",
+      "note": "",
+      "emoji": "✉️",
+      "hexcode": "2709",
+      "openmojiAnnotation": "envelope",
+      "openmojiAuthor": "Marius Schnabel",
+      "file": "assets/practice-images/openmoji/2709.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/2709.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k71468-s1",
+        "k57319-s1",
+        "k65337-s1"
+      ]
+    },
+    {
+      "id": "k17204-s1",
+      "grade": "beginner",
+      "headwordKo": "돈",
+      "glossZh": "钱",
+      "glossEn": "money",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "family": "money",
+      "note": "",
+      "emoji": "💰️",
+      "hexcode": "1F4B0",
+      "openmojiAnnotation": "money bag",
+      "openmojiAuthor": "Marius Schnabel",
+      "file": "assets/practice-images/openmoji/1F4B0.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F4B0.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k31502-s1",
+        "k48655-s1",
+        "k26888-s1"
+      ]
+    },
+    {
+      "id": "k62269-s1",
+      "grade": "beginner",
+      "headwordKo": "돼지",
+      "glossZh": "猪",
+      "glossEn": "pig",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "family": "nature",
+      "note": "",
+      "emoji": "🐷",
+      "hexcode": "1F437",
+      "openmojiAnnotation": "pig face",
+      "openmojiAuthor": "Sofie Ascherl",
+      "file": "assets/practice-images/openmoji/1F437.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F437.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k62838-s1",
+        "k18779-s1",
+        "k20954-s1"
+      ]
+    },
+    {
+      "id": "k43832-s1",
+      "grade": "beginner",
+      "headwordKo": "문",
+      "glossZh": "门",
+      "glossEn": "door",
+      "posKo": "명사",
+      "semanticTags": [
+        "household-objects"
+      ],
+      "family": "household",
+      "note": "",
+      "emoji": "🚪",
+      "hexcode": "1F6AA",
+      "openmojiAnnotation": "door",
+      "openmojiAuthor": "Lisa Schulz",
+      "file": "assets/practice-images/openmoji/1F6AA.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F6AA.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k65154-s1",
+        "k18259-s1",
+        "k63986-s1"
+      ]
+    },
+    {
+      "id": "k26497-s1",
+      "grade": "beginner",
+      "headwordKo": "바다",
+      "glossZh": "海",
+      "glossEn": "sea",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "family": "nature",
+      "note": "",
+      "emoji": "🌊",
+      "hexcode": "1F30A",
+      "openmojiAnnotation": "water wave",
+      "openmojiAuthor": "Vanessa Boutzikoudi",
+      "file": "assets/practice-images/openmoji/1F30A.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F30A.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k62269-s1",
+        "k37278-s2",
+        "k18779-s1"
+      ]
+    },
+    {
+      "id": "k67886-s1",
+      "grade": "beginner",
+      "headwordKo": "발",
+      "glossZh": "足",
+      "glossEn": "foot",
+      "posKo": "명사",
+      "semanticTags": [
+        "body-health"
+      ],
+      "family": "body",
+      "note": "",
+      "emoji": "🦶",
+      "hexcode": "1F9B6",
+      "openmojiAnnotation": "foot",
+      "openmojiAuthor": "Daniel Utz",
+      "file": "assets/practice-images/openmoji/1F9B6.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F9B6.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k31484-s1",
+        "k60201-s1",
+        "k17183-s1"
+      ]
+    },
+    {
+      "id": "k62271-s1",
+      "grade": "beginner",
+      "headwordKo": "병원",
+      "glossZh": "医院",
+      "glossEn": "hospital; clinic",
+      "posKo": "명사",
+      "semanticTags": [
+        "place",
+        "confusable-family-17"
+      ],
+      "family": "places",
+      "note": "",
+      "emoji": "🏥",
+      "hexcode": "1F3E5",
+      "openmojiAnnotation": "hospital",
+      "openmojiAuthor": "Martin Wehl",
+      "file": "assets/practice-images/openmoji/1F3E5.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F3E5.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k77121-s1",
+        "k16219-s1",
+        "k25620-s1"
+      ]
+    },
+    {
+      "id": "k23402-s1",
+      "grade": "beginner",
+      "headwordKo": "빵",
+      "glossZh": "面包",
+      "glossEn": "bread",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink"
+      ],
+      "family": "food",
+      "note": "",
+      "emoji": "🍞",
+      "hexcode": "1F35E",
+      "openmojiAnnotation": "bread",
+      "openmojiAuthor": "Miriam Vollmeier",
+      "file": "assets/practice-images/openmoji/1F35E.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F35E.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k71113-s2",
+        "k18286-s1",
+        "k66371-s1"
+      ]
+    },
+    {
+      "id": "k66371-s1",
+      "grade": "beginner",
+      "headwordKo": "사과",
+      "glossZh": "苹果",
+      "glossEn": "apple",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink"
+      ],
+      "family": "food",
+      "note": "",
+      "emoji": "🍎",
+      "hexcode": "1F34E",
+      "openmojiAnnotation": "red apple",
+      "openmojiAuthor": "Liz Bravo",
+      "file": "assets/practice-images/openmoji/1F34E.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F34E.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k38579-s1",
+        "k60487-s1",
+        "k18286-s1"
+      ]
+    },
+    {
+      "id": "k28030-s1",
+      "grade": "beginner",
+      "headwordKo": "사진",
+      "glossZh": "照片",
+      "glossEn": "picture; photo",
+      "posKo": "명사",
+      "semanticTags": [
+        "art-media-communication"
+      ],
+      "family": "stationery",
+      "note": "",
+      "emoji": "🖼️",
+      "hexcode": "1F5BC",
+      "openmojiAnnotation": "framed picture",
+      "openmojiAuthor": "Martin Wehl",
+      "file": "assets/practice-images/openmoji/1F5BC.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F5BC.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k65337-s1",
+        "k28629-s1",
+        "k57319-s1"
+      ]
+    },
+    {
+      "id": "k20954-s1",
+      "grade": "beginner",
+      "headwordKo": "산",
+      "glossZh": "山",
+      "glossEn": "mountain",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "family": "nature",
+      "note": "",
+      "emoji": "⛰️",
+      "hexcode": "26F0",
+      "openmojiAnnotation": "mountain",
+      "openmojiAuthor": "Martin Wehl",
+      "file": "assets/practice-images/openmoji/26F0.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/26F0.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k26497-s1",
+        "k64487-s1",
+        "k37278-s2"
+      ]
+    },
+    {
+      "id": "k62818-s1",
+      "grade": "beginner",
+      "headwordKo": "선생님",
+      "glossZh": "老师",
+      "glossEn": "teacher; master",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family"
+      ],
+      "family": "people",
+      "note": "",
+      "emoji": "🧑‍🏫",
+      "hexcode": "1F9D1-200D-1F3EB",
+      "openmojiAnnotation": "teacher",
+      "openmojiAuthor": "Benedikt Groß",
+      "file": "assets/practice-images/openmoji/1F9D1-200D-1F3EB.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F9D1-200D-1F3EB.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k27375-s1",
+        "k74121-s1",
+        "k25949-s1"
+      ]
+    },
+    {
+      "id": "k61167-s1",
+      "grade": "beginner",
+      "headwordKo": "소금",
+      "glossZh": "盐",
+      "glossEn": "salt",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink",
+        "confusable-family-16"
+      ],
+      "family": "food",
+      "note": "",
+      "emoji": "🧂",
+      "hexcode": "1F9C2",
+      "openmojiAnnotation": "salt",
+      "openmojiAuthor": "Ricarda Krejci",
+      "file": "assets/practice-images/openmoji/1F9C2.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F9C2.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k23402-s1",
+        "k38579-s1",
+        "k18286-s1"
+      ]
+    },
+    {
+      "id": "k65154-s1",
+      "grade": "beginner",
+      "headwordKo": "숟가락",
+      "glossZh": "勺子",
+      "glossEn": "spoon",
+      "posKo": "명사",
+      "semanticTags": [
+        "household-objects"
+      ],
+      "family": "household",
+      "note": "",
+      "emoji": "🥄",
+      "hexcode": "1F944",
+      "openmojiAnnotation": "spoon",
+      "openmojiAuthor": "Jonas Roßner",
+      "file": "assets/practice-images/openmoji/1F944.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F944.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k26888-s1",
+        "k18259-s1",
+        "k73700-s1"
+      ]
+    },
+    {
+      "id": "k65337-s1",
+      "grade": "beginner",
+      "headwordKo": "신문",
+      "glossZh": "报纸",
+      "glossEn": "newspaper; paper",
+      "posKo": "명사",
+      "semanticTags": [
+        "art-media-communication"
+      ],
+      "family": "stationery",
+      "note": "",
+      "emoji": "📰",
+      "hexcode": "1F4F0",
+      "openmojiAnnotation": "newspaper",
+      "openmojiAuthor": "Jonas Roßner",
+      "file": "assets/practice-images/openmoji/1F4F0.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F4F0.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k71468-s1",
+        "k57319-s1",
+        "k28629-s1"
+      ]
+    },
+    {
+      "id": "k31484-s1",
+      "grade": "beginner",
+      "headwordKo": "안경",
+      "glossZh": "眼镜",
+      "glossEn": "glasses; spectacles",
+      "posKo": "명사",
+      "semanticTags": [
+        "household-objects"
+      ],
+      "family": "body",
+      "note": "",
+      "emoji": "👓️",
+      "hexcode": "1F453",
+      "openmojiAnnotation": "glasses",
+      "openmojiAuthor": "Jonas Roßner",
+      "file": "assets/practice-images/openmoji/1F453.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F453.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k60201-s1",
+        "k69521-s1",
+        "k24764-s1"
+      ]
+    },
+    {
+      "id": "k67785-s1",
+      "grade": "beginner",
+      "headwordKo": "연필",
+      "glossZh": "铅笔",
+      "glossEn": "pencil",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "family": "stationery",
+      "note": "",
+      "emoji": "✏️",
+      "hexcode": "270F",
+      "openmojiAnnotation": "pencil",
+      "openmojiAuthor": "Rana Cakir",
+      "file": "assets/practice-images/openmoji/270F.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/270F.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k57319-s1",
+        "k28629-s1",
+        "k24147-s1"
+      ]
+    },
+    {
+      "id": "k30159-s1",
+      "grade": "beginner",
+      "headwordKo": "옷",
+      "glossZh": "衣服",
+      "glossEn": "clothes; garment",
+      "posKo": "명사",
+      "semanticTags": [
+        "clothing"
+      ],
+      "family": "body",
+      "note": "",
+      "emoji": "👕",
+      "hexcode": "1F455",
+      "openmojiAnnotation": "t-shirt",
+      "openmojiAuthor": "Jonas Roßner",
+      "file": "assets/practice-images/openmoji/1F455.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F455.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k31484-s1",
+        "k24764-s1",
+        "k17183-s1"
+      ]
+    },
+    {
+      "id": "k26891-s1",
+      "grade": "beginner",
+      "headwordKo": "운동장",
+      "glossZh": "运动场",
+      "glossEn": "playground; sports field",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "family": "places",
+      "note": "",
+      "emoji": "🏟️",
+      "hexcode": "1F3DF",
+      "openmojiAnnotation": "stadium",
+      "openmojiAuthor": "Martin Wehl",
+      "file": "assets/practice-images/openmoji/1F3DF.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F3DF.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k64472-s1",
+        "k16219-s1",
+        "k19243-s1"
+      ]
+    },
+    {
+      "id": "k70799-s1",
+      "grade": "beginner",
+      "headwordKo": "자동차",
+      "glossZh": "汽车",
+      "glossEn": "car; automobile",
+      "posKo": "명사",
+      "semanticTags": [
+        "transport-energy",
+        "confusable-family-18"
+      ],
+      "family": "transport",
+      "note": "",
+      "emoji": "🚗",
+      "hexcode": "1F697",
+      "openmojiAnnotation": "automobile",
+      "openmojiAuthor": "Ronja Bäurlen",
+      "file": "assets/practice-images/openmoji/1F697.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F697.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k30689-s1",
+        "k62517-s1",
+        "k34978-s1"
+      ]
+    },
+    {
+      "id": "k62517-s1",
+      "grade": "beginner",
+      "headwordKo": "자전거",
+      "glossZh": "自行车",
+      "glossEn": "bicycle",
+      "posKo": "명사",
+      "semanticTags": [
+        "transport-energy"
+      ],
+      "family": "transport",
+      "note": "",
+      "emoji": "🚲️",
+      "hexcode": "1F6B2",
+      "openmojiAnnotation": "bicycle",
+      "openmojiAuthor": "Ronja Bäurlen",
+      "file": "assets/practice-images/openmoji/1F6B2.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F6B2.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k70799-s1",
+        "k30689-s1",
+        "k34978-s1"
+      ]
+    },
+    {
+      "id": "k24764-s1",
+      "grade": "beginner",
+      "headwordKo": "장갑",
+      "glossZh": "手套",
+      "glossEn": "glove",
+      "posKo": "명사",
+      "semanticTags": [
+        "clothing"
+      ],
+      "family": "body",
+      "note": "",
+      "emoji": "🧤",
+      "hexcode": "1F9E4",
+      "openmojiAnnotation": "gloves",
+      "openmojiAuthor": "Laura Schießer",
+      "file": "assets/practice-images/openmoji/1F9E4.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F9E4.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k67886-s1",
+        "k30159-s1",
+        "k60201-s1"
+      ]
+    },
+    {
+      "id": "k20260-s1",
+      "grade": "beginner",
+      "headwordKo": "전화",
+      "glossZh": "电话",
+      "glossEn": "telephone",
+      "posKo": "명사",
+      "semanticTags": [
+        "art-media-communication"
+      ],
+      "family": "household",
+      "note": "",
+      "emoji": "☎️",
+      "hexcode": "260E",
+      "openmojiAnnotation": "telephone",
+      "openmojiAuthor": "Kai Wanschura",
+      "file": "assets/practice-images/openmoji/260E.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/260E.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k65154-s1",
+        "k73700-s1",
+        "k18259-s1"
+      ]
+    },
+    {
+      "id": "k31502-s1",
+      "grade": "beginner",
+      "headwordKo": "지갑",
+      "glossZh": "钱包",
+      "glossEn": "wallet; purse",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "family": "money",
+      "note": "",
+      "emoji": "👛",
+      "hexcode": "1F45B",
+      "openmojiAnnotation": "purse",
+      "openmojiAuthor": "Jonas Roßner",
+      "file": "assets/practice-images/openmoji/1F45B.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F45B.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k48655-s1",
+        "k17204-s1",
+        "k31674-s1"
+      ]
+    },
+    {
+      "id": "k57319-s1",
+      "grade": "beginner",
+      "headwordKo": "지도",
+      "glossZh": "地图",
+      "glossEn": "map",
+      "posKo": "명사",
+      "semanticTags": [
+        "transport-energy"
+      ],
+      "family": "stationery",
+      "note": "",
+      "emoji": "🗺️",
+      "hexcode": "1F5FA",
+      "openmojiAnnotation": "world map",
+      "openmojiAuthor": "Martin Wehl",
+      "file": "assets/practice-images/openmoji/1F5FA.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F5FA.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k67785-s1",
+        "k15252-s1",
+        "k65337-s1"
+      ]
+    },
+    {
+      "id": "k71358-s1",
+      "grade": "beginner",
+      "headwordKo": "집",
+      "glossZh": "房子",
+      "glossEn": "house",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "family": "places",
+      "note": "",
+      "emoji": "🏠️",
+      "hexcode": "1F3E0",
+      "openmojiAnnotation": "house",
+      "openmojiAuthor": "Martin Wehl",
+      "file": "assets/practice-images/openmoji/1F3E0.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F3E0.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k19243-s1",
+        "k77121-s1",
+        "k64472-s1"
+      ]
+    },
+    {
+      "id": "k71468-s1",
+      "grade": "beginner",
+      "headwordKo": "책",
+      "glossZh": "书",
+      "glossEn": "books; publications",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "family": "stationery",
+      "note": "",
+      "emoji": "📖",
+      "hexcode": "1F4D6",
+      "openmojiAnnotation": "open book",
+      "openmojiAuthor": "Jonas Roßner",
+      "file": "assets/practice-images/openmoji/1F4D6.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F4D6.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k57319-s1",
+        "k28629-s1",
+        "k24147-s1"
+      ]
+    },
+    {
+      "id": "k31670-s1",
+      "grade": "beginner",
+      "headwordKo": "학생",
+      "glossZh": "学生",
+      "glossEn": "student; learner",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family"
+      ],
+      "family": "people",
+      "note": "",
+      "emoji": "🧑‍🎓",
+      "hexcode": "1F9D1-200D-1F393",
+      "openmojiAnnotation": "student",
+      "openmojiAuthor": "Benedikt Groß",
+      "file": "assets/practice-images/openmoji/1F9D1-200D-1F393.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F9D1-200D-1F393.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k25949-s1",
+        "k31450-s1",
+        "k27375-s1"
+      ]
+    },
+    {
+      "id": "k27375-s1",
+      "grade": "beginner",
+      "headwordKo": "할머니",
+      "glossZh": "奶奶",
+      "glossEn": "grandmother; granny",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family"
+      ],
+      "family": "people",
+      "note": "",
+      "emoji": "👵",
+      "hexcode": "1F475",
+      "openmojiAnnotation": "old woman",
+      "openmojiAuthor": "Johanna Wellnitz",
+      "file": "assets/practice-images/openmoji/1F475.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F475.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k62818-s1",
+        "k31450-s1",
+        "k25949-s1"
+      ]
+    },
+    {
+      "id": "k74121-s1",
+      "grade": "beginner",
+      "headwordKo": "할아버지",
+      "glossZh": "爷爷",
+      "glossEn": "grandfather; grandpa",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family"
+      ],
+      "family": "people",
+      "note": "",
+      "emoji": "👴",
+      "hexcode": "1F474",
+      "openmojiAnnotation": "old man",
+      "openmojiAuthor": "Liz Bravo",
+      "file": "assets/practice-images/openmoji/1F474.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F474.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k31450-s1",
+        "k25949-s1",
+        "k62818-s1"
+      ]
+    },
+    {
+      "id": "k59325-s1",
+      "grade": "beginner",
+      "headwordKo": "거울",
+      "glossZh": "镜子",
+      "glossEn": "mirror",
+      "posKo": "명사",
+      "semanticTags": [
+        "household-objects"
+      ],
+      "family": "household",
+      "note": "",
+      "emoji": "🪞",
+      "hexcode": "1FA9E",
+      "openmojiAnnotation": "mirror",
+      "openmojiAuthor": "Liz Bravo",
+      "file": "assets/practice-images/openmoji/1FA9E.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1FA9E.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k73700-s1",
+        "k26888-s1",
+        "k43832-s1"
+      ]
+    },
+    {
+      "id": "k31450-s1",
+      "grade": "beginner",
+      "headwordKo": "간호사",
+      "glossZh": "护士",
+      "glossEn": "nurse",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family",
+        "confusable-family-17"
+      ],
+      "family": "people",
+      "note": "",
+      "emoji": "👩‍⚕️",
+      "hexcode": "1F469-200D-2695-FE0F",
+      "openmojiAnnotation": "woman health worker",
+      "openmojiAuthor": "Lisa Thiel",
+      "file": "assets/practice-images/openmoji/1F469-200D-2695-FE0F.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F469-200D-2695-FE0F.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k31670-s1",
+        "k25949-s1",
+        "k27375-s1"
+      ]
+    },
+    {
+      "id": "k31674-s1",
+      "grade": "beginner",
+      "headwordKo": "그릇",
+      "glossZh": "碗",
+      "glossEn": "bowl; dish; container",
+      "posKo": "명사",
+      "semanticTags": [
+        "household-objects"
+      ],
+      "family": "household",
+      "note": "",
+      "emoji": "🥣",
+      "hexcode": "1F963",
+      "openmojiAnnotation": "bowl with spoon",
+      "openmojiAuthor": "Liz Bravo",
+      "file": "assets/practice-images/openmoji/1F963.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F963.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k73700-s1",
+        "k43832-s1",
+        "k63986-s1"
+      ]
+    },
+    {
+      "id": "k28629-s1",
+      "grade": "beginner",
+      "headwordKo": "교과서",
+      "glossZh": "教科书",
+      "glossEn": "textbook",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "family": "stationery",
+      "note": "",
+      "emoji": "📘",
+      "hexcode": "1F4D8",
+      "openmojiAnnotation": "blue book",
+      "openmojiAuthor": "Abby Esquivel",
+      "file": "assets/practice-images/openmoji/1F4D8.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F4D8.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k28030-s1",
+        "k65337-s1",
+        "k57319-s1"
+      ]
+    },
+    {
+      "id": "k60487-s1",
+      "grade": "beginner",
+      "headwordKo": "달걀",
+      "glossZh": "鸡蛋",
+      "glossEn": "hen's egg",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink"
+      ],
+      "family": "food",
+      "note": "",
+      "emoji": "🥚",
+      "hexcode": "1F95A",
+      "openmojiAnnotation": "egg",
+      "openmojiAuthor": "Niklas Kuntz",
+      "file": "assets/practice-images/openmoji/1F95A.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F95A.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k66371-s1",
+        "k64512-s1",
+        "k71114-s1"
+      ]
+    },
+    {
+      "id": "k48655-s1",
+      "grade": "beginner",
+      "headwordKo": "동전",
+      "glossZh": "硬币",
+      "glossEn": "coin",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "family": "money",
+      "note": "",
+      "emoji": "🪙",
+      "hexcode": "1FA99",
+      "openmojiAnnotation": "coin",
+      "openmojiAuthor": "Liz Bravo",
+      "file": "assets/practice-images/openmoji/1FA99.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1FA99.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k31502-s1",
+        "k17204-s1",
+        "k73700-s1"
+      ]
+    },
+    {
+      "id": "k26888-s1",
+      "grade": "beginner",
+      "headwordKo": "열쇠",
+      "glossZh": "钥匙",
+      "glossEn": "key",
+      "posKo": "명사",
+      "semanticTags": [
+        "household-objects"
+      ],
+      "family": "household",
+      "note": "",
+      "emoji": "🔑",
+      "hexcode": "1F511",
+      "openmojiAnnotation": "key",
+      "openmojiAuthor": "Lisa Schulz",
+      "file": "assets/practice-images/openmoji/1F511.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F511.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k20260-s1",
+        "k59325-s1",
+        "k18259-s1"
+      ]
+    },
+    {
+      "id": "k31486-s1",
+      "grade": "beginner",
+      "headwordKo": "우체국",
+      "glossZh": "邮局",
+      "glossEn": "post office",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "family": "places",
+      "note": "",
+      "emoji": "🏤",
+      "hexcode": "1F3E4",
+      "openmojiAnnotation": "post office",
+      "openmojiAuthor": "Martin Wehl",
+      "file": "assets/practice-images/openmoji/1F3E4.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F3E4.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k62271-s1",
+        "k71358-s1",
+        "k68637-s1"
+      ]
+    },
+    {
+      "id": "k71113-s2",
+      "grade": "beginner",
+      "headwordKo": "음료수",
+      "glossZh": "饮料",
+      "glossEn": "soda; soft drink",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink"
+      ],
+      "family": "food",
+      "note": "",
+      "emoji": "🥤",
+      "hexcode": "1F964",
+      "openmojiAnnotation": "cup with straw",
+      "openmojiAuthor": "Laura Humpfer",
+      "file": "assets/practice-images/openmoji/1F964.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F964.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k18286-s1",
+        "k61167-s1",
+        "k64512-s1"
+      ]
+    },
+    {
+      "id": "k71114-s1",
+      "grade": "beginner",
+      "headwordKo": "음식",
+      "glossZh": "饭菜",
+      "glossEn": "food",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink"
+      ],
+      "family": "food",
+      "note": "",
+      "emoji": "🍱",
+      "hexcode": "1F371",
+      "openmojiAnnotation": "bento box",
+      "openmojiAuthor": "Miriam Vollmeier",
+      "file": "assets/practice-images/openmoji/1F371.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F371.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k71113-s2",
+        "k66371-s1",
+        "k18286-s1"
+      ]
+    },
+    {
+      "id": "k17183-s1",
+      "grade": "beginner",
+      "headwordKo": "얼굴",
+      "glossZh": "脸",
+      "glossEn": "face",
+      "posKo": "명사",
+      "semanticTags": [
+        "body-health"
+      ],
+      "family": "body",
+      "note": "",
+      "emoji": "😊",
+      "hexcode": "1F60A",
+      "openmojiAnnotation": "smiling face with smiling eyes",
+      "openmojiAuthor": "Emily Jäger",
+      "file": "assets/practice-images/openmoji/1F60A.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F60A.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k31484-s1",
+        "k69521-s1",
+        "k30159-s1"
+      ]
+    },
+    {
+      "id": "k69521-s1",
+      "grade": "beginner",
+      "headwordKo": "운동",
+      "glossZh": "运动",
+      "glossEn": "exercise",
+      "posKo": "명사",
+      "semanticTags": [
+        "body-health"
+      ],
+      "family": "body",
+      "note": "",
+      "emoji": "🏃",
+      "hexcode": "1F3C3",
+      "openmojiAnnotation": "person running",
+      "openmojiAuthor": "Johanna Wellnitz",
+      "file": "assets/practice-images/openmoji/1F3C3.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F3C3.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k31484-s1",
+        "k60201-s1",
+        "k67886-s1"
+      ]
+    },
+    {
+      "id": "k16219-s1",
+      "grade": "intermediate",
+      "headwordKo": "간판",
+      "glossZh": "牌子",
+      "glossEn": "sign; signboard",
+      "posKo": "명사",
+      "semanticTags": [
+        "household-objects"
+      ],
+      "family": "places",
+      "note": "",
+      "emoji": "🪧",
+      "hexcode": "1FAA7",
+      "openmojiAnnotation": "placard",
+      "openmojiAuthor": "Liz Bravo",
+      "file": "assets/practice-images/openmoji/1FAA7.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1FAA7.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k68637-s1",
+        "k77121-s1",
+        "k71358-s1"
+      ]
+    },
+    {
+      "id": "k64512-s1",
+      "grade": "intermediate",
+      "headwordKo": "국물",
+      "glossZh": "汤水",
+      "glossEn": "broth, stock, or soup",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink"
+      ],
+      "family": "food",
+      "note": "",
+      "emoji": "🍲",
+      "hexcode": "1F372",
+      "openmojiAnnotation": "pot of food",
+      "openmojiAuthor": "Miriam Vollmeier",
+      "file": "assets/practice-images/openmoji/1F372.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F372.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k66371-s1",
+        "k71113-s2",
+        "k60487-s1"
+      ]
+    },
+    {
+      "id": "k37278-s2",
+      "grade": "intermediate",
+      "headwordKo": "낙엽",
+      "glossZh": "落叶",
+      "glossEn": "fallen leaves",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "family": "nature",
+      "note": "",
+      "emoji": "🍂",
+      "hexcode": "1F342",
+      "openmojiAnnotation": "fallen leaf",
+      "openmojiAuthor": "Ricarda Krejci",
+      "file": "assets/practice-images/openmoji/1F342.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F342.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k20954-s1",
+        "k64487-s1",
+        "k18779-s1"
+      ]
+    },
+    {
+      "id": "k13986-s1",
+      "grade": "intermediate",
+      "headwordKo": "식기",
+      "glossZh": "餐具",
+      "glossEn": "dishes; tableware",
+      "posKo": "명사",
+      "semanticTags": [
+        "household-objects"
+      ],
+      "family": "household",
+      "note": "",
+      "emoji": "🍽️",
+      "hexcode": "1F37D",
+      "openmojiAnnotation": "fork and knife with plate",
+      "openmojiAuthor": "Jonas Roßner",
+      "file": "assets/practice-images/openmoji/1F37D.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F37D.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k31674-s1",
+        "k65154-s1",
+        "k59325-s1"
+      ]
+    },
+    {
+      "id": "k68637-s1",
+      "grade": "intermediate",
+      "headwordKo": "온천",
+      "glossZh": "温泉",
+      "glossEn": "hot spring",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "family": "places",
+      "note": "",
+      "emoji": "♨️",
+      "hexcode": "2668",
+      "openmojiAnnotation": "hot springs",
+      "openmojiAuthor": "Louisa Mantsch",
+      "file": "assets/practice-images/openmoji/2668.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/2668.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k28029-s1",
+        "k77121-s1",
+        "k16219-s1"
+      ]
+    },
+    {
+      "id": "k30689-s1",
+      "grade": "advanced",
+      "headwordKo": "교량",
+      "glossZh": "桥梁",
+      "glossEn": "bridge",
+      "posKo": "명사",
+      "semanticTags": [
+        "transport-energy"
+      ],
+      "family": "transport",
+      "note": "",
+      "emoji": "🌉",
+      "hexcode": "1F309",
+      "openmojiAnnotation": "bridge at night",
+      "openmojiAuthor": "Jonas Dunkel",
+      "file": "assets/practice-images/openmoji/1F309.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F309.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k62517-s1",
+        "k34978-s1",
+        "k70799-s1"
+      ]
+    },
+    {
+      "id": "k34978-s1",
+      "grade": "advanced",
+      "headwordKo": "구급차",
+      "glossZh": "急救车",
+      "glossEn": "ambulance",
+      "posKo": "명사",
+      "semanticTags": [
+        "transport-energy",
+        "confusable-family-18"
+      ],
+      "family": "transport",
+      "note": "",
+      "emoji": "🚑️",
+      "hexcode": "1F691",
+      "openmojiAnnotation": "ambulance",
+      "openmojiAuthor": "Ronja Bäurlen",
+      "file": "assets/practice-images/openmoji/1F691.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F691.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k62517-s1",
+        "k30689-s1",
+        "k70799-s1"
+      ]
+    },
+    {
+      "id": "k63986-s1",
+      "grade": "advanced",
+      "headwordKo": "소화기",
+      "glossZh": "灭火器",
+      "glossEn": "fire extinguisher",
+      "posKo": "명사",
+      "semanticTags": [
+        "household-objects"
+      ],
+      "family": "household",
+      "note": "",
+      "emoji": "🧯",
+      "hexcode": "1F9EF",
+      "openmojiAnnotation": "fire extinguisher",
+      "openmojiAuthor": "Tonia Reinhardt",
+      "file": "assets/practice-images/openmoji/1F9EF.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F9EF.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k73700-s1",
+        "k18259-s1",
+        "k43832-s1"
+      ]
+    },
+    {
+      "id": "k73700-s1",
+      "grade": "advanced",
+      "headwordKo": "장바구니",
+      "glossZh": "菜篮",
+      "glossEn": "shopping basket",
+      "posKo": "명사",
+      "semanticTags": [
+        "household-objects"
+      ],
+      "family": "household",
+      "note": "",
+      "emoji": "🧺",
+      "hexcode": "1F9FA",
+      "openmojiAnnotation": "basket",
+      "openmojiAuthor": "Tonia Reinhardt",
+      "file": "assets/practice-images/openmoji/1F9FA.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F9FA.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k13986-s1",
+        "k31674-s1",
+        "k63986-s1"
+      ]
+    },
+    {
+      "id": "k19243-s1",
+      "grade": "advanced",
+      "headwordKo": "공사장",
+      "glossZh": "工地",
+      "glossEn": "construction site",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "family": "places",
+      "note": "",
+      "emoji": "🏗️",
+      "hexcode": "1F3D7",
+      "openmojiAnnotation": "building construction",
+      "openmojiAuthor": "Martin Wehl",
+      "file": "assets/practice-images/openmoji/1F3D7.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F3D7.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k26891-s1",
+        "k31849-s1",
+        "k62271-s1"
+      ]
+    },
+    {
+      "id": "k77121-s1",
+      "grade": "advanced",
+      "headwordKo": "주택가",
+      "glossZh": "住宅区",
+      "glossEn": "residential area",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "family": "places",
+      "note": "",
+      "emoji": "🏘️",
+      "hexcode": "1F3D8",
+      "openmojiAnnotation": "houses",
+      "openmojiAuthor": "Martin Wehl",
+      "file": "assets/practice-images/openmoji/1F3D8.svg",
+      "sourceUrl": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/17.0.0/color/svg/1F3D8.svg",
+      "license": "CC-BY-SA-4.0",
+      "distractorIds": [
+        "k62271-s1",
+        "k31486-s1",
+        "k64472-s1"
+      ]
+    }
+  ],
+  "skipped": [
+    {
+      "id": "k62450-s1",
+      "grade": "beginner",
+      "headwordKo": "가격",
+      "glossZh": "价格",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade",
+        "confusable-family-7"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Price is an abstract value; a coin or money bag would depict money, not price."
+    },
+    {
+      "id": "k64367-s1",
+      "grade": "beginner",
+      "headwordKo": "겨울",
+      "glossZh": "冬天",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "reasonCode": "time",
+      "reason": "Winter is a season, not a single distinctive object."
+    },
+    {
+      "id": "k22537-s1",
+      "grade": "beginner",
+      "headwordKo": "계절",
+      "glossZh": "季节",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "reasonCode": "time",
+      "reason": "Season is an abstract division of the year."
+    },
+    {
+      "id": "k27364-s1",
+      "grade": "beginner",
+      "headwordKo": "고향",
+      "glossZh": "故乡",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Hometown is an abstract place of origin, not a specific depictable scene."
+    },
+    {
+      "id": "k36672-s1",
+      "grade": "beginner",
+      "headwordKo": "공부",
+      "glossZh": "学习",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Study is a general activity, not a single distinctive object or scene."
+    },
+    {
+      "id": "k64469-s1",
+      "grade": "beginner",
+      "headwordKo": "교통",
+      "glossZh": "交通",
+      "posKo": "명사",
+      "semanticTags": [
+        "transport-energy",
+        "confusable-family-18"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Traffic is a transport system, not one concrete object."
+    },
+    {
+      "id": "k20190-s1",
+      "grade": "beginner",
+      "headwordKo": "구월",
+      "glossZh": "九月",
+      "posKo": "명사",
+      "semanticTags": [
+        "time-sequence"
+      ],
+      "reasonCode": "time",
+      "reason": "Time, season, or calendar concept; not a distinctive object or scene."
+    },
+    {
+      "id": "k20192-s1",
+      "grade": "beginner",
+      "headwordKo": "기분",
+      "glossZh": "心情",
+      "posKo": "명사",
+      "semanticTags": [
+        "emotion-personality"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Mood is an internal state; a face would show a specific emotion, not the general word."
+    },
+    {
+      "id": "k18273-s1",
+      "grade": "beginner",
+      "headwordKo": "기숙사",
+      "glossZh": "宿舍",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Dormitory is a residential building without a distinctive icon."
+    },
+    {
+      "id": "k28818-s1",
+      "grade": "beginner",
+      "headwordKo": "김치",
+      "glossZh": "辛奇",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink"
+      ],
+      "reasonCode": "food-no-icon",
+      "reason": "Kimchi has no distinct icon in the approved set."
+    },
+    {
+      "id": "k29699-s1",
+      "grade": "beginner",
+      "headwordKo": "나라",
+      "glossZh": "国家",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather",
+        "confusable-family-10"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Country is an abstract political/geographic entity."
+    },
+    {
+      "id": "k60486-s1",
+      "grade": "beginner",
+      "headwordKo": "나이",
+      "glossZh": "年龄",
+      "posKo": "명사",
+      "semanticTags": [
+        "time-sequence"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Age is an abstract number, not a depictable object."
+    },
+    {
+      "id": "k60630-s1",
+      "grade": "beginner",
+      "headwordKo": "날씨",
+      "glossZh": "天气",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Weather is a general condition, not one distinctive scene."
+    },
+    {
+      "id": "k60865-s1",
+      "grade": "beginner",
+      "headwordKo": "남자",
+      "glossZh": "男子",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family"
+      ],
+      "reasonCode": "person-role",
+      "reason": "A generic man is not visually distinguishable from other person nouns without stereotypes."
+    },
+    {
+      "id": "k64497-s1",
+      "grade": "beginner",
+      "headwordKo": "낮",
+      "glossZh": "白天",
+      "posKo": "명사",
+      "semanticTags": [
+        "time-sequence"
+      ],
+      "reasonCode": "time",
+      "reason": "Time, season, or calendar concept; not a distinctive object or scene."
+    },
+    {
+      "id": "k20195-s1",
+      "grade": "beginner",
+      "headwordKo": "노래",
+      "glossZh": "歌",
+      "posKo": "명사",
+      "semanticTags": [
+        "art-media-communication",
+        "confusable-family-14"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Song is an abstract work, not a single depictable object."
+    },
+    {
+      "id": "k40295-s1",
+      "grade": "beginner",
+      "headwordKo": "도서관",
+      "glossZh": "图书馆",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Library is a building/service; a stack of books would depict books, not the library."
+    },
+    {
+      "id": "k55313-s1",
+      "grade": "beginner",
+      "headwordKo": "무릎",
+      "glossZh": "膝盖",
+      "posKo": "명사",
+      "semanticTags": [
+        "body-health"
+      ],
+      "reasonCode": "body-no-icon",
+      "reason": "Knee has no distinct approved icon; a leg icon would depict the whole leg."
+    },
+    {
+      "id": "k66246-s1",
+      "grade": "beginner",
+      "headwordKo": "문제",
+      "glossZh": "问题",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Problem/question is an abstract idea, not a distinctive object."
+    },
+    {
+      "id": "k85627-s1",
+      "grade": "beginner",
+      "headwordKo": "바람",
+      "glossZh": "风",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Wind is invisible; a wind-face icon would be a symbol, not a depiction of the noun."
+    },
+    {
+      "id": "k20207-s1",
+      "grade": "beginner",
+      "headwordKo": "방학",
+      "glossZh": "放假",
+      "posKo": "명사",
+      "semanticTags": [
+        "time-sequence",
+        "confusable-family-11"
+      ],
+      "reasonCode": "time",
+      "reason": "Time, season, or calendar concept; not a distinctive object or scene."
+    },
+    {
+      "id": "k62272-s1",
+      "grade": "beginner",
+      "headwordKo": "부모님",
+      "glossZh": "父母",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family"
+      ],
+      "reasonCode": "person-role",
+      "reason": "Parents are a family relationship; a family emoji would depict a specific family, not the role."
+    },
+    {
+      "id": "k62273-s1",
+      "grade": "beginner",
+      "headwordKo": "부엌",
+      "glossZh": "厨房",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Kitchen is a room; a cooking pan would depict cooking, not the room."
+    },
+    {
+      "id": "k61202-s1",
+      "grade": "beginner",
+      "headwordKo": "사무실",
+      "glossZh": "办公室",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Office is a room/workplace; an office tower would duplicate the building item."
+    },
+    {
+      "id": "k62507-s1",
+      "grade": "beginner",
+      "headwordKo": "설탕",
+      "glossZh": "砂糖",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink",
+        "confusable-family-16"
+      ],
+      "reasonCode": "food-no-icon",
+      "reason": "Sugar has no distinct icon; a candy icon would depict candy, not sugar."
+    },
+    {
+      "id": "k71279-s1",
+      "grade": "beginner",
+      "headwordKo": "손님",
+      "glossZh": "客",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family"
+      ],
+      "reasonCode": "person-role",
+      "reason": "Guest is a social role without a distinctive visual marker."
+    },
+    {
+      "id": "k71343-s1",
+      "grade": "beginner",
+      "headwordKo": "아버지",
+      "glossZh": "父亲",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family"
+      ],
+      "reasonCode": "person-role",
+      "reason": "Father is a relationship role, not a visually distinctive person."
+    },
+    {
+      "id": "k28647-s1",
+      "grade": "beginner",
+      "headwordKo": "약국",
+      "glossZh": "药店",
+      "posKo": "명사",
+      "semanticTags": [
+        "place",
+        "confusable-family-17"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Pharmacy is a shop; a pill would depict medicine, not the shop."
+    },
+    {
+      "id": "k74361-s1",
+      "grade": "beginner",
+      "headwordKo": "어머니",
+      "glossZh": "母亲",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family"
+      ],
+      "reasonCode": "person-role",
+      "reason": "Mother is a relationship role, not a visually distinctive person."
+    },
+    {
+      "id": "k70069-s1",
+      "grade": "beginner",
+      "headwordKo": "월요일",
+      "glossZh": "星期一",
+      "posKo": "명사",
+      "semanticTags": [
+        "time-sequence"
+      ],
+      "reasonCode": "time",
+      "reason": "Time, season, or calendar concept; not a distinctive object or scene."
+    },
+    {
+      "id": "k71692-s1",
+      "grade": "beginner",
+      "headwordKo": "이름",
+      "glossZh": "名字",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Name is an abstract label; images must not contain letters or Hangul."
+    },
+    {
+      "id": "k30198-s1",
+      "grade": "beginner",
+      "headwordKo": "일요일",
+      "glossZh": "星期日",
+      "posKo": "명사",
+      "semanticTags": [
+        "time-sequence"
+      ],
+      "reasonCode": "time",
+      "reason": "Time, season, or calendar concept; not a distinctive object or scene."
+    },
+    {
+      "id": "k62518-s1",
+      "grade": "beginner",
+      "headwordKo": "잡지",
+      "glossZh": "杂志",
+      "posKo": "명사",
+      "semanticTags": [
+        "art-media-communication"
+      ],
+      "reasonCode": "media-no-icon",
+      "reason": "Magazine has no distinct icon; a book/newspaper would depict a different object."
+    },
+    {
+      "id": "k72039-s1",
+      "grade": "beginner",
+      "headwordKo": "책상",
+      "glossZh": "书桌",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "object-no-icon",
+      "reason": "Desk has no distinct icon; a chair or computer would depict a different object."
+    },
+    {
+      "id": "k29742-s1",
+      "grade": "beginner",
+      "headwordKo": "친구",
+      "glossZh": "朋友",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family"
+      ],
+      "reasonCode": "person-role",
+      "reason": "Friend is a relationship role, not a visually distinctive person."
+    },
+    {
+      "id": "k31668-s1",
+      "grade": "beginner",
+      "headwordKo": "회사",
+      "glossZh": "公司",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Company is an organization, not a distinctive building."
+    },
+    {
+      "id": "k73251-s1",
+      "grade": "beginner",
+      "headwordKo": "휴가",
+      "glossZh": "休假",
+      "posKo": "명사",
+      "semanticTags": [
+        "time-sequence",
+        "confusable-family-11"
+      ],
+      "reasonCode": "time",
+      "reason": "Vacation leave is an abstract period, not an object."
+    },
+    {
+      "id": "k73252-s1",
+      "grade": "beginner",
+      "headwordKo": "휴일",
+      "glossZh": "休息日",
+      "posKo": "명사",
+      "semanticTags": [
+        "time-sequence",
+        "confusable-family-11"
+      ],
+      "reasonCode": "time",
+      "reason": "A day off is a calendar concept, not an object."
+    },
+    {
+      "id": "k66304-s1",
+      "grade": "beginner",
+      "headwordKo": "거실",
+      "glossZh": "客厅",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Living room is a room; a couch would depict furniture, not the room."
+    },
+    {
+      "id": "k70704-s1",
+      "grade": "beginner",
+      "headwordKo": "간장",
+      "glossZh": "酱油",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink",
+        "confusable-family-16"
+      ],
+      "reasonCode": "food-no-icon",
+      "reason": "Soy sauce has no distinct icon; a bottle would not identify it."
+    },
+    {
+      "id": "k45275-s1",
+      "grade": "beginner",
+      "headwordKo": "두부",
+      "glossZh": "豆腐",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink"
+      ],
+      "reasonCode": "food-no-icon",
+      "reason": "Tofu has no distinct icon in the approved set."
+    },
+    {
+      "id": "k58180-s1",
+      "grade": "beginner",
+      "headwordKo": "냄새",
+      "glossZh": "气味",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Smell is invisible and cannot be shown as a distinctive object."
+    },
+    {
+      "id": "k26680-s1",
+      "grade": "beginner",
+      "headwordKo": "우표",
+      "glossZh": "邮票",
+      "posKo": "명사",
+      "semanticTags": [
+        "art-media-communication"
+      ],
+      "reasonCode": "object-no-icon",
+      "reason": "Postage stamp has no distinct icon in the approved set; images may not contain text."
+    },
+    {
+      "id": "k71115-s1",
+      "grade": "beginner",
+      "headwordKo": "음악",
+      "glossZh": "音乐",
+      "posKo": "명사",
+      "semanticTags": [
+        "art-media-communication",
+        "confusable-family-14"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Music is an abstract art form; note symbols would be textual/graphic symbols rather than the noun."
+    },
+    {
+      "id": "k67701-s1",
+      "grade": "beginner",
+      "headwordKo": "여름",
+      "glossZh": "夏",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "reasonCode": "time",
+      "reason": "Summer is a season, not a single distinctive object."
+    },
+    {
+      "id": "k62399-s1",
+      "grade": "intermediate",
+      "headwordKo": "가능성",
+      "glossZh": "可能性",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k15327-s1",
+      "grade": "intermediate",
+      "headwordKo": "가로등",
+      "glossZh": "路灯",
+      "posKo": "명사",
+      "semanticTags": [
+        "household-objects"
+      ],
+      "reasonCode": "object-no-icon",
+      "reason": "Household object without a distinct approved icon."
+    },
+    {
+      "id": "k65209-s1",
+      "grade": "intermediate",
+      "headwordKo": "가루",
+      "glossZh": "粉末",
+      "posKo": "명사",
+      "semanticTags": [
+        "household-objects",
+        "confusable-family-16"
+      ],
+      "reasonCode": "object-no-icon",
+      "reason": "Household object without a distinct approved icon."
+    },
+    {
+      "id": "k15780-s1",
+      "grade": "intermediate",
+      "headwordKo": "개선",
+      "glossZh": "改善",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k23460-s1",
+      "grade": "intermediate",
+      "headwordKo": "개발",
+      "glossZh": "开发",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k26752-s1",
+      "grade": "intermediate",
+      "headwordKo": "거래",
+      "glossZh": "交易",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k62384-s1",
+      "grade": "intermediate",
+      "headwordKo": "경제",
+      "glossZh": "经济",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k17755-s1",
+      "grade": "intermediate",
+      "headwordKo": "계약",
+      "glossZh": "合同",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k18694-s2",
+      "grade": "intermediate",
+      "headwordKo": "공간",
+      "glossZh": "空间",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k60198-s1",
+      "grade": "intermediate",
+      "headwordKo": "과목",
+      "glossZh": "科目",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k18308-s1",
+      "grade": "intermediate",
+      "headwordKo": "과제",
+      "glossZh": "课题",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k30355-s1",
+      "grade": "intermediate",
+      "headwordKo": "관리",
+      "glossZh": "管理",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k24543-s1",
+      "grade": "intermediate",
+      "headwordKo": "구조",
+      "glossZh": "结构",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business",
+        "confusable-family-13"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k60100-s1",
+      "grade": "intermediate",
+      "headwordKo": "국민",
+      "glossZh": "国民",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family",
+        "confusable-family-10"
+      ],
+      "reasonCode": "person-role",
+      "reason": "Person/relationship noun without a distinctive, unambiguous approved icon."
+    },
+    {
+      "id": "k37163-s2",
+      "grade": "intermediate",
+      "headwordKo": "근거",
+      "glossZh": "根据",
+      "posKo": "명사",
+      "semanticTags": [
+        "governance-social",
+        "confusable-family-9"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k37207-s1",
+      "grade": "intermediate",
+      "headwordKo": "금액",
+      "glossZh": "金额",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade",
+        "confusable-family-7"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k32482-s2",
+      "grade": "intermediate",
+      "headwordKo": "기관",
+      "glossZh": "机关",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business",
+        "confusable-family-13"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k32491-s1",
+      "grade": "intermediate",
+      "headwordKo": "기능",
+      "glossZh": "功能",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business",
+        "confusable-family-4"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k28568-s1",
+      "grade": "intermediate",
+      "headwordKo": "노동",
+      "glossZh": "劳动",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k601787-s1",
+      "grade": "intermediate",
+      "headwordKo": "휴관",
+      "glossZh": "闭馆",
+      "posKo": "명사",
+      "semanticTags": [
+        "time-sequence",
+        "confusable-family-11"
+      ],
+      "reasonCode": "time",
+      "reason": "Time, season, or calendar concept; not a distinctive object or scene."
+    },
+    {
+      "id": "k28318-s1",
+      "grade": "intermediate",
+      "headwordKo": "논리",
+      "glossZh": "逻辑",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k64532-s1",
+      "grade": "intermediate",
+      "headwordKo": "단체",
+      "glossZh": "团体",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business",
+        "confusable-family-13"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k14359-s1",
+      "grade": "intermediate",
+      "headwordKo": "대출",
+      "glossZh": "借贷",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k66263-s1",
+      "grade": "intermediate",
+      "headwordKo": "대표",
+      "glossZh": "代表",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family"
+      ],
+      "reasonCode": "person-role",
+      "reason": "Person/relationship noun without a distinctive, unambiguous approved icon."
+    },
+    {
+      "id": "k69467-s1",
+      "grade": "intermediate",
+      "headwordKo": "목표",
+      "glossZh": "目标",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business",
+        "confusable-family-5"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k15777-s1",
+      "grade": "intermediate",
+      "headwordKo": "민주주의",
+      "glossZh": "民主主义",
+      "posKo": "명사",
+      "semanticTags": [
+        "governance-social"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k14458-s1",
+      "grade": "intermediate",
+      "headwordKo": "법률",
+      "glossZh": "法律",
+      "posKo": "명사",
+      "semanticTags": [
+        "governance-social"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k83169-s1",
+      "grade": "intermediate",
+      "headwordKo": "변화",
+      "glossZh": "变化",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k59656-s1",
+      "grade": "intermediate",
+      "headwordKo": "보고서",
+      "glossZh": "报告书",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k83163-s1",
+      "grade": "intermediate",
+      "headwordKo": "비용",
+      "glossZh": "费",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade",
+        "confusable-family-7"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k15654-s1",
+      "grade": "intermediate",
+      "headwordKo": "사건",
+      "glossZh": "事件",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k15872-s1",
+      "grade": "intermediate",
+      "headwordKo": "사무소",
+      "glossZh": "事务所",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Place or room without a distinctive approved icon."
+    },
+    {
+      "id": "k15676-s1",
+      "grade": "intermediate",
+      "headwordKo": "산업",
+      "glossZh": "产业",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k16454-s1",
+      "grade": "intermediate",
+      "headwordKo": "상담",
+      "glossZh": "咨询",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k61734-s1",
+      "grade": "intermediate",
+      "headwordKo": "상상",
+      "glossZh": "想象",
+      "posKo": "명사",
+      "semanticTags": [
+        "emotion-personality"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k16587-s1",
+      "grade": "intermediate",
+      "headwordKo": "생산",
+      "glossZh": "生产",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k49238-s1",
+      "grade": "intermediate",
+      "headwordKo": "소비",
+      "glossZh": "消费",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k49251-s1",
+      "grade": "intermediate",
+      "headwordKo": "소음",
+      "glossZh": "噪音",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement",
+        "confusable-family-14"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Noise is an abstract quality, not a distinctive object."
+    },
+    {
+      "id": "k65121-s1",
+      "grade": "intermediate",
+      "headwordKo": "시설",
+      "glossZh": "设施",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k62879-s1",
+      "grade": "intermediate",
+      "headwordKo": "연구",
+      "glossZh": "研究",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k14102-s1",
+      "grade": "intermediate",
+      "headwordKo": "영향",
+      "glossZh": "影响",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k14145-s1",
+      "grade": "intermediate",
+      "headwordKo": "예산",
+      "glossZh": "预算",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k71741-s1",
+      "grade": "intermediate",
+      "headwordKo": "이론",
+      "glossZh": "理论",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k62590-s1",
+      "grade": "intermediate",
+      "headwordKo": "인구",
+      "glossZh": "人口",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k70795-s1",
+      "grade": "intermediate",
+      "headwordKo": "자격",
+      "glossZh": "资格",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language",
+        "confusable-family-6"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k24793-s1",
+      "grade": "intermediate",
+      "headwordKo": "자원",
+      "glossZh": "资源",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k62097-s1",
+      "grade": "intermediate",
+      "headwordKo": "재산",
+      "glossZh": "财产",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade",
+        "confusable-family-8"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k24985-s1",
+      "grade": "intermediate",
+      "headwordKo": "재활용",
+      "glossZh": "再利用",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k75623-s1",
+      "grade": "intermediate",
+      "headwordKo": "정책",
+      "glossZh": "政策",
+      "posKo": "명사",
+      "semanticTags": [
+        "governance-social",
+        "confusable-family-5"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k91749-s1",
+      "grade": "intermediate",
+      "headwordKo": "조건",
+      "glossZh": "条件",
+      "posKo": "명사",
+      "semanticTags": [
+        "governance-social",
+        "confusable-family-6"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k25948-s1",
+      "grade": "intermediate",
+      "headwordKo": "주민",
+      "glossZh": "居民",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family"
+      ],
+      "reasonCode": "person-role",
+      "reason": "Person/relationship noun without a distinctive, unambiguous approved icon."
+    },
+    {
+      "id": "k27743-s1",
+      "grade": "intermediate",
+      "headwordKo": "증가",
+      "glossZh": "增加",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process",
+        "confusable-family-2"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k37609-s1",
+      "grade": "intermediate",
+      "headwordKo": "책임",
+      "glossZh": "责任",
+      "posKo": "명사",
+      "semanticTags": [
+        "governance-social"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k71479-s1",
+      "grade": "intermediate",
+      "headwordKo": "통신",
+      "glossZh": "通信",
+      "posKo": "명사",
+      "semanticTags": [
+        "art-media-communication",
+        "confusable-family-14"
+      ],
+      "reasonCode": "media-no-icon",
+      "reason": "Media or communication concept without a distinct approved icon."
+    },
+    {
+      "id": "k71299-s1",
+      "grade": "intermediate",
+      "headwordKo": "특징",
+      "glossZh": "特征",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k71310-s1",
+      "grade": "intermediate",
+      "headwordKo": "판매",
+      "glossZh": "销售",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k85548-s1",
+      "grade": "intermediate",
+      "headwordKo": "피해",
+      "glossZh": "受害",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k84030-s1",
+      "grade": "intermediate",
+      "headwordKo": "학과",
+      "glossZh": "专业",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k84362-s1",
+      "grade": "intermediate",
+      "headwordKo": "학비",
+      "glossZh": "学费",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k73070-s1",
+      "grade": "intermediate",
+      "headwordKo": "현관",
+      "glossZh": "玄关",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Place or room without a distinctive approved icon."
+    },
+    {
+      "id": "k86877-s1",
+      "grade": "intermediate",
+      "headwordKo": "현장",
+      "glossZh": "现场",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Place or room without a distinctive approved icon."
+    },
+    {
+      "id": "k49093-s1",
+      "grade": "intermediate",
+      "headwordKo": "환경",
+      "glossZh": "环境",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Nature/weather concept without a distinctive depictable object."
+    },
+    {
+      "id": "k74135-s1",
+      "grade": "intermediate",
+      "headwordKo": "활동",
+      "glossZh": "活动",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k87055-s1",
+      "grade": "intermediate",
+      "headwordKo": "훈련",
+      "glossZh": "训练",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k16223-s1",
+      "grade": "intermediate",
+      "headwordKo": "갈등",
+      "glossZh": "矛盾",
+      "posKo": "명사",
+      "semanticTags": [
+        "emotion-personality",
+        "confusable-family-3"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k15455-s1",
+      "grade": "intermediate",
+      "headwordKo": "강변",
+      "glossZh": "江边",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Place or room without a distinctive approved icon."
+    },
+    {
+      "id": "k15906-s1",
+      "grade": "intermediate",
+      "headwordKo": "건조",
+      "glossZh": "干燥",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Dryness is an abstract condition, not a distinctive object."
+    },
+    {
+      "id": "k15971-s1",
+      "grade": "intermediate",
+      "headwordKo": "결승",
+      "glossZh": "决胜",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement",
+        "confusable-family-12"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k32356-s1",
+      "grade": "intermediate",
+      "headwordKo": "경기장",
+      "glossZh": "体育场",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Place or room without a distinctive approved icon."
+    },
+    {
+      "id": "k60095-s1",
+      "grade": "intermediate",
+      "headwordKo": "경영",
+      "glossZh": "经营",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k25597-s1",
+      "grade": "intermediate",
+      "headwordKo": "고춧가루",
+      "glossZh": "辣椒面",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink",
+        "confusable-family-16"
+      ],
+      "reasonCode": "food-no-icon",
+      "reason": "Chili powder has no distinct icon; a pepper would depict a pepper, not powder."
+    },
+    {
+      "id": "k25333-s1",
+      "grade": "intermediate",
+      "headwordKo": "공연장",
+      "glossZh": "剧场",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Place or room without a distinctive approved icon."
+    },
+    {
+      "id": "k24082-s1",
+      "grade": "intermediate",
+      "headwordKo": "교훈",
+      "glossZh": "教训",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k28584-s1",
+      "grade": "intermediate",
+      "headwordKo": "농산물",
+      "glossZh": "农产品",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink"
+      ],
+      "reasonCode": "food-no-icon",
+      "reason": "Food or condiment without a distinct approved icon."
+    },
+    {
+      "id": "k41584-s1",
+      "grade": "intermediate",
+      "headwordKo": "눈빛",
+      "glossZh": "目光",
+      "posKo": "명사",
+      "semanticTags": [
+        "art-media-communication"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Gaze is an abstract expression, not a depictable object."
+    },
+    {
+      "id": "k57816-s1",
+      "grade": "intermediate",
+      "headwordKo": "무늬",
+      "glossZh": "纹",
+      "posKo": "명사",
+      "semanticTags": [
+        "art-media-communication"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Pattern is an abstract visual quality, not a single object."
+    },
+    {
+      "id": "k59131-s1",
+      "grade": "intermediate",
+      "headwordKo": "번역",
+      "glossZh": "翻译",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k25681-s1",
+      "grade": "intermediate",
+      "headwordKo": "봉사",
+      "glossZh": "志愿服务",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k15875-s1",
+      "grade": "intermediate",
+      "headwordKo": "사생활",
+      "glossZh": "隐私",
+      "posKo": "명사",
+      "semanticTags": [
+        "emotion-personality"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k16476-s1",
+      "grade": "intermediate",
+      "headwordKo": "상식",
+      "glossZh": "常识",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k63524-s1",
+      "grade": "intermediate",
+      "headwordKo": "소나기",
+      "glossZh": "雷阵雨",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Nature/weather concept without a distinctive depictable object."
+    },
+    {
+      "id": "k15630-s1",
+      "grade": "intermediate",
+      "headwordKo": "수면",
+      "glossZh": "睡眠",
+      "posKo": "명사",
+      "semanticTags": [
+        "body-health"
+      ],
+      "reasonCode": "body-no-icon",
+      "reason": "Body/health concept without a distinctive approved icon."
+    },
+    {
+      "id": "k15852-s1",
+      "grade": "intermediate",
+      "headwordKo": "습기",
+      "glossZh": "湿气",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Moisture is an abstract condition, not a distinctive object."
+    },
+    {
+      "id": "k13988-s1",
+      "grade": "intermediate",
+      "headwordKo": "식료품",
+      "glossZh": "食品原料",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink"
+      ],
+      "reasonCode": "food-no-icon",
+      "reason": "Food or condiment without a distinct approved icon."
+    },
+    {
+      "id": "k66282-s1",
+      "grade": "intermediate",
+      "headwordKo": "실내",
+      "glossZh": "室内",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Place or room without a distinctive approved icon."
+    },
+    {
+      "id": "k90303-s1",
+      "grade": "intermediate",
+      "headwordKo": "야근",
+      "glossZh": "加班",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k73135-s1",
+      "grade": "intermediate",
+      "headwordKo": "양념",
+      "glossZh": "调料",
+      "posKo": "명사",
+      "semanticTags": [
+        "food-drink",
+        "confusable-family-16"
+      ],
+      "reasonCode": "food-no-icon",
+      "reason": "Food or condiment without a distinct approved icon."
+    },
+    {
+      "id": "k92454-s1",
+      "grade": "intermediate",
+      "headwordKo": "운전면허",
+      "glossZh": "驾驶执照",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k27799-s1",
+      "grade": "intermediate",
+      "headwordKo": "지름길",
+      "glossZh": "捷径",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k82890-s1",
+      "grade": "intermediate",
+      "headwordKo": "퇴직",
+      "glossZh": "退休",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k66308-s1",
+      "grade": "intermediate",
+      "headwordKo": "피부",
+      "glossZh": "皮肤",
+      "posKo": "명사",
+      "semanticTags": [
+        "body-health"
+      ],
+      "reasonCode": "body-no-icon",
+      "reason": "Skin is a surface/organ without a distinctive whole-object depiction."
+    },
+    {
+      "id": "k72460-s1",
+      "grade": "intermediate",
+      "headwordKo": "한숨",
+      "glossZh": "叹气",
+      "posKo": "명사",
+      "semanticTags": [
+        "emotion-personality"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Sigh is an action/emotion, not a distinctive object."
+    },
+    {
+      "id": "k72467-s1",
+      "grade": "intermediate",
+      "headwordKo": "합격",
+      "glossZh": "合格",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language",
+        "confusable-family-15"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k72483-s1",
+      "grade": "intermediate",
+      "headwordKo": "향기",
+      "glossZh": "香气",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Fragrance is invisible, not a distinctive object."
+    },
+    {
+      "id": "k88433-s1",
+      "grade": "intermediate",
+      "headwordKo": "휴식",
+      "glossZh": "休憩",
+      "posKo": "명사",
+      "semanticTags": [
+        "body-health",
+        "confusable-family-11"
+      ],
+      "reasonCode": "body-no-icon",
+      "reason": "Body/health concept without a distinctive approved icon."
+    },
+    {
+      "id": "k27894-s2",
+      "grade": "advanced",
+      "headwordKo": "가계",
+      "glossZh": "家计",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade",
+        "confusable-family-8"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k15085-s2",
+      "grade": "advanced",
+      "headwordKo": "감염",
+      "glossZh": "感染",
+      "posKo": "명사",
+      "semanticTags": [
+        "body-health"
+      ],
+      "reasonCode": "body-no-icon",
+      "reason": "Body/health concept without a distinctive approved icon."
+    },
+    {
+      "id": "k30064-s1",
+      "grade": "advanced",
+      "headwordKo": "검증",
+      "glossZh": "验证",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k30474-s1",
+      "grade": "advanced",
+      "headwordKo": "경계",
+      "glossZh": "警戒",
+      "posKo": "명사",
+      "semanticTags": [
+        "governance-social"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k19924-s1",
+      "grade": "advanced",
+      "headwordKo": "고령화",
+      "glossZh": "高龄化",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k36555-s1",
+      "grade": "advanced",
+      "headwordKo": "구상",
+      "glossZh": "构想",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business",
+        "confusable-family-5"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k37187-s1",
+      "grade": "advanced",
+      "headwordKo": "근원",
+      "glossZh": "源头",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement",
+        "confusable-family-9"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k46832-s1",
+      "grade": "advanced",
+      "headwordKo": "대체",
+      "glossZh": "代替",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k48154-s1",
+      "grade": "advanced",
+      "headwordKo": "동향",
+      "glossZh": "动向",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process",
+        "confusable-family-1"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k55743-s1",
+      "grade": "advanced",
+      "headwordKo": "매출",
+      "glossZh": "销售",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade",
+        "confusable-family-8"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k55975-s1",
+      "grade": "advanced",
+      "headwordKo": "모순",
+      "glossZh": "矛盾",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement",
+        "confusable-family-3"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k15768-s1",
+      "grade": "advanced",
+      "headwordKo": "민간",
+      "glossZh": "民间",
+      "posKo": "명사",
+      "semanticTags": [
+        "governance-social"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k57883-s1",
+      "grade": "advanced",
+      "headwordKo": "방침",
+      "glossZh": "方针",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business",
+        "confusable-family-5"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k58441-s1",
+      "grade": "advanced",
+      "headwordKo": "배출",
+      "glossZh": "排放",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k60194-s1",
+      "grade": "advanced",
+      "headwordKo": "복합",
+      "glossZh": "复合",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k60064-s1",
+      "grade": "advanced",
+      "headwordKo": "복구",
+      "glossZh": "恢复",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k25675-s1",
+      "grade": "advanced",
+      "headwordKo": "본질",
+      "glossZh": "本质",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k61593-s1",
+      "grade": "advanced",
+      "headwordKo": "사회성",
+      "glossZh": "社会性",
+      "posKo": "명사",
+      "semanticTags": [
+        "emotion-personality"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k62418-s1",
+      "grade": "advanced",
+      "headwordKo": "상실",
+      "glossZh": "丧失",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k85321-s1",
+      "grade": "advanced",
+      "headwordKo": "성향",
+      "glossZh": "倾向",
+      "posKo": "명사",
+      "semanticTags": [
+        "emotion-personality",
+        "confusable-family-1"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k63436-s1",
+      "grade": "advanced",
+      "headwordKo": "소득세",
+      "glossZh": "所得税",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k64554-s1",
+      "grade": "advanced",
+      "headwordKo": "수당",
+      "glossZh": "补贴",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k65538-s1",
+      "grade": "advanced",
+      "headwordKo": "수익",
+      "glossZh": "收益",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade",
+        "confusable-family-8"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k59633-s1",
+      "grade": "advanced",
+      "headwordKo": "보편",
+      "glossZh": "普遍",
+      "posKo": "명사",
+      "semanticTags": [
+        "governance-social"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k65149-s1",
+      "grade": "advanced",
+      "headwordKo": "순환",
+      "glossZh": "循环",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k14067-s1",
+      "grade": "advanced",
+      "headwordKo": "신설",
+      "glossZh": "新设",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k14129-s1",
+      "grade": "advanced",
+      "headwordKo": "실태",
+      "glossZh": "实态",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k70729-s1",
+      "grade": "advanced",
+      "headwordKo": "역량",
+      "glossZh": "力量",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k68591-s1",
+      "grade": "advanced",
+      "headwordKo": "완화",
+      "glossZh": "缓和",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k69191-s2",
+      "grade": "advanced",
+      "headwordKo": "요건",
+      "glossZh": "必要条件",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business",
+        "confusable-family-6"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k69841-s1",
+      "grade": "advanced",
+      "headwordKo": "원금",
+      "glossZh": "本金",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade",
+        "confusable-family-8"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k69807-s4",
+      "grade": "advanced",
+      "headwordKo": "원본",
+      "glossZh": "原件",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language",
+        "confusable-family-9"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k72452-s1",
+      "grade": "advanced",
+      "headwordKo": "유동성",
+      "glossZh": "流动性",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k71710-s1",
+      "grade": "advanced",
+      "headwordKo": "이력",
+      "glossZh": "履历",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k30374-s1",
+      "grade": "advanced",
+      "headwordKo": "결핍",
+      "glossZh": "缺乏",
+      "posKo": "명사",
+      "semanticTags": [
+        "body-health"
+      ],
+      "reasonCode": "body-no-icon",
+      "reason": "Body/health concept without a distinctive approved icon."
+    },
+    {
+      "id": "k73893-s1",
+      "grade": "advanced",
+      "headwordKo": "자산",
+      "glossZh": "资产",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade",
+        "confusable-family-8"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k80642-s1",
+      "grade": "advanced",
+      "headwordKo": "친환경",
+      "glossZh": "绿色",
+      "posKo": "명사",
+      "semanticTags": [
+        "nature-weather"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Nature/weather concept without a distinctive depictable object."
+    },
+    {
+      "id": "k74957-s2",
+      "grade": "advanced",
+      "headwordKo": "전략",
+      "glossZh": "战略",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business",
+        "confusable-family-5"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k23885-s1",
+      "grade": "advanced",
+      "headwordKo": "공정",
+      "glossZh": "公正",
+      "posKo": "명사",
+      "semanticTags": [
+        "governance-social"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k75628-s2",
+      "grade": "advanced",
+      "headwordKo": "정체",
+      "glossZh": "拥堵",
+      "posKo": "명사",
+      "semanticTags": [
+        "transport-energy",
+        "confusable-family-18"
+      ],
+      "reasonCode": "transport-concept",
+      "reason": "Transport/energy concept without a distinct vehicle or scene icon."
+    },
+    {
+      "id": "k91886-s1",
+      "grade": "advanced",
+      "headwordKo": "조정",
+      "glossZh": "调解",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k76029-s1",
+      "grade": "advanced",
+      "headwordKo": "조항",
+      "glossZh": "条款",
+      "posKo": "명사",
+      "semanticTags": [
+        "governance-social"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k92464-s1",
+      "grade": "advanced",
+      "headwordKo": "전력",
+      "glossZh": "电力",
+      "posKo": "명사",
+      "semanticTags": [
+        "transport-energy"
+      ],
+      "reasonCode": "transport-concept",
+      "reason": "Transport/energy concept without a distinct vehicle or scene icon."
+    },
+    {
+      "id": "k77413-s1",
+      "grade": "advanced",
+      "headwordKo": "증대",
+      "glossZh": "增大",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process",
+        "confusable-family-2"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k77811-s1",
+      "grade": "advanced",
+      "headwordKo": "지표",
+      "glossZh": "指标",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k77926-s1",
+      "grade": "advanced",
+      "headwordKo": "채용",
+      "glossZh": "录用",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k80403-s1",
+      "grade": "advanced",
+      "headwordKo": "추세",
+      "glossZh": "趋势",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement",
+        "confusable-family-1"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k84106-s1",
+      "grade": "advanced",
+      "headwordKo": "출처",
+      "glossZh": "出处",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language",
+        "confusable-family-9"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k79459-s1",
+      "grade": "advanced",
+      "headwordKo": "타당성",
+      "glossZh": "妥当性",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k81923-s1",
+      "grade": "advanced",
+      "headwordKo": "통합",
+      "glossZh": "合并",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k82031-s1",
+      "grade": "advanced",
+      "headwordKo": "편성",
+      "glossZh": "编排",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k83053-s1",
+      "grade": "advanced",
+      "headwordKo": "폐기",
+      "glossZh": "废弃",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k87328-s1",
+      "grade": "advanced",
+      "headwordKo": "확대",
+      "glossZh": "扩大",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process",
+        "confusable-family-2"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k87339-s1",
+      "grade": "advanced",
+      "headwordKo": "확률",
+      "glossZh": "概率",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k87098-s1",
+      "grade": "advanced",
+      "headwordKo": "활성화",
+      "glossZh": "激活",
+      "posKo": "명사",
+      "semanticTags": [
+        "change-process",
+        "confusable-family-2"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k89087-s1",
+      "grade": "advanced",
+      "headwordKo": "효율성",
+      "glossZh": "效率",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement",
+        "confusable-family-4"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k89090-s1",
+      "grade": "advanced",
+      "headwordKo": "효능",
+      "glossZh": "功效",
+      "posKo": "명사",
+      "semanticTags": [
+        "body-health",
+        "confusable-family-4",
+        "confusable-family-17"
+      ],
+      "reasonCode": "body-no-icon",
+      "reason": "Body/health concept without a distinctive approved icon."
+    },
+    {
+      "id": "k88447-s1",
+      "grade": "advanced",
+      "headwordKo": "흥정",
+      "glossZh": "讨价还价",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k22487-s3",
+      "grade": "advanced",
+      "headwordKo": "객실",
+      "glossZh": "客房",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Guest room is a room; a bed would depict a bed, not the room."
+    },
+    {
+      "id": "k30071-s1",
+      "grade": "advanced",
+      "headwordKo": "검진",
+      "glossZh": "体检",
+      "posKo": "명사",
+      "semanticTags": [
+        "body-health",
+        "confusable-family-17"
+      ],
+      "reasonCode": "body-no-icon",
+      "reason": "Body/health concept without a distinctive approved icon."
+    },
+    {
+      "id": "k31472-s1",
+      "grade": "advanced",
+      "headwordKo": "결승전",
+      "glossZh": "决赛",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement",
+        "confusable-family-12"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k91961-s1",
+      "grade": "advanced",
+      "headwordKo": "고가",
+      "glossZh": "高价",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade",
+        "confusable-family-7"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k19428-s1",
+      "grade": "advanced",
+      "headwordKo": "공약",
+      "glossZh": "承诺",
+      "posKo": "명사",
+      "semanticTags": [
+        "governance-social"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k19421-s1",
+      "grade": "advanced",
+      "headwordKo": "공식화",
+      "glossZh": "正式化",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k85026-s1",
+      "grade": "advanced",
+      "headwordKo": "공용어",
+      "glossZh": "官方语言",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language",
+        "confusable-family-10"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k23784-s1",
+      "grade": "advanced",
+      "headwordKo": "공익사업",
+      "glossZh": "公益事业",
+      "posKo": "명사",
+      "semanticTags": [
+        "governance-social"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k24125-s1",
+      "grade": "advanced",
+      "headwordKo": "공직자",
+      "glossZh": "公职人员",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family"
+      ],
+      "reasonCode": "person-role",
+      "reason": "Person/relationship noun without a distinctive, unambiguous approved icon."
+    },
+    {
+      "id": "k18845-s1",
+      "grade": "advanced",
+      "headwordKo": "과세",
+      "glossZh": "征税",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k18253-s1",
+      "grade": "advanced",
+      "headwordKo": "과음",
+      "glossZh": "过度饮酒",
+      "posKo": "명사",
+      "semanticTags": [
+        "body-health"
+      ],
+      "reasonCode": "body-no-icon",
+      "reason": "Body/health concept without a distinctive approved icon."
+    },
+    {
+      "id": "k37010-s1",
+      "grade": "advanced",
+      "headwordKo": "관세",
+      "glossZh": "关税",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k41199-s1",
+      "grade": "advanced",
+      "headwordKo": "관절",
+      "glossZh": "关节",
+      "posKo": "명사",
+      "semanticTags": [
+        "body-health"
+      ],
+      "reasonCode": "body-no-icon",
+      "reason": "Joint is an internal body part; a bone icon would not identify the joint."
+    },
+    {
+      "id": "k31223-s1",
+      "grade": "advanced",
+      "headwordKo": "광고판",
+      "glossZh": "广告板",
+      "posKo": "명사",
+      "semanticTags": [
+        "art-media-communication"
+      ],
+      "reasonCode": "media-no-icon",
+      "reason": "Media or communication concept without a distinct approved icon."
+    },
+    {
+      "id": "k24004-s1",
+      "grade": "advanced",
+      "headwordKo": "광장",
+      "glossZh": "广场",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Plaza is an open urban space without a distinctive icon."
+    },
+    {
+      "id": "k32453-s1",
+      "grade": "advanced",
+      "headwordKo": "교역",
+      "glossZh": "交易",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k32472-s1",
+      "grade": "advanced",
+      "headwordKo": "교육계",
+      "glossZh": "教育界",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k24071-s1",
+      "grade": "advanced",
+      "headwordKo": "교직",
+      "glossZh": "教职",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Education/language concept without a distinctive depictable object."
+    },
+    {
+      "id": "k32426-s1",
+      "grade": "advanced",
+      "headwordKo": "교차로",
+      "glossZh": "交叉路",
+      "posKo": "명사",
+      "semanticTags": [
+        "transport-energy",
+        "confusable-family-18"
+      ],
+      "reasonCode": "transport-concept",
+      "reason": "Transport/energy concept without a distinct vehicle or scene icon."
+    },
+    {
+      "id": "k600821-s1",
+      "grade": "advanced",
+      "headwordKo": "교통망",
+      "glossZh": "交通网络",
+      "posKo": "명사",
+      "semanticTags": [
+        "transport-energy",
+        "confusable-family-18"
+      ],
+      "reasonCode": "transport-concept",
+      "reason": "Transport/energy concept without a distinct vehicle or scene icon."
+    },
+    {
+      "id": "k36964-s1",
+      "grade": "advanced",
+      "headwordKo": "구내식당",
+      "glossZh": "食堂",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Staff cafeteria is a room/service; a meal would depict food, not the cafeteria."
+    },
+    {
+      "id": "k36963-s1",
+      "grade": "advanced",
+      "headwordKo": "구내방송",
+      "glossZh": "区内广播",
+      "posKo": "명사",
+      "semanticTags": [
+        "art-media-communication",
+        "confusable-family-14"
+      ],
+      "reasonCode": "media-no-icon",
+      "reason": "Media or communication concept without a distinct approved icon."
+    },
+    {
+      "id": "k43291-s1",
+      "grade": "advanced",
+      "headwordKo": "대리점",
+      "glossZh": "代理店",
+      "posKo": "명사",
+      "semanticTags": [
+        "place"
+      ],
+      "reasonCode": "place-no-icon",
+      "reason": "Agency shop is a business relationship, not a distinctive storefront."
+    },
+    {
+      "id": "k57598-s1",
+      "grade": "advanced",
+      "headwordKo": "반도체",
+      "glossZh": "半导体",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k58663-s1",
+      "grade": "advanced",
+      "headwordKo": "보상금",
+      "glossZh": "赔偿金",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k60775-s1",
+      "grade": "advanced",
+      "headwordKo": "비상금",
+      "glossZh": "应急钱",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k85194-s1",
+      "grade": "advanced",
+      "headwordKo": "성취감",
+      "glossZh": "成就感",
+      "posKo": "명사",
+      "semanticTags": [
+        "emotion-personality",
+        "confusable-family-15"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k67127-s1",
+      "grade": "advanced",
+      "headwordKo": "약효",
+      "glossZh": "药效",
+      "posKo": "명사",
+      "semanticTags": [
+        "body-health",
+        "confusable-family-4",
+        "confusable-family-17"
+      ],
+      "reasonCode": "body-no-icon",
+      "reason": "Body/health concept without a distinctive approved icon."
+    },
+    {
+      "id": "k68514-s1",
+      "grade": "advanced",
+      "headwordKo": "완성도",
+      "glossZh": "完成度",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement",
+        "confusable-family-15"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k69472-s1",
+      "grade": "advanced",
+      "headwordKo": "우선권",
+      "glossZh": "优先权",
+      "posKo": "명사",
+      "semanticTags": [
+        "organization-business"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k74115-s1",
+      "grade": "advanced",
+      "headwordKo": "재고",
+      "glossZh": "库存",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k77607-s1",
+      "grade": "advanced",
+      "headwordKo": "지문",
+      "glossZh": "指纹",
+      "posKo": "명사",
+      "semanticTags": [
+        "education-language"
+      ],
+      "reasonCode": "body-no-icon",
+      "reason": "Fingerprint is a pattern; no approved icon shows it without text-like ridges."
+    },
+    {
+      "id": "k78978-s1",
+      "grade": "advanced",
+      "headwordKo": "취업률",
+      "glossZh": "就业率",
+      "posKo": "명사",
+      "semanticTags": [
+        "finance-trade"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    },
+    {
+      "id": "k81620-s1",
+      "grade": "advanced",
+      "headwordKo": "투자자",
+      "glossZh": "投资者",
+      "posKo": "명사",
+      "semanticTags": [
+        "people-family"
+      ],
+      "reasonCode": "person-role",
+      "reason": "Person/relationship noun without a distinctive, unambiguous approved icon."
+    },
+    {
+      "id": "k88145-s1",
+      "grade": "advanced",
+      "headwordKo": "회신",
+      "glossZh": "回信",
+      "posKo": "명사",
+      "semanticTags": [
+        "art-media-communication"
+      ],
+      "reasonCode": "media-no-icon",
+      "reason": "Media or communication concept without a distinct approved icon."
+    },
+    {
+      "id": "k600813-s1",
+      "grade": "advanced",
+      "headwordKo": "휴대성",
+      "glossZh": "便携性",
+      "posKo": "명사",
+      "semanticTags": [
+        "quality-measurement"
+      ],
+      "reasonCode": "abstract",
+      "reason": "Abstract or non-depictable concept; kept in text-only modes."
+    }
+  ]
+}

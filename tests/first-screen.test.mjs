@@ -52,7 +52,9 @@ function startSite() {
     ".vtt": "text/vtt",
     ".png": "image/png",
     ".ico": "image/x-icon",
+    ".svg": "image/svg+xml",
     ".txt": "text/plain",
+    ".md": "text/plain",
     ".wasm": "application/wasm",
   };
   const state = { failPack: false };

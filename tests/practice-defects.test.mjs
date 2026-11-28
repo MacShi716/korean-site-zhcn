@@ -20,6 +20,7 @@ const TYPES = {
   ".css": "text/css",
   ".png": "image/png",
   ".ico": "image/x-icon",
+  ".svg": "image/svg+xml",
   ".wasm": "application/wasm",
   ".onnx": "application/octet-stream",
   ".bin": "application/octet-stream",
