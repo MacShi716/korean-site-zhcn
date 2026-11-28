@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#f2ebdd">
+<title>翻译 · 동행 · Together · 同行</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script>
+/* Day/night theme: set before first paint so there is no light flash. */
+(function () {
+  try {
+    var key = "koreanSite_theme_v1";
+    var saved = localStorage.getItem(key);
+    var mode = saved === "light" || saved === "dark"
+      ? saved
+      : (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", mode);
+    document.documentElement.style.colorScheme = mode;
+    document.documentElement.style.setProperty("--pos", mode === "light" ? "1" : "0");
+  } catch (error) {
+    document.documentElement.setAttribute("data-theme", "light");
+  }
+})();
+</script>
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="golden-ratio.css">
+<link rel="stylesheet" href="translate.css">
+<script src="theme.js" defer></script>
+<script src="translate.js" defer></script>
+</head>
+<body>
+<div class="app-header">
+  <div class="header-row">
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-label="菜单">☰</button>
+    <div class="brand">
+      <span id="brand-name">与你同行</span>
+      <small id="brand-sub">v0.1</small>
+      <span class="draft-badge" id="draft-badge">国内版初稿</span>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="auth-top-btn" id="auth-top-btn">登录 / 注册</button>
+    </div>
+  </div>
+  <div class="header-tools">
+    <div class="seg" id="ui-lang-seg" role="group" aria-label="界面语言"></div>
+    <span class="theme-switch-slot" data-theme-switch></span>
+  </div>
+</div>
+
+<main class="main wide-translate">
+  <section class="panel active" id="panel-translate" data-panel="translate">
+    <div class="tr-page">
+      <div class="tr-page-head">
+        <div>
+          <h1 data-i18n="trPageTitle">翻译</h1>
+          <p class="muted" data-i18n="trPageHint">中文与韩语互译，也可切换英语。服务器不可达时会明确报错，不会编造译文。</p>
+        </div>
+        <div class="tr-tabs" role="tablist" aria-label="翻译页面视图">
+          <button type="button" class="tr-tab active" id="tab-translator" role="tab"
+            aria-selected="true" aria-controls="view-translator" data-i18n="trTabTranslate">翻译</button>
+          <button type="button" class="tr-tab" id="tab-conversation" role="tab"
+            aria-selected="false" aria-controls="view-conversation" data-i18n="trTabConversation">对话练习</button>
+        </div>
+      </div>
+
+      <section id="view-translator" role="tabpanel" aria-labelledby="tab-translator">
+        <div class="tr-toolbar">
+          <label class="tr-lang-field">
+            <span data-i18n="trSourceLang">源语言</span>
+            <select id="tr-from" class="tr-lang-select" aria-label="源语言">
+              <option value="zh" data-i18n="lang_zh">中文</option>
+              <option value="ko" data-i18n="lang_ko">韩语</option>
+              <option value="en" data-i18n="lang_en">英语</option>
+            </select>
+          </label>
+          <button type="button" class="tr-swap" id="tr-swap" aria-label="交换语言和文本"
+            title="交换语言和文本" data-i18n-aria="trSwap">⇄</button>
+          <label class="tr-lang-field">
+            <span data-i18n="trTargetLang">目标语言</span>
+            <select id="tr-to" class="tr-lang-select" aria-label="目标语言">
+              <option value="ko" data-i18n="lang_ko">韩语</option>
+              <option value="zh" data-i18n="lang_zh">中文</option>
+              <option value="en" data-i18n="lang_en">英语</option>
+            </select>
+          </label>
+          <label class="tr-hon" title="韩语目标时可请求敬语；免费机器翻译可能不改变语气。">
+            <input type="checkbox" id="tr-honorific" checked>
+            <span data-i18n="trHonorific">敬语</span>
+          </label>
+          <button type="button" class="btn tr-go" id="tr-translate-btn" data-i18n="trTranslate">翻译</button>
+        </div>
+
+        <div class="tr-panes" id="tr-panes">
+          <div class="tr-pane" id="tr-source-pane" data-pane="source">
+            <div class="tr-pane-head">
+              <strong id="tr-source-label">中文</strong>
+              <span class="tr-counter" id="tr-count">0 / 4000</span>
+            </div>
+            <textarea id="tr-source" maxlength="4000" spellcheck="false" autocomplete="off"
+              aria-label="原文" data-i18n-ph="trSourcePh" placeholder="输入要翻译的内容…"></textarea>
+            <div class="tr-pane-foot">
+              <button type="button" class="tr-mini" id="tr-clear" data-i18n="trClear">清空</button>
+              <button type="button" class="tr-mini" id="tr-speak-source" data-i18n="trSpeak">朗读</button>
+              <button type="button" class="tr-mini" id="tr-copy-source" data-i18n="trCopy">复制</button>
+            </div>
+          </div>
+          <div class="tr-pane tr-target" id="tr-target-pane" data-pane="target">
+            <div class="tr-pane-head">
+              <strong id="tr-target-label">韩语</strong>
+              <span class="tr-counter" id="tr-target-status" aria-live="polite"></span>
+            </div>
+            <textarea id="tr-target" readonly spellcheck="false" aria-label="译文"
+              data-i18n-ph="trTargetPh" placeholder="译文会显示在这里"></textarea>
+            <div class="tr-pane-foot">
+              <button type="button" class="tr-mini" id="tr-copy-target" data-i18n="trCopy">复制</button>
+              <button type="button" class="tr-mini" id="tr-speak-target" data-i18n="trSpeak">朗读</button>
+              <button type="button" class="tr-mini" id="tr-fav-target" data-i18n="trFav">收藏</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tr-feedback">
+          <span class="tr-status" id="tr-status" aria-live="polite"></span>
+          <span class="tr-error" id="tr-error" role="alert" hidden></span>
+        </div>
+        <div class="tr-roma" id="tr-roma" hidden></div>
+      </section>
+
+      <section id="view-conversation" role="tabpanel" aria-labelledby="tab-conversation" hidden>
+        <div class="tr-conv-head">
+          <h2 data-i18n="trConvTitle">对话练习</h2>
+          <p class="muted" data-i18n="trConvHint">两边各写一句，原文永久保留；翻译由服务器返回。首次设置不会挡住翻译。</p>
+        </div>
+        <div id="conv-mount"></div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot" id="site-foot"></footer>
+
+<nav class="nav" id="main-nav" aria-label="主导航"></nav>
+<div class="nav-backdrop" id="nav-backdrop"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

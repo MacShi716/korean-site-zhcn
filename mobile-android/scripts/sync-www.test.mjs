@@ -21,7 +21,8 @@ test("sync copies the runtime site and leaves tests behind", async () => {
   const repo = mkdtempSync(path.join(tmpdir(), "korean-site-"));
   const www = mkdtempSync(path.join(tmpdir(), "korean-www-"));
   for (const file of ROOT_FILES) {
-    writeFileSync(path.join(repo, file), file === "index.html" ? "<html><head></head><body></body></html>" : "x");
+    const isHtml = file === "index.html" || file === "translate.html";
+    writeFileSync(path.join(repo, file), isHtml ? "<html><head></head><body></body></html>" : "x");
   }
   writeFileSync(path.join(repo, "index.html"), "<html><head><title>x</title></head><body></body></html>");
   mkdirSync(path.join(repo, "tests"), { recursive: true });
@@ -54,6 +55,10 @@ test("sync copies the runtime site and leaves tests behind", async () => {
 
   const result = await syncWww({ repoRoot: repo, wwwRoot: www });
   assert.ok(result.copied > ROOT_FILES.length);
+  assert.equal(ROOT_FILES.includes("translate.html"), true);
+  assert.equal(ROOT_FILES.includes("golden-ratio.css"), true);
+  assert.match(readFileSync(path.join(www, "translate.html"), "utf8"), /android-shell\.js/);
+  assert.equal(readFileSync(path.join(www, "golden-ratio.css"), "utf8"), "x");
   assert.match(readFileSync(path.join(www, "index.html"), "utf8"), /android-shell\.js/);
   assert.match(readFileSync(path.join(www, "index.html"), "utf8"), /viewport-fit=cover/);
   const preview = readFileSync(path.join(www, "auth", "preview.html"), "utf8");

@@ -283,6 +283,15 @@ body { padding-bottom: 0; }
 @media (min-width: 900px) {
   body { padding-left: 200px; }
 }
+.nav a.nav-link {
+  display: flex; flex-direction: row; align-items: center; justify-content: flex-start;
+  gap: 10px; padding: 10px 12px; min-height: 44px; font-size: .92rem;
+  text-align: left; width: 100%; color: var(--muted); border-radius: 11px;
+  text-decoration: none; transition: background-color .15s ease, color .15s ease, box-shadow .15s ease;
+}
+.nav a.nav-link .ico { font-size: 1.15rem; line-height: 1; }
+.nav a.nav-link:hover { background: var(--primary-soft); color: var(--primary); }
+.nav a.nav-link.active { color: var(--primary); background: var(--primary-soft); font-weight: 700; box-shadow: inset 3px 0 0 var(--primary); }
 @media (max-width: 899px) {
   .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
   .nav { transform: translateX(-100%); transition: transform .2s; box-shadow: 2px 0 16px rgba(0,0,0,.12); }
@@ -1413,7 +1422,7 @@ const I18N = {
     koVoicePreviewText: "안녕하세요. 한국어를 연습합시다.",
     pickWrongPart: "어느 부분이 틀렸나요?",
     autoDetected: "자동 감지",
-    nav_translate: "번역·대화",
+    nav_translate: "번역",
     trTitle: "번역 · 대화",
     trHint: "양쪽 대화 연습. 원문은 항상 유지됩니다. AI 번역은 아직 연결되지 않았습니다.",
     trSetupTitle: "처음 설정",
@@ -1912,7 +1921,7 @@ const I18N = {
     koVoicePreviewText: "안녕하세요. 한국어를 연습합시다.",
     pickWrongPart: "错在哪一部分？",
     autoDetected: "自动检测",
-    nav_translate: "翻译对话",
+    nav_translate: "翻译",
     trTitle: "翻译 · 对话",
     trHint: "双边对话练习。原文永久保留。AI 翻译尚未接入。",
     trSetupTitle: "首次设置",
@@ -2256,6 +2265,17 @@ const STORAGE_KEY = 'koreanSite_zhcn_draft_v01';
  * Prefer a mainland China cloud host when this draft is later connected.
  ********************/
 const AI_ENDPOINT = ''; // 占位：接入后填国内云代理地址，例如 'https://[域名前缀].example.cn/api/chat'
+const TRANSLATE_ENDPOINT = (function () {
+  try {
+    const host = String(location.hostname || '').toLowerCase();
+    if (!host) return 'https://korean-site-zhcn.vercel.app/api/translate';
+    if (host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]') return '/api/translate';
+    if (/\.vercel\.app$/.test(host)) return '/api/translate';
+    return 'https://korean-site-zhcn.vercel.app/api/translate';
+  } catch (e) {
+    return 'https://korean-site-zhcn.vercel.app/api/translate';
+  }
+})();
 
 /**
  * EXAMPLE placeholder model list — REPLACE with server-provided data.
@@ -3526,7 +3546,7 @@ function renderHeader() {
 }
 
 const NAV = [
-  {id:'translate', icon:'💬', key:'nav_translate'},
+  {id:'translate', icon:'💬', key:'nav_translate', href:'translate.html'},
   {id:'practice', icon:'✏️', key:'nav_practice'},
   {id:'video', icon:'🎬', key:'nav_video'},
   {id:'daily', icon:'📅', key:'nav_daily'},
@@ -3546,11 +3566,18 @@ function renderNav() {
   nav.innerHTML = NAV.map(n => {
     if (n.spacer) return '<div class="nav-spacer"></div>';
     if (n.sep) return '<div class="nav-sep" role="separator"></div>';
+    if (n.href) {
+      return '<a class="nav-link'+(currentPanel===n.id?' active':'')+'" href="'+esc(n.href)+'" data-panel="'+n.id+'">'
+        +'<span class="ico">'+n.icon+'</span><span>'+esc(t(n.key))+'</span></a>';
+    }
     return '<button type="button" data-panel="'+n.id+'" class="'+(currentPanel===n.id?'active':'')+'">'
       +'<span class="ico">'+n.icon+'</span><span>'+esc(t(n.key))+'</span></button>';
   }).join('');
   nav.querySelectorAll('button').forEach(btn => {
     btn.onclick = () => { document.body.classList.remove('nav-open'); showPanel(btn.dataset.panel); };
+  });
+  nav.querySelectorAll('a.nav-link').forEach(link => {
+    link.onclick = () => { document.body.classList.remove('nav-open'); };
   });
 }
 function bindPanelJumps(root) {
@@ -3560,6 +3587,7 @@ function bindPanelJumps(root) {
   });
 }
 function showPanel(id) {
+  if (id === 'translate') { location.replace('translate.html'); return; }
   if (id === 'dictation') { quiz = null; practiceMode = 'dictation'; id = 'practice'; }
   else if (id === 'compose') { quiz = null; practiceMode = 'tiles'; tileFocusCompose = true; id = 'practice'; }
   else if (id === 'mistakes') { id = 'daily'; dailyJumpMistakes = true; }
@@ -4976,7 +5004,7 @@ function romanizeHangul(text) {
  */
 async function translate(text, from, to, honorific) {
   // No API keys or prompts in the client. Do not invent translations.
-  if (!AI_ENDPOINT) {
+  if (!TRANSLATE_ENDPOINT) {
     return {
       text: t('trTransPending'),
       pending: true,
@@ -4984,7 +5012,7 @@ async function translate(text, from, to, honorific) {
     };
   }
   try {
-    const res = await fetch(AI_ENDPOINT.replace(/\/+$/, '') + '/translate', {
+    const res = await fetch(TRANSLATE_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -6054,6 +6082,11 @@ function bootEntry() {
   // Saved learning data is kept. A stored last page, if any older copy has one, is not used as the homepage.
   const qs = new URLSearchParams(location.search);
   const requested = qs.get('panel');
+  const hash = String(location.hash || '').toLowerCase();
+  if (requested === 'translate' || hash.indexOf('translate') >= 0) {
+    location.replace('translate.html');
+    return;
+  }
   if (requested && KNOWN_ENTRY_PANELS[requested]) showPanel(requested);
   else showPanel('practice');
   const mode = qs.get('mode');

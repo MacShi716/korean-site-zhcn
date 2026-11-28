@@ -14,6 +14,7 @@ export const WWW_ROOT = path.join(MOBILE_ROOT, "www");
 
 export const ROOT_FILES = [
   "index.html",
+  "translate.html",
   "theme.css",
   "golden-ratio.css",
   "theme.js",
@@ -107,7 +108,7 @@ export async function syncWww({ repoRoot = REPO_ROOT, wwwRoot = WWW_ROOT } = {})
   await cp(shellSource, path.join(wwwRoot, "android-shell.js"));
   copied += 1;
 
-  const htmlFiles = ["index.html", "auth/preview.html", "auth/recovery.html"];
+  const htmlFiles = ["index.html", "translate.html", "auth/preview.html", "auth/recovery.html"];
   for (const relative of htmlFiles) {
     const target = path.join(wwwRoot, relative);
     let html = ensureViewportCover(await readFile(target, "utf8"));
@@ -124,6 +125,7 @@ export async function syncWww({ repoRoot = REPO_ROOT, wwwRoot = WWW_ROOT } = {})
 
   const required = [
     "index.html",
+    "translate.html",
     "theme.css",
     "golden-ratio.css",
     "theme.js",
