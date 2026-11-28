@@ -201,12 +201,12 @@ html[data-theme="dark"] .app-header {
 }
 .brand small {
   display: inline;
-  font-size: .66rem;
+  font-size: var(--gr-fs-sm);
   color: var(--muted);
   font-weight: 500;
 }
 .brand .draft-badge {
-  font-size: .6rem;
+  font-size: var(--gr-fs-sm);
   padding: 1px 7px;
   border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
 }
@@ -283,8 +283,8 @@ html[data-theme="dark"] .auth-top-btn {
 @media (max-width: 460px) {
   .app-header { padding: 6px 10px 6px; }
   .brand { font-size: .96rem; }
-  .brand small { font-size: .62rem; }
-  .brand .draft-badge { font-size: .56rem; padding: 1px 6px; }
+  .brand small { font-size: var(--gr-fs-sm); }
+  .brand .draft-badge { font-size: var(--gr-fs-sm); padding: 1px 6px; }
   .auth-top-btn { font-size: .74rem; padding: 4px 9px; }
 }
 
@@ -827,7 +827,7 @@ html[data-theme="dark"] .auth-close,
 html[data-theme="dark"] .phone-row select {
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, .35), 0 1px 0 rgba(230, 248, 255, .05);
 }
-::placeholder { color: color-mix(in srgb, var(--muted) 82%, transparent); opacity: 1; }
+::placeholder { color: var(--muted); opacity: 1; }
 select option { background: var(--control-bg-strong); color: var(--ink); }
 input[type="checkbox"] { accent-color: var(--primary); }
 
@@ -1106,7 +1106,7 @@ html[data-theme="dark"] .tr-roma { color: #9fd6c4; }
   font-size: 1.02rem;
 }
 .auth-page .auth-brand small {
-  font-size: .68rem;
+  font-size: var(--gr-fs-sm);
   font-weight: 500;
   color: var(--muted);
   letter-spacing: 0;
@@ -1193,7 +1193,7 @@ html[data-theme="dark"] .auth-page input,
 html[data-theme="dark"] .auth-page select {
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, .36);
 }
-.auth-page input::placeholder { color: color-mix(in srgb, var(--muted) 82%, transparent); }
+.auth-page input::placeholder { color: var(--muted); }
 .auth-page a { color: var(--primary); }
 .auth-page ul { color: var(--muted); }
 .auth-page #auth-status { color: var(--ink); }
@@ -1381,7 +1381,7 @@ body.auth-page #auth-app :is(#auth-wechat, #auth-qq, #auth-kakao, #auth-sms-requ
   padding-bottom: var(--gr-space-lg);
 }
 .brand { font-size: var(--gr-fs-md); line-height: var(--gr-lh-tight); }
-.brand small { font-size: var(--gr-fs-xs); }
+.brand small { font-size: var(--gr-fs-sm); }
 .card h2, .card > h2 { font-size: var(--gr-fs-md); line-height: var(--gr-lh-tight); }
 .practice-question .ko-big { font-size: var(--gr-fs-lg); line-height: var(--gr-lh-tight); }
 .study-video,

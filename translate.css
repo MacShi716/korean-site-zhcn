@@ -52,7 +52,7 @@ a { color: var(--primary); }
 .brand small {
   display: block;
   font-weight: 500;
-  font-size: .7rem;
+  font-size: var(--gr-fs-sm);
   color: var(--muted);
   letter-spacing: 0;
 }
@@ -60,7 +60,7 @@ a { color: var(--primary); }
   display: inline-block;
   padding: 2px 8px;
   border-radius: 999px;
-  font-size: .68rem;
+  font-size: var(--gr-fs-sm);
   font-weight: 600;
   line-height: 1.4;
   background: var(--accent-soft);
@@ -312,7 +312,7 @@ a { color: var(--primary); }
   max-width: 14.58rem;
 }
 .tr-lang-field span {
-  font-size: var(--gr-fs-xs);
+  font-size: var(--gr-fs-sm);
   color: var(--muted);
   padding-left: var(--gr-space-3xs);
   line-height: var(--gr-lh-tight);
@@ -384,7 +384,7 @@ a { color: var(--primary); }
   min-height: 1.618rem;
 }
 .tr-pane-head strong { font-size: var(--gr-fs-sm); color: var(--primary); }
-.tr-pane-head .tr-counter { font-size: var(--gr-fs-xs); color: var(--muted); }
+.tr-pane-head .tr-counter { font-size: var(--gr-fs-sm); color: var(--muted); }
 .tr-pane textarea {
   width: 100%;
   min-height: 14.236rem;
