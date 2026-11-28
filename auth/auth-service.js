@@ -87,6 +87,54 @@ export function createAuthService({ config, client, location, loadAuthSettings }
     };
   }
 
+  /**
+   * A signUp that returns a session means the server has already confirmed the
+   * address. Without custom SMTP this is the live path, so do not tell the
+   * visitor that a confirmation mail may arrive.
+   */
+  function signedInAfterSignup(session, policy) {
+    recoveryReady = false;
+    const signed = viewFromSession(session, "signed_in");
+    if (!signed.signedIn) return signed;
+    signed.emailPolicy = policy.mode;
+    signed.message = policy.publicMail
+      ? userMessage("signed_in")
+      : userMessage("signed_in_autoconfirm");
+    return signed;
+  }
+
+  /**
+   * When signUp returns no session, try the same credentials once. A confirmed
+   * account with the right password signs in here. A wrong password must not
+   * reveal whether the account exists, so the caller falls back to the same
+   * non-enumerating confirmation copy for either case.
+   */
+  async function tryPasswordLogin(normalizedEmail, password) {
+    try {
+      const { data, error } = await client.auth.signInWithPassword({ email: normalizedEmail, password });
+      if (error) return null;
+      const session = data?.session || null;
+      if (!session || !publicUser(session.user)?.id) return null;
+      return session;
+    } catch {
+      return null;
+    }
+  }
+
+  function registrationWithoutSession(policy, accountMayAlreadyExist) {
+    return {
+      ok: true,
+      status: "confirmation_required",
+      signedIn: false,
+      mode: "email",
+      user: null,
+      accountMayAlreadyExist: accountMayAlreadyExist === true,
+      cloudSync: cloudSyncStatus(config),
+      emailPolicy: policy.mode,
+      message: userMessage(policy.mode === "builtin_admin_only" ? "builtin_admin_only" : "confirmation_required"),
+    };
+  }
+
   return {
     availability() {
       const verdict = assessPublicConfig(config);
@@ -182,27 +230,25 @@ export function createAuthService({ config, client, location, loadAuthSettings }
         password,
         options: { emailRedirectTo: redirectTo },
       });
-      if (error) return mapAuthError(error);
-      const sessionUser = publicUser(data?.session?.user || (data?.session ? data?.user : null));
-      if (data?.session && sessionUser?.id) {
-        recoveryReady = false;
-        const signed = viewFromSession({ user: sessionUser }, "signed_in");
-        if (policy.mode === "autoconfirm_without_smtp") signed.message = userMessage("signed_in_autoconfirm");
-        signed.emailPolicy = policy.mode;
-        return signed;
+      if (error) {
+        const mapped = mapAuthError(error);
+        if (mapped.code === "user_already_exists" || mapped.code === "email_exists") {
+          const existingSession = await tryPasswordLogin(normalized, password);
+          if (existingSession) return signedInAfterSignup(existingSession, policy);
+          return registrationWithoutSession(policy, true);
+        }
+        return mapped;
+      }
+      const session = data?.session || null;
+      if (session) {
+        const sessionUser = publicUser(session.user || (data?.user ? { id: data.user.id, email: data.user.email } : null));
+        if (sessionUser?.id) return signedInAfterSignup({ user: sessionUser }, policy);
       }
       const identities = data?.user?.identities;
-      return {
-        ok: true,
-        status: "confirmation_required",
-        signedIn: false,
-        mode: "email",
-        user: null,
-        accountMayAlreadyExist: Array.isArray(identities) && identities.length === 0,
-        cloudSync: cloudSyncStatus(config),
-        emailPolicy: policy.mode,
-        message: userMessage(policy.mode === "builtin_admin_only" ? "builtin_admin_only" : "confirmation_required"),
-      };
+      const accountMayAlreadyExist = Array.isArray(identities) && identities.length === 0;
+      const loginSession = await tryPasswordLogin(normalized, password);
+      if (loginSession) return signedInAfterSignup(loginSession, policy);
+      return registrationWithoutSession(policy, accountMayAlreadyExist);
     },
 
     async signInWithEmail({ email, password }) {

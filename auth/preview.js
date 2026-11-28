@@ -1,7 +1,6 @@
 import { createAuthService } from "./auth-service.js";
 import { createBrowserAuthClient } from "./supabase-client.js";
 import { createMemoryAuthClient } from "./local-harness.js";
-import { COUNTRY_CODES } from "./phone.js";
 import { localHarnessAllowed } from "./paths.js";
 import { fetchAuthSettings } from "./config.js";
 import { publicConfig } from "./public-config.js";
@@ -59,25 +58,21 @@ const email = h("input", { id: "auth-email", type: "email", autocomplete: "usern
 const password = h("input", { id: "auth-password", type: "password", autocomplete: "current-password" });
 const newPassword = h("input", { id: "auth-new-password", type: "password", autocomplete: "new-password" });
 const resetEmail = h("input", { id: "auth-reset-email", type: "email", autocomplete: "username" });
-const cc = h("select", { id: "auth-cc", "aria-label": "国家或地区区号" });
-for (const country of COUNTRY_CODES) {
-  cc.append(h("option", { value: country.cc, text: `${country.cc} ${country.label}` }));
-}
-cc.value = "+86";
-const phone = h("input", { id: "auth-phone", type: "tel", inputmode: "tel", autocomplete: "tel-national", placeholder: "13800138000" });
-const smsCode = h("input", { id: "auth-sms-code", type: "text", inputmode: "numeric", autocomplete: "one-time-code", placeholder: "短信里的验证码" });
 
 function paintAvailability() {
   blockers.replaceChildren();
   const info = service.availability();
   const lines = [];
-  if (!info.emailPasswordLogin) lines.push("邮箱登录暂时不可用：公开配置不完整，没有登录成功。");
-  else if (info.emailPolicy === "custom_smtp") lines.push("邮箱和密码可以注册、登录。自定义发信已配置。");
-  else lines.push("邮箱和密码可以填写。公网邮箱验证和找回密码所需的自定义发信服务与回调白名单尚未配置完成，现在不能保证验证信会送到邮箱。");
+  if (!info.emailPasswordLogin) {
+    lines.push("邮箱登录暂时不可用：公开配置不完整，没有登录成功。");
+  } else {
+    lines.push("邮箱和密码可以注册、登录。");
+    lines.push("当前不要求确认邮件：自定义 SMTP 尚未配置，注册时由服务器直接确认邮箱。");
+    lines.push("找回密码暂时不能送到普通访客邮箱，要等自定义 SMTP 配好。");
+  }
   if (harnessOn) lines.push("当前是本机模拟，不会真正发信。");
-  lines.push(info.phoneSms ? "手机短信已启用，验证码由短信服务商发送。" : "手机短信暂未启用，不会发送验证码。");
-  lines.push(info.kakao ? "Kakao 已启用，点击会跳转。微信和 QQ 仍未启用。" : "微信、QQ 和 Kakao 等第三方登录暂未启用。");
-  lines.push("云同步暂未启用，不会上传学习记录。游客可以随时返回继续学习。");
+  lines.push("手机短信、微信、QQ 和 Kakao 都没有配置，所以页面不显示这些入口。");
+  lines.push("云同步暂未启用，不会上传学习记录。游客可以随时返回继续练习。");
   for (const line of lines) blockers.append(h("li", { text: line }));
 }
 
@@ -131,12 +126,7 @@ const registerButton = h("button", { id: "auth-register", type: "button", text: 
 const loginButton = h("button", { id: "auth-login", type: "button", className: "secondary", text: "登录" });
 const resetButton = h("button", { id: "auth-reset", type: "button", text: "发送重置邮件" });
 const setPasswordButton = h("button", { id: "auth-set-password", type: "button", text: "保存新密码" });
-const smsRequest = h("button", { id: "auth-sms-request", type: "button", className: "secondary", text: "获取验证码（当前不可用）" });
-const smsLogin = h("button", { id: "auth-sms-login", type: "button", className: "secondary", text: "用验证码登录" });
-const wechat = h("button", { id: "auth-wechat", type: "button", className: "secondary", text: "微信（未接通）" });
-const qq = h("button", { id: "auth-qq", type: "button", className: "secondary", text: "QQ（未接通）" });
-const kakao = h("button", { id: "auth-kakao", type: "button", className: "secondary", text: "Kakao（未接通）" });
-const guest = h("button", { id: "auth-guest", type: "button", text: "先不登录，继续学习" });
+const guest = h("button", { id: "auth-guest", type: "button", text: "先不登录，继续练习" });
 const logout = h("button", { id: "auth-logout", type: "button", className: "secondary", text: "退出此浏览器" });
 
 registerButton.addEventListener("click", () => run(registerButton, () => service.registerWithEmail({
@@ -153,18 +143,6 @@ resetButton.addEventListener("click", () => run(resetButton, () => service.reque
 setPasswordButton.addEventListener("click", () => run(setPasswordButton, () => service.completePasswordReset({
   password: newPassword.value,
 })));
-smsRequest.addEventListener("click", () => run(smsRequest, () => service.requestPhoneCode({
-  cc: cc.value,
-  phone: phone.value,
-})));
-smsLogin.addEventListener("click", () => run(smsLogin, () => service.signInWithPhoneCode({
-  cc: cc.value,
-  phone: phone.value,
-  code: smsCode.value,
-})));
-wechat.addEventListener("click", () => run(wechat, () => service.signInWithSocial("wechat")));
-qq.addEventListener("click", () => run(qq, () => service.signInWithSocial("qq")));
-kakao.addEventListener("click", () => run(kakao, () => service.signInWithSocial("kakao")));
 guest.addEventListener("click", () => run(guest, () => Promise.resolve(service.continueAsGuest())));
 logout.addEventListener("click", () => run(logout, () => service.signOut()));
 callbackButton.addEventListener("click", () => run(callbackButton, async () => {
@@ -230,7 +208,7 @@ root.append(
   ]),
   h("form", { className: "card", onSubmit: (event) => event.preventDefault() }, [
     h("h2", { text: "找回密码" }),
-    h("p", { className: "muted", text: "找回密码会回到设置新密码页。链接需要在发起请求的同一个浏览器里打开。自定义发信服务和回调白名单尚未配置完成时，不能保证邮件会送到。" }),
+    h("p", { className: "muted", text: "找回密码暂时不可用：自定义 SMTP 尚未配置，重置邮件不能送到普通访客邮箱。服务不会说明账号是否存在。" }),
     h("label", { for: "auth-reset-email", text: "接收重置邮件的邮箱" }),
     resetEmail,
     h("div", { className: "actions" }, [resetButton]),
@@ -238,24 +216,12 @@ root.append(
     newPassword,
     h("div", { className: "actions" }, [setPasswordButton]),
   ]),
-  h("div", { className: "card" }, [
-    h("h2", { text: "手机号" }),
-    h("p", { className: "muted", text: "区号会保留。短信暂未启用时不能发送验证码，也不会登录。" }),
-    h("div", { className: "row" }, [cc, phone]),
-    h("label", { for: "auth-sms-code", text: "短信验证码" }),
-    smsCode,
-    h("div", { className: "actions" }, [smsRequest, smsLogin]),
-  ]),
-  h("div", { className: "card" }, [
-    h("h2", { text: "其他登录方式" }),
-    h("div", { className: "actions" }, [wechat, qq, kakao]),
-  ]),
   h("div", { className: "actions" }, [guest, logout]),
   harnessBox,
   h("div", { className: "note" }, [
     h("p", { id: "auth-privacy", text: "学习记录只留在本机。这个登录页不会读取或上传，云同步暂未启用。" }),
-    h("p", { className: "muted", text: "公网邮箱验证和找回密码所需的自定义发信服务与回调白名单尚未配置完成。短信、第三方登录和云同步暂未启用。" }),
-    h("p", {}, [h("a", { href: "../index.html", text: "返回学习首页（游客可继续学习）" })]),
+    h("p", { className: "muted", text: "自定义 SMTP 配置之前，找回密码邮件不能送到普通访客邮箱。手机短信、微信、QQ 和 Kakao 没有配置，所以不显示这些入口。" }),
+    h("p", {}, [h("a", { href: "../index.html", text: "返回学习首页（游客可继续练习）" })]),
   ]),
 );
 

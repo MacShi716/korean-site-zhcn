@@ -115,6 +115,7 @@ test("redirect URLs keep the Pages prefix and the Vercel root", () => {
 test("local harness cannot be enabled on the public hosts", () => {
   assert.equal(localHarnessAllowed({ hostname: "127.0.0.1", href: "http://127.0.0.1:8765/auth/preview.html?harness=1" }), true);
   assert.equal(localHarnessAllowed({ hostname: "localhost", href: "http://localhost:8765/auth/preview.html" }), false);
+  assert.equal(localHarnessAllowed({ hostname: "localhost", href: "http://localhost:8765/auth/preview.html?harness=1" }), false);
   assert.equal(localHarnessAllowed({ hostname: "korean-site-zhcn.vercel.app", href: "https://korean-site-zhcn.vercel.app/auth/preview.html?harness=1" }), false);
   assert.equal(localHarnessAllowed({ hostname: "macshi716.github.io", href: "https://macshi716.github.io/korean-site-zhcn/auth/preview.html?harness=1" }), false);
 });
@@ -178,6 +179,81 @@ test("turning off confirm-email allows a direct password session and still label
   assert.match(register.message, /自定义 SMTP/);
   assert.match(reset.message, /找回密码和邮箱验证仍要先配置自有域名与自定义 SMTP/);
   assert.equal(service.availability().autoOpenLogin, false);
+});
+
+test("a signup session without custom SMTP uses the honest autoconfirm message", async () => {
+  const session = { user: { id: "user-1", email: "learner@example.com" } };
+  const mock = mockAuth({
+    signUp: async () => ({ data: { user: session.user, session }, error: null }),
+  });
+  const service = createAuthService({
+    config: readyConfig(),
+    client: mock.client,
+    location: vercel,
+    loadAuthSettings: async () => ({ mailerAutoconfirm: false }),
+  });
+  const register = await service.registerWithEmail({ email: "Learner@Example.com", password: "correct-horse" });
+  assert.equal(register.signedIn, true);
+  assert.equal(register.status, "signed_in");
+  assert.equal(register.emailPolicy, "builtin_admin_only");
+  assert.match(register.message, /直接确认了邮箱/);
+  assert.match(register.message, /自定义 SMTP/);
+  assert.equal(register.message.includes("如果这个邮箱可以接收确认信"), false);
+  assert.equal(register.message.includes("确认完成前，这里还没有登录"), false);
+  const signUpCall = mock.calls.find((call) => call[0] === "signUp")[1];
+  assert.equal(signUpCall.email, "learner@example.com");
+});
+
+test("signup with no session retries the same password login once and signs in", async () => {
+  const session = { user: { id: "user-1", email: "learner@example.com" } };
+  let signInArgs = null;
+  const mock = mockAuth({
+    signUp: async () => ({
+      data: { user: { id: "user-1", email: "learner@example.com", identities: [{}] }, session: null },
+      error: null,
+    }),
+    signInWithPassword: async (args) => {
+      signInArgs = args;
+      return { data: { session, user: session.user }, error: null };
+    },
+  });
+  const service = createAuthService({
+    config: readyConfig(),
+    client: mock.client,
+    location: vercel,
+    loadAuthSettings: async () => ({ mailerAutoconfirm: false }),
+  });
+  const register = await service.registerWithEmail({ email: "learner@example.com", password: "correct-horse" });
+  assert.equal(register.signedIn, true);
+  assert.equal(register.status, "signed_in");
+  assert.match(register.message, /直接确认了邮箱/);
+  assert.deepEqual(signInArgs, { email: "learner@example.com", password: "correct-horse" });
+  assert.equal(mock.calls.filter((call) => call[0] === "signInWithPassword").length, 1);
+});
+
+test("a failed fallback login keeps the non-enumerating confirmation copy", async () => {
+  const mock = mockAuth({
+    signUp: async () => ({
+      data: { user: { id: "user-1", email: "learner@example.com", identities: [] }, session: null },
+      error: null,
+    }),
+    signInWithPassword: async () => ({
+      data: { session: null, user: null },
+      error: { code: "invalid_credentials", message: "hunter2 raw server text" },
+    }),
+  });
+  const service = createAuthService({
+    config: readyConfig(),
+    client: mock.client,
+    location: vercel,
+    loadAuthSettings: async () => ({ mailerAutoconfirm: false }),
+  });
+  const register = await service.registerWithEmail({ email: "learner@example.com", password: "wrong-password" });
+  assert.equal(register.signedIn, false);
+  assert.equal(register.status, "confirmation_required");
+  assert.equal(register.code, undefined);
+  assert.equal(JSON.stringify(register).includes("hunter2"), false);
+  assert.equal(mock.calls.filter((call) => call[0] === "signInWithPassword").length, 1);
 });
 
 test("auth settings reader uses only the public settings endpoint", async () => {
@@ -456,7 +532,7 @@ test("browser client factory uses PKCE and refuses a secret before loading the S
   assert.throws(() => seen.options.auth.storage.setItem("koreanSite_zhcn_draft_v01_accounts", "{}"));
 });
 
-test("source files do not wire the home page or ship a usable secret", () => {
+test("source files ship no usable secret and keep the demo out of the home page", () => {
   const files = readdirSync(authDir).filter((name) => name.endsWith(".js") && name !== "public-config.example.js");
   const production = files.filter((name) => name !== "local-harness.js");
   for (const name of production) {
@@ -477,9 +553,16 @@ test("source files do not wire the home page or ship a usable secret", () => {
   assert.equal(preview.includes("演示登录"), false);
   assert.equal(preview.includes("Vercel"), false);
   assert.equal(preview.includes("GitHub Pages"), false);
+  assert.match(preview, /邮箱和密码可以注册、登录/);
   assert.match(preview, /不会读取或上传/);
   assert.match(preview, /游客/);
-  assert.match(preview, /自定义发信/);
+  assert.match(preview, /自定义 SMTP/);
+  assert.equal(preview.includes("auth-wechat"), false);
+  assert.equal(preview.includes("auth-qq"), false);
+  assert.equal(preview.includes("auth-kakao"), false);
+  assert.equal(preview.includes("auth-sms-request"), false);
+  assert.equal(preview.includes("auth-phone"), false);
+  assert.equal(preview.includes("未接通"), false);
   assert.equal(previewHtml.includes("未接入"), false);
   assert.equal(previewHtml.includes("000000"), false);
   const home = readFileSync(join(dirname(authDir), "index.html"), "utf8");
@@ -487,4 +570,7 @@ test("source files do not wire the home page or ship a usable secret", () => {
   assert.equal(home.includes("supabase.co"), false);
   assert.equal(home.includes("sb_publishable_"), false);
   assert.equal(home.includes("sb_secret_"), false);
+  assert.equal(home.includes("000000"), false);
+  assert.equal(home.includes("DEMO_SMS_CODE"), false);
+  assert.equal(home.includes("korean-site-auth-session"), true);
 });

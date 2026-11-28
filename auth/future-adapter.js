@@ -1,9 +1,9 @@
 /**
- * Not loaded by index.html.
+ * Retained helper for tests and reference; index.html does not load this file.
  *
- * Later, the smallest hook is to replace the bodies of loginWithDemoCode,
- * socialLogin, logoutAuth, and enterAsGuest. Do not copy the guest snapshot
- * into the account, and do not upload koreanSite_zhcn_draft_v01.
+ * The homepage now reads the real korean-site-auth-session directly. Do not
+ * copy the guest learning snapshot into an account and do not upload
+ * koreanSite_zhcn_draft_v01.
  */
 export function createLegacyAuthHooks(service) {
   return {

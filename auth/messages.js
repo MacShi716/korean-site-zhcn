@@ -7,7 +7,7 @@ export const COPY = {
   unrecognized_key: "这不是可公开的 publishable key，也不是旧版 anon key。请求已拒绝。",
   builtin_admin_only: "内置发信仅限管理员测试邮箱，公网注册/找回密码需先配置自有域名与自定义 SMTP。这次可以交给认证服务做管理员邮箱联调，确认完成前没有登录。",
   reset_builtin_admin: "内置发信仅限管理员测试邮箱，公网注册/找回密码需先配置自有域名与自定义 SMTP。如果这个管理员邮箱可以收信，重置信会发出。服务不会说明账号是否存在。",
-  signed_in_autoconfirm: "已登录。邮箱确认当前是关闭的，所以这次没有等待确认信。找回密码和邮箱验证仍要先配置自有域名与自定义 SMTP。学习记录没有上传。",
+  signed_in_autoconfirm: "已登录。自定义 SMTP 尚未配置，服务器在注册时直接确认了邮箱，所以这次没有等待确认信。找回密码仍要在配置自定义 SMTP 之后才能把邮件送到普通访客。学习记录没有上传。",
   reset_pending_smtp: "找回密码和邮箱验证仍要先配置自有域名与自定义 SMTP。请求已交给认证服务，但现在不能把公网邮箱当成已经能收信。服务不会说明账号是否存在。",
   sms_provider_not_configured: "手机验证码现在不可用。项目没有短信服务商（Twilio、MessageBird、Vonage 或 TextLocal），所以不会发短信，也不会登录。",
   demo_code_rejected: "000000 是旧演示码。它不会登录成功，也不会被当成短信验证码。",

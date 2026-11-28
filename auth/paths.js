@@ -1,7 +1,7 @@
 /**
  * GitHub Pages serves the site under /korean-site-zhcn/.
- * Vercel serves it at the host root. Redirect targets are the auth pages,
- * because index.html is not part of this draft and cannot redeem a code.
+ * Vercel serves it at the host root. Redirect targets are the auth pages:
+ * PKCE codes are redeemed there, and the homepage only reads the stored session.
  */
 
 export function detectSiteBase(pathname, hostname) {
@@ -49,8 +49,8 @@ export function addressWithoutAuthParams(href) {
 
 export function localHarnessAllowed(locationLike) {
   const host = String(locationLike?.hostname || "");
-  const local = host === "localhost" || host === "127.0.0.1" || host === "::1" || host === "[::1]";
-  if (!local || !locationLike?.href) return false;
+  // The memory harness is only for the documented 127.0.0.1 preview.
+  if (host !== "127.0.0.1" || !locationLike?.href) return false;
   try {
     return new URL(locationLike.href).searchParams.get("harness") === "1";
   } catch {

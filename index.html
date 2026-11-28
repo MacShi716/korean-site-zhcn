@@ -860,7 +860,7 @@ const I18N = {
     aiTutorTag: "Korean speaking practice",
     aiMembershipNote: "Tutor chat requires a paid membership. AI quota is bought through membership and is separate from site learning energy. Purchase is not connected yet.",
     aiPracticeFree: "The rest of the site's practice stays usable without login or membership.",
-    aiLoginRequired: "Sign in with a real account to use the tutor. The login/register button is in the page header. The local demo phone login does not count.",
+    aiLoginRequired: "Sign in with a real account to use the tutor. The login/register button is in the page header.",
     aiSignIn: "Sign in / Register",
     aiMembershipRequired: "Tutor chat requires a membership. Purchase is not connected yet.",
     aiQuotaExhausted: "Not enough AI quota. Buy AI quota through membership (this is not site learning energy). Purchase is not connected yet.",
@@ -888,51 +888,21 @@ const I18N = {
     aiNoFakeReply: "No tutor reply was generated.",
     draftBadge: "CN draft",
     authTitle: "Sign in / Register (optional)",
-    authUnconnected: "Demo only. This does not connect to an SMS server, WeChat, QQ, or KakaoTalk.",
-    authSubtitle: "Registration is optional — you can keep learning without it. If you register, your learning records are saved on this device under that account.",
-    authPhone: "Mobile number",
-    authCountry: "Country / region code",
-    authPhonePh: "Enter your mobile number",
-    authCode: "SMS code",
-    authCodePh: "Enter the code",
-    authGetCode: "Get code",
-    authDemoSms: "Demo only — no real SMS is sent. After you tap “Get code”, use 000000.",
-    authCodeSent: "Demo code is ready (000000). No real SMS was sent.",
+    authSubtitle: "Signing in is optional - practice stays open to guests. The account button opens the email and password page.",
     authLogin: "Sign in / Register",
-    authOr: "or sign in with",
-    authWeChat: "WeChat",
-    authQQ: "QQ",
-    authKakao: "KakaoTalk",
-    authSocialPending: "{p} sign-in is coming soon (not connected yet). Please use your mobile number for now.",
-    authGuest: "Not now — keep learning",
+    authGuest: "Not now - keep practicing",
     authClose: "Close",
     authTopLogin: "Sign in / Register",
-    authNeedPhone: "Please enter a mobile number first",
-    authBadPhone: "That doesn’t look like a valid {c} number. Example: {ex}",
-    authNeedCode: "Please enter the code",
-    authBadCode: "Wrong code. The demo code is 000000.",
-    authLoggedInPhone: "Signed in with mobile number (demo)",
-    authLoggedInGuest: "Guest mode (not signed in). Records are kept only in this browser as guest data.",
-    authGuestSaveHint: "Register or sign in to save your learning records under an account (on this device for now).",
-    authSavedLocal: "Records are saved on this device and linked to this account. Not synced to a server yet.",
-    authRegistered: "Registered and signed in. Your current records were copied into this account.",
-    authWelcomeBack: "Signed in. Showing this account’s records.",
-    authLoggedOut: "Signed out. Now in guest mode; the account’s records stay on this device.",
+    authLoggedInGuest: "Guest mode (not signed in). Practice records stay only in this browser.",
+    authGuestSaveHint: "Sign in or register to keep an account session. Practice records still stay on this device and are not uploaded.",
+    authSavedLocal: "Practice records stay on this device. The account session is not cloud sync.",
+    authSignedInAs: "Signed in as {email}",
+    authManage: "Manage account / sign out",
     authLogout: "Sign out",
-    authSwitch: "Switch account",
     authAccount: "Account",
-    authLocalAccounts: "Accounts saved on this device: {n}",
-    cc_86: "China",
-    cc_82: "South Korea",
-    cc_852: "Hong Kong",
-    cc_853: "Macau",
-    cc_886: "Taiwan",
-    cc_81: "Japan",
-    cc_65: "Singapore",
-    cc_1: "US / Canada",
     aboutDraftNote: "This is a preview of the mainland China draft. It is still a draft and does not replace the current site.",
     aboutDomain: "Planned domain (placeholder, not purchased or registered): https://[域名前缀].example.cn",
-    aboutLoginNote: "Sign-in is optional. The account button opens the real Supabase page. SMS, WeChat, QQ, and KakaoTalk are not configured. Learning records stay on this device and are not uploaded.",
+    aboutLoginNote: "Sign-in is optional. The account button opens the email and password page. SMS, WeChat, QQ, and KakaoTalk have no provider credentials, so they are not shown. Learning records stay on this device and are not uploaded.",
     aboutAiPlan: "The planned upstream is DeepSeek (reachable in mainland China). The proxy is planned for a mainland cloud (placeholder, to be decided later). Keys and prompts stay on the server only.",
     aiDomesticPlan: "Planned upstream: DeepSeek (reachable in mainland China). Proxy planned for a mainland cloud (placeholder, to be decided later). Keys and prompts stay on the server only.",
     queueEmpty: "Review queue is empty for today.",
@@ -1388,7 +1358,7 @@ const I18N = {
     aiTutorTag: "한국어 회화 연습",
     aiMembershipNote: "튜터 대화는 유료 멤버십이 필요합니다. AI 할당량은 멤버십으로 구매하며 사이트 학습 에너지와 별개입니다. 결제는 아직 연결되지 않았습니다.",
     aiPracticeFree: "사이트의 나머지 연습은 로그인이나 멤버십 없이 사용할 수 있습니다.",
-    aiLoginRequired: "튜터를 쓰려면 실제 계정으로 로그인하세요. 로그인/가입 버튼은 페이지 상단에 있습니다. 이 페이지의 데모 휴대폰 로그인은 인정되지 않습니다.",
+    aiLoginRequired: "튜터를 쓰려면 실제 계정으로 로그인하세요. 로그인/가입 버튼은 페이지 상단에 있습니다.",
     aiSignIn: "로그인 / 가입",
     aiMembershipRequired: "튜터 대화는 멤버십이 필요합니다. 결제는 아직 연결되지 않았습니다.",
     aiQuotaExhausted: "AI 할당량이 부족합니다. 멤버십으로 AI 할당량을 구매해야 합니다(사이트 학습 에너지가 아닙니다). 결제는 아직 연결되지 않았습니다.",
@@ -1416,51 +1386,21 @@ const I18N = {
     aiNoFakeReply: "튜터 답변은 생성되지 않았습니다.",
     draftBadge: "국내판 초고",
     authTitle: "로그인 / 가입 (선택)",
-    authUnconnected: "데모입니다. 문자 서버, WeChat, QQ, 카카오톡에는 연결되지 않습니다.",
-    authSubtitle: "가입은 선택입니다. 가입하지 않아도 바로 공부할 수 있습니다. 가입하면 학습 기록이 이 기기에 해당 계정으로 저장됩니다.",
-    authPhone: "휴대폰 번호",
-    authCountry: "국가·지역 번호",
-    authPhonePh: "휴대폰 번호를 입력하세요",
-    authCode: "문자 인증번호",
-    authCodePh: "인증번호를 입력하세요",
-    authGetCode: "인증번호 받기",
-    authDemoSms: "데모입니다. 실제 문자는 보내지 않습니다. 「인증번호 받기」를 누른 뒤 000000을 사용하세요.",
-    authCodeSent: "데모 인증번호가 준비되었습니다(000000). 실제 문자는 보내지 않았습니다.",
+    authSubtitle: "로그인은 선택입니다. 게스트도 연습을 계속할 수 있습니다. 계정 버튼은 이메일과 비밀번호 로그인 페이지를 엽니다.",
     authLogin: "로그인 / 가입",
-    authOr: "또는 다음으로 로그인",
-    authWeChat: "WeChat",
-    authQQ: "QQ",
-    authKakao: "카카오톡",
-    authSocialPending: "{p} 로그인은 연동 예정입니다(아직 연결되지 않음). 지금은 휴대폰 번호로 로그인해 주세요.",
-    authGuest: "나중에 할게요 — 계속 공부하기",
+    authGuest: "나중에 할게요 - 계속 연습하기",
     authClose: "닫기",
     authTopLogin: "로그인 / 가입",
-    authNeedPhone: "휴대폰 번호를 먼저 입력하세요",
-    authBadPhone: "{c} 휴대폰 번호 형식이 아닙니다. 예: {ex}",
-    authNeedCode: "인증번호를 입력하세요",
-    authBadCode: "인증번호가 틀렸습니다. 데모 코드는 000000입니다.",
-    authLoggedInPhone: "휴대폰 번호로 로그인됨(데모)",
-    authLoggedInGuest: "게스트 모드(로그인 안 함). 기록은 이 브라우저에 게스트 데이터로만 저장됩니다.",
-    authGuestSaveHint: "가입·로그인하면 학습 기록을 계정에 묶어 저장합니다(현재는 이 기기에 저장).",
-    authSavedLocal: "기록은 이 기기에 저장되며 이 계정에 연결되어 있습니다. 아직 서버와 동기화되지 않습니다.",
-    authRegistered: "가입하고 로그인했습니다. 지금까지의 기록을 이 계정으로 복사했습니다.",
-    authWelcomeBack: "로그인했습니다. 이 계정의 기록을 보여 줍니다.",
-    authLoggedOut: "로그아웃했습니다. 게스트 모드이며, 계정 기록은 이 기기에 그대로 남아 있습니다.",
+    authLoggedInGuest: "게스트 모드(로그인 안 함). 학습 기록은 이 브라우저에만 저장됩니다.",
+    authGuestSaveHint: "로그인하거나 가입하면 계정 세션이 유지됩니다. 학습 기록은 계속 이 기기에만 있고 업로드하지 않습니다.",
+    authSavedLocal: "학습 기록은 이 기기에 남습니다. 계정 세션은 클라우드 동기화가 아닙니다.",
+    authSignedInAs: "{email} 계정으로 로그인됨",
+    authManage: "계정 관리 / 로그아웃",
     authLogout: "로그아웃",
-    authSwitch: "계정 전환",
     authAccount: "계정",
-    authLocalAccounts: "이 기기에 저장된 계정: {n}개",
-    cc_86: "중국",
-    cc_82: "한국",
-    cc_852: "홍콩",
-    cc_853: "마카오",
-    cc_886: "대만",
-    cc_81: "일본",
-    cc_65: "싱가포르",
-    cc_1: "미국·캐나다",
     aboutDraftNote: "중국 대륙판 초고의 미리보기입니다. 아직 초고이며 기존 사이트를 대체하지 않습니다.",
     aboutDomain: "예정 도메인(자리표시자, 구매·등록하지 않음): https://[域名前缀].example.cn",
-    aboutLoginNote: "로그인은 선택입니다. 계정 버튼은 실제 Supabase 페이지를 엽니다. 문자, WeChat, QQ, 카카오톡은 연결되지 않았습니다. 학습 기록은 이 기기에만 있고 업로드하지 않습니다.",
+    aboutLoginNote: "로그인은 선택입니다. 계정 버튼은 이메일과 비밀번호 로그인 페이지를 엽니다. 문자, WeChat, QQ, 카카오톡은 제공자 자격 증명이 없어 표시하지 않습니다. 학습 기록은 이 기기에만 있고 업로드하지 않습니다.",
     aboutAiPlan: "업스트림은 DeepSeek(중국 대륙에서 접속 가능)를 쓸 예정입니다. 프록시는 국내 클라우드에 둘 계획입니다(자리표시자, 나중에 결정). 키와 프롬프트는 서버에만 둡니다.",
     aiDomesticPlan: "업스트림은 DeepSeek(중국 대륙에서 접속 가능). 프록시는 국내 클라우드 예정(자리표시자, 나중에 결정). 키와 프롬프트는 서버에만 둡니다.",
     queueEmpty: "오늘 복습할 항목이 없습니다.",
@@ -1916,7 +1856,7 @@ const I18N = {
     aiTutorTag: "韩语口语练习",
     aiMembershipNote: "导师聊天需要付费会员。AI 额度通过会员购买，和站点学习能量分开。购买尚未接入。",
     aiPracticeFree: "站内其他练习无需登录或会员，照常可用。",
-    aiLoginRequired: "请用真实账号登录后再使用导师。登录/注册入口在页面顶部。本页的演示手机号登录不算真实登录。",
+    aiLoginRequired: "请用真实账号登录后再使用导师。登录/注册入口在页面顶部。",
     aiSignIn: "登录 / 注册",
     aiMembershipRequired: "要充会员才能聊天。购买尚未接入。",
     aiQuotaExhausted: "AI 额度不足，需要通过会员购买额度（不是站点学习能量）。购买尚未接入。",
@@ -1944,51 +1884,21 @@ const I18N = {
     aiNoFakeReply: "没有生成导师回复。",
     draftBadge: "国内版初稿",
     authTitle: "登录 / 注册（可选）",
-    authUnconnected: "这是本机演示登录，不会连接短信服务器，也不会连接微信、QQ 或 KakaoTalk。",
-    authSubtitle: "注册是自愿的，不注册也能直接学习。注册后，学习记录会绑定到这个账号，保存在本机。",
-    authPhone: "手机号",
-    authCountry: "国家/地区区号",
-    authPhonePh: "请输入手机号",
-    authCode: "短信验证码",
-    authCodePh: "请输入验证码",
-    authGetCode: "获取验证码",
-    authDemoSms: "演示，不发真实短信。点「获取验证码」后，使用固定验证码 000000。",
-    authCodeSent: "演示验证码已就绪（000000），不会发送真实短信。",
+    authSubtitle: "登录是自愿的，游客也能继续练习。账号按钮会打开邮箱和密码登录页。",
     authLogin: "登录 / 注册",
-    authOr: "或用以下方式登录",
-    authWeChat: "微信",
-    authQQ: "QQ",
-    authKakao: "KakaoTalk",
-    authSocialPending: "{p}登录待接入，暂时还不能用。请先用手机号登录。",
-    authGuest: "暂不登录，继续学习",
+    authGuest: "暂不登录，继续练习",
     authClose: "关闭",
     authTopLogin: "登录 / 注册",
-    authNeedPhone: "请先填写手机号",
-    authBadPhone: "不像是{c}的手机号。示例：{ex}",
-    authNeedCode: "请填写验证码",
-    authBadCode: "验证码不对。演示码是 000000。",
-    authLoggedInPhone: "已用手机号登录（演示）",
-    authLoggedInGuest: "现在是游客模式（未登录），记录只作为游客数据存在本浏览器。",
-    authGuestSaveHint: "注册/登录后，学习记录会绑定到账号保存（目前保存在本机）。",
-    authSavedLocal: "记录已保存在本机，绑定到该账号；尚未同步到服务器。",
-    authRegistered: "已注册并登录，已把目前的学习记录复制到这个账号。",
-    authWelcomeBack: "已登录，正在显示这个账号的学习记录。",
-    authLoggedOut: "已退出登录，回到游客模式；账号的记录仍保存在本机。",
+    authLoggedInGuest: "现在是游客模式（未登录），学习记录只存在这个浏览器。",
+    authGuestSaveHint: "登录或注册后会保留账号会话。学习记录仍只在本机，不会上传。",
+    authSavedLocal: "学习记录仍在本机。账号会话不等于云同步。",
+    authSignedInAs: "已登录：{email}",
+    authManage: "管理账号 / 退出登录",
     authLogout: "退出登录",
-    authSwitch: "切换账号",
     authAccount: "账号",
-    authLocalAccounts: "本机已保存的账号：{n} 个",
-    cc_86: "中国大陆",
-    cc_82: "韩国",
-    cc_852: "中国香港",
-    cc_853: "中国澳门",
-    cc_886: "中国台湾",
-    cc_81: "日本",
-    cc_65: "新加坡",
-    cc_1: "美国/加拿大",
     aboutDraftNote: "这是国内版初稿的预览。目前仍是初稿，不会替换现有网站。",
     aboutDomain: "计划域名（占位，尚未购买或注册）：https://[域名前缀].example.cn",
-    aboutLoginNote: "登录可选。账号按钮打开现有 Supabase 登录页。短信、微信、QQ、KakaoTalk 都还没接通。学习记录只留在本机，不会上传。",
+    aboutLoginNote: "登录可选。账号按钮打开邮箱和密码登录页。短信、微信、QQ、KakaoTalk 没有提供方凭据，所以不显示这些入口。学习记录只留在本机，不会上传。",
     aboutAiPlan: "AI 上游打算用 DeepSeek（国内可访问）。代理打算放国内云（占位，等以后拍板）。密钥和提示词只放服务器，不会写进网页。",
     aiDomesticPlan: "上游打算用 DeepSeek（国内可访问）；代理部署打算放国内云（占位，等以后拍板）。密钥和提示词只放服务器。",
     queueEmpty: "今日复习队列为空。",
@@ -2515,9 +2425,8 @@ function saveState() {
 }
 
 /********************
- * Auth gate (mainland draft demo; no real SMS / WeChat)
+ * Account header: real Supabase session only
  ********************/
-const DEMO_SMS_CODE = '000000';
 const DOMAIN_PLACEHOLDER = 'https://[域名前缀].example.cn';
 function domainPlaceholderHTML() {
   const raw = t('aboutDomain') || '';
@@ -2526,119 +2435,62 @@ function domainPlaceholderHTML() {
   return esc(label) + '<br><span style="display:inline-block;margin-top:4px;font-size:.8rem;white-space:nowrap">'+esc(url)+'</span>';
 }
 
-// 国家/地区区号；校验只看去掉空格、横线后的数字。
-const COUNTRY_CODES = [
-  { cc:'+86',  key:'cc_86',  re:/^1[3-9]\d{9}$/,          ex:'138 0013 8000' },
-  { cc:'+82',  key:'cc_82',  re:/^0?1[016789]\d{7,8}$/,   ex:'010-1234-5678' },
-  { cc:'+852', key:'cc_852', re:/^[4-9]\d{7}$/,           ex:'5123 4567' },
-  { cc:'+853', key:'cc_853', re:/^6\d{7}$/,               ex:'6612 3456' },
-  { cc:'+886', key:'cc_886', re:/^0?9\d{8}$/,             ex:'0912 345 678' },
-  { cc:'+81',  key:'cc_81',  re:/^0?[789]0\d{8}$/,        ex:'090-1234-5678' },
-  { cc:'+65',  key:'cc_65',  re:/^[89]\d{7}$/,            ex:'8123 4567' },
-  { cc:'+1',   key:'cc_1',   re:/^[2-9]\d{2}[2-9]\d{6}$/, ex:'201 555 0123' },
-];
-const DEFAULT_CC = '+86';
-const SOCIAL_PROVIDERS = [
-  { id:'wechat', key:'authWeChat' },
-  { id:'qq',     key:'authQQ' },
-  { id:'kakao',  key:'authKakao' },
-];
-let authSelectedCC = DEFAULT_CC;
+/**
+ * The header and settings read only the real Supabase session key. The old
+ * phone demo account list is left in localStorage so no learning record is
+ * deleted, but it can no longer sign anyone in.
+ */
+const SITE_AUTH_STORAGE_KEY = 'korean-site-auth-session';
 let authOpen = false;
+let siteAuthSession = null;
 
-function ccInfo(cc) { return COUNTRY_CODES.find(c => c.cc === cc) || COUNTRY_CODES[0]; }
-// 返回 { ok, national }：national 为去掉前导 0 的国内号码
-function normalizePhone(cc, raw) {
-  const info = ccInfo(cc);
-  const digits = String(raw || '').replace(/[\s\-().]/g, '');
-  if (!/^\d+$/.test(digits) || !info.re.test(digits)) return { ok:false, national:'' };
-  const national = (cc === '+86' || cc === '+1' || cc === '+852' || cc === '+853' || cc === '+65') ? digits : digits.replace(/^0/, '');
-  return { ok:true, national };
+function readSiteAuthSessionNow() {
+  try {
+    const raw = localStorage.getItem(SITE_AUTH_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') return null;
+    const accessToken = typeof parsed.access_token === 'string' ? parsed.access_token.trim() : '';
+    const user = parsed.user && typeof parsed.user === 'object' ? parsed.user : null;
+    const userId = user && typeof user.id === 'string' ? user.id.trim() : '';
+    if (!accessToken || !userId) return null;
+    const expiresAt = Number(parsed.expires_at) || 0;
+    if (expiresAt && expiresAt * 1000 < Date.now() - 60000) return null;
+    return {
+      accessToken,
+      userId,
+      email: user && typeof user.email === 'string' ? user.email.trim() : '',
+      expiresAt,
+    };
+  } catch (e) {
+    return null;
+  }
 }
-function maskPhone(cc, national) {
-  const n = String(national || '');
-  const masked = n.length > 6 ? n.slice(0, 3) + '****' + n.slice(-3) : n;
-  return cc + ' ' + masked;
+function maskSiteEmail(email) {
+  const value = String(email || '').trim();
+  const at = value.indexOf('@');
+  if (at <= 0 || at === value.length - 1) return '';
+  const name = value.slice(0, at);
+  const domain = value.slice(at + 1);
+  const visible = name.length <= 2 ? name.slice(0, 1) : name.slice(0, 2);
+  return visible + '***@' + domain;
 }
-
-function ensureAuth() {
-  if (!state.auth) state.auth = defaultState().auth;
+function setSiteAuthSession(next) {
+  siteAuthSession = next || null;
+  renderAuthTopButton();
+  if (currentPanel === 'settings') renderSettings();
 }
 function isAuthed() {
-  return !!currentAccount();
+  return !!readSiteAuthSessionNow();
 }
-function switchToStorage(nextId) {
-  // 先保存当前（游客或账号）进度，再切到另一把钥匙，互不覆盖
-  saveState();
-  accounts.current = nextId || null;
-  saveAccounts();
-  state = loadState();
-  applyKoVoiceEngine();
-  if (window.__koreanSite) window.__koreanSite.state = state;
-}
-function loginWithDemoCode(cc, phone, code) {
-  // 兼容旧调用 loginWithDemoCode(phone, code)
-  if (code === undefined) { code = phone; phone = cc; cc = DEFAULT_CC; }
-  const p = String(phone || '').trim();
-  const c = String(code || '').trim();
-  if (!p) return { ok:false, error: t('authNeedPhone') };
-  const norm = normalizePhone(cc, p);
-  const info = ccInfo(cc);
-  if (!norm.ok) return { ok:false, error: tf('authBadPhone', { c: t(info.key) + ' ' + info.cc, ex: info.ex }) };
-  if (!c) return { ok:false, error: t('authNeedCode') };
-  if (c !== DEMO_SMS_CODE) return { ok:false, error: t('authBadCode') };
-  const id = 'phone' + info.cc.replace('+', '') + '_' + norm.national;
-  const now = new Date().toISOString();
-  const isNew = !accounts.accounts[id];
-  const wasGuest = !accounts.current;
-  const guestSnapshot = wasGuest ? JSON.parse(JSON.stringify(state)) : null;
-  if (isNew) {
-    // 只存注册信息：方式、区号、号码、时间。不存验证码、不存密钥。
-    accounts.accounts[id] = { id, method:'phone', cc: info.cc, phone: norm.national, createdAt: now, lastLoginAt: now };
-  } else {
-    accounts.accounts[id].lastLoginAt = now;
-  }
-  saveState();
-  accounts.current = id;
-  saveAccounts();
-  if (isNew) {
-    // 新账号：把当前游客进度复制一份带进来（游客那份保留不动）
-    const base = guestSnapshot || defaultState();
-    state = Object.assign(defaultState(), base);
-  } else {
-    state = loadState();
-  }
-  state.auth = { signedIn:true, mode:'phone', phone: maskPhone(info.cc, norm.national), at: now };
-  applyKoVoiceEngine();
-  saveState();
-  if (window.__koreanSite) window.__koreanSite.state = state;
-  closeAuthPanel();
-  renderAll();
-  toast(isNew ? t('authRegistered') : t('authWelcomeBack'));
-  return { ok:true, isNew, id };
-}
-function socialLogin(provider) {
-  // 待接入：没有开发者账号/密钥，不调用任何 SDK，不跳转。
-  const p = SOCIAL_PROVIDERS.find(x => x.id === provider);
-  const msg = tf('authSocialPending', { p: p ? t(p.key) : provider });
-  const hint = document.getElementById('auth-social-hint');
-  if (hint) { hint.style.display = 'block'; hint.textContent = msg; }
-  toast(msg);
-  return { ok:false, pending:true, provider };
-}
-function enterAsGuest() {
-  closeAuthPanel();
-  return { ok:true };
-}
-function logoutAuth() {
-  switchToStorage(null);
-  renderAll();
-  toast(t('authLoggedOut'));
+function loginWithDemoCode() {
+  // Removed path: the old phone demo must never create a signed-in state.
+  return { ok: false, code: 'demo_login_removed', signedIn: false };
 }
 function authStatusText() {
-  const acct = currentAccount();
-  if (!acct) return t('authLoggedInGuest');
-  return t('authLoggedInPhone') + ' · ' + maskPhone(acct.cc, acct.phone);
+  const session = readSiteAuthSessionNow();
+  if (!session) return t('authLoggedInGuest');
+  return tf('authSignedInAs', { email: maskSiteEmail(session.email) || t('authAccount') });
 }
 function openAuthPanel() {
   authOpen = false;
@@ -2649,80 +2501,16 @@ function closeAuthPanel() {
   authOpen = false;
   syncAuthGate();
 }
-function renderAuthGate() {
-  const gate = document.getElementById('auth-gate');
-  if (!gate) return;
-  const ccOptions = COUNTRY_CODES.map(c =>
-    '<option value="'+esc(c.cc)+'"'+(c.cc===authSelectedCC?' selected':'')+'>'+esc(c.cc+' '+t(c.key))+'</option>'
-  ).join('');
-  const info = ccInfo(authSelectedCC);
-  gate.innerHTML =
-    '<div class="auth-card card">'
-    +'<button type="button" class="auth-close" id="auth-close" aria-label="'+esc(t('authClose'))+'">✕</button>'
-    +'<h2 id="auth-title" style="margin:4px 40px 6px 0">'+esc(t('authTitle'))+'</h2>'
-    +'<p class="muted">'+esc(t('authUnconnected'))+'</p>'
-    +'<p class="muted">'+esc(t('authSubtitle'))+'</p>'
-    +'<div class="field"><label for="auth-phone">'+esc(t('authPhone'))+'</label>'
-    +'<div class="phone-row">'
-    +'<select id="auth-cc" aria-label="'+esc(t('authCountry'))+'">'+ccOptions+'</select>'
-    +'<input type="tel" id="auth-phone" inputmode="tel" autocomplete="tel-national" placeholder="'+esc(info.ex)+'">'
-    +'</div></div>'
-    +'<div class="field"><label for="auth-code">'+esc(t('authCode'))+'</label>'
-    +'<div class="row" style="align-items:stretch">'
-    +'<input type="text" id="auth-code" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="'+esc(t('authCodePh'))+'">'
-    +'<button type="button" class="btn secondary" id="auth-get-code">'+esc(t('authGetCode'))+'</button>'
-    +'</div></div>'
-    +'<p class="muted" id="auth-sms-hint">'+esc(t('authDemoSms'))+'</p>'
-    +'<button type="button" class="btn block" id="auth-login">'+esc(t('authLogin'))+'</button>'
-    +'<div class="auth-divider">'+esc(t('authOr'))+'</div>'
-    +'<div class="social-row">'
-    + SOCIAL_PROVIDERS.map(p => '<button type="button" class="btn secondary auth-social" id="auth-'+p.id+'" data-provider="'+p.id+'">'+esc(t(p.key))+'</button>').join('')
-    +'</div>'
-    +'<p class="muted" id="auth-social-hint" style="display:none;margin-top:8px"></p>'
-    +'<p class="muted" style="margin-top:12px">'+esc(t('authGuestSaveHint'))+' '+esc(t('authSavedLocal'))+'</p>'
-    +'<button type="button" class="btn ghost block" id="auth-guest" style="margin-top:4px">'+esc(t('authGuest'))+'</button>'
-    +'<p class="auth-foot">'+domainPlaceholderHTML()+'</p>'
-    +'</div>';
-
-  const ccEl = document.getElementById('auth-cc');
-  const phoneEl = document.getElementById('auth-phone');
-  const codeEl = document.getElementById('auth-code');
-  if (ccEl) ccEl.onchange = () => {
-    authSelectedCC = ccEl.value;
-    if (phoneEl) phoneEl.placeholder = ccInfo(authSelectedCC).ex;
-  };
-  const getBtn = document.getElementById('auth-get-code');
-  if (getBtn) getBtn.onclick = () => {
-    const phone = (phoneEl && phoneEl.value || '').trim();
-    if (!phone) { toast(t('authNeedPhone')); return; }
-    const inf = ccInfo(authSelectedCC);
-    if (!normalizePhone(authSelectedCC, phone).ok) { toast(tf('authBadPhone', { c: t(inf.key)+' '+inf.cc, ex: inf.ex })); return; }
-    const hint = document.getElementById('auth-sms-hint');
-    if (hint) hint.textContent = t('authCodeSent');
-    toast(t('authCodeSent'));
-  };
-  const loginBtn = document.getElementById('auth-login');
-  if (loginBtn) loginBtn.onclick = () => {
-    const phone = (phoneEl && phoneEl.value || '').trim();
-    const code = (codeEl && codeEl.value || '').trim();
-    const res = loginWithDemoCode(authSelectedCC, phone, code);
-    if (!res.ok) toast(res.error);
-  };
-  gate.querySelectorAll('.auth-social').forEach(b => { b.onclick = () => socialLogin(b.dataset.provider); });
-  const guestBtn = document.getElementById('auth-guest');
-  if (guestBtn) guestBtn.onclick = () => enterAsGuest();
-  const closeBtn = document.getElementById('auth-close');
-  if (closeBtn) closeBtn.onclick = () => closeAuthPanel();
-  gate.onclick = (e) => { if (e.target === gate) closeAuthPanel(); };
-}
 function renderAuthTopButton() {
   const btn = document.getElementById('auth-top-btn');
   if (!btn) return;
-  const acct = currentAccount();
-  if (acct) {
-    btn.textContent = '👤 ' + maskPhone(acct.cc, acct.phone).split(' ')[1];
+  const session = readSiteAuthSessionNow();
+  siteAuthSession = session;
+  if (session) {
+    const label = maskSiteEmail(session.email);
+    btn.textContent = '👤 ' + (label || t('authAccount'));
     btn.classList.add('signed');
-    btn.title = t('authAccount');
+    btn.title = session.email || t('authAccount');
     btn.onclick = () => showPanel('settings');
   } else {
     btn.textContent = t('authTopLogin');
@@ -2736,19 +2524,16 @@ function syncAuthGate() {
   const gate = document.getElementById('auth-gate');
   renderAuthTopButton();
   if (!gate) return;
-  if (!authOpen) {
-    gate.hidden = true;
-    gate.setAttribute('aria-hidden', 'true');
-    gate.innerHTML = '';
-    document.body.classList.remove('auth-locked');
-  } else {
-    document.body.classList.add('auth-locked');
-    gate.hidden = false;
-    gate.setAttribute('aria-hidden', 'false');
-    renderAuthGate();
-  }
+  gate.hidden = true;
+  gate.setAttribute('aria-hidden', 'true');
+  gate.innerHTML = '';
+  document.body.classList.remove('auth-locked');
 }
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && authOpen) closeAuthPanel(); });
+window.addEventListener('storage', (e) => {
+  if (!e.key || e.key === SITE_AUTH_STORAGE_KEY) renderAuthTopButton();
+});
+window.addEventListener('pageshow', () => renderAuthTopButton());
 
 function todayStr() {
   const d = new Date();
@@ -4840,11 +4625,9 @@ function renderSettings() {
     +'<p class="muted" id="s-auth-status">'+esc(authStatusText())+'</p>'
     +(isAuthed()
       ? '<p class="muted">'+esc(t('authSavedLocal'))+'</p>'
-        +'<div class="row"><button type="button" class="btn secondary" id="s-switch">'+esc(t('authSwitch'))+'</button>'
-        +'<button type="button" class="btn secondary" id="s-logout">'+esc(t('authLogout'))+'</button></div>'
+        +'<button type="button" class="btn secondary" id="s-manage">'+esc(t('authManage'))+'</button>'
       : '<p class="muted">'+esc(t('authGuestSaveHint'))+'</p>'
         +'<button type="button" class="btn" id="s-login">'+esc(t('authTopLogin'))+'</button>')
-    +(Object.keys(accounts.accounts).length ? '<p class="muted" style="margin-top:8px">'+esc(tf('authLocalAccounts', { n: Object.keys(accounts.accounts).length }))+'</p>' : '')
     +'</div>'
     +'<div class="card"><h3>'+esc(t('settingsProfile'))+'</h3>'
     +'<p class="muted">'+esc(t('settingsProfileHint'))+'</p>'
@@ -4956,12 +4739,10 @@ function renderSettings() {
     renderSettings();
   };
 
-  const logoutBtn = document.getElementById('s-logout');
-  if (logoutBtn) logoutBtn.onclick = () => { logoutAuth(); };
   const sLoginBtn = document.getElementById('s-login');
   if (sLoginBtn) sLoginBtn.onclick = () => openAuthPanel();
-  const switchBtn = document.getElementById('s-switch');
-  if (switchBtn) switchBtn.onclick = () => openAuthPanel();
+  const manageBtn = document.getElementById('s-manage');
+  if (manageBtn) manageBtn.onclick = () => openAuthPanel();
 
   document.getElementById('s-tr-setup').onclick = () => {
     if (!state.translateSetup) state.translateSetup = defaultState().translateSetup;
@@ -5570,29 +5351,18 @@ function getSelectedAiModel() {
 }
 
 /**
- * The tutor API only trusts a real Supabase session. This reads the isolated
- * auth storage key directly and never the in-page demo account state.
+ * The tutor API only trusts a real Supabase session. It reads the same
+ * korean-site-auth-session key as the header, never the old demo accounts.
  */
-const TUTOR_AUTH_STORAGE_KEY = 'korean-site-auth-session';
+const TUTOR_AUTH_STORAGE_KEY = SITE_AUTH_STORAGE_KEY;
 function readTutorSession() {
-  try {
-    const raw = localStorage.getItem(TUTOR_AUTH_STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw);
-    if (!parsed || typeof parsed !== 'object') return null;
-    const token = typeof parsed.access_token === 'string' ? parsed.access_token.trim() : '';
-    if (!token) return null;
-    const expiresAt = Number(parsed.expires_at) || 0;
-    // An expired token is not a usable session; auth/preview.html can refresh it.
-    if (expiresAt && expiresAt * 1000 < Date.now() - 60000) return null;
-    return {
-      accessToken: token,
-      userId: parsed.user && typeof parsed.user.id === 'string' ? parsed.user.id : '',
-      expiresAt,
-    };
-  } catch (e) {
-    return null;
-  }
+  const session = readSiteAuthSessionNow();
+  if (!session) return null;
+  return {
+    accessToken: session.accessToken,
+    userId: session.userId,
+    expiresAt: session.expiresAt,
+  };
 }
 
 function aiErrorText(code) {
@@ -9011,11 +8781,19 @@ window.__koreanSite = {
   AI_ENDPOINT, TRANSLATE_ENDPOINT, apiEndpointForHost, EXAMPLE_AI_MODELS, callAI, renderAI, filteredAiModels, getSelectedAiModel,
   aiConversationPlainText, saveAiConversation, readTutorSession, aiErrorText, startAiMic, stopAiMic, speakTutorText, aiSttLang, TUTOR_AUTH_STORAGE_KEY, renderAbout, renderFeatures, renderLoginHelp, renderAiHelp, renderSiteStatus, renderDaily, renderFavorites, renderMaterials,
   glossKo, meaningLabel, meaningHTML, buildMeaningChoices, startItemQuiz,
-  STORAGE_KEY, ACCOUNTS_KEY, DEMO_SMS_CODE, DOMAIN_PLACEHOLDER, COUNTRY_CODES, normalizePhone, isAuthed, loginWithDemoCode, socialLogin, enterAsGuest, logoutAuth, syncAuthGate, renderAuthGate,
+  STORAGE_KEY, ACCOUNTS_KEY, SITE_AUTH_STORAGE_KEY, DOMAIN_PLACEHOLDER, isAuthed, loginWithDemoCode, syncAuthGate, setSiteAuthSession, readSiteAuthSessionNow,
   openAuthPanel, closeAuthPanel, currentAccount, activeStorageKey, getAccounts: () => accounts,
   speakKo, speakKoFallback, speakKoWithEngineOrDevice, siteAsset, sanitizeKoVoiceChoice, applyKoVoiceEngine,
   getKoVoiceChoice, setKoVoiceChoice, KO_VOICE_ENGINE, KO_VOICE_ENGINES, KO_VOICE_ASSET_BASE, KO_VOICE_WORKER_REL, KO_TTS_RATE, KO_AUDIO_MANIFEST
 };
+</script>
+<script type="module">
+  import { watchSiteSession } from "./auth/site-session.js";
+  watchSiteSession((session) => {
+    if (window.__koreanSite && typeof window.__koreanSite.setSiteAuthSession === "function") {
+      window.__koreanSite.setSiteAuthSession(session);
+    }
+  });
 </script>
 </body>
 </html>

@@ -244,6 +244,8 @@ test("cold open shows a real question, reading works, video fits, and login copy
             submitIn: inside(submit),
             start: !!document.getElementById("session-start"),
             gateHidden: document.getElementById("auth-gate").hidden,
+            gateDisplay: getComputedStyle(document.getElementById("auth-gate")).display,
+            authCard: document.querySelectorAll("#auth-gate .auth-card").length,
             locked: document.body.classList.contains("auth-locked"),
             scroll: document.documentElement.scrollWidth <= window.innerWidth,
             scrollWidth: document.documentElement.scrollWidth,
@@ -255,6 +257,8 @@ test("cold open shows a real question, reading works, video fits, and login copy
         })()`);
         assert.equal(view.start, false, path);
         assert.equal(view.gateHidden, true, path);
+        assert.equal(view.gateDisplay, "none", `${path} auth gate is not display:none`);
+        assert.equal(view.authCard, 0, `${path} demo login card still rendered`);
         assert.equal(view.locked, false, path);
         assert.equal(view.optionCount, 4, path);
         assert.equal(view.stemIn, true, `${path} stem ${view.stem}`);
@@ -500,9 +504,13 @@ test("cold open shows a real question, reading works, video fits, and login copy
     })()`);
     assert.equal(view.count, 2);
     assert.match(view.text, /账号登录/);
+    assert.match(view.text, /邮箱和密码可以注册、登录/);
+    assert.match(view.text, /不要求确认邮件/);
+    assert.match(view.text, /找回密码/);
+    assert.match(view.text, /自定义 SMTP/);
+    assert.match(view.text, /云同步/);
     assert.match(view.text, /游客/);
     assert.match(view.text, /不会读取或上传/);
-    assert.match(view.text, /自定义发信/);
     assert.match(view.text, /暂未启用/);
     assert.equal(view.text.includes("未接入"), false);
     assert.equal(view.text.includes("000000"), false);
@@ -513,6 +521,68 @@ test("cold open shows a real question, reading works, video fits, and login copy
     assert.equal(view.html.includes("sb_secret_"), false);
     assert.equal(view.html.includes("sb_publishable_"), false);
     assert.equal(view.html.includes("service_role"), false);
+    assert.equal(view.html.includes("auth-sms-request"), false);
+    assert.equal(view.html.includes("auth-wechat"), false);
     await page.shot("auth-login");
+  });
+
+  await t.test("the header reads the real Supabase session and never the old demo login", async () => {
+    await page.setSize(390, 844, true);
+    await page.open(`${site.origin}/index.html`);
+    await page.evaluate(`localStorage.removeItem("korean-site-auth-session")`);
+    await page.open(`${site.origin}/index.html`);
+    const loggedOut = await page.evaluate(`(() => {
+      const button = document.getElementById("auth-top-btn");
+      return { text: button.textContent.trim(), signed: button.classList.contains("signed") };
+    })()`);
+    assert.match(loggedOut.text, /登录/);
+    assert.equal(loggedOut.signed, false);
+
+    const demo = await page.evaluate(`(() => {
+      const api = window.__koreanSite;
+      const result = api.loginWithDemoCode("+86", "13800138000", "000000");
+      const button = document.getElementById("auth-top-btn");
+      return {
+        ok: result.ok,
+        signedIn: result.signedIn,
+        authed: api.isAuthed(),
+        text: button.textContent.trim(),
+        signed: button.classList.contains("signed")
+      };
+    })()`);
+    assert.equal(demo.ok, false);
+    assert.equal(demo.signedIn, false);
+    assert.equal(demo.authed, false);
+    assert.equal(demo.signed, false);
+    assert.equal(await page.evaluate("document.body.innerText.includes('000000')"), false);
+
+    await page.evaluate(`localStorage.setItem("korean-site-auth-session", JSON.stringify({
+      access_token: "fake-access-token",
+      expires_at: Math.floor(Date.now() / 1000) + 3600,
+      user: { id: "11111111-1111-4111-8111-111111111111", email: "learner@example.com" }
+    }))`);
+    await page.open(`${site.origin}/index.html`);
+    const signed = await page.evaluate(`(() => {
+      const button = document.getElementById("auth-top-btn");
+      return {
+        text: button.textContent.trim(),
+        title: button.title,
+        signed: button.classList.contains("signed"),
+        authed: window.__koreanSite.isAuthed()
+      };
+    })()`);
+    assert.equal(signed.signed, true);
+    assert.equal(signed.authed, true);
+    assert.match(signed.text, /le\*\*\*@example\.com/);
+    assert.equal(signed.title, "learner@example.com");
+
+    await page.evaluate(`window.__koreanSite.showPanel("settings")`);
+    const account = await page.evaluate(`document.getElementById("s-account").innerText`);
+    assert.match(account, /le\*\*\*@example\.com/);
+    assert.match(account, /退出登录|sign out|로그아웃/);
+    await page.evaluate(`localStorage.removeItem("korean-site-auth-session")`);
+    await page.open(`${site.origin}/index.html`);
+    const back = await page.evaluate(`document.getElementById("auth-top-btn").classList.contains("signed")`);
+    assert.equal(back, false);
   });
 });
